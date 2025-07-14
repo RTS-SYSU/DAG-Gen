@@ -64,15 +64,19 @@ dag-gen/
 ### C example
 
 ```c
-void A() { ... }
-void B() { A(); }
-void C() { A(); B(); }
+void *A() { create(C) }
+void *B() { ... }
+void *C() { ... }
 ```
-
+int main(){
+  create(A)
+  create(B)
+}
 → DAG:
 
 ```
-C --> B --> A
+main-> A --> C
+main->B
 ```
 
 ### Python example
