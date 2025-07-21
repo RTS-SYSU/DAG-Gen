@@ -15,7 +15,6 @@
 
 ```bash
 git clone https://github.com/RTS-SYSU/dag-gen.git
-cd dag-gen
 ```
 
 Ensure you have:
