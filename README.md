@@ -1,7 +1,7 @@
-# DAG-Gen: A Cross-Language DAG Generation Tool for C/C++/Python
+# DAG-Describe: A Cross-Language DAG Generation Tool for C/C++/Python
 
 > **Based on [chaudron/cally](https://github.com/chaudron/cally)**  
-> DAG-Gen is a lightweight tool designed to analyze the control and data flow of programs and generate task-level DAGs from C, C++, and Python code, facilitating task scheduling and static analysis in real-time.
+> DAG-Describe is a lightweight tool designed to analyze the control and data flow of programs and generate task-level DAGs from C, C++, and Python code, facilitating task scheduling and static analysis in real-time.
 
 ## ✨ Features
 
@@ -14,7 +14,7 @@
 ## 📦 Installation
 
 ```bash
-git clone https://github.com/RTS-SYSU/dag-gen.git
+git clone https://github.com/RTS-SYSU/dag-describe.git
 ```
 
 Ensure you have:
@@ -50,9 +50,9 @@ gcc -fdump-rtl-expand example.c
 ## 📂 Directory Structure
 
 ```
-dag-gen/
-├── daggen_cxx/           # C/C++ DAG generator (based on cally)
-├── daggen_py.py          # Python DAG generator
+dag-describe/
+├── dagdescribe_cxx/           # C/C++ DAG generator (based on cally)
+├── dagdescribe_py.py          # Python DAG generator
 ├── examples/             # Example input files
 ├── output/               # Output DAG files
 └── README.md
