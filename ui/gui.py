@@ -1170,7 +1170,7 @@ class MycallyplusGUI:
         try:
             # 调用 legacy，指定output_base为mycallyplus目录
             cmd = [
-                sys.executable, "-m", "mycallyplus.generation.legacy",
+                sys.executable, "-m", "mycallypro.legacy",
                 str(self.current_expand_path),
                 "--threads-only",
                 "--output-base", str(self.base_dir)  # 指向mycallyplus
@@ -1221,7 +1221,7 @@ class MycallyplusGUI:
         try:
             # 调用 legacy，指定output_base为mycallyplus目录
             cmd = [
-                sys.executable, "-m", "mycallyplus.generation.legacy",
+                sys.executable, "-m", "mycallypro.legacy",
                 str(self.current_expand_path),
                 "--conditions-only",
                 "--output-base", str(self.base_dir)
@@ -1274,7 +1274,7 @@ class MycallyplusGUI:
             cmd = [
                 sys.executable,
                 "-m",
-                "mycallyplus.generation.legacy",
+                "mycallypro.legacy",
                 str(self.current_expand_path),
                 "--export-txt",
                 "--output-base", str(self.base_dir)
@@ -1394,7 +1394,7 @@ class MycallyplusGUI:
             raise RuntimeError("未设置 expand 文件路径")
         
         # 构建命令
-        cmd = [sys.executable, "-m", "mycallyplus.generation.legacy"]
+        cmd = [sys.executable, "-m", "mycallypro.legacy"]
         cmd.append(str(self.current_expand_path))
         
         if mode:
@@ -1429,7 +1429,7 @@ class MycallyplusGUI:
         cmd = [
             sys.executable, 
             "-m", 
-            "mycallyplus.generation.legacy",
+            "mycallypro.legacy",
             str(self.current_expand_path),
             "--export-txt",
             "circle.txt"

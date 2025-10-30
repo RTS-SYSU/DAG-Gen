@@ -17,6 +17,15 @@ from pathlib import Path
 from typing import List, Optional
 
 
+def _import_legacy_module():
+    """Import legacy generator, fallback to mycallypro when packaged module missing."""
+    try:
+        from .generation import legacy  # type: ignore
+    except Exception:
+        from mycallypro import legacy  # type: ignore
+    return legacy
+
+
 def _run_gui() -> int:
     """启动统一GUI工作台"""
     try:
@@ -86,7 +95,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     
     # 生成子命令
     if subcmd in ("generate", "gen"):
-        from .generation import legacy
+        legacy = _import_legacy_module()
         passthrough = argv[1:]
         original_argv = sys.argv[:]
         sys.argv = [original_argv[0]] + passthrough
@@ -100,11 +109,10 @@ def main(argv: Optional[List[str]] = None) -> int:
         return _run_describe(argv[1:])
 
     # 未知子命令：视为 generate 参数（向后兼容）
-    from .generation import legacy
+    legacy = _import_legacy_module()
     original_argv = sys.argv[:]
     sys.argv = [original_argv[0]] + argv
     try:
         return legacy.main()
     finally:
         sys.argv = original_argv
-
