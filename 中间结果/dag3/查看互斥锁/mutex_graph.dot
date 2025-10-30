@@ -1,0 +1,49 @@
+digraph Mutex {
+  rankdir=LR;
+  node [shape=box, style=filled, fillcolor=white];
+
+  // Edges
+  "main/while/sem_wait4" -> "main/while/pthread_mutex_lock5";
+  "main/while/pthread_mutex_lock5" -> "main/while/printf6";
+  "main/while/printf6" -> "main/while/pthread_mutex_unlock7";
+  "main/while/pthread_mutex_unlock7" -> "main/pthread_join8";
+  "worker/while/pthread_mutex_lock1" -> "worker/while/printf2";
+  "worker/while/printf2" -> "worker/while/pthread_mutex_unlock3";
+  "worker/while/pthread_mutex_unlock3" -> "worker/while/sleep4";
+  "worker/while/sleep4" -> "worker/while/sem_post5";
+  "worker/while/sem_post5" -> "main/pthread_join8";
+  "main" -> "main/pthread_mutex_init1";
+  "main/pthread_mutex_init1" -> "main/sem_init2";
+  "main/sem_init2" -> "main/pthread_create3";
+  "main/pthread_create3" -> "worker";
+  "worker" -> "main/while/sem_wait4";
+  "worker" -> "worker/while/pthread_mutex_lock1";
+  "main/pthread_join8" -> "main/sem_destroy9";
+  "main/sem_destroy9" -> "main/pthread_mutex_destroy10";
+  "main/pthread_mutex_destroy10" -> "main/printf11";
+  "main/printf11" -> "main/if/__stack_chk_fail12";
+
+  subgraph cluster_1 {
+    label="Mutex mutex (ID=lock1)";
+    color="#FFB74D";
+    style=filled;
+    fillcolor="#FFB74D30";
+    fontcolor=black;
+    fontsize=12;
+    "main/while/pthread_mutex_lock5" [label="main/while/pthread_mutex_lock5\n[LOCK]"];
+    "main/while/printf6" [label="main/while/printf6"];
+    "main/while/pthread_mutex_unlock7" [label="main/while/pthread_mutex_unlock7\n[UNLOCK]"];
+  }
+
+  subgraph cluster_2 {
+    label="Mutex mutex (ID=lock2)";
+    color="#81C784";
+    style=filled;
+    fillcolor="#81C78430";
+    fontcolor=black;
+    fontsize=12;
+    "worker/while/pthread_mutex_lock1" [label="worker/while/pthread_mutex_lock1\n[LOCK]"];
+    "worker/while/printf2" [label="worker/while/printf2"];
+    "worker/while/pthread_mutex_unlock3" [label="worker/while/pthread_mutex_unlock3\n[UNLOCK]"];
+  }
+}

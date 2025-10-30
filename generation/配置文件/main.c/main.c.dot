@@ -1,0 +1,88 @@
+strict digraph callgraph {
+"main" -> "threadtask5";
+"threadtask5" -> "main/malloc2";
+"main/malloc2" -> "main/if/fprintf3";
+"main/if/fprintf3" [style=dashed]
+"main/if/fprintf3" -> "main/pthread_create4";
+"main/malloc2" -> "main/pthread_create4";
+"main/pthread_create4" -> "threadtask1";
+"threadtask1" -> "main/if/fprintf5";
+"main/if/fprintf5" [style=dashed]
+"main/if/fprintf5" -> "main/if/free6";
+"main/if/free6" [style=dashed]
+"threadtask1/printf15" -> "main/pthread_join7";
+"main/if/free6" -> "main/pthread_join7";
+"threadtask1" -> "main/pthread_join7";
+"main/pthread_join7" -> "main/if/fprintf8";
+"main/if/fprintf8" [style=dashed]
+"main/if/fprintf8" -> "main/if/free9";
+"main/if/free9" [style=dashed]
+"main/if/free9" -> "main/free10";
+"main/pthread_join7" -> "main/free10";
+"main/free10" -> "main/printf11";
+"task" -> "task/__printf_chk1";
+"threadtask1" -> "threadtask1/malloc1";
+"threadtask1/malloc1" -> "threadtask1/if/fprintf2";
+"threadtask1/if/fprintf2" [style=dashed]
+"threadtask1/if/fprintf2" -> "threadtask1/Deg2rad3";
+"threadtask1/malloc1" -> "threadtask1/Deg2rad3";
+"threadtask1/Deg2rad3" -> "threadtask1/printf4";
+"threadtask1/printf4" -> "threadtask1/pthread_create5";
+"threadtask1/pthread_create5" -> "threadtask2";
+"threadtask2" -> "threadtask1/if/fprintf6";
+"threadtask1/if/fprintf6" [style=dashed]
+"threadtask1/if/fprintf6" -> "threadtask1/if/free7";
+"threadtask1/if/free7" [style=dashed]
+"threadtask1/if/free7" -> "threadtask1/cover8";
+"threadtask2" -> "threadtask1/cover8";
+"threadtask1/cover8" -> "threadtask1/printf9";
+"threadtask1/printf9" -> "threadtask1/duff10";
+"threadtask1/duff10" -> "threadtask1/printf11";
+"threadtask2/printf18" -> "threadtask1/pthread_join12";
+"threadtask1/printf11" -> "threadtask1/pthread_join12";
+"threadtask1/pthread_join12" -> "threadtask1/free13";
+"threadtask1/free13" -> "threadtask1/insertsort14";
+"threadtask1/insertsort14" -> "threadtask1/printf15";
+"threadtask2" -> "threadtask2/malloc1";
+"threadtask2/malloc1" -> "threadtask2/malloc2";
+"threadtask2/malloc2" -> "threadtask2/minver3";
+"threadtask2/minver3" -> "threadtask2/printf4";
+"threadtask2/printf4" -> "threadtask2/pthread_create5";
+"threadtask2/pthread_create5" -> "threadtask3";
+"threadtask3" -> "threadtask2/if/fprintf6";
+"threadtask2/if/fprintf6" [style=dashed]
+"threadtask2/if/fprintf6" -> "threadtask2/if/free7";
+"threadtask2/if/free7" [style=dashed]
+"threadtask2/if/free7" -> "threadtask2/pthread_create8";
+"threadtask3" -> "threadtask2/pthread_create8";
+"threadtask2/pthread_create8" -> "threadtask4";
+"threadtask4" -> "threadtask2/if/fprintf9";
+"threadtask2/if/fprintf9" [style=dashed]
+"threadtask2/if/fprintf9" -> "threadtask2/if/free10";
+"threadtask2/if/free10" [style=dashed]
+"threadtask2/if/free10" -> "threadtask2/ndes11";
+"threadtask4" -> "threadtask2/ndes11";
+"threadtask2/ndes11" -> "threadtask2/printf12";
+"threadtask4/printf2" -> "threadtask2/pthread_join13";
+"threadtask2/printf12" -> "threadtask2/pthread_join13";
+"threadtask3/printf2" -> "threadtask2/pthread_join14";
+"threadtask2/pthread_join13" -> "threadtask2/pthread_join14";
+"threadtask2/pthread_join14" -> "threadtask2/free15";
+"threadtask2/free15" -> "threadtask2/free16";
+"threadtask2/free16" -> "threadtask2/ludcmp17";
+"threadtask2/ludcmp17" -> "threadtask2/printf18";
+"threadtask3" -> "threadtask3/rad2deg1";
+"threadtask3/rad2deg1" -> "threadtask3/printf2";
+"threadtask4" -> "threadtask4/prime1";
+"threadtask4/prime1" -> "threadtask4/printf2";
+"threadtask5" -> "threadtask5/printf1";
+"threadtask5/printf1" -> "threadtask5/printf2";
+"threadtask5/printf2" -> "threadtask5/printf3";
+"threadtask5/printf3" -> "threadtask5/printf4";
+"threadtask5/printf4" -> "threadtask5/printf5";
+"threadtask5/printf5" -> "threadtask5/printf6";
+"threadtask5/printf6" -> "threadtask5/printf7";
+"threadtask5/printf7" -> "threadtask5/printf8";
+"threadtask5/printf8" -> "threadtask5/printf9";
+"threadtask5/printf9" -> "threadtask5/printf10";
+}

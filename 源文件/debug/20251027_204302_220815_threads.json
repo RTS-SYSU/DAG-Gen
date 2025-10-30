@@ -1,0 +1,188 @@
+{
+  "rtl_files": [
+    "/home/chove/桌面/cally/mycallyplus/源文件/produce.c.233r.expand"
+  ],
+  "caller": null,
+  "callee": null,
+  "exclude": null,
+  "no_externs": false,
+  "max_depth": 0,
+  "functions": {
+    "producer": {
+      "files": [
+        "/home/chove/桌面/cally/mycallyplus/源文件/produce.c.233r.expand"
+      ],
+      "calls": {
+        "sem_wait": true,
+        "pthread_mutex_lock": true,
+        "__printf_chk": true,
+        "pthread_mutex_unlock": true,
+        "sem_post": true
+      },
+      "refs": {
+        "/home/chove/桌面/cally/mycallyplus/源文件/produce3/produce.c": true,
+        "sem_wait": true,
+        "pthread_mutex_lock": true,
+        "in": true,
+        "produced_total": true,
+        "/usr/include/x86_64-linux-gnu/bits/stdio2.h": true,
+        "__printf_chk": true,
+        "pthread_mutex_unlock": true,
+        "sem_post": true
+      },
+      "callee_calls": {
+        "main": 1
+      },
+      "callee_refs": {},
+      "mycalls": [
+        "producer/sem_wait1",
+        "producer/pthread_mutex_lock2",
+        "producer/__printf_chk3",
+        "producer/pthread_mutex_unlock4",
+        "producer/sem_post5"
+      ],
+      "myinfo": {
+        "tail": "producer/sem_post5"
+      }
+    },
+    "consumer": {
+      "files": [
+        "/home/chove/桌面/cally/mycallyplus/源文件/produce.c.233r.expand"
+      ],
+      "calls": {
+        "sem_wait": true,
+        "pthread_mutex_lock": true,
+        "__printf_chk": true,
+        "pthread_cond_broadcast": true,
+        "pthread_mutex_unlock": true,
+        "sem_post": true
+      },
+      "refs": {
+        "/home/chove/桌面/cally/mycallyplus/源文件/produce3/produce.c": true,
+        "sem_wait": true,
+        "pthread_mutex_lock": true,
+        "out": true,
+        "consumed_total": true,
+        "/usr/include/x86_64-linux-gnu/bits/stdio2.h": true,
+        "__printf_chk": true,
+        "all_done": true,
+        "pthread_cond_broadcast": true,
+        "pthread_mutex_unlock": true,
+        "sem_post": true
+      },
+      "callee_calls": {
+        "main": 1
+      },
+      "callee_refs": {},
+      "mycalls": [
+        "consumer/sem_wait1",
+        "consumer/pthread_mutex_lock2",
+        "consumer/__printf_chk3",
+        "consumer/pthread_cond_broadcast4",
+        "consumer/pthread_mutex_unlock5",
+        "consumer/sem_post6",
+        "consumer/pthread_mutex_unlock7",
+        "consumer/sem_post8"
+      ],
+      "myinfo": {
+        "tail": "consumer/sem_post8"
+      }
+    },
+    "watcher": {
+      "files": [
+        "/home/chove/桌面/cally/mycallyplus/源文件/produce.c.233r.expand"
+      ],
+      "calls": {
+        "pthread_mutex_lock": true,
+        "pthread_cond_wait": true,
+        "__printf_chk": true,
+        "pthread_mutex_unlock": true
+      },
+      "refs": {
+        "/home/chove/桌面/cally/mycallyplus/源文件/produce3/produce.c": true,
+        "pthread_mutex_lock": true,
+        "all_done": true,
+        "pthread_cond_wait": true,
+        "/usr/include/x86_64-linux-gnu/bits/stdio2.h": true,
+        "__printf_chk": true,
+        "pthread_mutex_unlock": true
+      },
+      "callee_calls": {
+        "main": 1
+      },
+      "callee_refs": {},
+      "mycalls": [
+        "watcher/pthread_mutex_lock1",
+        "watcher/pthread_cond_wait2",
+        "watcher/__printf_chk3",
+        "watcher/pthread_mutex_unlock4"
+      ],
+      "myinfo": {
+        "tail": "watcher/pthread_mutex_unlock4"
+      }
+    },
+    "main": {
+      "files": [
+        "/home/chove/桌面/cally/mycallyplus/源文件/produce.c.233r.expand"
+      ],
+      "calls": {
+        "sem_init": true,
+        "consumer": true,
+        "watcher": true,
+        "producer": true,
+        "pthread_join": true,
+        "sem_destroy": true,
+        "pthread_mutex_destroy": true,
+        "pthread_cond_destroy": true,
+        "__stack_chk_fail": true
+      },
+      "refs": {
+        "/home/chove/桌面/cally/mycallyplus/源文件/produce3/produce.c": true,
+        "sem_init": true,
+        "pthread_create": true,
+        "pthread_join": true,
+        "sem_destroy": true,
+        "pthread_mutex_destroy": true,
+        "pthread_cond_destroy": true,
+        "__stack_chk_fail": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [
+        "main/sem_init1",
+        "main/sem_init2",
+        "main/pthread_create3",
+        "consumer",
+        "main/pthread_create4",
+        "watcher",
+        "main/pthread_create5",
+        "producer",
+        "main/pthread_create6",
+        "producer",
+        "main/pthread_join7",
+        "main/pthread_join8",
+        "main/pthread_join9",
+        "main/pthread_join10",
+        "main/sem_destroy11",
+        "main/sem_destroy12",
+        "main/pthread_mutex_destroy13",
+        "main/pthread_cond_destroy14",
+        "main/__stack_chk_fail15"
+      ],
+      "myinfo": {
+        "tail": "main/__stack_chk_fail15",
+        "pthread_create": "producer",
+        "__create_queue__": [],
+        "main/pthread_join7": "pthread_join",
+        "main/pthread_join8": "pthread_join",
+        "main/pthread_join9": "pthread_join",
+        "main/pthread_join10": "__src__producer",
+        "__source_bind_queue__": [
+          "watcher",
+          "consumer"
+        ],
+        "__src__producer": "producer"
+      }
+    }
+  }
+}

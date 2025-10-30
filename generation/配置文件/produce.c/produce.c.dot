@@ -1,0 +1,69 @@
+strict digraph callgraph {
+"consumer" -> "consumer/sem_wait1";
+"consumer/sem_wait1" -> "consumer/pthread_mutex_lock2";
+"consumer/pthread_mutex_lock2" -> "consumer/__printf_chk3";
+"consumer/__printf_chk3" -> "consumer/if/pthread_cond_broadcast4";
+"consumer/if/pthread_cond_broadcast4" [style=dashed]
+"consumer/if/pthread_cond_broadcast4" -> "consumer/if/pthread_mutex_unlock5";
+"consumer/if/pthread_mutex_unlock5" [style=dashed]
+"consumer/if/pthread_mutex_unlock5" -> "consumer/if/sem_post6";
+"consumer/if/sem_post6" [style=dashed]
+"consumer/if/sem_post6" -> "consumer/pthread_mutex_unlock7";
+"consumer/__printf_chk3" -> "consumer/pthread_mutex_unlock7";
+"consumer/pthread_mutex_unlock7" -> "consumer/sem_post8";
+"main" -> "main/while/sem_init1";
+"main/while/sem_init1" [style=dashed]
+"main/while/sem_init1" -> "main/while/sem_init2";
+"main/while/sem_init2" [style=dashed]
+"main/while/sem_init2" -> "main/while/pthread_create3";
+"main/while/pthread_create3" [style=dashed]
+"main/while/pthread_create3" -> "consumer";
+"consumer" -> "main/while/pthread_create4";
+"main/while/pthread_create4" [style=dashed]
+"main/while/pthread_create4" -> "watcher";
+"watcher" -> "main/while/pthread_create5";
+"main/while/pthread_create5" [style=dashed]
+"main/while/pthread_create5" -> "producer";
+"producer" -> "main/while/pthread_create6";
+"main/while/pthread_create6" [style=dashed]
+"main/while/pthread_create6" -> "producer";
+"producer/while/sem_post5" -> "main/while/pthread_join7";
+"producer" -> "main/while/pthread_join7";
+"main/while/pthread_join7" [style=dashed]
+"watcher/while/pthread_mutex_unlock4" -> "main/while/pthread_join8";
+"main/while/pthread_join7" -> "main/while/pthread_join8";
+"main/while/pthread_join8" [style=dashed]
+"consumer/sem_post8" -> "main/while/pthread_join9";
+"main/while/pthread_join8" -> "main/while/pthread_join9";
+"main/while/pthread_join9" [style=dashed]
+"producer/while/sem_post5" -> "main/while/pthread_join10";
+"main/while/pthread_join9" -> "main/while/pthread_join10";
+"main/while/pthread_join10" [style=dashed]
+"main/while/pthread_join10" -> "main/while/sem_destroy11";
+"main/while/sem_destroy11" [style=dashed]
+"main/while/sem_destroy11" -> "main/while/sem_destroy12";
+"main/while/sem_destroy12" [style=dashed]
+"main/while/sem_destroy12" -> "main/while/pthread_mutex_destroy13";
+"main/while/pthread_mutex_destroy13" [style=dashed]
+"main/while/pthread_mutex_destroy13" -> "main/while/pthread_cond_destroy14";
+"main/while/pthread_cond_destroy14" [style=dashed]
+"main/while/pthread_cond_destroy14" -> "main/__stack_chk_fail15";
+"producer" -> "producer/while/sem_wait1";
+"producer/while/sem_wait1" [style=dashed]
+"producer/while/sem_wait1" -> "producer/while/pthread_mutex_lock2";
+"producer/while/pthread_mutex_lock2" [style=dashed]
+"producer/while/pthread_mutex_lock2" -> "producer/while/__printf_chk3";
+"producer/while/__printf_chk3" [style=dashed]
+"producer/while/__printf_chk3" -> "producer/while/pthread_mutex_unlock4";
+"producer/while/pthread_mutex_unlock4" [style=dashed]
+"producer/while/pthread_mutex_unlock4" -> "producer/while/sem_post5";
+"producer/while/sem_post5" [style=dashed]
+"watcher" -> "watcher/while/pthread_mutex_lock1";
+"watcher/while/pthread_mutex_lock1" [style=dashed]
+"watcher/while/pthread_mutex_lock1" -> "watcher/while/pthread_cond_wait2";
+"watcher/while/pthread_cond_wait2" [style=dashed]
+"watcher/while/pthread_cond_wait2" -> "watcher/while/__printf_chk3";
+"watcher/while/__printf_chk3" [style=dashed]
+"watcher/while/__printf_chk3" -> "watcher/while/pthread_mutex_unlock4";
+"watcher/while/pthread_mutex_unlock4" [style=dashed]
+}
