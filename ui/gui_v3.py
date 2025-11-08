@@ -1292,17 +1292,57 @@ class MycallyplusGUIv3:
         if not nx:
             raise RuntimeError("networkx 未安装，无法解析 DOT 文件")
 
+        # 优先使用 networkx 的读入；若与 pydot 版本不兼容，则采用自定义转换
         try:
             graph = nx.DiGraph(nx.nx_pydot.read_dot(str(dot_path)))
+            return nx.relabel_nodes(graph, self._norm)
         except Exception:
-            if not pydot:
-                raise
+            pass
+
+        # 退化1：使用 pydot 读取 + 自定义转换，避免 nx.nx_pydot.from_pydot 的 get_strict() 兼容问题
+        if pydot:
             pd_graphs = pydot.graph_from_dot_file(str(dot_path))
             if not pd_graphs:
                 raise RuntimeError("pydot 无法解析 DOT 文件")
-            graph = nx.DiGraph(nx.nx_pydot.from_pydot(pd_graphs[0]))
+            pdg = pd_graphs[0]
+            G = nx.DiGraph()
+            # 边
+            for e in pdg.get_edges():
+                src = self._norm(e.get_source())
+                dst = self._norm(e.get_destination())
+                G.add_edge(src, dst)
+            # 节点 + 属性（至少保留 style）
+            for n in pdg.get_nodes():
+                name = self._norm(n.get_name())
+                if name in ("node", "graph", "edge"):
+                    continue
+                if name not in G:
+                    G.add_node(name)
+                attrs = n.get_attributes() or {}
+                style = attrs.get("style")
+                if style:
+                    G.nodes[name]["style"] = style
+            return G
 
-        return nx.relabel_nodes(graph, self._norm)
+        # 退化2：极简正则解析（仅提取边与节点 style）
+        import re
+        EDGE_RE = re.compile(r'\"([^\"]+)\"\s*->\s*\"([^\"]+)\"')
+        NODE_RE = re.compile(r'\"([^\"]+)\"\s*\[(.*?)\]')
+        raw = Path(dot_path).read_text(encoding="utf-8", errors="ignore")
+        G = nx.DiGraph()
+        for m in EDGE_RE.finditer(raw):
+            G.add_edge(self._norm(m.group(1)), self._norm(m.group(2)))
+        for m in NODE_RE.finditer(raw):
+            name = self._norm(m.group(1))
+            if name not in G:
+                G.add_node(name)
+            attrs = m.group(2)
+            if "style=" in attrs:
+                # 取 style=xxx 或 style="xxx"
+                sm = re.search(r'style\s*=\s*"?([a-zA-Z, ]+)"?', attrs)
+                if sm:
+                    G.nodes[name]["style"] = sm.group(1)
+        return G
     
     def _parse_mutex_from_txt(self, txt_path: Path) -> List[MutexRecord]:
         """解析circle.txt中的互斥量信息

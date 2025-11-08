@@ -264,16 +264,54 @@ class TarjanGUI:
     # ------------------------------------------------------------- 文件读写 --
 
     def _read_dot_to_graph(self, path: Path) -> nx.DiGraph:
+        # 首选 networkx + nx_pydot
         try:
             graph = nx.DiGraph(nx.nx_pydot.read_dot(str(path)))
+            return nx.relabel_nodes(graph, _norm)
         except Exception:
-            if not pydot:
-                raise
+            pass
+
+        # 退化1：pydot 读取 + 自定义转换，避免 from_pydot 的 get_strict() 兼容问题
+        if pydot:
             pd_graphs = pydot.graph_from_dot_file(str(path))
             if not pd_graphs:
                 raise RuntimeError("pydot 解析 dot 失败")
-            graph = nx.DiGraph(nx.nx_pydot.from_pydot(pd_graphs[0]))
-        return nx.relabel_nodes(graph, _norm)
+            pdg = pd_graphs[0]
+            G = nx.DiGraph()
+            for e in pdg.get_edges():
+                src = _norm(e.get_source())
+                dst = _norm(e.get_destination())
+                G.add_edge(src, dst)
+            for n in pdg.get_nodes():
+                name = _norm(n.get_name())
+                if name in ("node", "graph", "edge"):
+                    continue
+                if name not in G:
+                    G.add_node(name)
+                attrs = n.get_attributes() or {}
+                style = attrs.get("style")
+                if style:
+                    G.nodes[name]["style"] = style
+            return G
+
+        # 退化2：极简正则解析
+        import re
+        EDGE_RE = re.compile(r'\"([^\"]+)\"\s*->\s*\"([^\"]+)\"')
+        NODE_RE = re.compile(r'\"([^\"]+)\"\s*\[(.*?)\]')
+        raw = Path(path).read_text(encoding="utf-8", errors="ignore")
+        G = nx.DiGraph()
+        for m in EDGE_RE.finditer(raw):
+            G.add_edge(_norm(m.group(1)), _norm(m.group(2)))
+        for m in NODE_RE.finditer(raw):
+            name = _norm(m.group(1))
+            if name not in G:
+                G.add_node(name)
+            attrs = m.group(2)
+            if "style=" in attrs:
+                sm = re.search(r'style\s*=\s*"?([a-zA-Z, ]+)"?', attrs)
+                if sm:
+                    G.nodes[name]["style"] = sm.group(1)
+        return G
 
     def _render_dot_quiet(self, dot_str: str, out_png: Path) -> None:
         tmp = self.output_root / "_temp_render.dot"
