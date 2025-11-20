@@ -1168,9 +1168,9 @@ class MycallyplusGUI:
     def _generate_dag_dot(self) -> None:
         """步骤2: 生成dag.dot"""
         try:
-            # 调用 legacy，指定output_base为mycallyplus目录
+            # 调用内置 legacy，指定output_base为mycallyplus目录
             cmd = [
-                sys.executable, "-m", "mycallypro.legacy",
+                sys.executable, "-m", "mycallyplus.generation.legacy",
                 str(self.current_expand_path),
                 "--threads-only",
                 "--output-base", str(self.base_dir)  # 指向mycallyplus
@@ -1219,9 +1219,9 @@ class MycallyplusGUI:
     def _generate_conditions_dot(self) -> None:
         """步骤3: 生成conditions.dot（完整DAG）"""
         try:
-            # 调用 legacy，指定output_base为mycallyplus目录
+            # 调用内置 legacy，指定output_base为mycallyplus目录
             cmd = [
-                sys.executable, "-m", "mycallypro.legacy",
+                sys.executable, "-m", "mycallyplus.generation.legacy",
                 str(self.current_expand_path),
                 "--conditions-only",
                 "--output-base", str(self.base_dir)
@@ -1270,11 +1270,11 @@ class MycallyplusGUI:
     def _generate_config_file(self) -> None:
         """步骤4: 生成circle.txt配置文件"""
         try:
-            # 调用 legacy，指定output_base为mycallyplus目录
+            # 调用内置 legacy，指定output_base为mycallyplus目录
             cmd = [
                 sys.executable,
                 "-m",
-                "mycallypro.legacy",
+                "mycallyplus.generation.legacy",
                 str(self.current_expand_path),
                 "--export-txt",
                 "--output-base", str(self.base_dir)
@@ -1394,7 +1394,7 @@ class MycallyplusGUI:
             raise RuntimeError("未设置 expand 文件路径")
         
         # 构建命令
-        cmd = [sys.executable, "-m", "mycallypro.legacy"]
+        cmd = [sys.executable, "-m", "mycallyplus.generation.legacy"]
         cmd.append(str(self.current_expand_path))
         
         if mode:
@@ -1429,7 +1429,7 @@ class MycallyplusGUI:
         cmd = [
             sys.executable, 
             "-m", 
-            "mycallypro.legacy",
+            "mycallyplus.generation.legacy",
             str(self.current_expand_path),
             "--export-txt",
             "circle.txt"

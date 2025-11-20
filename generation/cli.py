@@ -4,10 +4,9 @@ from __future__ import annotations
 
 子命令：
 - generate: 生成阶段（默认，向后兼容），参数透传给 legacy.main()
-- describe: 可视化阶段，启动 viewer GUI；支持 --open <PATH> 直接打开
-- gui: 启动统一GUI工作台
+- describe: 可视化阶段，启动 dag_describe GUI；支持 --open <PATH> 直接打开
 
-保持对旧用法的兼容：无子命令时，启动统一GUI。
+保持对旧用法的兼容：无子命令时，行为等同于 generate。
 """
 
 import os
@@ -16,29 +15,11 @@ import shlex
 from pathlib import Path
 from typing import List, Optional
 
-
-def _import_legacy_module():
-    """Import legacy generator implemented inside mycallyplus."""
-    from .generation import legacy  # type: ignore
-    return legacy
-
-
-def _run_gui() -> int:
-    """启动统一GUI工作台"""
-    try:
-        # 使用新的v3 GUI
-        from .ui.gui_v3 import main as gui_main
-        gui_main()
-        return 0
-    except KeyboardInterrupt:
-        return 130
-    except Exception as exc:
-        sys.stderr.write(f"ERROR: Failed to launch GUI: {exc}\n")
-        return 1
+from . import legacy
 
 
 def _run_describe(argv: List[str]) -> int:
-    """启动可视化（使用内部viewer）。
+    """启动可视化（整合 test/dag_describe.py）。
 
     支持参数：
       --open <PATH>  可选，指向 circle.txt / .dot / 配置目录
@@ -54,15 +35,22 @@ def _run_describe(argv: List[str]) -> int:
         else:
             i += 1
 
-    # 将 PATH 通过环境变量传给 GUI 模块
+    # 将 PATH 通过环境变量传给 GUI 模块，避免与其内部 argparse 冲突
     if open_path:
         os.environ["MYCALLYPRO_OPEN_PATH"] = str(Path(open_path).expanduser().resolve())
 
-    # 启动viewer GUI
+    # 以模块方式启动 GUI，工作目录设为项目根（mycallypro 的父目录）
+    project_root = Path(__file__).resolve().parent
+    work_dir = project_root.parent
+
+    cmd = [sys.executable, "-m", "test.dag_describe"]
     try:
-        from .visualization.viewer import main as viewer_main
-        viewer_main()
-        return 0
+        import subprocess
+        proc = subprocess.run(
+            cmd,
+            cwd=str(work_dir),
+        )
+        return proc.returncode
     except KeyboardInterrupt:
         return 130
     except Exception as exc:
@@ -73,26 +61,24 @@ def _run_describe(argv: List[str]) -> int:
 def main(argv: Optional[List[str]] = None) -> int:
     """统一 CLI 入口。
 
-    无参数或 gui 子命令：启动统一GUI
-    generate：生成DAG（命令行模式）
-    describe：可视化DAG（独立查看器）
+    兼容：无子命令时等同 generate（透传给 legacy）。
+    新增：describe 子命令启动交互式可视化。
     """
     if argv is None:
         argv = sys.argv[1:]
 
-    # 无参数：启动GUI
     if not argv:
-        return _run_gui()
+        # 无参数，直接走 legacy（向后兼容）
+        original_argv = sys.argv[:]
+        sys.argv = [original_argv[0]]
+        try:
+            return legacy.main()
+        finally:
+            sys.argv = original_argv
 
     subcmd = argv[0]
-    
-    # GUI 子命令
-    if subcmd in ("gui", "ui"):
-        return _run_gui()
-    
-    # 生成子命令
     if subcmd in ("generate", "gen"):
-        legacy = _import_legacy_module()
+        # 透传余下参数给 legacy
         passthrough = argv[1:]
         original_argv = sys.argv[:]
         sys.argv = [original_argv[0]] + passthrough
@@ -101,12 +87,10 @@ def main(argv: Optional[List[str]] = None) -> int:
         finally:
             sys.argv = original_argv
 
-    # 可视化子命令
     if subcmd in ("describe", "view", "viz"):
         return _run_describe(argv[1:])
 
-    # 未知子命令：视为 generate 参数（向后兼容）
-    legacy = _import_legacy_module()
+    # 未知子命令：为兼容旧用法，视为 legacy 参数
     original_argv = sys.argv[:]
     sys.argv = [original_argv[0]] + argv
     try:

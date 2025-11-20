@@ -652,7 +652,7 @@ class MycallyplusGUIv3:
             # 步骤1: 调用legacy生成dag图到配置文件目录
             cmd = [
                 sys.executable,
-                "-m", "mycallypro.legacy",
+                "-m", "mycallyplus.generation.legacy",
                 str(self.state.expand_file),
                 "--threads-only",
                 "--output-base", str(self.base_dir)
@@ -756,7 +756,7 @@ class MycallyplusGUIv3:
             
             cmd = [
                 sys.executable,
-                "-m", "mycallypro.legacy",  # 不带--threads-only参数，生成完整视图
+                "-m", "mycallyplus.generation.legacy",  # 不带--threads-only参数，生成完整视图
                 str(self.state.expand_file)
             ]
             
@@ -797,7 +797,7 @@ class MycallyplusGUIv3:
             txt_output_path = config_dir / "circle.txt"
             cmd_txt = [
                 sys.executable,
-                "-m", "mycallypro.legacy",
+                "-m", "mycallyplus.generation.legacy",
                 str(self.state.expand_file),
                 "--export-txt", str(txt_output_path),
                 "--output-base", str(self.base_dir)

@@ -19,35 +19,35 @@ from typing import Optional
 import tkinter as tk
 from tkinter import filedialog, messagebox
 
-# 配置文件目录：mycallypro/配置文件/
+# 配置文件目录：mycallyplus/配置文件/
 PROJECT_ROOT = Path(__file__).resolve().parent
 
 # 允许包外直接运行（python3 gui.py）时的导入回退
-try:  # 相对导入（推荐：python3 -m mycally.gui）
-    from .builder import build_callee_info
-    from .model import CallGraph, RenderOptions
-    from .parser import Parser
-    from .renderer import DotRenderer
-    from .threads import infer_thread_edges
-except Exception:  # 绝对导入回退（在 mycally/ 目录内执行 python3 gui.py）
+try:  # 推荐：python3 -m mycallyplus.ui.generation_gui
+    from ..generation.builder import build_callee_info
+    from ..generation.model import CallGraph, RenderOptions
+    from ..generation.parser import Parser
+    from ..generation.renderer import DotRenderer
+    from ..generation.threads import infer_thread_edges
+except Exception:  # 绝对导入回退（在项目根目录执行 python3 gui.py）
     import sys
     from pathlib import Path
 
-    pkg_root = Path(__file__).resolve().parent
-    sys.path.insert(0, str(pkg_root.parent))
+    pkg_root = Path(__file__).resolve().parent.parent
+    sys.path.insert(0, str(pkg_root))
     try:
-        from mycallypro.builder import build_callee_info
-        from mycallypro.model import CallGraph, RenderOptions
-        from mycallypro.parser import Parser
-        from mycallypro.renderer import DotRenderer
-        from mycallypro.threads import infer_thread_edges
+        from mycallyplus.generation.builder import build_callee_info
+        from mycallyplus.generation.model import CallGraph, RenderOptions
+        from mycallyplus.generation.parser import Parser
+        from mycallyplus.generation.renderer import DotRenderer
+        from mycallyplus.generation.threads import infer_thread_edges
     except Exception:
-        sys.path.insert(0, str(pkg_root))
-        from builder import build_callee_info
-        from model import CallGraph, RenderOptions
-        from parser import Parser
-        from renderer import DotRenderer
-        from threads import infer_thread_edges
+        sys.path.insert(0, str(pkg_root / "generation"))
+        from builder import build_callee_info  # type: ignore
+        from model import CallGraph, RenderOptions  # type: ignore
+        from parser import Parser  # type: ignore
+        from renderer import DotRenderer  # type: ignore
+        from threads import infer_thread_edges  # type: ignore
 
 
 class MyCallyGUI:
@@ -394,11 +394,11 @@ class MyCallyGUI:
         try:
             import sys
             import subprocess
-            cmd = [sys.executable, "-m", "mycallypro"]
+            cmd = [sys.executable, "-m", "mycallyplus.generation.legacy"]
             if threads_only:
                 cmd.append("--threads-only")
             cmd.append(str(expand_path.resolve()))
-            # 工作目录应该是项目根目录（mycallypro的父目录），而不是mycallypro目录本身
+            # 工作目录应该是项目根目录（mycallyplus的父目录）
             work_dir = PROJECT_ROOT.parent
             proc = subprocess.run(
                 cmd,
@@ -437,7 +437,7 @@ class MyCallyGUI:
         try:
             import sys
             import subprocess
-            cmd = [sys.executable, "-m", "mycallypro", str(expand_path.resolve())]
+            cmd = [sys.executable, "-m", "mycallyplus.generation.legacy", str(expand_path.resolve())]
             work_dir = PROJECT_ROOT.parent
             proc = subprocess.run(
                 cmd,
@@ -475,7 +475,7 @@ class MyCallyGUI:
         try:
             import sys
             import subprocess
-            cmd = [sys.executable, "-m", "mycallypro"]
+            cmd = [sys.executable, "-m", "mycallyplus.generation.legacy"]
             if threads_only:
                 cmd.append("--threads-only")
             cmd.append(str(expand_path.resolve()))
@@ -536,7 +536,7 @@ class MyCallyGUI:
             txt_path = config_dir / "circle.txt"
             
             cmd = [
-                sys.executable, "-m", "mycallypro",
+                sys.executable, "-m", "mycallyplus.generation.legacy",
                 str(expand_path.resolve()),
                 "--export-txt", str(txt_path),
                 "--output-base", str(PROJECT_ROOT)
