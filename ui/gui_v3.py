@@ -482,20 +482,27 @@ class MycallyplusGUIv3:
         try:
             expand_src = Path(file_path)
             
-            # 如果还没有工作目录，需要先创建
-            if not self.state.work_dir:
-                # 使用expand文件名作为基础名
-                base_name = expand_src.stem.split('.')[0]  # main.c.233r.expand -> main
-                self.state.work_dir = self.base_dir / "中间结果" / base_name
-                self.state.work_dir.mkdir(parents=True, exist_ok=True)
-                
-                # 创建子目录
-                subdirs = [
-                    "rtl文件", "配置文件", "生成dag图", "查看条件节点",
-                    "查看互斥锁图", "生成信号量图", "debug", "images", "logs", "temp"
-                ]
-                for subdir in subdirs:
-                    (self.state.work_dir / subdir).mkdir(parents=True, exist_ok=True)
+            # 统一：总是根据当前选择的expand文件重建工作目录
+            # 清理旧的源/输出状态，避免沿用上一次的目录或文件名
+            self.state.source_file = None
+            self.state.dot_file = None
+            self.state.txt_file = None
+            base_name = expand_src.stem
+            if base_name.endswith(".233r"):
+                base_name = base_name[:-5]
+            if "." in base_name:
+                base_name = base_name.split(".")[0]
+
+            self.state.work_dir = self.base_dir / "中间结果" / base_name
+            self.state.work_dir.mkdir(parents=True, exist_ok=True)
+            
+            # 创建子目录
+            subdirs = [
+                "rtl文件", "配置文件", "生成dag图", "查看条件节点",
+                "查看互斥锁图", "生成信号量图", "debug", "images", "logs", "temp"
+            ]
+            for subdir in subdirs:
+                (self.state.work_dir / subdir).mkdir(parents=True, exist_ok=True)
             
             # 复制expand文件到rtl目录
             rtl_dir = self.state.work_dir / "rtl文件"
