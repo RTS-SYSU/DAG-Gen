@@ -73,8 +73,9 @@ class FileState:
         name = self.expand_file.stem  # 移除 .expand
         if name.endswith('.233r'):
             name = name[:-5]  # 移除 .233r
-        if name.endswith('.c'):
-            name = name[:-2]  # 移除 .c
+        # 去掉末尾的语言扩展（.c / .cpp / 其他）
+        if '.' in name:
+            name = name.split('.')[0]
         return name
     
     def clear(self):
@@ -677,8 +678,12 @@ class MycallyplusGUIv3:
                 return
             
             # 步骤2: 从配置文件目录查找生成的文件
-            # 使用源文件名（不是basename）作为配置目录名
-            source_name = self.state.source_file.name if self.state.source_file else f"{self.state.get_base_name()}.c"
+            # 使用基名作为配置目录名（避免出现 .cpp.c）
+            source_name = (
+                self.state.source_file.stem
+                if self.state.source_file
+                else self.state.get_base_name()
+            )
             config_dir = self.base_dir / "配置文件" / source_name
             
             if not config_dir.exists():

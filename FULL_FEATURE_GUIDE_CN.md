@@ -17,7 +17,7 @@
 - 阶段A（生成）：从 GCC RTL expand（或 C 源文件）解析 → 构建调用图 → 输出 DOT 与 circle.txt → 生成中间调试快照
 - 阶段B（可视化）：加载 DOT 与 circle.txt → 生成原始图/互斥锁图/信号量图（含 Tarjan 强连通分量与线程分组）
 - 统一入口：
-  - GUI：`python -m mycallyplus` 或 `python -m mycallyplus gui`
+  - GUI：`python -m mycallyplus` 或 `python3 -m mycallyplus gui`
   - 生成：`python -m mycallyplus generate <expand>`（参数透传到 legacy）
   - 查看：`python -m mycallyplus describe [--open <PATH>]`
 

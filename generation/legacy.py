@@ -573,7 +573,8 @@ def _ensure_output_dirs(config) -> Tuple[Path, Path]:
         base_name = first_path.stem
         if base_name.endswith('.233r'):
             base_name = base_name[:-5]
-        elif '.' in base_name:
+        # 统一去掉后续的 .cpp/.c 等扩展，避免目录名残留 .cpp
+        if '.' in base_name:
             base_name = base_name.split('.')[0]
         
         # 基于mycallypro目录
@@ -1554,7 +1555,8 @@ def main():
             base_name = expand_file.stem
             if base_name.endswith('.233r'):
                 base_name = base_name[:-5]
-            elif '.' in base_name:
+            # 去掉 .cpp/.c 等扩展，保持与中间结果目录一致
+            if '.' in base_name:
                 base_name = base_name.split('.')[0]
             
             # 保存DOT文件到配置文件根目录（扁平结构）
