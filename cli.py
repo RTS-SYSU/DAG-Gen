@@ -26,8 +26,8 @@ def _import_legacy_module():
 def _run_gui() -> int:
     """启动统一GUI工作台"""
     try:
-        # 使用新的v3 GUI
-        from .ui.gui_v3 import main as gui_main
+        # 使用 GUI 主界面（原 v3）
+        from .ui.gui import main as gui_main
         gui_main()
         return 0
     except KeyboardInterrupt:

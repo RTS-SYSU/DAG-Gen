@@ -5,7 +5,7 @@
 本指南面向希望深入理解 Mycallyplus 的开发者与使用者，系统说明每个功能的实现逻辑、输入输出、文件读写与保存位置，以及与 CLI/GUI 的对应关系。所有路径均以项目根目录（包含 mycallyplus/、mycallypro/）为参考。
 
 - 主要入口：`mycallyplus/cli.py`
-- GUI：`mycallyplus/ui/gui.py`（统一工作台），`mycallyplus/ui/gui_v3.py`（状态区驱动简化版）
+- GUI：`mycallyplus/ui/gui.py`（状态区驱动工作台，原 gui_v3）
 - 可视化查看器：`mycallyplus/visualization/viewer.py`
 - 生成核心（legacy流水线）：`mycallyplus/generation/legacy.py`
 - 现代化内核与数据结构：`mycallyplus/core/*`、`mycallyplus/generation/*`
@@ -82,7 +82,7 @@ base 的取值：
 
 状态栏同时显示：expand 文件名、配置目录、当前 DOT/TXT。
 
-注意：`gui_v3.py` 为简化的七按钮版本，互斥锁/信号量图的生成逻辑更直接，适合作为流程演示。
+注意：当前 GUI 入口为 `ui/gui.py`（原 gui_v3），旧路径 `ui/gui_v3.py` 仍作为兼容入口。
 
 ---
 
@@ -219,7 +219,14 @@ base 的取值：
 - 源码配对：`mycallyplus/generation/source_binder.py`
 - 现代化模型/渲染：`mycallyplus/core/*`, `mycallyplus/generation/renderer.py`
 - 查看器：`mycallyplus/visualization/viewer.py`
-- 统一 GUI：`mycallyplus/ui/gui.py`、`mycallyplus/ui/gui_v3.py`
+- 统一 GUI：`mycallyplus/ui/gui.py`（兼容入口：`ui/gui_v3.py`）
+- DOT 过滤：`mycallyplus/filter_dot.py`（CLI/GUI 均可复用）
+
+### DOT 过滤模块
+
+- 位置：`mycallyplus/filter_dot.py`
+- 作用：对 DOT 节点名做去噪（去掉作用域前缀、模板尾、参数列表、编译器后缀、thunk 前缀），输出 `_filt.dot`，便于阅读和对比。
+- 命令行用法：`python -m mycallyplus.filter_dot path/to/dag.dot`，在同目录生成 `dag_filt.dot`。
+- GUI 用法：GUI 左侧“过滤DOT文件”按钮（1.7）会调用该模块，输出到 `mycallyplus/中间结果/过滤dot/<原名>_filt.dot` 并将状态区 DOT 更新为过滤结果。
 
 如需补充示例或生成脚本，请在 `mycallyplus/QUICK_START.md` 的基础上扩展。
-
