@@ -225,8 +225,18 @@ base 的取值：
 ### DOT 过滤模块
 
 - 位置：`mycallyplus/filter_dot.py`
-- 作用：对 DOT 节点名做去噪（去掉作用域前缀、模板尾、参数列表、编译器后缀、thunk 前缀），输出 `_filt.dot`，便于阅读和对比。
+- 功能：对 DOT 节点名做去噪，生成 `_filt.dot`，便于阅读与对比。
+  - 去除前缀：`non-virtual/virtual/covariant return thunk to `
+  - 去除后缀：`.part/.constprop/.isra.N`、`.cold`、`llvm.*`、`[clone ...]`
+  - 去除参数/限定：删除括号后的参数列表、`const/volatile/&/&&/noexcept/throw` 等尾部限定
+  - 模板简化：仅保留最后一个作用域段，并去掉末尾 `<...>` 模板实参
+  - 复合节点：`A/B/C` 分段简化后再拼回
+- 代码要点：
+  - `clean_symbol()`：正则去掉 thunk 前缀、编译器后缀，裁剪参数/限定，保留作用域末段并剥离尾部模板。
+  - `simplify_node()`：对节点按 `/` 分段调用 `clean_symbol`。
+  - `process_lines()`：逐行替换 DOT 中的 `"<node>"` 为简化后的名称。
+  - `filter_file(src, dst)`：读入、处理、写出。
 - 命令行用法：`python -m mycallyplus.filter_dot path/to/dag.dot`，在同目录生成 `dag_filt.dot`。
-- GUI 用法：GUI 左侧“过滤DOT文件”按钮（1.7）会调用该模块，输出到 `mycallyplus/中间结果/过滤dot/<原名>_filt.dot` 并将状态区 DOT 更新为过滤结果。
+- GUI 用法：左侧“过滤DOT文件”按钮（1.7）调用同一模块，输出到 `mycallyplus/中间结果/过滤dot/<原名>_filt.dot`，并将状态区 DOT 切换为该过滤结果。
 
 如需补充示例或生成脚本，请在 `mycallyplus/QUICK_START.md` 的基础上扩展。
