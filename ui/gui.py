@@ -5,6 +5,7 @@ Mycallyplus GUI v3.0 - 状态区驱动设计
 """
 
 import sys
+import os
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from pathlib import Path
@@ -163,8 +164,10 @@ class MycallyplusGUIv3:
         buttons = [
             ("1. 选择源文件", self.select_source_file),
             ("1.5 选择expand文件", self.select_expand_file),
+            ("1.6 选择dot文件", self.select_dot_file),
             ("1.7 过滤DOT文件", self.filter_dot_file),
             ("2. 生成dag图", self.generate_dag),
+            ("2.1 生成源码调用图", self.generate_source_only_dag),
             ("3. 查看条件节点", self.view_conditions),
             ("4. 选择配置文件", self.select_config_folder),
             ("5. 查看互斥锁", self.view_mutex),
@@ -236,6 +239,18 @@ class MycallyplusGUIv3:
             )
             label.pack(side=tk.LEFT, fill=tk.X, expand=True)
             self.status_labels[key] = label
+
+        # 源码调用图统计栏（显示 extern 统计）
+        self.call_stats_label = tk.Label(
+            right_frame,
+            text="",
+            bg="#FFF3E0",
+            font=("Microsoft YaHei", 9, "bold"),
+            anchor="w",
+            padx=8,
+            pady=4
+        )
+        self.call_stats_label.pack(fill=tk.X, padx=5, pady=4)
         
         # 图片显示区（Canvas）
         self.canvas = tk.Canvas(
@@ -320,6 +335,15 @@ class MycallyplusGUIv3:
             text=self.state.txt_file.name if self.state.txt_file else "<未加载>",
             fg="#000000" if self.state.txt_file else "#666666"
         )
+
+    def _update_call_stats(self, internal: int = 0, external: int = 0, visible: bool = False):
+        """更新源码调用统计栏"""
+        if visible:
+            self.call_stats_label.config(
+                text=f"源代码函数调用：{internal}  |  外部函数调用：{external}"
+            )
+        else:
+            self.call_stats_label.config(text="")
     
     def _show_message(self, title: str, message: str, is_error: bool = False):
         """显示消息"""
@@ -327,6 +351,21 @@ class MycallyplusGUIv3:
             messagebox.showerror(title, message)
         else:
             messagebox.showinfo(title, message)
+
+    def _open_file_with_system(self, path: Path):
+        """使用系统默认程序打开文件"""
+        if not path.exists():
+            self._show_message("错误", f"文件不存在：{path}", is_error=True)
+            return
+        try:
+            if sys.platform.startswith("darwin"):
+                subprocess.run(["open", str(path)], check=False)
+            elif os.name == "nt":
+                os.startfile(str(path))  # type: ignore
+            else:
+                subprocess.run(["xdg-open", str(path)], check=False)
+        except Exception as e:
+            self._show_message("错误", f"无法打开文件：{e}", is_error=True)
     
     def _display_image(self, image_path: Path):
         """在canvas上显示图片（支持缩放和拖动）"""
@@ -429,54 +468,25 @@ class MycallyplusGUIv3:
     # ===================== 按钮1: 选择源文件 =====================
     
     def select_source_file(self):
-        """按钮1: 选择源文件"""
+        """按钮1: 选择源文件（仅更新状态）"""
         file_path = filedialog.askopenfilename(
-            title="选择C语言源文件",
-            filetypes=[("C源文件", "*.c"), ("所有文件", "*.*")]
+            title="选择C/C++源文件",
+            filetypes=[("C/C++源文件", "*.c *.cpp"), ("所有文件", "*.*")]
         )
         
         if not file_path:
             return
-        
-        try:
-            source_path = Path(file_path)
-            
-            # 更新状态
-            self.state.source_file = source_path
-            
-            # 提取基础名（用于创建工作目录）
-            base_name = source_path.stem  # main.c -> main
-            
-            # 创建工作目录
-            self.state.work_dir = self.base_dir / "中间结果" / base_name
-            self.state.work_dir.mkdir(parents=True, exist_ok=True)
-            
-            # 创建所有子目录
-            subdirs = [
-                "rtl文件", "配置文件", "生成dag图", "查看条件节点",
-                "查看互斥锁图", "生成信号量图", "debug", "images", "logs", "temp"
-            ]
-            for subdir in subdirs:
-                (self.state.work_dir / subdir).mkdir(parents=True, exist_ok=True)
-            
-            # 编译生成expand文件
-            expand_path = self._compile_to_expand(source_path)
-            
-            if expand_path:
-                self.state.expand_file = expand_path
-                self._show_message("成功", f"源文件已加载\nExpand文件: {expand_path.name}")
-            else:
-                self._show_message("错误", "编译expand文件失败", is_error=True)
-            
-            self._update_status_display()
-            
-        except Exception as e:
-            self._show_message("错误", f"加载源文件失败:\n{e}", is_error=True)
+
+        source_path = Path(file_path)
+        # 仅更新状态，不触发编译或目录创建
+        self.state.source_file = source_path
+        self.state.work_dir = source_path.parent
+        self._update_status_display()
     
     # ===================== 按钮1.5: 选择expand文件 =====================
     
     def select_expand_file(self):
-        """按钮1.5: 选择expand文件（覆盖当前expand文件）"""
+        """按钮1.5: 选择expand文件（仅更新状态）"""
         file_path = filedialog.askopenfilename(
             title="选择Expand文件",
             filetypes=[("Expand文件", "*.expand"), ("所有文件", "*.*")]
@@ -484,52 +494,27 @@ class MycallyplusGUIv3:
         
         if not file_path:
             return
-        
-        try:
-            expand_src = Path(file_path)
-            
-            # 统一：总是根据当前选择的expand文件重建工作目录
-            # 清理旧的源/输出状态，避免沿用上一次的目录或文件名
-            self.state.source_file = None
-            self.state.dot_file = None
-            self.state.txt_file = None
-            base_name = expand_src.stem
-            if base_name.endswith(".233r"):
-                base_name = base_name[:-5]
-            if "." in base_name:
-                base_name = base_name.split(".")[0]
+        expand_src = Path(file_path)
+        self.state.expand_file = expand_src
+        self.state.work_dir = expand_src.parent
+        self._update_status_display()
 
-            self.state.work_dir = self.base_dir / "中间结果" / base_name
-            self.state.work_dir.mkdir(parents=True, exist_ok=True)
-            
-            # 创建子目录
-            subdirs = [
-                "rtl文件", "配置文件", "生成dag图", "查看条件节点",
-                "查看互斥锁图", "生成信号量图", "debug", "images", "logs", "temp"
-            ]
-            for subdir in subdirs:
-                (self.state.work_dir / subdir).mkdir(parents=True, exist_ok=True)
-            
-            # 复制expand文件到rtl目录
-            rtl_dir = self.state.work_dir / "rtl文件"
-            expand_dest = rtl_dir / expand_src.name
-            
-            import shutil
-            shutil.copy2(str(expand_src), str(expand_dest))
-            
-            # 更新状态
-            old_expand = self.state.expand_file
-            self.state.expand_file = expand_dest
-            self._update_status_display()
-            
-            info_msg = f"Expand文件已更新\n\n新文件: {expand_dest.name}"
-            if old_expand:
-                info_msg += f"\n原文件: {old_expand.name}"
-            
-            self._show_message("成功", info_msg)
-            
-        except Exception as e:
-            self._show_message("错误", f"选择expand文件失败:\n{e}", is_error=True)
+    # ===================== 按钮1.6: 选择dot文件 =====================
+
+    def select_dot_file(self):
+        """按钮1.6: 选择dot文件（仅更新状态）"""
+        file_path = filedialog.askopenfilename(
+            title="选择DOT文件",
+            filetypes=[("DOT文件", "*.dot"), ("所有文件", "*.*")]
+        )
+
+        if not file_path:
+            return
+
+        dot_src = Path(file_path)
+        self.state.dot_file = dot_src
+        self.state.work_dir = dot_src.parent
+        self._update_status_display()
     
     # ===================== 按钮1.7: 过滤DOT文件 =====================
     
@@ -682,6 +667,8 @@ class MycallyplusGUIv3:
         - 若状态区已有 dot 文件：直接渲染并展示
         - 否则调用 legacy 生成 threads-only dot，再复制到工作目录并渲染
         """
+        self._update_call_stats(visible=False)
+        self._set_subfunc_toolbar(None)
         try:
             # 优先使用已有 dot
             if self.state.dot_file and self.state.dot_file.exists():
@@ -757,20 +744,103 @@ class MycallyplusGUIv3:
             import shutil
             shutil.copy(source_dot, target_dot)
             
-            png_path = target_dir / "dag.png"
-            subprocess.run(
-                ["dot", "-Tpng", str(target_dot), "-o", str(png_path)],
-                check=True,
-                capture_output=True
-            )
-            
             self.state.dot_file = target_dot
             self._update_status_display()
-            self._display_image(png_path)
-            self._show_message("成功", "dag图生成成功")
+            self._show_message("成功", "dag图生成成功（仅生成全量 DOT，未渲染 PNG）")
             
         except Exception as e:
             self._show_message("错误", f"生成dag图失败:\n{e}", is_error=True)
+
+    def generate_source_only_dag(self):
+        """按钮2.1: 生成源码调用图（仅保留来自当前源文件的调用）"""
+        if not self.state.expand_file or not self.state.source_file:
+            self._show_message("错误", "请先选择源文件和 expand 文件", is_error=True)
+            return
+
+        try:
+            # 统一存储路径：中间结果/<基名>/生成dag图/
+            base_name = self.state.get_base_name() or self.state.source_file.stem
+            root_dir = self.base_dir / "中间结果" / base_name
+            target_dir = root_dir / "生成dag图"
+            target_dir.mkdir(parents=True, exist_ok=True)
+            target_dot = target_dir / "dag_source_only.dot"
+            filtered_dot = target_dir / "dag_source_only_filt.dot"
+            png_path = target_dir / "dag_source_only_filt.png"
+            debug_dir = target_dir / "debug"
+            # 更新工作目录为统一路径
+            self.state.work_dir = root_dir
+
+            cmd = [
+                sys.executable,
+                "-m", "mycallyplus.generation.legacy",
+                "--extern-only",
+                "--source-file", str(self.state.source_file),
+                "--output-base", str(self.base_dir),
+                str(self.state.expand_file),
+            ]
+            result = subprocess.run(
+                cmd,
+                cwd=str(self.base_dir.parent),
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+
+            if result.returncode != 0:
+                self._show_message("错误", f"生成源码调用图失败:\n{result.stderr}", is_error=True)
+                return
+
+            # legacy stdout 是 dot，写入目标文件
+            target_dot.write_text(result.stdout, encoding="utf-8")
+            # 过滤版直接沿用
+            import shutil
+            shutil.copy2(target_dot, filtered_dot)
+
+            # 渲染 PNG（仅过滤版）
+            subprocess.run(
+                ["dot", "-Tpng", str(filtered_dot), "-o", str(png_path)],
+                check=True,
+                capture_output=True,
+            )
+
+            # 读取 mycalls_meta 统计 extern
+            internal_cnt = 0
+            external_cnt = 0
+            try:
+                mycalls_meta_path = debug_dir / "mycalls_meta.json"
+                if mycalls_meta_path.exists():
+                    import json
+                    data = json.loads(mycalls_meta_path.read_text(encoding="utf-8"))
+                    for finfo in data.values():
+                        if isinstance(finfo, dict):
+                            for meta in finfo.values():
+                                if not isinstance(meta, dict):
+                                    continue
+                                if meta.get("extern") == 1:
+                                    internal_cnt += 1
+                                else:
+                                    external_cnt += 1
+            except Exception:
+                internal_cnt = external_cnt = 0
+
+            # 更新状态为过滤后的 dot
+            self.state.dot_file = filtered_dot
+            self._update_status_display()
+            self._update_call_stats(internal_cnt, external_cnt, visible=True)
+            self._display_image(png_path)
+            # 子功能：查看函数对应表（mycalls_meta）
+            src_path = self.state.source_file
+            exp_path = self.state.expand_file
+            meta_path = debug_dir / "mycalls_meta.json"
+            self._set_subfunc_toolbar([
+                ("查看源代码", lambda p=src_path: self._open_file_with_system(p)),
+                ("查看expand文件", lambda p=exp_path: self._open_file_with_system(p)),
+                ("查看函数对应表", lambda p=meta_path: self._open_file_with_system(p)),
+            ])
+            self._show_message("成功", f"源码调用图已生成：{filtered_dot.name}")
+
+        except Exception as e:
+            self._show_message("错误", f"生成源码调用图失败:\n{e}", is_error=True)
     
     # ===================== 按钮3: 查看条件节点 =====================
     

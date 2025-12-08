@@ -18,6 +18,11 @@
 - 作用：基于当前 expand 文件调用生成流程，产出最新的 dag.dot 及可视化图。
 - 输入：状态区的 expand 文件/源文件；输出：更新状态区 dot 路径，刷新显示。
 
+## 2.1 生成源码调用图
+- 作用：基于当前选定的 expand 文件和源文件，只保留源文件自身的调用关系，生成 `dag_source_only.dot` 并渲染 PNG。
+- 输入：状态区的源文件、expand 文件；输出：`生成dag图/dag_source_only.dot` 与 `dag_source_only.png`，右侧画布显示。
+- 行为：内部调用 `python -m mycallyplus.source_only --expand <当前expand> --source <源文件名>` 生成过滤后的 dot，再用 `dot -Tpng` 渲染。
+
 ## 3. 查看条件节点
 - 作用：展示包含条件节点标记的 dag 视图（如 `*_threads.dot`），用于查看 if/while/switch 等条件边。
 - 输入：当前 dot/生成的中间文件；输出：在右侧画布显示对应图像。

@@ -750,12 +750,10 @@ def full_call_graph(functions, **kwargs):
     no_externs = kwargs.get("no_externs", False)
     std_buf = kwargs.get("stdio_buffer", None)
     threads_only = kwargs.get("threads_only", False)
-    extern_only = kwargs.get("extern_only", False)
     print_buf(std_buf, "strict digraph callgraph {")
     myjoin = re.compile(r"pthread_join")
     switch_re = re.compile(r"switch+(\d+)")
     tail = ""
-
     #
     # Simply walk all nodes and print the callers
     #
@@ -771,7 +769,6 @@ def full_call_graph(functions, **kwargs):
         switchlist = dict()
         preswtich = ""
         prenum = 1
-        meta_map = functions[func].get("mycalls_meta", {})
 
         printed_functions = 1
         pre = func
@@ -779,11 +776,6 @@ def full_call_graph(functions, **kwargs):
                 re.match(exclude, func) is None:
 
             for caller in functions[func]["mycalls"]:
-                # extern_only 模式下，基于 mycalls_meta 筛掉 extern!=1 的调用
-                if extern_only:
-                    meta = meta_map.get(caller, {})
-                    if not isinstance(meta, dict) or meta.get("extern") != 1:
-                        continue
                 if (not no_externs or caller in functions) and \
                         (exclude is None or
                          re.match(exclude, caller) is None):
@@ -917,38 +909,38 @@ def conditions_call_graph(functions, **kwargs):
     print_buf(std_buf, "}")
 
 
-def mark_extern_by_selected(functions, selected_file=None, workspace_root=None):
-    """标记 mycalls_meta 中的 extern 字段。
-    
-    逻辑：
-    - 如果提供了 selected_file：仅按文件名匹配选中文件的调用置 extern=1（内部），不匹配置 extern=0（外部）
-    - 如果没有提供 selected_file：所有调用默认 extern=0
+def mark_extern_by_selected(functions, selected_file, workspace_root=None):
+    """标记 mycalls_meta 中的 extern 字段：匹配选中文件则置 1，否则置 0。
 
     Args:
-        functions: 主数据结构，包含 mycalls_meta 字典。
-        selected_file: 选中的源文件路径（内部源文件），字符串，可选。
+        functions: 主数据结构，包含 mycalls_meta 列表。
+        selected_file: 选中的源文件路径（内部源文件），字符串。
         workspace_root: 可选工作区根，用于归一化相对路径。
     """
-    # 仅比对文件名，忽略目录
-    sel_name = Path(selected_file).name if selected_file else None
+    if selected_file is None:
+        return
+
+    # 归一化路径，确保比较一致
+    sel_path = Path(selected_file)
+    if workspace_root:
+        sel_path = (Path(workspace_root) / sel_path).resolve()
+    else:
+        sel_path = sel_path.resolve()
 
     for finfo in functions.values():
         if "mycalls_meta" not in finfo:
             continue
-        # mycalls_meta 现在是字典：{target_name: {file, line, col, extern}}
-        for target_name, meta in finfo["mycalls_meta"].items():
+        for meta in finfo["mycalls_meta"]:
             file_path = meta.get("file")
             if not file_path:
                 meta["extern"] = 0
                 continue
-            
-            if sel_name is None:
-                # 没有指定选中文件，默认都是外部调用
-                meta["extern"] = 0
+            cur_path = Path(file_path)
+            if workspace_root:
+                cur_path = (Path(workspace_root) / cur_path).resolve()
             else:
-                cur_name = Path(file_path).name
-                # 仅按文件名匹配：匹配 = 内部调用(1)，不匹配 = 外部调用(0)
-                meta["extern"] = 1 if cur_name == sel_name else 0
+                cur_path = cur_path.resolve()
+            meta["extern"] = 1 if cur_path == sel_path else 0
 
 
 #
@@ -1018,9 +1010,6 @@ def main():
                         action="store_true")
     parser.add_argument("--force",
                         help="Force mode: force regeneration even in smart mode",
-                        action="store_true")
-    parser.add_argument("--extern-only",
-                        help="生成源码调用图时仅输出 extern==1 的节点/边",
                         action="store_true")
 
     parser.add_argument("RTLFILE", help="GCCs RTL .expand file", nargs="+")
@@ -1492,11 +1481,10 @@ def main():
         print_dbg("[PERF] Building callee info took {:.9f} seconds".format(
             time.time() - start_time))
 
-    # 每次解析都执行：标记 mycalls_meta 中的 extern 字段
-    # 如果提供了 source_file，匹配该文件的调用为内部(extern=1)，否则为外部(extern=0)
-    workspace_root = os.getcwd()
-    selected_file = getattr(config, "source_file", None)
-    mark_extern_by_selected(functions, selected_file, workspace_root=workspace_root)
+    # 将当前选中的源文件标记到 mycalls_meta.extern（匹配=1，不匹配=0）
+    if getattr(config, "source_file", None):
+        workspace_root = os.getcwd()
+        mark_extern_by_selected(functions, config.source_file, workspace_root=workspace_root)
 
     _dump_debug_snapshot(
         config,
@@ -1524,19 +1512,6 @@ def main():
             json.dump(_serialize_functions_for_dump(functions), f, ensure_ascii=False, indent=2)
         if not config.no_warnings:
             print_dbg(f"[INFO] functions_full exported to {functions_path}")
-
-        # 额外的 debug 输出：完整 functions 和 mycalls_meta
-        debug_dir = out_dir / "debug"
-        debug_dir.mkdir(parents=True, exist_ok=True)
-        debug_functions_path = debug_dir / "functions_debug.json"
-        with debug_functions_path.open("w", encoding="utf-8") as f:
-            json.dump(_serialize_functions_for_dump(functions), f, ensure_ascii=False, indent=2)
-        mycalls_meta_path = debug_dir / "mycalls_meta.json"
-        mycalls_meta_data = {fn: data.get("mycalls_meta", {}) for fn, data in functions.items()}
-        with mycalls_meta_path.open("w", encoding="utf-8") as f:
-            json.dump(mycalls_meta_data, f, ensure_ascii=False, indent=2)
-        if not config.no_warnings:
-            print_dbg(f"[INFO] debug artifacts exported to {debug_dir}")
     except Exception as e:
         if not config.no_warnings:
             print_err(f"WARNING: failed to export functions_full: {e}")
@@ -1599,7 +1574,6 @@ def main():
                             exclude=config.exclude,
                             no_externs=config.no_externs,
                             threads_only=threads_only,
-                            extern_only=getattr(config, "extern_only", False),
                             stdio_buffer=dot_lines)
             _dump_debug_artifacts(functions, dot_lines, config, "threads" if threads_only else "full")
 
