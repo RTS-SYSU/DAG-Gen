@@ -16,7 +16,7 @@ import random
 import re
 from PIL import Image, ImageTk
 
-from mycallyplus import filter_dot
+from mycallyplus import filter_dot, time_analysis
 
 try:
     import networkx as nx
@@ -126,6 +126,9 @@ class MycallyplusGUIv3:
             "threads": None,
             "mutex": None,
         }
+        # 时间分析选择状态
+        self.ta_source_file: Optional[Path] = None
+        self.ta_json_file: Optional[Path] = None
 
         # 互斥锁颜色配置
         self.MUTEX_COLORS = [
@@ -172,6 +175,7 @@ class MycallyplusGUIv3:
             ("4. 选择配置文件", self.select_config_folder),
             ("5. 查看互斥锁", self.view_mutex),
             ("6. 生成信号量图", self.generate_semaphore),
+            ("7. 时间分析", self.time_analysis_entry),
         ]
         
         for text, cmd in buttons:
@@ -816,7 +820,7 @@ class MycallyplusGUIv3:
                             for meta in finfo.values():
                                 if not isinstance(meta, dict):
                                     continue
-                                if meta.get("extern") == 1:
+                                if meta.get("extern") == 0:
                                     internal_cnt += 1
                                 else:
                                     external_cnt += 1
@@ -1375,6 +1379,60 @@ class MycallyplusGUIv3:
             self._show_message("错误", f"生成信号量图失败:\n{e}", is_error=True)
             import traceback
             traceback.print_exc()
+
+    # ===================== 按钮7: 时间分析 =====================
+
+    def time_analysis_entry(self):
+        """按钮7: 时间分析 - 选择源代码与 JSON 后自动插桩编译运行。"""
+        self._update_call_stats(visible=False)
+        self.ta_source_file = None
+        self.ta_json_file = None
+        self._set_subfunc_toolbar([
+            ("选中源代码文件", self._select_ta_source_file),
+            ("选中JSON文件", self._select_ta_json_file),
+        ])
+        self._show_message("提示", "请选择源代码文件和 mycalls_meta_internal.json，完成后自动执行时间分析。")
+
+    def _select_ta_source_file(self):
+        path_str = filedialog.askopenfilename(
+            title="选择C源文件（时间分析）",
+            filetypes=[("C源文件", "*.c"), ("所有文件", "*.*")]
+        )
+        if not path_str:
+            return
+        self.ta_source_file = Path(path_str)
+        self._maybe_run_time_analysis()
+
+    def _select_ta_json_file(self):
+        path_str = filedialog.askopenfilename(
+            title="选择 mycalls_meta_internal.json",
+            filetypes=[("JSON文件", "*.json"), ("所有文件", "*.*")]
+        )
+        if not path_str:
+            return
+        self.ta_json_file = Path(path_str)
+        self._maybe_run_time_analysis()
+
+    def _maybe_run_time_analysis(self):
+        if not self.ta_source_file or not self.ta_json_file:
+            return
+        try:
+            result = time_analysis.run_time_analysis(
+                self.ta_source_file,
+                self.ta_json_file,
+                self.base_dir,
+            )
+            # 将工作目录指向输出，便于后续查看
+            self.state.work_dir = result.instrumented_dir
+            self._show_message(
+                "成功",
+                "时间分析完成：\n"
+                f"插桩目录: {result.instrumented_dir}\n"
+                f"结果: {result.result_json}\n"
+                f"日志: {result.log_path}",
+            )
+        except Exception as e:
+            self._show_message("错误", f"时间分析失败:\n{e}", is_error=True)
     
     # ===================== 辅助方法：图分析 =====================
     

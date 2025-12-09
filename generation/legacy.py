@@ -782,7 +782,7 @@ def full_call_graph(functions, **kwargs):
                 # extern_only 模式下，基于 mycalls_meta 筛掉 extern!=1 的调用
                 if extern_only:
                     meta = meta_map.get(caller, {})
-                    if not isinstance(meta, dict) or meta.get("extern") != 1:
+                    if not isinstance(meta, dict) or meta.get("extern") != 0:
                         continue
                 if (not no_externs or caller in functions) and \
                         (exclude is None or
@@ -921,8 +921,8 @@ def mark_extern_by_selected(functions, selected_file=None, workspace_root=None):
     """标记 mycalls_meta 中的 extern 字段。
     
     逻辑：
-    - 如果提供了 selected_file：仅按文件名匹配选中文件的调用置 extern=1（内部），不匹配置 extern=0（外部）
-    - 如果没有提供 selected_file：所有调用默认 extern=0
+    - 仅按文件名匹配选中文件；匹配成功视为内部，extern=0；不匹配视为外部，extern=1
+    - 如果没有提供 selected_file：所有调用默认外部 extern=1
 
     Args:
         functions: 主数据结构，包含 mycalls_meta 字典。
@@ -939,16 +939,16 @@ def mark_extern_by_selected(functions, selected_file=None, workspace_root=None):
         for target_name, meta in finfo["mycalls_meta"].items():
             file_path = meta.get("file")
             if not file_path:
-                meta["extern"] = 0
+                meta["extern"] = 1
                 continue
             
             if sel_name is None:
                 # 没有指定选中文件，默认都是外部调用
-                meta["extern"] = 0
+                meta["extern"] = 1
             else:
                 cur_name = Path(file_path).name
-                # 仅按文件名匹配：匹配 = 内部调用(1)，不匹配 = 外部调用(0)
-                meta["extern"] = 1 if cur_name == sel_name else 0
+                # 仅按文件名匹配：匹配 = 内部调用(0)，不匹配 = 外部调用(1)
+                meta["extern"] = 0 if cur_name == sel_name else 1
 
 
 #
@@ -1535,6 +1535,16 @@ def main():
         mycalls_meta_data = {fn: data.get("mycalls_meta", {}) for fn, data in functions.items()}
         with mycalls_meta_path.open("w", encoding="utf-8") as f:
             json.dump(mycalls_meta_data, f, ensure_ascii=False, indent=2)
+        # 额外导出 extern==0 的 mycalls_meta（内部调用）
+        internal_meta_path = debug_dir / "mycalls_meta_internal.json"
+        internal_meta = {}
+        for fn, meta_map in mycalls_meta_data.items():
+            if not isinstance(meta_map, dict):
+                continue
+            filtered = {k: v for k, v in meta_map.items() if isinstance(v, dict) and v.get("extern") == 0}
+            internal_meta[fn] = filtered
+        with internal_meta_path.open("w", encoding="utf-8") as f:
+            json.dump(internal_meta, f, ensure_ascii=False, indent=2)
         if not config.no_warnings:
             print_dbg(f"[INFO] debug artifacts exported to {debug_dir}")
     except Exception as e:
