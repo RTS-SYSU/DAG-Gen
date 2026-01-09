@@ -1,0 +1,3922 @@
+
+;; Function bind_core (bind_core, funcdef_no=6, decl_uid=4445, cgraph_uid=7, symbol_order=14)
+
+Partition 1: size 128 align 16
+	cpuset
+Partition 0: size 8 align 8
+	__cpu_17
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+;; Generating RTL for gimple basic block 4
+Selected stringop expansion strategy: rep_8byte
+
+;; Generating RTL for gimple basic block 5
+
+;; Generating RTL for gimple basic block 6
+
+;; Generating RTL for gimple basic block 7
+
+;; Generating RTL for gimple basic block 8
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Forwarding edge 2->4 to 10 failed.
+Forwarding edge 2->4 to 10 failed.
+Redirecting jump 12 from 9 to 10.
+Merging block 9 into block 8...
+Merged blocks 8 and 9.
+Merged 8 and 9 without moving.
+
+
+try_optimize_cfg iteration 2
+
+Forwarding edge 2->4 to 10 failed.
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 5 NOTE_INSN_DELETED)
+(note 5 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 5 3 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -164 [0xffffffffffffff5c])) [1 core+0 S4 A32])
+        (reg:SI 5 di [ core ])) "schedule_demo.c":28:33 -1
+     (nil))
+(note 3 2 4 2 NOTE_INSN_FUNCTION_BEG)
+(insn 4 3 9 2 (parallel [
+            (set (mem/v/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -8 [0xfffffffffffffff8])) [3 D.4619+0 S8 A64])
+                (unspec:DI [
+                        (mem/v/f:DI (const_int 40 [0x28]) [0 MEM[(<address-space-1> long unsigned int *)40B]+0 S8 A64 AS1])
+                    ] UNSPEC_SP_SET))
+            (set (scratch:DI)
+                (const_int 0 [0]))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":28:33 -1
+     (nil))
+(insn 9 4 10 2 (set (reg:CCGOC 17 flags)
+        (compare:CCGOC (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -164 [0xffffffffffffff5c])) [1 core+0 S4 A32])
+            (const_int 0 [0]))) "schedule_demo.c":29:8 -1
+     (nil))
+(jump_insn 10 9 11 2 (set (pc)
+        (if_then_else (ge (reg:CCGOC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 14)
+            (pc))) "schedule_demo.c":29:8 -1
+     (nil)
+ -> 14)
+(note 11 10 12 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
+(jump_insn 12 11 13 4 (set (pc)
+        (label_ref:DI 62)) "schedule_demo.c":30:9 660 {jump}
+     (nil)
+ -> 62)
+(barrier 13 12 14)
+(code_label 14 13 15 5 2 (nil) [1 uses])
+(note 15 14 16 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
+(insn 16 15 17 5 (parallel [
+            (set (reg:DI 94)
+                (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -144 [0xffffffffffffff70])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":32:5 -1
+     (nil))
+(insn 17 16 18 5 (set (reg/f:DI 95)
+        (reg:DI 94)) "schedule_demo.c":32:5 -1
+     (nil))
+(insn 18 17 19 5 (set (reg:DI 96)
+        (const_int 0 [0])) "schedule_demo.c":32:5 -1
+     (nil))
+(insn 19 18 20 5 (set (reg:DI 97)
+        (const_int 16 [0x10])) "schedule_demo.c":32:5 -1
+     (nil))
+(insn 20 19 21 5 (parallel [
+            (set (reg:DI 97)
+                (const_int 0 [0]))
+            (set (reg/f:DI 95)
+                (plus:DI (ashift:DI (reg:DI 97)
+                        (const_int 3 [0x3]))
+                    (reg/f:DI 95)))
+            (set (mem/c:BLK (reg/f:DI 95) [0 MEM[(void *)&cpuset]+0 S128 A64])
+                (const_int 0 [0]))
+            (use (reg:DI 96))
+            (use (reg:DI 97))
+        ]) "schedule_demo.c":32:5 -1
+     (nil))
+(insn 21 20 22 5 (set (reg:SI 99)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -164 [0xffffffffffffff5c])) [1 core+0 S4 A32])) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 22 21 23 5 (set (reg:DI 98)
+        (sign_extend:DI (reg:SI 99))) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 23 22 26 5 (set (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -152 [0xffffffffffffff68])) [2 __cpu+0 S8 A64])
+        (reg:DI 98)) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 26 23 27 5 (set (reg:CC 17 flags)
+        (compare:CC (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -152 [0xffffffffffffff68])) [2 __cpu+0 S8 A64])
+            (const_int 1023 [0x3ff]))) "schedule_demo.c":33:5 -1
+     (nil))
+(jump_insn 27 26 28 5 (set (pc)
+        (if_then_else (gtu (reg:CC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 48)
+            (pc))) "schedule_demo.c":33:5 -1
+     (nil)
+ -> 48)
+(note 28 27 29 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
+(insn 29 28 30 6 (set (reg:DI 100)
+        (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -152 [0xffffffffffffff68])) [2 __cpu+0 S8 A64])) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 30 29 31 6 (parallel [
+            (set (reg:DI 93 [ _19 ])
+                (lshiftrt:DI (reg:DI 100)
+                    (const_int 6 [0x6])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":33:5 -1
+     (expr_list:REG_EQUAL (udiv:DI (reg:DI 100)
+            (const_int 64 [0x40]))
+        (nil)))
+(insn 31 30 32 6 (parallel [
+            (set (reg:DI 82 [ _1 ])
+                (ashift:DI (reg:DI 93 [ _19 ])
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 32 31 33 6 (parallel [
+            (set (reg:DI 101)
+                (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -144 [0xffffffffffffff70])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 33 32 34 6 (parallel [
+            (set (reg/f:DI 83 [ _2 ])
+                (plus:DI (reg:DI 101)
+                    (reg:DI 82 [ _1 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 34 33 35 6 (set (reg:DI 84 [ _3 ])
+        (mem:DI (reg/f:DI 83 [ _2 ]) [2 *_2+0 S8 A64])) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 35 34 36 6 (set (reg:DI 102)
+        (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -152 [0xffffffffffffff68])) [2 __cpu+0 S8 A64])) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 36 35 37 6 (set (reg:SI 85 [ _4 ])
+        (subreg:SI (reg:DI 102) 0)) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 37 36 38 6 (parallel [
+            (set (reg:SI 86 [ _5 ])
+                (and:SI (reg:SI 85 [ _4 ])
+                    (const_int 63 [0x3f])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 38 37 39 6 (set (reg:DI 103)
+        (const_int 1 [0x1])) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 39 38 40 6 (parallel [
+            (set (reg:DI 87 [ _6 ])
+                (ashift:DI (reg:DI 103)
+                    (subreg:QI (reg:SI 86 [ _5 ]) 0)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 40 39 41 6 (parallel [
+            (set (reg:DI 88 [ _7 ])
+                (ashift:DI (reg:DI 93 [ _19 ])
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 41 40 42 6 (parallel [
+            (set (reg:DI 104)
+                (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -144 [0xffffffffffffff70])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 42 41 43 6 (parallel [
+            (set (reg/f:DI 89 [ _8 ])
+                (plus:DI (reg:DI 104)
+                    (reg:DI 88 [ _7 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 43 42 44 6 (parallel [
+            (set (reg:DI 90 [ _9 ])
+                (ior:DI (reg:DI 84 [ _3 ])
+                    (reg:DI 87 [ _6 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 44 43 45 6 (set (mem:DI (reg/f:DI 89 [ _8 ]) [2 *_8+0 S8 A64])
+        (reg:DI 90 [ _9 ])) "schedule_demo.c":33:5 -1
+     (nil))
+(insn 45 44 46 6 (set (reg:DI 92 [ iftmp.0_11 ])
+        (mem:DI (reg/f:DI 89 [ _8 ]) [2 *_8+0 S8 A64])) "schedule_demo.c":33:5 -1
+     (nil))
+(jump_insn 46 45 47 6 (set (pc)
+        (label_ref 51)) -1
+     (nil)
+ -> 51)
+(barrier 47 46 48)
+(code_label 48 47 49 7 4 (nil) [1 uses])
+(note 49 48 50 7 [bb 7] NOTE_INSN_BASIC_BLOCK)
+(insn 50 49 51 7 (set (reg:DI 92 [ iftmp.0_11 ])
+        (const_int 0 [0])) "schedule_demo.c":33:5 -1
+     (nil))
+(code_label 51 50 52 8 5 (nil) [1 uses])
+(note 52 51 53 8 [bb 8] NOTE_INSN_BASIC_BLOCK)
+(call_insn/u 53 52 54 8 (set (reg:DI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_self") [flags 0x41]  <function_decl 0x7fea7acde200 pthread_self>) [0 pthread_self S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":34:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (nil))
+(insn 54 53 55 8 (set (reg:DI 91 [ _10 ])
+        (reg:DI 0 ax)) "schedule_demo.c":34:5 -1
+     (nil))
+(insn 55 54 56 8 (parallel [
+            (set (reg:DI 105)
+                (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -144 [0xffffffffffffff70])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":34:5 -1
+     (nil))
+(insn 56 55 57 8 (set (reg:DI 1 dx)
+        (reg:DI 105)) "schedule_demo.c":34:5 -1
+     (nil))
+(insn 57 56 58 8 (set (reg:DI 4 si)
+        (const_int 128 [0x80])) "schedule_demo.c":34:5 -1
+     (nil))
+(insn 58 57 59 8 (set (reg:DI 5 di)
+        (reg:DI 91 [ _10 ])) "schedule_demo.c":34:5 -1
+     (nil))
+(call_insn 59 58 62 8 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_setaffinity_np") [flags 0x41]  <function_decl 0x7fea7aced500 pthread_setaffinity_np>) [0 pthread_setaffinity_np S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":34:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (nil)))))
+(code_label 62 59 68 10 1 (nil) [1 uses])
+(note 68 62 63 10 [bb 10] NOTE_INSN_BASIC_BLOCK)
+(insn 63 68 64 10 (parallel [
+            (set (reg:CCZ 17 flags)
+                (unspec:CCZ [
+                        (mem/v/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                                (const_int -8 [0xfffffffffffffff8])) [3 D.4619+0 S8 A64])
+                        (mem/v/f:DI (const_int 40 [0x28]) [0 MEM[(<address-space-1> long unsigned int *)40B]+0 S8 A64 AS1])
+                    ] UNSPEC_SP_TEST))
+            (clobber (scratch:DI))
+        ]) "schedule_demo.c":35:1 -1
+     (nil))
+(jump_insn 64 63 69 10 (set (pc)
+        (if_then_else (eq (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 67)
+            (pc))) "schedule_demo.c":35:1 -1
+     (nil)
+ -> 67)
+(note 69 64 65 11 [bb 11] NOTE_INSN_BASIC_BLOCK)
+(call_insn 65 69 66 11 (call (mem:QI (symbol_ref:DI ("__stack_chk_fail") [flags 0x41]  <function_decl 0x7fea7aa13c00 __stack_chk_fail>) [0 __stack_chk_fail S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":35:1 -1
+     (expr_list:REG_ARGS_SIZE (const_int 0 [0])
+        (expr_list:REG_NORETURN (const_int 0 [0])
+            (expr_list:REG_EH_REGION (const_int 0 [0])
+                (nil))))
+    (nil))
+(barrier 66 65 67)
+(code_label 67 66 70 12 6 (nil) [1 uses])
+(note 70 67 0 12 [bb 12] NOTE_INSN_BASIC_BLOCK)
+
+;; Function mix64 (mix64, funcdef_no=7, decl_uid=4451, cgraph_uid=8, symbol_order=15)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 27.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])
+        (reg:DI 5 di [ x ])) "schedule_demo.c":38:35 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DI 87)
+        (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])) "schedule_demo.c":39:12 -1
+     (nil))
+(insn 7 6 8 2 (parallel [
+            (set (reg:DI 82 [ _1 ])
+                (lshiftrt:DI (reg:DI 87)
+                    (const_int 33 [0x21])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":39:12 -1
+     (expr_list:REG_EQUAL (lshiftrt:DI (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])
+            (const_int 33 [0x21]))
+        (nil)))
+(insn 8 7 9 2 (parallel [
+            (set (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])
+                (xor:DI (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])
+                    (reg:DI 82 [ _1 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":39:7 -1
+     (nil))
+(insn 9 8 10 2 (set (reg:DI 89)
+        (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])) "schedule_demo.c":40:7 -1
+     (nil))
+(insn 10 9 11 2 (set (reg:DI 90)
+        (const_int -49064778989728563 [0xff51afd7ed558ccd])) "schedule_demo.c":40:7 -1
+     (nil))
+(insn 11 10 12 2 (parallel [
+            (set (reg:DI 88)
+                (mult:DI (reg:DI 89)
+                    (reg:DI 90)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":40:7 -1
+     (nil))
+(insn 12 11 13 2 (set (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])
+        (reg:DI 88)) "schedule_demo.c":40:7 -1
+     (nil))
+(insn 13 12 14 2 (set (reg:DI 91)
+        (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])) "schedule_demo.c":41:12 -1
+     (nil))
+(insn 14 13 15 2 (parallel [
+            (set (reg:DI 83 [ _2 ])
+                (lshiftrt:DI (reg:DI 91)
+                    (const_int 33 [0x21])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":41:12 -1
+     (expr_list:REG_EQUAL (lshiftrt:DI (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])
+            (const_int 33 [0x21]))
+        (nil)))
+(insn 15 14 16 2 (parallel [
+            (set (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])
+                (xor:DI (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])
+                    (reg:DI 83 [ _2 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":41:7 -1
+     (nil))
+(insn 16 15 17 2 (set (reg:DI 93)
+        (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])) "schedule_demo.c":42:7 -1
+     (nil))
+(insn 17 16 18 2 (set (reg:DI 94)
+        (const_int -4265267296055464877 [0xc4ceb9fe1a85ec53])) "schedule_demo.c":42:7 -1
+     (nil))
+(insn 18 17 19 2 (parallel [
+            (set (reg:DI 92)
+                (mult:DI (reg:DI 93)
+                    (reg:DI 94)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":42:7 -1
+     (nil))
+(insn 19 18 20 2 (set (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])
+        (reg:DI 92)) "schedule_demo.c":42:7 -1
+     (nil))
+(insn 20 19 21 2 (set (reg:DI 95)
+        (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])) "schedule_demo.c":43:12 -1
+     (nil))
+(insn 21 20 22 2 (parallel [
+            (set (reg:DI 84 [ _3 ])
+                (lshiftrt:DI (reg:DI 95)
+                    (const_int 33 [0x21])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":43:12 -1
+     (expr_list:REG_EQUAL (lshiftrt:DI (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])
+            (const_int 33 [0x21]))
+        (nil)))
+(insn 22 21 23 2 (parallel [
+            (set (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])
+                (xor:DI (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])
+                    (reg:DI 84 [ _3 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":43:7 -1
+     (nil))
+(insn 23 22 26 2 (set (reg:DI 85 [ _10 ])
+        (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 x+0 S8 A64])) "schedule_demo.c":44:12 -1
+     (nil))
+(insn 26 23 30 2 (set (reg:DI 86 [ <retval> ])
+        (reg:DI 85 [ _10 ])) "schedule_demo.c":44:12 -1
+     (nil))
+(insn 30 26 31 2 (set (reg/i:DI 0 ax)
+        (reg:DI 86 [ <retval> ])) "schedule_demo.c":45:1 -1
+     (nil))
+(insn 31 30 0 2 (use (reg/i:DI 0 ax)) "schedule_demo.c":45:1 -1
+     (nil))
+
+;; Function compute_loop (compute_loop, funcdef_no=8, decl_uid=4455, cgraph_uid=9, symbol_order=16)
+
+Partition 1: size 8 align 8
+	acc
+Partition 0: size 4 align 4
+	i_7
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+;; Generating RTL for gimple basic block 4
+
+;; Generating RTL for gimple basic block 5
+
+;; Generating RTL for gimple basic block 6
+
+;; Generating RTL for gimple basic block 7
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Edge 6->8 redirected to 9
+Merging block 8 into block 7...
+Merged blocks 7 and 8.
+Merged 7 and 8 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 5 NOTE_INSN_DELETED)
+(note 5 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 5 3 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -20 [0xffffffffffffffec])) [1 iters+0 S4 A32])
+        (reg:SI 5 di [ iters ])) "schedule_demo.c":47:52 -1
+     (nil))
+(insn 3 2 4 2 (set (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -32 [0xffffffffffffffe0])) [2 seed+0 S8 A64])
+        (reg:DI 4 si [ seed ])) "schedule_demo.c":47:52 -1
+     (nil))
+(note 4 3 7 2 NOTE_INSN_FUNCTION_BEG)
+(insn 7 4 8 2 (set (reg:DI 88)
+        (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -32 [0xffffffffffffffe0])) [2 seed+0 S8 A64])) "schedule_demo.c":48:23 -1
+     (nil))
+(insn 8 7 9 2 (set (mem/v/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 acc+0 S8 A64])
+        (reg:DI 88)) "schedule_demo.c":48:23 -1
+     (nil))
+(insn 9 8 10 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -12 [0xfffffffffffffff4])) [1 i+0 S4 A32])
+        (const_int 0 [0])) "schedule_demo.c":49:14 -1
+     (nil))
+(jump_insn 10 9 11 2 (set (pc)
+        (label_ref 22)) "schedule_demo.c":49:5 -1
+     (nil)
+ -> 22)
+(barrier 11 10 24)
+(code_label 24 11 12 4 12 (nil) [1 uses])
+(note 12 24 13 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
+(insn 13 12 14 4 (set (reg:SI 89)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -12 [0xfffffffffffffff4])) [1 i+0 S4 A32])) "schedule_demo.c":50:27 -1
+     (nil))
+(insn 14 13 15 4 (set (reg:DI 82 [ _1 ])
+        (sign_extend:DI (reg:SI 89))) "schedule_demo.c":50:27 -1
+     (nil))
+(insn 15 14 16 4 (set (reg:DI 83 [ acc.1_2 ])
+        (mem/v/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 acc+0 S8 A64])) "schedule_demo.c":50:15 -1
+     (nil))
+(insn 16 15 17 4 (parallel [
+            (set (reg:DI 84 [ _3 ])
+                (plus:DI (reg:DI 82 [ _1 ])
+                    (reg:DI 83 [ acc.1_2 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":50:15 -1
+     (nil))
+(insn 17 16 18 4 (set (reg:DI 5 di)
+        (reg:DI 84 [ _3 ])) "schedule_demo.c":50:15 -1
+     (nil))
+(call_insn 18 17 19 4 (set (reg:DI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("mix64") [flags 0x3]  <function_decl 0x7fea7a9d3200 mix64>) [0 mix64 S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":50:15 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (nil)))
+(insn 19 18 20 4 (set (reg:DI 85 [ _4 ])
+        (reg:DI 0 ax)) "schedule_demo.c":50:15 -1
+     (nil))
+(insn 20 19 21 4 (set (mem/v/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 acc+0 S8 A64])
+        (reg:DI 85 [ _4 ])) "schedule_demo.c":50:13 -1
+     (nil))
+(insn 21 20 22 4 (parallel [
+            (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -12 [0xfffffffffffffff4])) [1 i+0 S4 A32])
+                (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -12 [0xfffffffffffffff4])) [1 i+0 S4 A32])
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":49:32 -1
+     (nil))
+(code_label 22 21 23 5 11 (nil) [1 uses])
+(note 23 22 25 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
+(insn 25 23 26 5 (set (reg:SI 90)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -12 [0xfffffffffffffff4])) [1 i+0 S4 A32])) "schedule_demo.c":49:5 -1
+     (nil))
+(insn 26 25 27 5 (set (reg:CCGC 17 flags)
+        (compare:CCGC (reg:SI 90)
+            (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -20 [0xffffffffffffffec])) [1 iters+0 S4 A32]))) "schedule_demo.c":49:5 -1
+     (nil))
+(jump_insn 27 26 28 5 (set (pc)
+        (if_then_else (lt (reg:CCGC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 24)
+            (pc))) "schedule_demo.c":49:5 -1
+     (nil)
+ -> 24)
+(note 28 27 29 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
+(insn 29 28 30 6 (set (reg:DI 86 [ acc.2_5 ])
+        (mem/v/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 acc+0 S8 A64])) "schedule_demo.c":52:13 -1
+     (nil))
+(insn 30 29 31 6 (set (reg:CCZ 17 flags)
+        (compare:CCZ (reg:DI 86 [ acc.2_5 ])
+            (const_int 4660 [0x1234]))) "schedule_demo.c":52:8 -1
+     (nil))
+(jump_insn 31 30 32 6 (set (pc)
+        (if_then_else (ne (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref:DI 40)
+            (pc))) "schedule_demo.c":52:8 659 {*jcc}
+     (nil)
+ -> 40)
+(note 32 31 33 7 [bb 7] NOTE_INSN_BASIC_BLOCK)
+(insn 33 32 34 7 (set (reg:DI 87 [ acc.3_6 ])
+        (mem/v/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 acc+0 S8 A64])) "schedule_demo.c":52:24 -1
+     (nil))
+(insn 34 33 35 7 (set (reg:DI 4 si)
+        (reg:DI 87 [ acc.3_6 ])) "schedule_demo.c":52:24 -1
+     (nil))
+(insn 35 34 36 7 (set (reg:DI 5 di)
+        (symbol_ref/f:DI ("*.LC0") [flags 0x2]  <var_decl 0x7fea7aa24a20 *.LC0>)) "schedule_demo.c":52:24 -1
+     (nil))
+(insn 36 35 37 7 (set (reg:QI 0 ax)
+        (const_int 0 [0])) "schedule_demo.c":52:24 -1
+     (nil))
+(call_insn 37 36 40 7 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("printf") [flags 0x41]  <function_decl 0x7fea7abf5a00 printf>) [0 __builtin_printf S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":52:24 -1
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:DI (use (reg:DI 4 si))
+                (nil)))))
+(code_label 40 37 41 9 10 (nil) [1 uses])
+(note 41 40 0 9 [bb 9] NOTE_INSN_BASIC_BLOCK)
+
+;; Function memory_walk (memory_walk, funcdef_no=9, decl_uid=4463, cgraph_uid=10, symbol_order=17)
+
+Partition 3: size 8 align 8
+	buf_27
+Partition 2: size 4 align 4
+	n_24
+Partition 1: size 4 align 4
+	i_19
+Partition 0: size 4 align 4
+	i_18
+Partition 4: size 4 align 4
+	sum
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+;; Generating RTL for gimple basic block 4
+
+;; Generating RTL for gimple basic block 5
+
+;; Generating RTL for gimple basic block 6
+
+;; Generating RTL for gimple basic block 7
+
+;; Generating RTL for gimple basic block 8
+
+;; Generating RTL for gimple basic block 9
+
+;; Generating RTL for gimple basic block 10
+
+;; Generating RTL for gimple basic block 11
+
+;; Generating RTL for gimple basic block 12
+
+;; Generating RTL for gimple basic block 13
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Forwarding edge 2->4 to 15 failed.
+Forwarding edge 2->4 to 15 failed.
+Redirecting jump 17 from 14 to 15.
+Merging block 14 into block 13...
+Merged blocks 13 and 14.
+Merged 13 and 14 without moving.
+
+
+try_optimize_cfg iteration 2
+
+Forwarding edge 2->4 to 15 failed.
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -36 [0xffffffffffffffdc])) [1 iters+0 S4 A32])
+        (reg:SI 5 di [ iters ])) "schedule_demo.c":55:36 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -12 [0xfffffffffffffff4])) [1 n+0 S4 A32])
+        (const_int 65536 [0x10000])) "schedule_demo.c":56:15 -1
+     (nil))
+(insn 7 6 8 2 (set (reg:SI 99)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -12 [0xfffffffffffffff4])) [1 n+0 S4 A32])) "schedule_demo.c":57:40 -1
+     (nil))
+(insn 8 7 9 2 (set (reg:DI 82 [ _1 ])
+        (sign_extend:DI (reg:SI 99))) "schedule_demo.c":57:40 -1
+     (nil))
+(insn 9 8 10 2 (parallel [
+            (set (reg:DI 83 [ _2 ])
+                (ashift:DI (reg:DI 82 [ _1 ])
+                    (const_int 2 [0x2])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":57:33 -1
+     (nil))
+(insn 10 9 11 2 (set (reg:DI 5 di)
+        (reg:DI 83 [ _2 ])) "schedule_demo.c":57:33 -1
+     (nil))
+(call_insn 11 10 12 2 (set (reg:DI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("malloc") [flags 0x41]  <function_decl 0x7fea7ac13f00 malloc>) [0 __builtin_malloc S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":57:33 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (nil)))
+(insn 12 11 13 2 (set (reg/f:DI 100)
+        (reg:DI 0 ax)) "schedule_demo.c":57:33 -1
+     (expr_list:REG_NOALIAS (reg/f:DI 100)
+        (nil)))
+(insn 13 12 14 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 buf+0 S8 A64])
+        (reg/f:DI 100)) "schedule_demo.c":57:33 -1
+     (nil))
+(insn 14 13 15 2 (set (reg:CCZ 17 flags)
+        (compare:CCZ (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -8 [0xfffffffffffffff8])) [5 buf+0 S8 A64])
+            (const_int 0 [0]))) "schedule_demo.c":58:8 -1
+     (nil))
+(jump_insn 15 14 16 2 (set (pc)
+        (if_then_else (ne (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 19)
+            (pc))) "schedule_demo.c":58:8 -1
+     (nil)
+ -> 19)
+(note 16 15 17 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
+(jump_insn 17 16 18 4 (set (pc)
+        (label_ref:DI 86)) "schedule_demo.c":58:15 660 {jump}
+     (nil)
+ -> 86)
+(barrier 18 17 19)
+(code_label 19 18 20 5 16 (nil) [1 uses])
+(note 20 19 21 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
+(insn 21 20 22 5 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -20 [0xffffffffffffffec])) [1 i+0 S4 A32])
+        (const_int 0 [0])) "schedule_demo.c":59:14 -1
+     (nil))
+(jump_insn 22 21 23 5 (set (pc)
+        (label_ref 33)) "schedule_demo.c":59:5 -1
+     (nil)
+ -> 33)
+(barrier 23 22 35)
+(code_label 35 23 24 6 19 (nil) [1 uses])
+(note 24 35 25 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
+(insn 25 24 26 6 (set (reg:SI 101)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -20 [0xffffffffffffffec])) [1 i+0 S4 A32])) "schedule_demo.c":59:36 -1
+     (nil))
+(insn 26 25 27 6 (set (reg:DI 84 [ _3 ])
+        (sign_extend:DI (reg:SI 101))) "schedule_demo.c":59:36 -1
+     (nil))
+(insn 27 26 28 6 (parallel [
+            (set (reg:DI 85 [ _4 ])
+                (ashift:DI (reg:DI 84 [ _3 ])
+                    (const_int 2 [0x2])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":59:36 -1
+     (nil))
+(insn 28 27 29 6 (set (reg/f:DI 102)
+        (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 buf+0 S8 A64])) "schedule_demo.c":59:36 -1
+     (nil))
+(insn 29 28 30 6 (parallel [
+            (set (reg/f:DI 86 [ _5 ])
+                (plus:DI (reg:DI 85 [ _4 ])
+                    (reg/f:DI 102)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":59:36 -1
+     (expr_list:REG_EQUAL (plus:DI (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -8 [0xfffffffffffffff8])) [5 buf+0 S8 A64])
+            (reg:DI 85 [ _4 ]))
+        (nil)))
+(insn 30 29 31 6 (set (reg:SI 87 [ i.4_6 ])
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -20 [0xffffffffffffffec])) [1 i+0 S4 A32])) "schedule_demo.c":59:42 -1
+     (nil))
+(insn 31 30 32 6 (set (mem:SI (reg/f:DI 86 [ _5 ]) [1 *_5+0 S4 A32])
+        (reg:SI 87 [ i.4_6 ])) "schedule_demo.c":59:40 -1
+     (nil))
+(insn 32 31 33 6 (parallel [
+            (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -20 [0xffffffffffffffec])) [1 i+0 S4 A32])
+                (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -20 [0xffffffffffffffec])) [1 i+0 S4 A32])
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":59:28 -1
+     (nil))
+(code_label 33 32 34 7 18 (nil) [1 uses])
+(note 34 33 36 7 [bb 7] NOTE_INSN_BASIC_BLOCK)
+(insn 36 34 37 7 (set (reg:SI 103)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -20 [0xffffffffffffffec])) [1 i+0 S4 A32])) "schedule_demo.c":59:5 -1
+     (nil))
+(insn 37 36 38 7 (set (reg:CCGC 17 flags)
+        (compare:CCGC (reg:SI 103)
+            (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -12 [0xfffffffffffffff4])) [1 n+0 S4 A32]))) "schedule_demo.c":59:5 -1
+     (nil))
+(jump_insn 38 37 39 7 (set (pc)
+        (if_then_else (lt (reg:CCGC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 35)
+            (pc))) "schedule_demo.c":59:5 -1
+     (nil)
+ -> 35)
+(note 39 38 40 8 [bb 8] NOTE_INSN_BASIC_BLOCK)
+(insn 40 39 41 8 (set (mem/v/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -24 [0xffffffffffffffe8])) [1 sum+0 S4 A64])
+        (const_int 0 [0])) "schedule_demo.c":60:23 -1
+     (nil))
+(insn 41 40 42 8 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [1 i+0 S4 A32])
+        (const_int 0 [0])) "schedule_demo.c":61:14 -1
+     (nil))
+(jump_insn 42 41 43 8 (set (pc)
+        (label_ref 63)) "schedule_demo.c":61:5 -1
+     (nil)
+ -> 63)
+(barrier 43 42 65)
+(code_label 65 43 44 9 21 (nil) [1 uses])
+(note 44 65 45 9 [bb 9] NOTE_INSN_BASIC_BLOCK)
+(insn 45 44 46 9 (set (reg:SI 104)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [1 i+0 S4 A32])) "schedule_demo.c":62:23 -1
+     (nil))
+(insn 46 45 47 9 (set (reg:SI 105)
+        (reg:SI 104)) "schedule_demo.c":62:23 -1
+     (nil))
+(insn 47 46 48 9 (parallel [
+            (set (reg:SI 105)
+                (ashift:SI (reg:SI 105)
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":62:23 -1
+     (nil))
+(insn 48 47 49 9 (parallel [
+            (set (reg:SI 105)
+                (plus:SI (reg:SI 105)
+                    (reg:SI 104)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":62:23 -1
+     (expr_list:REG_EQUAL (mult:SI (reg:SI 104)
+            (const_int 3 [0x3]))
+        (nil)))
+(insn 49 48 50 9 (parallel [
+            (set (reg:SI 105)
+                (ashift:SI (reg:SI 105)
+                    (const_int 2 [0x2])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":62:23 -1
+     (nil))
+(insn 50 49 51 9 (parallel [
+            (set (reg:SI 88 [ _7 ])
+                (plus:SI (reg:SI 105)
+                    (reg:SI 104)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":62:23 -1
+     (expr_list:REG_EQUAL (mult:SI (reg:SI 104)
+            (const_int 13 [0xd]))
+        (nil)))
+(insn 51 50 52 9 (set (reg:SI 106)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -12 [0xfffffffffffffff4])) [1 n+0 S4 A32])) "schedule_demo.c":62:34 -1
+     (nil))
+(insn 52 51 53 9 (parallel [
+            (set (reg:SI 89 [ _8 ])
+                (plus:SI (reg:SI 106)
+                    (const_int -1 [0xffffffffffffffff])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":62:34 -1
+     (expr_list:REG_EQUAL (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -12 [0xfffffffffffffff4])) [1 n+0 S4 A32])
+            (const_int -1 [0xffffffffffffffff]))
+        (nil)))
+(insn 53 52 54 9 (parallel [
+            (set (reg:SI 90 [ _9 ])
+                (and:SI (reg:SI 88 [ _7 ])
+                    (reg:SI 89 [ _8 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":62:29 -1
+     (nil))
+(insn 54 53 55 9 (set (reg:DI 91 [ _10 ])
+        (sign_extend:DI (reg:SI 90 [ _9 ]))) "schedule_demo.c":62:29 -1
+     (nil))
+(insn 55 54 56 9 (parallel [
+            (set (reg:DI 92 [ _11 ])
+                (ashift:DI (reg:DI 91 [ _10 ])
+                    (const_int 2 [0x2])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":62:19 -1
+     (nil))
+(insn 56 55 57 9 (set (reg/f:DI 107)
+        (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 buf+0 S8 A64])) "schedule_demo.c":62:19 -1
+     (nil))
+(insn 57 56 58 9 (parallel [
+            (set (reg/f:DI 93 [ _12 ])
+                (plus:DI (reg:DI 92 [ _11 ])
+                    (reg/f:DI 107)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":62:19 -1
+     (expr_list:REG_EQUAL (plus:DI (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -8 [0xfffffffffffffff8])) [5 buf+0 S8 A64])
+            (reg:DI 92 [ _11 ]))
+        (nil)))
+(insn 58 57 59 9 (set (reg:SI 94 [ _13 ])
+        (mem:SI (reg/f:DI 93 [ _12 ]) [1 *_12+0 S4 A32])) "schedule_demo.c":62:19 -1
+     (nil))
+(insn 59 58 60 9 (set (reg:SI 95 [ sum.5_14 ])
+        (mem/v/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -24 [0xffffffffffffffe8])) [1 sum+0 S4 A64])) "schedule_demo.c":62:13 -1
+     (nil))
+(insn 60 59 61 9 (parallel [
+            (set (reg:SI 96 [ _15 ])
+                (plus:SI (reg:SI 94 [ _13 ])
+                    (reg:SI 95 [ sum.5_14 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":62:13 -1
+     (nil))
+(insn 61 60 62 9 (set (mem/v/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -24 [0xffffffffffffffe8])) [1 sum+0 S4 A64])
+        (reg:SI 96 [ _15 ])) "schedule_demo.c":62:13 -1
+     (nil))
+(insn 62 61 63 9 (parallel [
+            (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -16 [0xfffffffffffffff0])) [1 i+0 S4 A32])
+                (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -16 [0xfffffffffffffff0])) [1 i+0 S4 A32])
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":61:32 -1
+     (nil))
+(code_label 63 62 64 10 20 (nil) [1 uses])
+(note 64 63 66 10 [bb 10] NOTE_INSN_BASIC_BLOCK)
+(insn 66 64 67 10 (set (reg:SI 108)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [1 i+0 S4 A32])) "schedule_demo.c":61:5 -1
+     (nil))
+(insn 67 66 68 10 (set (reg:CCGC 17 flags)
+        (compare:CCGC (reg:SI 108)
+            (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -36 [0xffffffffffffffdc])) [1 iters+0 S4 A32]))) "schedule_demo.c":61:5 -1
+     (nil))
+(jump_insn 68 67 69 10 (set (pc)
+        (if_then_else (lt (reg:CCGC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 65)
+            (pc))) "schedule_demo.c":61:5 -1
+     (nil)
+ -> 65)
+(note 69 68 70 11 [bb 11] NOTE_INSN_BASIC_BLOCK)
+(insn 70 69 71 11 (set (reg:SI 97 [ sum.6_16 ])
+        (mem/v/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -24 [0xffffffffffffffe8])) [1 sum+0 S4 A64])) "schedule_demo.c":64:13 -1
+     (nil))
+(insn 71 70 72 11 (set (reg:CCZ 17 flags)
+        (compare:CCZ (reg:SI 97 [ sum.6_16 ])
+            (const_int 57005 [0xdead]))) "schedule_demo.c":64:8 -1
+     (nil))
+(jump_insn 72 71 73 11 (set (pc)
+        (if_then_else (ne (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 79)
+            (pc))) "schedule_demo.c":64:8 -1
+     (nil)
+ -> 79)
+(note 73 72 74 12 [bb 12] NOTE_INSN_BASIC_BLOCK)
+(insn 74 73 75 12 (set (reg:SI 98 [ sum.7_17 ])
+        (mem/v/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -24 [0xffffffffffffffe8])) [1 sum+0 S4 A64])) "schedule_demo.c":64:24 -1
+     (nil))
+(insn 75 74 76 12 (set (reg:SI 4 si)
+        (reg:SI 98 [ sum.7_17 ])) "schedule_demo.c":64:24 -1
+     (nil))
+(insn 76 75 77 12 (set (reg:DI 5 di)
+        (symbol_ref/f:DI ("*.LC1") [flags 0x2]  <var_decl 0x7fea7aa2a120 *.LC1>)) "schedule_demo.c":64:24 -1
+     (nil))
+(insn 77 76 78 12 (set (reg:QI 0 ax)
+        (const_int 0 [0])) "schedule_demo.c":64:24 -1
+     (nil))
+(call_insn 78 77 79 12 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("printf") [flags 0x41]  <function_decl 0x7fea7abf5a00 printf>) [0 __builtin_printf S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":64:24 -1
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:SI (use (reg:SI 4 si))
+                (nil)))))
+(code_label 79 78 80 13 22 (nil) [1 uses])
+(note 80 79 81 13 [bb 13] NOTE_INSN_BASIC_BLOCK)
+(insn 81 80 82 13 (set (reg:DI 109)
+        (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 buf+0 S8 A64])) "schedule_demo.c":65:5 -1
+     (nil))
+(insn 82 81 83 13 (set (reg:DI 5 di)
+        (reg:DI 109)) "schedule_demo.c":65:5 -1
+     (nil))
+(call_insn 83 82 86 13 (call (mem:QI (symbol_ref:DI ("free") [flags 0x41]  <function_decl 0x7fea7ac0e400 free>) [0 __builtin_free S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":65:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (nil)))
+(code_label 86 83 87 15 15 (nil) [1 uses])
+(note 87 86 0 15 [bb 15] NOTE_INSN_BASIC_BLOCK)
+
+;; Function gcd_int (gcd_int, funcdef_no=10, decl_uid=4478, cgraph_uid=11, symbol_order=18)
+
+Partition 0: size 4 align 4
+	t_7
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+;; Generating RTL for gimple basic block 4
+
+;; Generating RTL for gimple basic block 5
+
+;; Generating RTL for gimple basic block 6
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 7 into block 6...
+Merged blocks 6 and 7.
+Merged 6 and 7 without moving.
+Removing jump 27.
+Merging block 8 into block 6...
+Merged blocks 6 and 8.
+Merged 6 and 8 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 5 NOTE_INSN_DELETED)
+(note 5 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 5 3 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -20 [0xffffffffffffffec])) [1 a+0 S4 A32])
+        (reg:SI 5 di [ a ])) "schedule_demo.c":68:34 -1
+     (nil))
+(insn 3 2 4 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -24 [0xffffffffffffffe8])) [1 b+0 S4 A32])
+        (reg:SI 4 si [ b ])) "schedule_demo.c":68:34 -1
+     (nil))
+(note 4 3 7 2 NOTE_INSN_FUNCTION_BEG)
+(jump_insn 7 4 8 2 (set (pc)
+        (label_ref 17)) "schedule_demo.c":69:11 -1
+     (nil)
+ -> 17)
+(barrier 8 7 19)
+(code_label 19 8 9 4 26 (nil) [1 uses])
+(note 9 19 10 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
+(insn 10 9 11 4 (set (reg:SI 85)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -20 [0xffffffffffffffec])) [1 a+0 S4 A32])) "schedule_demo.c":70:13 -1
+     (nil))
+(insn 11 10 12 4 (parallel [
+            (set (reg:SI 87)
+                (div:SI (reg:SI 85)
+                    (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -24 [0xffffffffffffffe8])) [1 b+0 S4 A32])))
+            (set (reg:SI 86)
+                (mod:SI (reg:SI 85)
+                    (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -24 [0xffffffffffffffe8])) [1 b+0 S4 A32])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":70:13 -1
+     (nil))
+(insn 12 11 13 4 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [1 t+0 S4 A32])
+        (reg:SI 86)) "schedule_demo.c":70:13 -1
+     (nil))
+(insn 13 12 14 4 (set (reg:SI 88)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -24 [0xffffffffffffffe8])) [1 b+0 S4 A32])) "schedule_demo.c":71:11 -1
+     (nil))
+(insn 14 13 15 4 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -20 [0xffffffffffffffec])) [1 a+0 S4 A32])
+        (reg:SI 88)) "schedule_demo.c":71:11 -1
+     (nil))
+(insn 15 14 16 4 (set (reg:SI 89)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [1 t+0 S4 A32])) "schedule_demo.c":72:11 -1
+     (nil))
+(insn 16 15 17 4 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -24 [0xffffffffffffffe8])) [1 b+0 S4 A32])
+        (reg:SI 89)) "schedule_demo.c":72:11 -1
+     (nil))
+(code_label 17 16 18 5 25 (nil) [1 uses])
+(note 18 17 20 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
+(insn 20 18 21 5 (set (reg:CCZ 17 flags)
+        (compare:CCZ (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -24 [0xffffffffffffffe8])) [1 b+0 S4 A32])
+            (const_int 0 [0]))) "schedule_demo.c":69:11 -1
+     (nil))
+(jump_insn 21 20 22 5 (set (pc)
+        (if_then_else (ne (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 19)
+            (pc))) "schedule_demo.c":69:11 -1
+     (nil)
+ -> 19)
+(note 22 21 23 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
+(insn 23 22 26 6 (set (reg:SI 82 [ _5 ])
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -20 [0xffffffffffffffec])) [1 a+0 S4 A32])) "schedule_demo.c":74:12 -1
+     (nil))
+(insn 26 23 30 6 (set (reg:SI 83 [ <retval> ])
+        (reg:SI 82 [ _5 ])) "schedule_demo.c":74:12 -1
+     (nil))
+(insn 30 26 31 6 (set (reg/i:SI 0 ax)
+        (reg:SI 83 [ <retval> ])) "schedule_demo.c":75:1 -1
+     (nil))
+(insn 31 30 0 6 (use (reg/i:SI 0 ax)) "schedule_demo.c":75:1 -1
+     (nil))
+
+;; Function small_math (small_math, funcdef_no=11, decl_uid=4485, cgraph_uid=12, symbol_order=19)
+
+Partition 0: size 4 align 4
+	i_7
+Partition 1: size 4 align 4
+	g
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+;; Generating RTL for gimple basic block 4
+
+;; Generating RTL for gimple basic block 5
+
+;; Generating RTL for gimple basic block 6
+
+;; Generating RTL for gimple basic block 7
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Edge 6->8 redirected to 9
+Merging block 8 into block 7...
+Merged blocks 7 and 8.
+Merged 7 and 8 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -20 [0xffffffffffffffec])) [1 iters+0 S4 A32])
+        (reg:SI 5 di [ iters ])) "schedule_demo.c":77:35 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (mem/v/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [1 g+0 S4 A64])
+        (const_int 1 [0x1])) "schedule_demo.c":78:18 -1
+     (nil))
+(insn 7 6 8 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [1 i+0 S4 A32])
+        (const_int 1 [0x1])) "schedule_demo.c":79:14 -1
+     (nil))
+(jump_insn 8 7 9 2 (set (pc)
+        (label_ref 22)) "schedule_demo.c":79:5 -1
+     (nil)
+ -> 22)
+(barrier 9 8 24)
+(code_label 24 9 10 4 30 (nil) [1 uses])
+(note 10 24 11 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
+(insn 11 10 12 4 (set (reg:SI 88)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [1 i+0 S4 A32])) "schedule_demo.c":80:13 -1
+     (nil))
+(insn 12 11 13 4 (parallel [
+            (set (reg:SI 82 [ _1 ])
+                (ior:SI (reg:SI 88)
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":80:13 -1
+     (expr_list:REG_EQUAL (ior:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -4 [0xfffffffffffffffc])) [1 i+0 S4 A32])
+            (const_int 1 [0x1]))
+        (nil)))
+(insn 13 12 14 4 (set (reg:SI 83 [ g.8_2 ])
+        (mem/v/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [1 g+0 S4 A64])) "schedule_demo.c":80:13 -1
+     (nil))
+(insn 14 13 15 4 (set (reg:SI 89)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [1 i+0 S4 A32])) "schedule_demo.c":80:13 -1
+     (nil))
+(insn 15 14 16 4 (parallel [
+            (set (reg:SI 84 [ _3 ])
+                (plus:SI (reg:SI 83 [ g.8_2 ])
+                    (reg:SI 89)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":80:13 -1
+     (expr_list:REG_EQUAL (plus:SI (reg:SI 83 [ g.8_2 ])
+            (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -4 [0xfffffffffffffffc])) [1 i+0 S4 A32]))
+        (nil)))
+(insn 16 15 17 4 (set (reg:SI 4 si)
+        (reg:SI 82 [ _1 ])) "schedule_demo.c":80:13 -1
+     (nil))
+(insn 17 16 18 4 (set (reg:SI 5 di)
+        (reg:SI 84 [ _3 ])) "schedule_demo.c":80:13 -1
+     (nil))
+(call_insn 18 17 19 4 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("gcd_int") [flags 0x3]  <function_decl 0x7fea7a9d3800 gcd_int>) [0 gcd_int S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":80:13 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (expr_list:SI (use (reg:SI 4 si))
+            (nil))))
+(insn 19 18 20 4 (set (reg:SI 85 [ _4 ])
+        (reg:SI 0 ax)) "schedule_demo.c":80:13 -1
+     (nil))
+(insn 20 19 21 4 (set (mem/v/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [1 g+0 S4 A64])
+        (reg:SI 85 [ _4 ])) "schedule_demo.c":80:11 -1
+     (nil))
+(insn 21 20 22 4 (parallel [
+            (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -4 [0xfffffffffffffffc])) [1 i+0 S4 A32])
+                (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -4 [0xfffffffffffffffc])) [1 i+0 S4 A32])
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":79:32 -1
+     (nil))
+(code_label 22 21 23 5 29 (nil) [1 uses])
+(note 23 22 25 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
+(insn 25 23 26 5 (set (reg:SI 90)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [1 i+0 S4 A32])) "schedule_demo.c":79:5 -1
+     (nil))
+(insn 26 25 27 5 (set (reg:CCGC 17 flags)
+        (compare:CCGC (reg:SI 90)
+            (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -20 [0xffffffffffffffec])) [1 iters+0 S4 A32]))) "schedule_demo.c":79:5 -1
+     (nil))
+(jump_insn 27 26 28 5 (set (pc)
+        (if_then_else (lt (reg:CCGC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 24)
+            (pc))) "schedule_demo.c":79:5 -1
+     (nil)
+ -> 24)
+(note 28 27 29 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
+(insn 29 28 30 6 (set (reg:SI 86 [ g.9_5 ])
+        (mem/v/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [1 g+0 S4 A64])) "schedule_demo.c":82:11 -1
+     (nil))
+(insn 30 29 31 6 (set (reg:CCZ 17 flags)
+        (compare:CCZ (reg:SI 86 [ g.9_5 ])
+            (const_int 1911 [0x777]))) "schedule_demo.c":82:8 -1
+     (nil))
+(jump_insn 31 30 32 6 (set (pc)
+        (if_then_else (ne (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref:DI 40)
+            (pc))) "schedule_demo.c":82:8 659 {*jcc}
+     (nil)
+ -> 40)
+(note 32 31 33 7 [bb 7] NOTE_INSN_BASIC_BLOCK)
+(insn 33 32 34 7 (set (reg:SI 87 [ g.10_6 ])
+        (mem/v/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [1 g+0 S4 A64])) "schedule_demo.c":82:21 -1
+     (nil))
+(insn 34 33 35 7 (set (reg:SI 4 si)
+        (reg:SI 87 [ g.10_6 ])) "schedule_demo.c":82:21 -1
+     (nil))
+(insn 35 34 36 7 (set (reg:DI 5 di)
+        (symbol_ref/f:DI ("*.LC2") [flags 0x2]  <var_decl 0x7fea7aa36240 *.LC2>)) "schedule_demo.c":82:21 -1
+     (nil))
+(insn 36 35 37 7 (set (reg:QI 0 ax)
+        (const_int 0 [0])) "schedule_demo.c":82:21 -1
+     (nil))
+(call_insn 37 36 40 7 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("printf") [flags 0x41]  <function_decl 0x7fea7abf5a00 printf>) [0 __builtin_printf S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":82:21 -1
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:SI (use (reg:SI 4 si))
+                (nil)))))
+(code_label 40 37 41 9 28 (nil) [1 uses])
+(note 41 40 0 9 [bb 9] NOTE_INSN_BASIC_BLOCK)
+
+;; Function sort_tiny (sort_tiny, funcdef_no=12, decl_uid=4493, cgraph_uid=13, symbol_order=20)
+
+Partition 5: size 8 align 8
+	a.11_37
+Partition 4: size 8 align 8
+	_31
+Partition 6: size 4 align 4
+	t_44
+Partition 3: size 4 align 4
+	m_30
+Partition 2: size 4 align 4
+	i_13
+Partition 1: size 4 align 4
+	r_11
+Partition 0: size 4 align 4
+	i_8
+
+;; Generating RTL for gimple basic block 2
+Stack clash dynamic allocation and probing in loop.
+Stack clash dynamic allocation and probing residuals.
+
+;; Generating RTL for gimple basic block 3
+
+;; Generating RTL for gimple basic block 4
+
+;; Generating RTL for gimple basic block 5
+
+;; Generating RTL for gimple basic block 6
+
+;; Generating RTL for gimple basic block 7
+
+;; Generating RTL for gimple basic block 8
+
+;; Generating RTL for gimple basic block 9
+
+;; Generating RTL for gimple basic block 10
+
+;; Generating RTL for gimple basic block 11
+
+;; Generating RTL for gimple basic block 12
+
+;; Generating RTL for gimple basic block 13
+
+;; Generating RTL for gimple basic block 14
+
+;; Generating RTL for gimple basic block 15
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 22 into block 21...
+Merged blocks 21 and 22.
+Merged 21 and 22 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 5 NOTE_INSN_DELETED)
+(note 5 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 5 3 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -52 [0xffffffffffffffcc])) [1 iters+0 S4 A32])
+        (reg:SI 5 di [ iters ])) "schedule_demo.c":85:34 -1
+     (nil))
+(note 3 2 4 2 NOTE_INSN_FUNCTION_BEG)
+(insn 4 3 7 2 (parallel [
+            (set (mem/v/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -8 [0xfffffffffffffff8])) [3 D.4624+0 S8 A64])
+                (unspec:DI [
+                        (mem/v/f:DI (const_int 40 [0x28]) [0 MEM[(<address-space-1> long unsigned int *)40B]+0 S8 A64 AS1])
+                    ] UNSPEC_SP_SET))
+            (set (scratch:DI)
+                (const_int 0 [0]))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":85:34 -1
+     (nil))
+(insn 7 4 8 2 (set (reg:DI 105)
+        (reg/f:DI 7 sp)) "schedule_demo.c":85:34 -1
+     (nil))
+(insn 8 7 9 2 (set (reg/f:DI 100 [ saved_stack.12_29 ])
+        (reg:DI 105)) "schedule_demo.c":85:34 -1
+     (nil))
+(insn 9 8 10 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -32 [0xffffffffffffffe0])) [1 m+0 S4 A32])
+        (const_int 64 [0x40])) "schedule_demo.c":86:15 -1
+     (nil))
+(insn 10 9 11 2 (set (reg:SI 106)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -32 [0xffffffffffffffe0])) [1 m+0 S4 A32])) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 11 10 12 2 (set (reg:DI 82 [ _1 ])
+        (sign_extend:DI (reg:SI 106))) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 12 11 13 2 (parallel [
+            (set (reg:DI 83 [ _2 ])
+                (plus:DI (reg:DI 82 [ _1 ])
+                    (const_int -1 [0xffffffffffffffff])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 13 12 14 2 (set (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -24 [0xffffffffffffffe8])) [2 D.4563+0 S8 A64])
+        (reg:DI 83 [ _2 ])) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 14 13 15 2 (set (reg:SI 107)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -32 [0xffffffffffffffe0])) [1 m+0 S4 A32])) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 15 14 16 2 (set (reg:DI 84 [ _4 ])
+        (sign_extend:DI (reg:SI 107))) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 16 15 17 2 (set (subreg:DI (reg:TI 85 [ _5 ]) 0)
+        (reg:DI 84 [ _4 ])) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 17 16 18 2 (set (subreg:DI (reg:TI 85 [ _5 ]) 8)
+        (const_int 0 [0])) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 18 17 19 2 (parallel [
+            (set (reg:TI 101 [ _32 ])
+                (ashift:TI (reg:TI 85 [ _5 ])
+                    (const_int 5 [0x5])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 19 18 20 2 (set (reg:SI 108)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -32 [0xffffffffffffffe0])) [1 m+0 S4 A32])) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 20 19 21 2 (set (reg:DI 86 [ _7 ])
+        (sign_extend:DI (reg:SI 108))) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 21 20 22 2 (parallel [
+            (set (reg:DI 102 [ _33 ])
+                (ashift:DI (reg:DI 86 [ _7 ])
+                    (const_int 2 [0x2])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 22 21 23 2 (set (reg:SI 109)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -32 [0xffffffffffffffe0])) [1 m+0 S4 A32])) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 23 22 24 2 (set (reg:DI 87 [ _9 ])
+        (sign_extend:DI (reg:SI 109))) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 24 23 25 2 (set (subreg:DI (reg:TI 88 [ _10 ]) 0)
+        (reg:DI 87 [ _9 ])) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 25 24 26 2 (set (subreg:DI (reg:TI 88 [ _10 ]) 8)
+        (const_int 0 [0])) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 26 25 27 2 (parallel [
+            (set (reg:TI 103 [ _34 ])
+                (ashift:TI (reg:TI 88 [ _10 ])
+                    (const_int 5 [0x5])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 27 26 28 2 (set (reg:SI 110)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -32 [0xffffffffffffffe0])) [1 m+0 S4 A32])) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 28 27 29 2 (set (reg:DI 89 [ _12 ])
+        (sign_extend:DI (reg:SI 110))) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 29 28 30 2 (parallel [
+            (set (reg:DI 104 [ _35 ])
+                (ashift:DI (reg:DI 89 [ _12 ])
+                    (const_int 2 [0x2])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 30 29 31 2 (parallel [
+            (set (reg:DI 111)
+                (plus:DI (reg:DI 81 virtual-preferred-stack-boundary)
+                    (const_int -1 [0xffffffffffffffff])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 31 30 32 2 (parallel [
+            (set (reg:DI 112)
+                (plus:DI (reg:DI 104 [ _35 ])
+                    (reg:DI 111)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 32 31 33 2 (parallel [
+            (set (reg:DI 114)
+                (udiv:DI (reg:DI 112)
+                    (reg:DI 81 virtual-preferred-stack-boundary)))
+            (set (reg:DI 115)
+                (umod:DI (reg:DI 112)
+                    (reg:DI 81 virtual-preferred-stack-boundary)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 33 32 34 2 (parallel [
+            (set (reg:DI 116)
+                (mult:DI (reg:DI 114)
+                    (reg:DI 81 virtual-preferred-stack-boundary)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 34 33 35 2 (parallel [
+            (set (reg:DI 118)
+                (and:DI (reg:DI 116)
+                    (const_int -4096 [0xfffffffffffff000])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 35 34 36 2 (parallel [
+            (set (reg:DI 119)
+                (minus:DI (reg/f:DI 7 sp)
+                    (reg:DI 118)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(code_label 36 35 161 4 34 (nil) [1 uses])
+(note 161 36 37 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
+(insn 37 161 38 4 (set (reg:CCZ 17 flags)
+        (compare:CCZ (reg/f:DI 7 sp)
+            (reg:DI 119))) "schedule_demo.c":87:9 -1
+     (nil))
+(jump_insn 38 37 162 4 (set (pc)
+        (if_then_else (eq (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 43)
+            (pc))) "schedule_demo.c":87:9 -1
+     (nil)
+ -> 43)
+(note 162 38 39 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
+(insn 39 162 40 5 (parallel [
+            (set (reg/f:DI 7 sp)
+                (plus:DI (reg/f:DI 7 sp)
+                    (const_int -4096 [0xfffffffffffff000])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 40 39 41 5 (parallel [
+            (set (mem/v:DI (plus:DI (reg/f:DI 7 sp)
+                        (const_int 4088 [0xff8])) [0  S8 A8])
+                (unspec:DI [
+                        (const_int 0 [0])
+                    ] UNSPEC_PROBE_STACK))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(jump_insn 41 40 42 5 (set (pc)
+        (label_ref 36)) "schedule_demo.c":87:9 -1
+     (nil)
+ -> 36)
+(barrier 42 41 43)
+(code_label 43 42 163 6 35 (nil) [1 uses])
+(note 163 43 44 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
+(insn 44 163 45 6 (unspec_volatile [
+            (const_int 0 [0])
+        ] UNSPECV_BLOCKAGE) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 45 44 46 6 (parallel [
+            (set (reg:DI 120)
+                (and:DI (reg:DI 116)
+                    (const_int 4095 [0xfff])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 46 45 47 6 (parallel [
+            (set (reg/f:DI 7 sp)
+                (minus:DI (reg/f:DI 7 sp)
+                    (reg:DI 120)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 47 46 48 6 (parallel [
+            (set (reg:DI 121)
+                (and:DI (reg:DI 116)
+                    (const_int 4095 [0xfff])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 48 47 49 6 (set (reg:CCZ 17 flags)
+        (compare:CCZ (reg:DI 121)
+            (const_int 0 [0]))) "schedule_demo.c":87:9 -1
+     (nil))
+(jump_insn 49 48 164 6 (set (pc)
+        (if_then_else (eq (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 55)
+            (pc))) "schedule_demo.c":87:9 -1
+     (nil)
+ -> 55)
+(note 164 49 50 7 [bb 7] NOTE_INSN_BASIC_BLOCK)
+(insn 50 164 51 7 (parallel [
+            (set (reg:DI 122)
+                (and:DI (reg:DI 116)
+                    (const_int 4095 [0xfff])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 51 50 52 7 (parallel [
+            (set (reg:DI 122)
+                (plus:DI (reg:DI 122)
+                    (const_int -8 [0xfffffffffffffff8])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 52 51 53 7 (parallel [
+            (set (reg/f:DI 123)
+                (plus:DI (reg/f:DI 7 sp)
+                    (reg:DI 122)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 53 52 54 7 (parallel [
+            (set (mem/v:DI (reg/f:DI 123) [0  S8 A8])
+                (unspec:DI [
+                        (const_int 0 [0])
+                    ] UNSPEC_PROBE_STACK))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 54 53 55 7 (unspec_volatile [
+            (const_int 0 [0])
+        ] UNSPECV_BLOCKAGE) "schedule_demo.c":87:9 -1
+     (nil))
+(code_label 55 54 165 8 36 (nil) [1 uses])
+(note 165 55 56 8 [bb 8] NOTE_INSN_BASIC_BLOCK)
+(insn 56 165 57 8 (set (reg:DI 117)
+        (reg/f:DI 78 virtual-stack-dynamic)) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 57 56 58 8 (parallel [
+            (set (reg:DI 124)
+                (plus:DI (reg:DI 117)
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 58 57 59 8 (parallel [
+            (set (reg:DI 125)
+                (lshiftrt:DI (reg:DI 124)
+                    (const_int 2 [0x2])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (expr_list:REG_EQUAL (udiv:DI (reg:DI 124)
+            (const_int 4 [0x4]))
+        (nil)))
+(insn 59 58 60 8 (parallel [
+            (set (reg/f:DI 126)
+                (ashift:DI (reg:DI 125)
+                    (const_int 2 [0x2])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 60 59 61 8 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [6 a.11+0 S8 A64])
+        (reg/f:DI 126)) "schedule_demo.c":87:9 -1
+     (nil))
+(insn 61 60 62 8 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -36 [0xffffffffffffffdc])) [1 i+0 S4 A32])
+        (const_int 0 [0])) "schedule_demo.c":88:14 -1
+     (nil))
+(jump_insn 62 61 63 8 (set (pc)
+        (label_ref 73)) "schedule_demo.c":88:5 -1
+     (nil)
+ -> 73)
+(barrier 63 62 75)
+(code_label 75 63 64 9 38 (nil) [1 uses])
+(note 64 75 65 9 [bb 9] NOTE_INSN_BASIC_BLOCK)
+(insn 65 64 66 9 (set (reg:SI 127)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -32 [0xffffffffffffffe0])) [1 m+0 S4 A32])) "schedule_demo.c":88:43 -1
+     (nil))
+(insn 66 65 67 9 (parallel [
+            (set (reg:SI 90 [ _14 ])
+                (minus:SI (reg:SI 127)
+                    (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -36 [0xffffffffffffffdc])) [1 i+0 S4 A32])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":88:43 -1
+     (expr_list:REG_EQUAL (minus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -32 [0xffffffffffffffe0])) [1 m+0 S4 A32])
+            (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -36 [0xffffffffffffffdc])) [1 i+0 S4 A32]))
+        (nil)))
+(insn 67 66 68 9 (parallel [
+            (set (reg:SI 91 [ _15 ])
+                (xor:SI (reg:SI 90 [ _14 ])
+                    (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -52 [0xffffffffffffffcc])) [1 iters+0 S4 A32])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":88:48 -1
+     (nil))
+(insn 68 67 69 9 (set (reg/f:DI 128)
+        (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [6 a.11+0 S8 A64])) "schedule_demo.c":88:38 -1
+     (nil))
+(insn 69 68 70 9 (set (reg:SI 130)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -36 [0xffffffffffffffdc])) [1 i+0 S4 A32])) "schedule_demo.c":88:38 -1
+     (nil))
+(insn 70 69 71 9 (set (reg:DI 129)
+        (sign_extend:DI (reg:SI 130))) "schedule_demo.c":88:38 -1
+     (nil))
+(insn 71 70 72 9 (set (mem:SI (plus:DI (mult:DI (reg:DI 129)
+                    (const_int 4 [0x4]))
+                (reg/f:DI 128)) [1 *a.11_37 S4 A32])
+        (reg:SI 91 [ _15 ])) "schedule_demo.c":88:38 -1
+     (nil))
+(insn 72 71 73 9 (parallel [
+            (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -36 [0xffffffffffffffdc])) [1 i+0 S4 A32])
+                (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -36 [0xffffffffffffffdc])) [1 i+0 S4 A32])
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":88:28 -1
+     (nil))
+(code_label 73 72 74 10 37 (nil) [1 uses])
+(note 74 73 76 10 [bb 10] NOTE_INSN_BASIC_BLOCK)
+(insn 76 74 77 10 (set (reg:SI 131)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -36 [0xffffffffffffffdc])) [1 i+0 S4 A32])) "schedule_demo.c":88:5 -1
+     (nil))
+(insn 77 76 78 10 (set (reg:CCGC 17 flags)
+        (compare:CCGC (reg:SI 131)
+            (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -32 [0xffffffffffffffe0])) [1 m+0 S4 A32]))) "schedule_demo.c":88:5 -1
+     (nil))
+(jump_insn 78 77 79 10 (set (pc)
+        (if_then_else (lt (reg:CCGC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 75)
+            (pc))) "schedule_demo.c":88:5 -1
+     (nil)
+ -> 75)
+(note 79 78 80 11 [bb 11] NOTE_INSN_BASIC_BLOCK)
+(insn 80 79 81 11 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -40 [0xffffffffffffffd8])) [1 r+0 S4 A32])
+        (const_int 0 [0])) "schedule_demo.c":89:14 -1
+     (nil))
+(jump_insn 81 80 82 11 (set (pc)
+        (label_ref 131)) "schedule_demo.c":89:5 -1
+     (nil)
+ -> 131)
+(barrier 82 81 133)
+(code_label 133 82 83 12 43 (nil) [1 uses])
+(note 83 133 84 12 [bb 12] NOTE_INSN_BASIC_BLOCK)
+(insn 84 83 85 12 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -44 [0xffffffffffffffd4])) [1 i+0 S4 A32])
+        (const_int 1 [0x1])) "schedule_demo.c":90:18 -1
+     (nil))
+(jump_insn 85 84 86 12 (set (pc)
+        (label_ref 123)) "schedule_demo.c":90:9 -1
+     (nil)
+ -> 123)
+(barrier 86 85 125)
+(code_label 125 86 87 13 42 (nil) [1 uses])
+(note 87 125 88 13 [bb 13] NOTE_INSN_BASIC_BLOCK)
+(insn 88 87 89 13 (set (reg/f:DI 132)
+        (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [6 a.11+0 S8 A64])) "schedule_demo.c":91:18 -1
+     (nil))
+(insn 89 88 90 13 (set (reg:SI 134)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -44 [0xffffffffffffffd4])) [1 i+0 S4 A32])) "schedule_demo.c":91:18 -1
+     (nil))
+(insn 90 89 91 13 (set (reg:DI 133)
+        (sign_extend:DI (reg:SI 134))) "schedule_demo.c":91:18 -1
+     (nil))
+(insn 91 90 92 13 (set (reg:SI 92 [ _16 ])
+        (mem:SI (plus:DI (mult:DI (reg:DI 133)
+                    (const_int 4 [0x4]))
+                (reg/f:DI 132)) [1 *a.11_37 S4 A32])) "schedule_demo.c":91:18 -1
+     (nil))
+(insn 92 91 93 13 (set (reg:SI 135)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -44 [0xffffffffffffffd4])) [1 i+0 S4 A32])) "schedule_demo.c":91:28 -1
+     (nil))
+(insn 93 92 94 13 (parallel [
+            (set (reg:SI 93 [ _17 ])
+                (plus:SI (reg:SI 135)
+                    (const_int -1 [0xffffffffffffffff])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":91:28 -1
+     (expr_list:REG_EQUAL (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -44 [0xffffffffffffffd4])) [1 i+0 S4 A32])
+            (const_int -1 [0xffffffffffffffff]))
+        (nil)))
+(insn 94 93 95 13 (set (reg/f:DI 136)
+        (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [6 a.11+0 S8 A64])) "schedule_demo.c":91:25 -1
+     (nil))
+(insn 95 94 96 13 (set (reg:DI 137)
+        (sign_extend:DI (reg:SI 93 [ _17 ]))) "schedule_demo.c":91:25 -1
+     (nil))
+(insn 96 95 97 13 (set (reg:SI 94 [ _18 ])
+        (mem:SI (plus:DI (mult:DI (reg:DI 137)
+                    (const_int 4 [0x4]))
+                (reg/f:DI 136)) [1 *a.11_37 S4 A32])) "schedule_demo.c":91:25 -1
+     (nil))
+(insn 97 96 98 13 (set (reg:CCGC 17 flags)
+        (compare:CCGC (reg:SI 92 [ _16 ])
+            (reg:SI 94 [ _18 ]))) "schedule_demo.c":91:16 -1
+     (nil))
+(jump_insn 98 97 99 13 (set (pc)
+        (if_then_else (ge (reg:CCGC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 120)
+            (pc))) "schedule_demo.c":91:16 -1
+     (nil)
+ -> 120)
+(note 99 98 100 14 [bb 14] NOTE_INSN_BASIC_BLOCK)
+(insn 100 99 101 14 (set (reg/f:DI 138)
+        (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [6 a.11+0 S8 A64])) "schedule_demo.c":92:21 -1
+     (nil))
+(insn 101 100 102 14 (set (reg:SI 140)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -44 [0xffffffffffffffd4])) [1 i+0 S4 A32])) "schedule_demo.c":92:21 -1
+     (nil))
+(insn 102 101 103 14 (set (reg:DI 139)
+        (sign_extend:DI (reg:SI 140))) "schedule_demo.c":92:21 -1
+     (nil))
+(insn 103 102 104 14 (set (reg:SI 141)
+        (mem:SI (plus:DI (mult:DI (reg:DI 139)
+                    (const_int 4 [0x4]))
+                (reg/f:DI 138)) [1 *a.11_37 S4 A32])) "schedule_demo.c":92:21 -1
+     (nil))
+(insn 104 103 105 14 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -28 [0xffffffffffffffe4])) [1 t+0 S4 A32])
+        (reg:SI 141)) "schedule_demo.c":92:21 -1
+     (nil))
+(insn 105 104 106 14 (set (reg:SI 142)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -44 [0xffffffffffffffd4])) [1 i+0 S4 A32])) "schedule_demo.c":92:42 -1
+     (nil))
+(insn 106 105 107 14 (parallel [
+            (set (reg:SI 95 [ _19 ])
+                (plus:SI (reg:SI 142)
+                    (const_int -1 [0xffffffffffffffff])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":92:42 -1
+     (expr_list:REG_EQUAL (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -44 [0xffffffffffffffd4])) [1 i+0 S4 A32])
+            (const_int -1 [0xffffffffffffffff]))
+        (nil)))
+(insn 107 106 108 14 (set (reg/f:DI 143)
+        (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [6 a.11+0 S8 A64])) "schedule_demo.c":92:39 -1
+     (nil))
+(insn 108 107 109 14 (set (reg:DI 144)
+        (sign_extend:DI (reg:SI 95 [ _19 ]))) "schedule_demo.c":92:39 -1
+     (nil))
+(insn 109 108 110 14 (set (reg:SI 96 [ _20 ])
+        (mem:SI (plus:DI (mult:DI (reg:DI 144)
+                    (const_int 4 [0x4]))
+                (reg/f:DI 143)) [1 *a.11_37 S4 A32])) "schedule_demo.c":92:39 -1
+     (nil))
+(insn 110 109 111 14 (set (reg/f:DI 145)
+        (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [6 a.11+0 S8 A64])) "schedule_demo.c":92:36 -1
+     (nil))
+(insn 111 110 112 14 (set (reg:SI 147)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -44 [0xffffffffffffffd4])) [1 i+0 S4 A32])) "schedule_demo.c":92:36 -1
+     (nil))
+(insn 112 111 113 14 (set (reg:DI 146)
+        (sign_extend:DI (reg:SI 147))) "schedule_demo.c":92:36 -1
+     (nil))
+(insn 113 112 114 14 (set (mem:SI (plus:DI (mult:DI (reg:DI 146)
+                    (const_int 4 [0x4]))
+                (reg/f:DI 145)) [1 *a.11_37 S4 A32])
+        (reg:SI 96 [ _20 ])) "schedule_demo.c":92:36 -1
+     (nil))
+(insn 114 113 115 14 (set (reg:SI 148)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -44 [0xffffffffffffffd4])) [1 i+0 S4 A32])) "schedule_demo.c":92:52 -1
+     (nil))
+(insn 115 114 116 14 (parallel [
+            (set (reg:SI 97 [ _21 ])
+                (plus:SI (reg:SI 148)
+                    (const_int -1 [0xffffffffffffffff])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":92:52 -1
+     (expr_list:REG_EQUAL (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -44 [0xffffffffffffffd4])) [1 i+0 S4 A32])
+            (const_int -1 [0xffffffffffffffff]))
+        (nil)))
+(insn 116 115 117 14 (set (reg/f:DI 149)
+        (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [6 a.11+0 S8 A64])) "schedule_demo.c":92:57 -1
+     (nil))
+(insn 117 116 118 14 (set (reg:DI 150)
+        (sign_extend:DI (reg:SI 97 [ _21 ]))) "schedule_demo.c":92:57 -1
+     (nil))
+(insn 118 117 119 14 (set (reg:SI 151)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -28 [0xffffffffffffffe4])) [1 t+0 S4 A32])) "schedule_demo.c":92:57 -1
+     (nil))
+(insn 119 118 120 14 (set (mem:SI (plus:DI (mult:DI (reg:DI 150)
+                    (const_int 4 [0x4]))
+                (reg/f:DI 149)) [1 *a.11_37 S4 A32])
+        (reg:SI 151)) "schedule_demo.c":92:57 -1
+     (nil))
+(code_label 120 119 121 15 41 (nil) [1 uses])
+(note 121 120 122 15 [bb 15] NOTE_INSN_BASIC_BLOCK)
+(insn 122 121 123 15 (parallel [
+            (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -44 [0xffffffffffffffd4])) [1 i+0 S4 A32])
+                (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -44 [0xffffffffffffffd4])) [1 i+0 S4 A32])
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":90:32 -1
+     (nil))
+(code_label 123 122 124 16 40 (nil) [1 uses])
+(note 124 123 126 16 [bb 16] NOTE_INSN_BASIC_BLOCK)
+(insn 126 124 127 16 (set (reg:SI 152)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -44 [0xffffffffffffffd4])) [1 i+0 S4 A32])) "schedule_demo.c":90:9 -1
+     (nil))
+(insn 127 126 128 16 (set (reg:CCGC 17 flags)
+        (compare:CCGC (reg:SI 152)
+            (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -32 [0xffffffffffffffe0])) [1 m+0 S4 A32]))) "schedule_demo.c":90:9 -1
+     (nil))
+(jump_insn 128 127 129 16 (set (pc)
+        (if_then_else (lt (reg:CCGC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 125)
+            (pc))) "schedule_demo.c":90:9 -1
+     (nil)
+ -> 125)
+(note 129 128 130 17 [bb 17] NOTE_INSN_BASIC_BLOCK)
+(insn 130 129 131 17 (parallel [
+            (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -40 [0xffffffffffffffd8])) [1 r+0 S4 A32])
+                (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -40 [0xffffffffffffffd8])) [1 r+0 S4 A32])
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":89:28 -1
+     (nil))
+(code_label 131 130 132 18 39 (nil) [1 uses])
+(note 132 131 134 18 [bb 18] NOTE_INSN_BASIC_BLOCK)
+(insn 134 132 135 18 (set (reg:SI 153)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -40 [0xffffffffffffffd8])) [1 r+0 S4 A32])) "schedule_demo.c":89:5 -1
+     (nil))
+(insn 135 134 136 18 (set (reg:CCGC 17 flags)
+        (compare:CCGC (reg:SI 153)
+            (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -32 [0xffffffffffffffe0])) [1 m+0 S4 A32]))) "schedule_demo.c":89:5 -1
+     (nil))
+(jump_insn 136 135 137 18 (set (pc)
+        (if_then_else (lt (reg:CCGC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 133)
+            (pc))) "schedule_demo.c":89:5 -1
+     (nil)
+ -> 133)
+(note 137 136 138 19 [bb 19] NOTE_INSN_BASIC_BLOCK)
+(insn 138 137 139 19 (set (reg/f:DI 154)
+        (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [6 a.11+0 S8 A64])) "schedule_demo.c":96:10 -1
+     (nil))
+(insn 139 138 140 19 (set (reg:SI 98 [ _22 ])
+        (mem:SI (reg/f:DI 154) [1 *a.11_37+0 S4 A32])) "schedule_demo.c":96:10 -1
+     (nil))
+(insn 140 139 141 19 (set (reg:CCZ 17 flags)
+        (compare:CCZ (reg:SI 98 [ _22 ])
+            (const_int 1365 [0x555]))) "schedule_demo.c":96:8 -1
+     (nil))
+(jump_insn 141 140 142 19 (set (pc)
+        (if_then_else (ne (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 149)
+            (pc))) "schedule_demo.c":96:8 -1
+     (nil)
+ -> 149)
+(note 142 141 143 20 [bb 20] NOTE_INSN_BASIC_BLOCK)
+(insn 143 142 144 20 (set (reg/f:DI 155)
+        (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [6 a.11+0 S8 A64])) "schedule_demo.c":96:24 -1
+     (nil))
+(insn 144 143 145 20 (set (reg:SI 99 [ _23 ])
+        (mem:SI (reg/f:DI 155) [1 *a.11_37+0 S4 A32])) "schedule_demo.c":96:24 -1
+     (nil))
+(insn 145 144 146 20 (set (reg:SI 4 si)
+        (reg:SI 99 [ _23 ])) "schedule_demo.c":96:24 -1
+     (nil))
+(insn 146 145 147 20 (set (reg:DI 5 di)
+        (symbol_ref/f:DI ("*.LC3") [flags 0x2]  <var_decl 0x7fea7aa36990 *.LC3>)) "schedule_demo.c":96:24 -1
+     (nil))
+(insn 147 146 148 20 (set (reg:QI 0 ax)
+        (const_int 0 [0])) "schedule_demo.c":96:24 -1
+     (nil))
+(call_insn 148 147 149 20 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("printf") [flags 0x41]  <function_decl 0x7fea7abf5a00 printf>) [0 __builtin_printf S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":96:24 -1
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:SI (use (reg:SI 4 si))
+                (nil)))))
+(code_label 149 148 150 21 44 (nil) [1 uses])
+(note 150 149 151 21 [bb 21] NOTE_INSN_BASIC_BLOCK)
+(insn 151 150 152 21 (clobber (mem:BLK (scratch) [0  A8])) -1
+     (nil))
+(insn 152 151 153 21 (clobber (mem:BLK (reg/f:DI 7 sp) [0  A8])) -1
+     (nil))
+(insn 153 152 168 21 (set (reg/f:DI 7 sp)
+        (reg/f:DI 100 [ saved_stack.12_29 ])) -1
+     (expr_list:REG_ARGS_SIZE (const_int 0 [0])
+        (nil)))
+(insn 168 153 155 21 (const_int 0 [0]) "schedule_demo.c":97:1 -1
+     (nil))
+(insn 155 168 156 21 (parallel [
+            (set (reg:CCZ 17 flags)
+                (unspec:CCZ [
+                        (mem/v/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                                (const_int -8 [0xfffffffffffffff8])) [3 D.4624+0 S8 A64])
+                        (mem/v/f:DI (const_int 40 [0x28]) [0 MEM[(<address-space-1> long unsigned int *)40B]+0 S8 A64 AS1])
+                    ] UNSPEC_SP_TEST))
+            (clobber (scratch:DI))
+        ]) "schedule_demo.c":97:1 -1
+     (nil))
+(jump_insn 156 155 166 21 (set (pc)
+        (if_then_else (eq (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 159)
+            (pc))) "schedule_demo.c":97:1 -1
+     (nil)
+ -> 159)
+(note 166 156 157 23 [bb 23] NOTE_INSN_BASIC_BLOCK)
+(call_insn 157 166 158 23 (call (mem:QI (symbol_ref:DI ("__stack_chk_fail") [flags 0x41]  <function_decl 0x7fea7aa13c00 __stack_chk_fail>) [0 __stack_chk_fail S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":97:1 -1
+     (expr_list:REG_ARGS_SIZE (const_int 0 [0])
+        (expr_list:REG_NORETURN (const_int 0 [0])
+            (expr_list:REG_EH_REGION (const_int 0 [0])
+                (nil))))
+    (nil))
+(barrier 158 157 159)
+(code_label 159 158 167 24 45 (nil) [1 uses])
+(note 167 159 0 24 [bb 24] NOTE_INSN_BASIC_BLOCK)
+
+;; Function io_sim (io_sim, funcdef_no=13, decl_uid=4511, cgraph_uid=14, symbol_order=21)
+
+Partition 0: size 4 align 4
+	i_2
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+;; Generating RTL for gimple basic block 4
+
+;; Generating RTL for gimple basic block 5
+
+;; Generating RTL for gimple basic block 6
+
+;; Generating RTL for gimple basic block 7
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Forwarding edge 7->8 to 9 failed.
+Merging block 9 into block 8...
+Merged blocks 8 and 9.
+Merged 8 and 9 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -20 [0xffffffffffffffec])) [1 iters+0 S4 A32])
+        (reg:SI 5 di [ iters ])) "schedule_demo.c":99:31 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [1 i+0 S4 A32])
+        (const_int 0 [0])) "schedule_demo.c":101:14 -1
+     (nil))
+(jump_insn 7 6 8 2 (set (pc)
+        (label_ref 20)) "schedule_demo.c":101:5 -1
+     (nil)
+ -> 20)
+(barrier 8 7 22)
+(code_label 22 8 9 4 49 (nil) [1 uses])
+(note 9 22 10 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
+(insn 10 9 11 4 (set (reg:SI 83)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [1 i+0 S4 A32])) "schedule_demo.c":102:16 -1
+     (nil))
+(insn 11 10 12 4 (parallel [
+            (set (reg:SI 82 [ _1 ])
+                (and:SI (reg:SI 83)
+                    (const_int 4194303 [0x3fffff])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":102:16 -1
+     (expr_list:REG_EQUAL (and:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -4 [0xfffffffffffffffc])) [1 i+0 S4 A32])
+            (const_int 4194303 [0x3fffff]))
+        (nil)))
+(insn 12 11 13 4 (set (reg:CCZ 17 flags)
+        (compare:CCZ (reg:SI 82 [ _1 ])
+            (const_int 0 [0]))) "schedule_demo.c":102:12 -1
+     (nil))
+(jump_insn 13 12 14 4 (set (pc)
+        (if_then_else (ne (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 17)
+            (pc))) "schedule_demo.c":102:12 -1
+     (nil)
+ -> 17)
+(note 14 13 15 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
+(insn 15 14 16 5 (set (reg:SI 5 di)
+        (const_int 10 [0xa])) "schedule_demo.c":102:34 -1
+     (nil))
+(call_insn 16 15 17 5 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("usleep") [flags 0x41]  <function_decl 0x7fea7a98d900 usleep>) [0 usleep S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":102:34 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(code_label 17 16 18 6 48 (nil) [1 uses])
+(note 18 17 19 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
+(insn 19 18 20 6 (parallel [
+            (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -4 [0xfffffffffffffffc])) [1 i+0 S4 A32])
+                (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -4 [0xfffffffffffffffc])) [1 i+0 S4 A32])
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":101:32 -1
+     (nil))
+(code_label 20 19 21 7 47 (nil) [1 uses])
+(note 21 20 23 7 [bb 7] NOTE_INSN_BASIC_BLOCK)
+(insn 23 21 24 7 (set (reg:SI 84)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [1 i+0 S4 A32])) "schedule_demo.c":101:5 -1
+     (nil))
+(insn 24 23 25 7 (set (reg:CCGC 17 flags)
+        (compare:CCGC (reg:SI 84)
+            (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -20 [0xffffffffffffffec])) [1 iters+0 S4 A32]))) "schedule_demo.c":101:5 -1
+     (nil))
+(jump_insn 25 24 26 7 (set (pc)
+        (if_then_else (lt (reg:CCGC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 22)
+            (pc))) "schedule_demo.c":101:5 -1
+     (nil)
+ -> 22)
+(note 26 25 0 8 [bb 8] NOTE_INSN_BASIC_BLOCK)
+
+;; Function worker_a (worker_a, funcdef_no=14, decl_uid=4518, cgraph_uid=15, symbol_order=22)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 47.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [3 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "schedule_demo.c":107:34 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:SI 5 di)
+        (const_int 0 [0])) "schedule_demo.c":109:5 -1
+     (nil))
+(call_insn 7 6 8 2 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pick_core") [flags 0x3]  <function_decl 0x7fea7a9cdf00 pick_core>) [0 pick_core S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":109:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 8 7 9 2 (set (reg:SI 82 [ _1 ])
+        (reg:SI 0 ax)) "schedule_demo.c":109:5 -1
+     (nil))
+(insn 9 8 10 2 (set (reg:SI 5 di)
+        (reg:SI 82 [ _1 ])) "schedule_demo.c":109:5 -1
+     (nil))
+(call_insn 10 9 11 2 (call (mem:QI (symbol_ref:DI ("bind_core") [flags 0x3]  <function_decl 0x7fea7a9d3000 bind_core>) [0 bind_core S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":109:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 11 10 14 2 (set (reg:SI 83 [ work_iters.13_2 ])
+        (const_int 80000000 [0x4c4b400])) "schedule_demo.c":110:5 -1
+     (nil))
+(insn 14 11 15 2 (parallel [
+            (set (reg:SI 91)
+                (lshiftrt:SI (reg:SI 83 [ work_iters.13_2 ])
+                    (const_int 31 [0x1f])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":110:5 -1
+     (nil))
+(insn 15 14 16 2 (parallel [
+            (set (reg:SI 92)
+                (plus:SI (reg:SI 91)
+                    (reg:SI 83 [ work_iters.13_2 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":110:5 -1
+     (nil))
+(insn 16 15 17 2 (parallel [
+            (set (reg:SI 93)
+                (ashiftrt:SI (reg:SI 92)
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":110:5 -1
+     (expr_list:REG_EQUAL (div:SI (reg:SI 83 [ work_iters.13_2 ])
+            (const_int 2 [0x2]))
+        (nil)))
+(insn 17 16 18 2 (set (reg:SI 84 [ _3 ])
+        (reg:SI 93)) "schedule_demo.c":110:5 -1
+     (nil))
+(insn 18 17 19 2 (set (reg:DI 4 si)
+        (const_int 4369 [0x1111])) "schedule_demo.c":110:5 -1
+     (nil))
+(insn 19 18 20 2 (set (reg:SI 5 di)
+        (reg:SI 84 [ _3 ])) "schedule_demo.c":110:5 -1
+     (nil))
+(call_insn 20 19 21 2 (call (mem:QI (symbol_ref:DI ("compute_loop") [flags 0x3]  <function_decl 0x7fea7a9d3400 compute_loop>) [0 compute_loop S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":110:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 21 20 22 2 (set (reg:SI 85 [ work_iters.14_4 ])
+        (const_int 80000000 [0x4c4b400])) "schedule_demo.c":111:5 -1
+     (nil))
+(insn 22 21 23 2 (set (reg:SI 94)
+        (reg:SI 85 [ work_iters.14_4 ])) "schedule_demo.c":111:5 -1
+     (nil))
+(insn 23 22 26 2 (parallel [
+            (set (reg:SI 95)
+                (plus:SI (reg:SI 94)
+                    (const_int 7 [0x7])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":111:5 -1
+     (nil))
+(insn 26 23 27 2 (set (reg:CCGOC 17 flags)
+        (compare:CCGOC (reg:SI 94)
+            (const_int 0 [0]))) "schedule_demo.c":111:5 -1
+     (nil))
+(insn 27 26 28 2 (set (reg:SI 94)
+        (if_then_else:SI (lt (reg:CCGOC 17 flags)
+                (const_int 0 [0]))
+            (reg:SI 95)
+            (reg:SI 94))) "schedule_demo.c":111:5 -1
+     (nil))
+(insn 28 27 29 2 (parallel [
+            (set (reg:SI 96)
+                (ashiftrt:SI (reg:SI 94)
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":111:5 -1
+     (expr_list:REG_EQUAL (div:SI (reg:SI 85 [ work_iters.14_4 ])
+            (const_int 8 [0x8]))
+        (nil)))
+(insn 29 28 30 2 (set (reg:SI 86 [ _5 ])
+        (reg:SI 96)) "schedule_demo.c":111:5 -1
+     (nil))
+(insn 30 29 31 2 (set (reg:SI 5 di)
+        (reg:SI 86 [ _5 ])) "schedule_demo.c":111:5 -1
+     (nil))
+(call_insn 31 30 32 2 (call (mem:QI (symbol_ref:DI ("memory_walk") [flags 0x3]  <function_decl 0x7fea7a9d3600 memory_walk>) [0 memory_walk S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":111:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 32 31 33 2 (set (reg:SI 87 [ work_iters.15_6 ])
+        (const_int 80000000 [0x4c4b400])) "schedule_demo.c":112:5 -1
+     (nil))
+(insn 33 32 34 2 (set (reg:SI 97)
+        (reg:SI 87 [ work_iters.15_6 ])) "schedule_demo.c":112:5 -1
+     (nil))
+(insn 34 33 37 2 (parallel [
+            (set (reg:SI 98)
+                (plus:SI (reg:SI 97)
+                    (const_int 31 [0x1f])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":112:5 -1
+     (nil))
+(insn 37 34 38 2 (set (reg:CCGOC 17 flags)
+        (compare:CCGOC (reg:SI 97)
+            (const_int 0 [0]))) "schedule_demo.c":112:5 -1
+     (nil))
+(insn 38 37 39 2 (set (reg:SI 97)
+        (if_then_else:SI (lt (reg:CCGOC 17 flags)
+                (const_int 0 [0]))
+            (reg:SI 98)
+            (reg:SI 97))) "schedule_demo.c":112:5 -1
+     (nil))
+(insn 39 38 40 2 (parallel [
+            (set (reg:SI 99)
+                (ashiftrt:SI (reg:SI 97)
+                    (const_int 5 [0x5])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":112:5 -1
+     (expr_list:REG_EQUAL (div:SI (reg:SI 87 [ work_iters.15_6 ])
+            (const_int 32 [0x20]))
+        (nil)))
+(insn 40 39 41 2 (set (reg:SI 88 [ _7 ])
+        (reg:SI 99)) "schedule_demo.c":112:5 -1
+     (nil))
+(insn 41 40 42 2 (set (reg:SI 5 di)
+        (reg:SI 88 [ _7 ])) "schedule_demo.c":112:5 -1
+     (nil))
+(call_insn 42 41 43 2 (call (mem:QI (symbol_ref:DI ("small_math") [flags 0x3]  <function_decl 0x7fea7a9d3a00 small_math>) [0 small_math S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":112:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 43 42 46 2 (set (reg/f:DI 89 [ _14 ])
+        (const_int 0 [0])) "schedule_demo.c":113:12 -1
+     (nil))
+(insn 46 43 50 2 (set (reg/f:DI 90 [ <retval> ])
+        (reg/f:DI 89 [ _14 ])) "schedule_demo.c":113:12 -1
+     (nil))
+(insn 50 46 51 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 90 [ <retval> ])) "schedule_demo.c":114:1 -1
+     (nil))
+(insn 51 50 0 2 (use (reg/i:DI 0 ax)) "schedule_demo.c":114:1 -1
+     (nil))
+
+;; Function worker_b (worker_b, funcdef_no=15, decl_uid=4521, cgraph_uid=16, symbol_order=23)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 34.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [3 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "schedule_demo.c":116:34 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:SI 5 di)
+        (const_int 1 [0x1])) "schedule_demo.c":118:5 -1
+     (nil))
+(call_insn 7 6 8 2 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pick_core") [flags 0x3]  <function_decl 0x7fea7a9cdf00 pick_core>) [0 pick_core S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":118:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 8 7 9 2 (set (reg:SI 82 [ _1 ])
+        (reg:SI 0 ax)) "schedule_demo.c":118:5 -1
+     (nil))
+(insn 9 8 10 2 (set (reg:SI 5 di)
+        (reg:SI 82 [ _1 ])) "schedule_demo.c":118:5 -1
+     (nil))
+(call_insn 10 9 11 2 (call (mem:QI (symbol_ref:DI ("bind_core") [flags 0x3]  <function_decl 0x7fea7a9d3000 bind_core>) [0 bind_core S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":118:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 11 10 12 2 (set (reg:SI 83 [ work_iters.16_2 ])
+        (const_int 80000000 [0x4c4b400])) "schedule_demo.c":119:5 -1
+     (nil))
+(insn 12 11 13 2 (set (reg:DI 89)
+        (sign_extend:DI (reg:SI 83 [ work_iters.16_2 ]))) "schedule_demo.c":119:5 -1
+     (nil))
+(insn 13 12 14 2 (parallel [
+            (set (reg:DI 90)
+                (mult:DI (reg:DI 89)
+                    (const_int 715827883 [0x2aaaaaab])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":119:5 -1
+     (nil))
+(insn 14 13 15 2 (parallel [
+            (set (reg:DI 91)
+                (lshiftrt:DI (reg:DI 90)
+                    (const_int 32 [0x20])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":119:5 -1
+     (nil))
+(insn 15 14 16 2 (parallel [
+            (set (reg:SI 92)
+                (ashiftrt:SI (reg:SI 83 [ work_iters.16_2 ])
+                    (const_int 31 [0x1f])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":119:5 -1
+     (nil))
+(insn 16 15 17 2 (parallel [
+            (set (reg:SI 84 [ _3 ])
+                (minus:SI (subreg:SI (reg:DI 91) 0)
+                    (reg:SI 92)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":119:5 -1
+     (expr_list:REG_EQUAL (div:SI (reg:SI 83 [ work_iters.16_2 ])
+            (const_int 6 [0x6]))
+        (nil)))
+(insn 17 16 18 2 (set (reg:SI 5 di)
+        (reg:SI 84 [ _3 ])) "schedule_demo.c":119:5 -1
+     (nil))
+(call_insn 18 17 19 2 (call (mem:QI (symbol_ref:DI ("memory_walk") [flags 0x3]  <function_decl 0x7fea7a9d3600 memory_walk>) [0 memory_walk S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":119:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 19 18 20 2 (set (reg:SI 85 [ work_iters.17_4 ])
+        (const_int 80000000 [0x4c4b400])) "schedule_demo.c":120:5 -1
+     (nil))
+(insn 20 19 21 2 (set (reg:DI 93)
+        (sign_extend:DI (reg:SI 85 [ work_iters.17_4 ]))) "schedule_demo.c":120:5 -1
+     (nil))
+(insn 21 20 22 2 (parallel [
+            (set (reg:DI 94)
+                (mult:DI (reg:DI 93)
+                    (const_int 1431655766 [0x55555556])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":120:5 -1
+     (nil))
+(insn 22 21 23 2 (parallel [
+            (set (reg:DI 95)
+                (lshiftrt:DI (reg:DI 94)
+                    (const_int 32 [0x20])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":120:5 -1
+     (nil))
+(insn 23 22 24 2 (parallel [
+            (set (reg:SI 96)
+                (ashiftrt:SI (reg:SI 85 [ work_iters.17_4 ])
+                    (const_int 31 [0x1f])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":120:5 -1
+     (nil))
+(insn 24 23 25 2 (parallel [
+            (set (reg:SI 86 [ _5 ])
+                (minus:SI (subreg:SI (reg:DI 95) 0)
+                    (reg:SI 96)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":120:5 -1
+     (expr_list:REG_EQUAL (div:SI (reg:SI 85 [ work_iters.17_4 ])
+            (const_int 3 [0x3]))
+        (nil)))
+(insn 25 24 26 2 (set (reg:DI 4 si)
+        (const_int 8738 [0x2222])) "schedule_demo.c":120:5 -1
+     (nil))
+(insn 26 25 27 2 (set (reg:SI 5 di)
+        (reg:SI 86 [ _5 ])) "schedule_demo.c":120:5 -1
+     (nil))
+(call_insn 27 26 28 2 (call (mem:QI (symbol_ref:DI ("compute_loop") [flags 0x3]  <function_decl 0x7fea7a9d3400 compute_loop>) [0 compute_loop S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":120:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 28 27 29 2 (set (reg:SI 5 di)
+        (const_int 1 [0x1])) "schedule_demo.c":121:5 -1
+     (nil))
+(call_insn 29 28 30 2 (call (mem:QI (symbol_ref:DI ("sort_tiny") [flags 0x3]  <function_decl 0x7fea7a9d3c00 sort_tiny>) [0 sort_tiny S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":121:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 30 29 33 2 (set (reg/f:DI 87 [ _12 ])
+        (const_int 0 [0])) "schedule_demo.c":122:12 -1
+     (nil))
+(insn 33 30 37 2 (set (reg/f:DI 88 [ <retval> ])
+        (reg/f:DI 87 [ _12 ])) "schedule_demo.c":122:12 -1
+     (nil))
+(insn 37 33 38 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 88 [ <retval> ])) "schedule_demo.c":123:1 -1
+     (nil))
+(insn 38 37 0 2 (use (reg/i:DI 0 ax)) "schedule_demo.c":123:1 -1
+     (nil))
+
+;; Function worker_c (worker_c, funcdef_no=16, decl_uid=4524, cgraph_uid=17, symbol_order=24)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 45.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [3 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "schedule_demo.c":125:34 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:SI 5 di)
+        (const_int 2 [0x2])) "schedule_demo.c":127:5 -1
+     (nil))
+(call_insn 7 6 8 2 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pick_core") [flags 0x3]  <function_decl 0x7fea7a9cdf00 pick_core>) [0 pick_core S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":127:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 8 7 9 2 (set (reg:SI 82 [ _1 ])
+        (reg:SI 0 ax)) "schedule_demo.c":127:5 -1
+     (nil))
+(insn 9 8 10 2 (set (reg:SI 5 di)
+        (reg:SI 82 [ _1 ])) "schedule_demo.c":127:5 -1
+     (nil))
+(call_insn 10 9 11 2 (call (mem:QI (symbol_ref:DI ("bind_core") [flags 0x3]  <function_decl 0x7fea7a9d3000 bind_core>) [0 bind_core S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":127:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 11 10 12 2 (set (reg:SI 83 [ work_iters.18_2 ])
+        (const_int 80000000 [0x4c4b400])) "schedule_demo.c":128:5 -1
+     (nil))
+(insn 12 11 13 2 (set (reg:DI 91)
+        (sign_extend:DI (reg:SI 83 [ work_iters.18_2 ]))) "schedule_demo.c":128:5 -1
+     (nil))
+(insn 13 12 14 2 (parallel [
+            (set (reg:DI 92)
+                (mult:DI (reg:DI 91)
+                    (const_int 715827883 [0x2aaaaaab])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":128:5 -1
+     (nil))
+(insn 14 13 15 2 (parallel [
+            (set (reg:DI 93)
+                (lshiftrt:DI (reg:DI 92)
+                    (const_int 32 [0x20])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":128:5 -1
+     (nil))
+(insn 15 14 16 2 (parallel [
+            (set (reg:SI 94)
+                (ashiftrt:SI (subreg:SI (reg:DI 93) 0)
+                    (const_int 2 [0x2])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":128:5 -1
+     (nil))
+(insn 16 15 17 2 (parallel [
+            (set (reg:SI 95)
+                (ashiftrt:SI (reg:SI 83 [ work_iters.18_2 ])
+                    (const_int 31 [0x1f])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":128:5 -1
+     (nil))
+(insn 17 16 18 2 (parallel [
+            (set (reg:SI 84 [ _3 ])
+                (minus:SI (reg:SI 94)
+                    (reg:SI 95)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":128:5 -1
+     (expr_list:REG_EQUAL (div:SI (reg:SI 83 [ work_iters.18_2 ])
+            (const_int 24 [0x18]))
+        (nil)))
+(insn 18 17 19 2 (set (reg:SI 5 di)
+        (reg:SI 84 [ _3 ])) "schedule_demo.c":128:5 -1
+     (nil))
+(call_insn 19 18 20 2 (call (mem:QI (symbol_ref:DI ("small_math") [flags 0x3]  <function_decl 0x7fea7a9d3a00 small_math>) [0 small_math S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":128:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 20 19 23 2 (set (reg:SI 85 [ work_iters.19_4 ])
+        (const_int 80000000 [0x4c4b400])) "schedule_demo.c":129:5 -1
+     (nil))
+(insn 23 20 24 2 (parallel [
+            (set (reg:SI 96)
+                (lshiftrt:SI (reg:SI 85 [ work_iters.19_4 ])
+                    (const_int 31 [0x1f])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":129:5 -1
+     (nil))
+(insn 24 23 25 2 (parallel [
+            (set (reg:SI 97)
+                (plus:SI (reg:SI 96)
+                    (reg:SI 85 [ work_iters.19_4 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":129:5 -1
+     (nil))
+(insn 25 24 26 2 (parallel [
+            (set (reg:SI 98)
+                (ashiftrt:SI (reg:SI 97)
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":129:5 -1
+     (expr_list:REG_EQUAL (div:SI (reg:SI 85 [ work_iters.19_4 ])
+            (const_int 2 [0x2]))
+        (nil)))
+(insn 26 25 27 2 (set (reg:SI 86 [ _5 ])
+        (reg:SI 98)) "schedule_demo.c":129:5 -1
+     (nil))
+(insn 27 26 28 2 (set (reg:DI 4 si)
+        (const_int 13107 [0x3333])) "schedule_demo.c":129:5 -1
+     (nil))
+(insn 28 27 29 2 (set (reg:SI 5 di)
+        (reg:SI 86 [ _5 ])) "schedule_demo.c":129:5 -1
+     (nil))
+(call_insn 29 28 30 2 (call (mem:QI (symbol_ref:DI ("compute_loop") [flags 0x3]  <function_decl 0x7fea7a9d3400 compute_loop>) [0 compute_loop S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":129:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 30 29 31 2 (set (reg:SI 87 [ work_iters.20_6 ])
+        (const_int 80000000 [0x4c4b400])) "schedule_demo.c":130:5 -1
+     (nil))
+(insn 31 30 32 2 (set (reg:SI 99)
+        (reg:SI 87 [ work_iters.20_6 ])) "schedule_demo.c":130:5 -1
+     (nil))
+(insn 32 31 35 2 (parallel [
+            (set (reg:SI 100)
+                (plus:SI (reg:SI 99)
+                    (const_int 15 [0xf])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":130:5 -1
+     (nil))
+(insn 35 32 36 2 (set (reg:CCGOC 17 flags)
+        (compare:CCGOC (reg:SI 99)
+            (const_int 0 [0]))) "schedule_demo.c":130:5 -1
+     (nil))
+(insn 36 35 37 2 (set (reg:SI 99)
+        (if_then_else:SI (lt (reg:CCGOC 17 flags)
+                (const_int 0 [0]))
+            (reg:SI 100)
+            (reg:SI 99))) "schedule_demo.c":130:5 -1
+     (nil))
+(insn 37 36 38 2 (parallel [
+            (set (reg:SI 101)
+                (ashiftrt:SI (reg:SI 99)
+                    (const_int 4 [0x4])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":130:5 -1
+     (expr_list:REG_EQUAL (div:SI (reg:SI 87 [ work_iters.20_6 ])
+            (const_int 16 [0x10]))
+        (nil)))
+(insn 38 37 39 2 (set (reg:SI 88 [ _7 ])
+        (reg:SI 101)) "schedule_demo.c":130:5 -1
+     (nil))
+(insn 39 38 40 2 (set (reg:SI 5 di)
+        (reg:SI 88 [ _7 ])) "schedule_demo.c":130:5 -1
+     (nil))
+(call_insn 40 39 41 2 (call (mem:QI (symbol_ref:DI ("io_sim") [flags 0x3]  <function_decl 0x7fea7a9d3e00 io_sim>) [0 io_sim S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":130:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 41 40 44 2 (set (reg/f:DI 89 [ _14 ])
+        (const_int 0 [0])) "schedule_demo.c":131:12 -1
+     (nil))
+(insn 44 41 48 2 (set (reg/f:DI 90 [ <retval> ])
+        (reg/f:DI 89 [ _14 ])) "schedule_demo.c":131:12 -1
+     (nil))
+(insn 48 44 49 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 90 [ <retval> ])) "schedule_demo.c":132:1 -1
+     (nil))
+(insn 49 48 0 2 (use (reg/i:DI 0 ax)) "schedule_demo.c":132:1 -1
+     (nil))
+
+;; Function worker_d (worker_d, funcdef_no=17, decl_uid=4527, cgraph_uid=18, symbol_order=25)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 38.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [3 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "schedule_demo.c":134:34 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:SI 5 di)
+        (const_int 3 [0x3])) "schedule_demo.c":136:5 -1
+     (nil))
+(call_insn 7 6 8 2 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pick_core") [flags 0x3]  <function_decl 0x7fea7a9cdf00 pick_core>) [0 pick_core S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":136:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 8 7 9 2 (set (reg:SI 82 [ _1 ])
+        (reg:SI 0 ax)) "schedule_demo.c":136:5 -1
+     (nil))
+(insn 9 8 10 2 (set (reg:SI 5 di)
+        (reg:SI 82 [ _1 ])) "schedule_demo.c":136:5 -1
+     (nil))
+(call_insn 10 9 11 2 (call (mem:QI (symbol_ref:DI ("bind_core") [flags 0x3]  <function_decl 0x7fea7a9d3000 bind_core>) [0 bind_core S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":136:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 11 10 12 2 (set (reg:SI 83 [ work_iters.21_2 ])
+        (const_int 80000000 [0x4c4b400])) "schedule_demo.c":137:5 -1
+     (nil))
+(insn 12 11 13 2 (set (reg:SI 89)
+        (reg:SI 83 [ work_iters.21_2 ])) "schedule_demo.c":137:5 -1
+     (nil))
+(insn 13 12 16 2 (parallel [
+            (set (reg:SI 90)
+                (plus:SI (reg:SI 89)
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":137:5 -1
+     (nil))
+(insn 16 13 17 2 (set (reg:CCGOC 17 flags)
+        (compare:CCGOC (reg:SI 89)
+            (const_int 0 [0]))) "schedule_demo.c":137:5 -1
+     (nil))
+(insn 17 16 18 2 (set (reg:SI 89)
+        (if_then_else:SI (lt (reg:CCGOC 17 flags)
+                (const_int 0 [0]))
+            (reg:SI 90)
+            (reg:SI 89))) "schedule_demo.c":137:5 -1
+     (nil))
+(insn 18 17 19 2 (parallel [
+            (set (reg:SI 91)
+                (ashiftrt:SI (reg:SI 89)
+                    (const_int 2 [0x2])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":137:5 -1
+     (expr_list:REG_EQUAL (div:SI (reg:SI 83 [ work_iters.21_2 ])
+            (const_int 4 [0x4]))
+        (nil)))
+(insn 19 18 20 2 (set (reg:SI 84 [ _3 ])
+        (reg:SI 91)) "schedule_demo.c":137:5 -1
+     (nil))
+(insn 20 19 21 2 (set (reg:DI 4 si)
+        (const_int 17476 [0x4444])) "schedule_demo.c":137:5 -1
+     (nil))
+(insn 21 20 22 2 (set (reg:SI 5 di)
+        (reg:SI 84 [ _3 ])) "schedule_demo.c":137:5 -1
+     (nil))
+(call_insn 22 21 23 2 (call (mem:QI (symbol_ref:DI ("compute_loop") [flags 0x3]  <function_decl 0x7fea7a9d3400 compute_loop>) [0 compute_loop S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":137:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 23 22 24 2 (set (reg:SI 5 di)
+        (const_int 2 [0x2])) "schedule_demo.c":138:5 -1
+     (nil))
+(call_insn 24 23 25 2 (call (mem:QI (symbol_ref:DI ("sort_tiny") [flags 0x3]  <function_decl 0x7fea7a9d3c00 sort_tiny>) [0 sort_tiny S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":138:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 25 24 26 2 (set (reg:SI 85 [ work_iters.22_4 ])
+        (const_int 80000000 [0x4c4b400])) "schedule_demo.c":139:5 -1
+     (nil))
+(insn 26 25 27 2 (set (reg:DI 92)
+        (sign_extend:DI (reg:SI 85 [ work_iters.22_4 ]))) "schedule_demo.c":139:5 -1
+     (nil))
+(insn 27 26 28 2 (parallel [
+            (set (reg:DI 93)
+                (mult:DI (reg:DI 92)
+                    (const_int 1717986919 [0x66666667])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":139:5 -1
+     (nil))
+(insn 28 27 29 2 (parallel [
+            (set (reg:DI 94)
+                (lshiftrt:DI (reg:DI 93)
+                    (const_int 32 [0x20])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":139:5 -1
+     (nil))
+(insn 29 28 30 2 (parallel [
+            (set (reg:SI 95)
+                (ashiftrt:SI (subreg:SI (reg:DI 94) 0)
+                    (const_int 2 [0x2])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":139:5 -1
+     (nil))
+(insn 30 29 31 2 (parallel [
+            (set (reg:SI 96)
+                (ashiftrt:SI (reg:SI 85 [ work_iters.22_4 ])
+                    (const_int 31 [0x1f])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":139:5 -1
+     (nil))
+(insn 31 30 32 2 (parallel [
+            (set (reg:SI 86 [ _5 ])
+                (minus:SI (reg:SI 95)
+                    (reg:SI 96)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":139:5 -1
+     (expr_list:REG_EQUAL (div:SI (reg:SI 85 [ work_iters.22_4 ])
+            (const_int 10 [0xa]))
+        (nil)))
+(insn 32 31 33 2 (set (reg:SI 5 di)
+        (reg:SI 86 [ _5 ])) "schedule_demo.c":139:5 -1
+     (nil))
+(call_insn 33 32 34 2 (call (mem:QI (symbol_ref:DI ("memory_walk") [flags 0x3]  <function_decl 0x7fea7a9d3600 memory_walk>) [0 memory_walk S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":139:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 34 33 37 2 (set (reg/f:DI 87 [ _12 ])
+        (const_int 0 [0])) "schedule_demo.c":140:12 -1
+     (nil))
+(insn 37 34 41 2 (set (reg/f:DI 88 [ <retval> ])
+        (reg/f:DI 87 [ _12 ])) "schedule_demo.c":140:12 -1
+     (nil))
+(insn 41 37 42 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 88 [ <retval> ])) "schedule_demo.c":141:1 -1
+     (nil))
+(insn 42 41 0 2 (use (reg/i:DI 0 ax)) "schedule_demo.c":141:1 -1
+     (nil))
+
+;; Function worker_e (worker_e, funcdef_no=18, decl_uid=4530, cgraph_uid=19, symbol_order=26)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 46.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [3 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "schedule_demo.c":143:34 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:SI 5 di)
+        (const_int 4 [0x4])) "schedule_demo.c":145:5 -1
+     (nil))
+(call_insn 7 6 8 2 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pick_core") [flags 0x3]  <function_decl 0x7fea7a9cdf00 pick_core>) [0 pick_core S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":145:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 8 7 9 2 (set (reg:SI 82 [ _1 ])
+        (reg:SI 0 ax)) "schedule_demo.c":145:5 -1
+     (nil))
+(insn 9 8 10 2 (set (reg:SI 5 di)
+        (reg:SI 82 [ _1 ])) "schedule_demo.c":145:5 -1
+     (nil))
+(call_insn 10 9 11 2 (call (mem:QI (symbol_ref:DI ("bind_core") [flags 0x3]  <function_decl 0x7fea7a9d3000 bind_core>) [0 bind_core S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":145:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 11 10 12 2 (set (reg:SI 83 [ work_iters.23_2 ])
+        (const_int 80000000 [0x4c4b400])) "schedule_demo.c":146:5 -1
+     (nil))
+(insn 12 11 13 2 (set (reg:SI 91)
+        (reg:SI 83 [ work_iters.23_2 ])) "schedule_demo.c":146:5 -1
+     (nil))
+(insn 13 12 16 2 (parallel [
+            (set (reg:SI 92)
+                (plus:SI (reg:SI 91)
+                    (const_int 7 [0x7])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":146:5 -1
+     (nil))
+(insn 16 13 17 2 (set (reg:CCGOC 17 flags)
+        (compare:CCGOC (reg:SI 91)
+            (const_int 0 [0]))) "schedule_demo.c":146:5 -1
+     (nil))
+(insn 17 16 18 2 (set (reg:SI 91)
+        (if_then_else:SI (lt (reg:CCGOC 17 flags)
+                (const_int 0 [0]))
+            (reg:SI 92)
+            (reg:SI 91))) "schedule_demo.c":146:5 -1
+     (nil))
+(insn 18 17 19 2 (parallel [
+            (set (reg:SI 93)
+                (ashiftrt:SI (reg:SI 91)
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":146:5 -1
+     (expr_list:REG_EQUAL (div:SI (reg:SI 83 [ work_iters.23_2 ])
+            (const_int 8 [0x8]))
+        (nil)))
+(insn 19 18 20 2 (set (reg:SI 84 [ _3 ])
+        (reg:SI 93)) "schedule_demo.c":146:5 -1
+     (nil))
+(insn 20 19 21 2 (set (reg:SI 5 di)
+        (reg:SI 84 [ _3 ])) "schedule_demo.c":146:5 -1
+     (nil))
+(call_insn 21 20 22 2 (call (mem:QI (symbol_ref:DI ("io_sim") [flags 0x3]  <function_decl 0x7fea7a9d3e00 io_sim>) [0 io_sim S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":146:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 22 21 23 2 (set (reg:SI 85 [ work_iters.24_4 ])
+        (const_int 80000000 [0x4c4b400])) "schedule_demo.c":147:5 -1
+     (nil))
+(insn 23 22 24 2 (set (reg:DI 94)
+        (sign_extend:DI (reg:SI 85 [ work_iters.24_4 ]))) "schedule_demo.c":147:5 -1
+     (nil))
+(insn 24 23 25 2 (parallel [
+            (set (reg:DI 95)
+                (mult:DI (reg:DI 94)
+                    (const_int -1840700269 [0xffffffff92492493])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":147:5 -1
+     (nil))
+(insn 25 24 26 2 (parallel [
+            (set (reg:DI 96)
+                (lshiftrt:DI (reg:DI 95)
+                    (const_int 32 [0x20])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":147:5 -1
+     (nil))
+(insn 26 25 27 2 (parallel [
+            (set (reg:SI 97)
+                (plus:SI (reg:SI 85 [ work_iters.24_4 ])
+                    (subreg:SI (reg:DI 96) 0)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":147:5 -1
+     (nil))
+(insn 27 26 28 2 (parallel [
+            (set (reg:SI 98)
+                (ashiftrt:SI (reg:SI 97)
+                    (const_int 4 [0x4])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":147:5 -1
+     (nil))
+(insn 28 27 29 2 (parallel [
+            (set (reg:SI 99)
+                (ashiftrt:SI (reg:SI 85 [ work_iters.24_4 ])
+                    (const_int 31 [0x1f])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":147:5 -1
+     (nil))
+(insn 29 28 30 2 (parallel [
+            (set (reg:SI 86 [ _5 ])
+                (minus:SI (reg:SI 98)
+                    (reg:SI 99)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":147:5 -1
+     (expr_list:REG_EQUAL (div:SI (reg:SI 85 [ work_iters.24_4 ])
+            (const_int 28 [0x1c]))
+        (nil)))
+(insn 30 29 31 2 (set (reg:SI 5 di)
+        (reg:SI 86 [ _5 ])) "schedule_demo.c":147:5 -1
+     (nil))
+(call_insn 31 30 32 2 (call (mem:QI (symbol_ref:DI ("small_math") [flags 0x3]  <function_decl 0x7fea7a9d3a00 small_math>) [0 small_math S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":147:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 32 31 33 2 (set (reg:SI 87 [ work_iters.25_6 ])
+        (const_int 80000000 [0x4c4b400])) "schedule_demo.c":148:5 -1
+     (nil))
+(insn 33 32 34 2 (set (reg:DI 100)
+        (sign_extend:DI (reg:SI 87 [ work_iters.25_6 ]))) "schedule_demo.c":148:5 -1
+     (nil))
+(insn 34 33 35 2 (parallel [
+            (set (reg:DI 101)
+                (mult:DI (reg:DI 100)
+                    (const_int 1717986919 [0x66666667])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":148:5 -1
+     (nil))
+(insn 35 34 36 2 (parallel [
+            (set (reg:DI 102)
+                (lshiftrt:DI (reg:DI 101)
+                    (const_int 32 [0x20])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":148:5 -1
+     (nil))
+(insn 36 35 37 2 (parallel [
+            (set (reg:SI 103)
+                (ashiftrt:SI (subreg:SI (reg:DI 102) 0)
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":148:5 -1
+     (nil))
+(insn 37 36 38 2 (parallel [
+            (set (reg:SI 104)
+                (ashiftrt:SI (reg:SI 87 [ work_iters.25_6 ])
+                    (const_int 31 [0x1f])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":148:5 -1
+     (nil))
+(insn 38 37 39 2 (parallel [
+            (set (reg:SI 88 [ _7 ])
+                (minus:SI (reg:SI 103)
+                    (reg:SI 104)))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":148:5 -1
+     (expr_list:REG_EQUAL (div:SI (reg:SI 87 [ work_iters.25_6 ])
+            (const_int 5 [0x5]))
+        (nil)))
+(insn 39 38 40 2 (set (reg:DI 4 si)
+        (const_int 21845 [0x5555])) "schedule_demo.c":148:5 -1
+     (nil))
+(insn 40 39 41 2 (set (reg:SI 5 di)
+        (reg:SI 88 [ _7 ])) "schedule_demo.c":148:5 -1
+     (nil))
+(call_insn 41 40 42 2 (call (mem:QI (symbol_ref:DI ("compute_loop") [flags 0x3]  <function_decl 0x7fea7a9d3400 compute_loop>) [0 compute_loop S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":148:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 42 41 45 2 (set (reg/f:DI 89 [ _14 ])
+        (const_int 0 [0])) "schedule_demo.c":149:12 -1
+     (nil))
+(insn 45 42 49 2 (set (reg/f:DI 90 [ <retval> ])
+        (reg/f:DI 89 [ _14 ])) "schedule_demo.c":149:12 -1
+     (nil))
+(insn 49 45 50 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 90 [ <retval> ])) "schedule_demo.c":150:1 -1
+     (nil))
+(insn 50 49 0 2 (use (reg/i:DI 0 ax)) "schedule_demo.c":150:1 -1
+     (nil))
+
+;; Function pick_core (pick_core, funcdef_no=19, decl_uid=4438, cgraph_uid=20, symbol_order=27)
+
+Partition 0: size 4 align 4
+	sz_10
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+;; Generating RTL for gimple basic block 4
+
+;; Generating RTL for gimple basic block 5
+
+;; Generating RTL for gimple basic block 6
+
+;; Generating RTL for gimple basic block 7
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Removing jump 42.
+Merging block 9 into block 8...
+Merged blocks 8 and 9.
+Merged 8 and 9 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -20 [0xffffffffffffffec])) [1 idx+0 S4 A32])
+        (reg:SI 5 di [ idx ])) "schedule_demo.c":152:31 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:SI 82 [ core_policy.26_1 ])
+        (mem/c:SI (symbol_ref:DI ("core_policy") [flags 0x2]  <var_decl 0x7fea7ad1f900 core_policy>) [1 core_policy+0 S4 A32])) "schedule_demo.c":153:21 -1
+     (nil))
+(insn 7 6 8 2 (set (reg:CCZ 17 flags)
+        (compare:CCZ (reg:SI 82 [ core_policy.26_1 ])
+            (const_int 0 [0]))) "schedule_demo.c":153:8 -1
+     (nil))
+(jump_insn 8 7 9 2 (set (pc)
+        (if_then_else (ne (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 13)
+            (pc))) "schedule_demo.c":153:8 -1
+     (nil)
+ -> 13)
+(note 9 8 10 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
+(insn 10 9 11 4 (set (reg:SI 88 [ _7 ])
+        (const_int 0 [0])) "schedule_demo.c":153:34 -1
+     (nil))
+(jump_insn 11 10 12 4 (set (pc)
+        (label_ref 39)) "schedule_demo.c":153:34 -1
+     (nil)
+ -> 39)
+(barrier 12 11 13)
+(code_label 13 12 14 5 61 (nil) [1 uses])
+(note 14 13 15 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
+(insn 15 14 16 5 (set (reg:SI 83 [ core_policy.27_2 ])
+        (mem/c:SI (symbol_ref:DI ("core_policy") [flags 0x2]  <var_decl 0x7fea7ad1f900 core_policy>) [1 core_policy+0 S4 A32])) "schedule_demo.c":154:21 -1
+     (nil))
+(insn 16 15 17 5 (set (reg:CCZ 17 flags)
+        (compare:CCZ (reg:SI 83 [ core_policy.27_2 ])
+            (const_int 1 [0x1]))) "schedule_demo.c":154:8 -1
+     (nil))
+(jump_insn 17 16 18 5 (set (pc)
+        (if_then_else (ne (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 29)
+            (pc))) "schedule_demo.c":154:8 -1
+     (nil)
+ -> 29)
+(note 18 17 19 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
+(insn 19 18 20 6 (set (reg:SI 90)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -20 [0xffffffffffffffec])) [1 idx+0 S4 A32])) "schedule_demo.c":154:38 -1
+     (nil))
+(insn 20 19 21 6 (set (reg:DI 84 [ _3 ])
+        (sign_extend:DI (reg:SI 90))) "schedule_demo.c":154:38 -1
+     (nil))
+(insn 21 20 22 6 (set (reg:SI 5 di)
+        (const_int 84 [0x54])) "schedule_demo.c":154:40 -1
+     (nil))
+(call_insn 22 21 23 6 (set (reg:DI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("sysconf") [flags 0x41]  <function_decl 0x7fea7a995a00 sysconf>) [0 sysconf S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":154:40 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 23 22 24 6 (set (reg:DI 85 [ _4 ])
+        (reg:DI 0 ax)) "schedule_demo.c":154:40 -1
+     (nil))
+(insn 24 23 25 6 (parallel [
+            (set (reg:DI 92)
+                (div:DI (reg:DI 84 [ _3 ])
+                    (reg:DI 85 [ _4 ])))
+            (set (reg:DI 91)
+                (mod:DI (reg:DI 84 [ _3 ])
+                    (reg:DI 85 [ _4 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":154:38 -1
+     (nil))
+(insn 25 24 26 6 (set (reg:DI 86 [ _5 ])
+        (reg:DI 91)) "schedule_demo.c":154:38 -1
+     (nil))
+(insn 26 25 27 6 (set (reg:SI 88 [ _7 ])
+        (subreg:SI (reg:DI 86 [ _5 ]) 0)) "schedule_demo.c":154:38 -1
+     (nil))
+(jump_insn 27 26 28 6 (set (pc)
+        (label_ref 39)) "schedule_demo.c":154:38 -1
+     (nil)
+ -> 39)
+(barrier 28 27 29)
+(code_label 29 28 30 7 63 (nil) [1 uses])
+(note 30 29 31 7 [bb 7] NOTE_INSN_BASIC_BLOCK)
+(insn 31 30 32 7 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [1 sz+0 S4 A32])
+        (const_int 4 [0x4])) "schedule_demo.c":155:9 -1
+     (nil))
+(insn 32 31 33 7 (set (reg:SI 93)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -20 [0xffffffffffffffec])) [1 idx+0 S4 A32])) "schedule_demo.c":156:32 -1
+     (nil))
+(insn 33 32 34 7 (parallel [
+            (set (reg:SI 95)
+                (div:SI (reg:SI 93)
+                    (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -4 [0xfffffffffffffffc])) [1 sz+0 S4 A32])))
+            (set (reg:SI 94)
+                (mod:SI (reg:SI 93)
+                    (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -4 [0xfffffffffffffffc])) [1 sz+0 S4 A32])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":156:32 -1
+     (nil))
+(insn 34 33 35 7 (set (reg:SI 87 [ _6 ])
+        (reg:SI 94)) "schedule_demo.c":156:32 -1
+     (nil))
+(insn 35 34 36 7 (set (reg:DI 96)
+        (sign_extend:DI (reg:SI 87 [ _6 ]))) "schedule_demo.c":156:27 -1
+     (nil))
+(insn 36 35 37 7 (parallel [
+            (set (reg:DI 97)
+                (ashift:DI (reg:DI 96)
+                    (const_int 2 [0x2])))
+            (clobber (reg:CC 17 flags))
+        ]) "schedule_demo.c":156:27 -1
+     (nil))
+(insn 37 36 38 7 (set (reg:DI 98)
+        (symbol_ref:DI ("core_map_custom") [flags 0x2]  <var_decl 0x7fea7ad1f990 core_map_custom>)) "schedule_demo.c":156:27 -1
+     (nil))
+(insn 38 37 39 7 (set (reg:SI 88 [ _7 ])
+        (mem:SI (plus:DI (reg:DI 97)
+                (reg:DI 98)) [1 core_map_custom S4 A32])) "schedule_demo.c":156:27 -1
+     (nil))
+(code_label 39 38 40 8 62 (nil) [2 uses])
+(note 40 39 41 8 [bb 8] NOTE_INSN_BASIC_BLOCK)
+(insn 41 40 45 8 (set (reg:SI 89 [ <retval> ])
+        (reg:SI 88 [ _7 ])) -1
+     (nil))
+(insn 45 41 46 8 (set (reg/i:SI 0 ax)
+        (reg:SI 89 [ <retval> ])) "schedule_demo.c":157:1 -1
+     (nil))
+(insn 46 45 0 8 (use (reg/i:SI 0 ax)) "schedule_demo.c":157:1 -1
+     (nil))
+
+;; Function main (main, funcdef_no=20, decl_uid=4537, cgraph_uid=21, symbol_order=28)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+;; Generating RTL for gimple basic block 4
+
+;; Generating RTL for gimple basic block 5
+
+;; Generating RTL for gimple basic block 6
+
+;; Generating RTL for gimple basic block 7
+
+;; Generating RTL for gimple basic block 8
+
+;; Generating RTL for gimple basic block 9
+
+;; Generating RTL for gimple basic block 10
+
+;; Generating RTL for gimple basic block 11
+
+;; Generating RTL for gimple basic block 12
+
+;; Generating RTL for gimple basic block 13
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Removing jump 149.
+Merging block 15 into block 14...
+Merged blocks 14 and 15.
+Merged 14 and 15 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 3 NOTE_INSN_DELETED)
+(note 3 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(note 2 3 5 2 NOTE_INSN_FUNCTION_BEG)
+(insn 5 2 6 2 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "schedule_demo.c":160:9 -1
+     (nil))
+(insn 6 5 7 2 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("worker_a") [flags 0x3]  <function_decl 0x7fea7a9e1000 worker_a>)) "schedule_demo.c":160:9 -1
+     (nil))
+(insn 7 6 8 2 (set (reg:DI 4 si)
+        (const_int 0 [0])) "schedule_demo.c":160:9 -1
+     (nil))
+(insn 8 7 9 2 (set (reg:DI 5 di)
+        (symbol_ref:DI ("th0") [flags 0x2]  <var_decl 0x7fea7ad1fab0 th0>)) "schedule_demo.c":160:9 -1
+     (nil))
+(call_insn 9 8 10 2 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7fea7acccb00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":160:9 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 10 9 11 2 (set (reg:SI 82 [ _1 ])
+        (reg:SI 0 ax)) "schedule_demo.c":160:9 -1
+     (nil))
+(insn 11 10 12 2 (set (reg:CCZ 17 flags)
+        (compare:CCZ (reg:SI 82 [ _1 ])
+            (const_int 0 [0]))) "schedule_demo.c":160:8 -1
+     (nil))
+(jump_insn 12 11 13 2 (set (pc)
+        (if_then_else (eq (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 19)
+            (pc))) "schedule_demo.c":160:8 -1
+     (nil)
+ -> 19)
+(note 13 12 14 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
+(insn 14 13 15 4 (set (reg:DI 5 di)
+        (symbol_ref/f:DI ("*.LC4") [flags 0x2]  <var_decl 0x7fea7aa64510 *.LC4>)) "schedule_demo.c":160:60 -1
+     (nil))
+(call_insn 15 14 16 4 (call (mem:QI (symbol_ref:DI ("perror") [flags 0x41]  <function_decl 0x7fea7ad3c200 perror>) [0 perror S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":160:60 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (nil)))
+(insn 16 15 17 4 (set (reg:SI 98 [ _17 ])
+        (const_int 1 [0x1])) "schedule_demo.c":160:95 -1
+     (nil))
+(jump_insn 17 16 18 4 (set (pc)
+        (label_ref 146)) "schedule_demo.c":160:95 -1
+     (nil)
+ -> 146)
+(barrier 18 17 19)
+(code_label 19 18 20 5 65 (nil) [1 uses])
+(note 20 19 21 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
+(insn 21 20 22 5 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "schedule_demo.c":161:9 -1
+     (nil))
+(insn 22 21 23 5 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("worker_b") [flags 0x3]  <function_decl 0x7fea7a9e1200 worker_b>)) "schedule_demo.c":161:9 -1
+     (nil))
+(insn 23 22 24 5 (set (reg:DI 4 si)
+        (const_int 0 [0])) "schedule_demo.c":161:9 -1
+     (nil))
+(insn 24 23 25 5 (set (reg:DI 5 di)
+        (symbol_ref:DI ("th1") [flags 0x2]  <var_decl 0x7fea7ad1fb40 th1>)) "schedule_demo.c":161:9 -1
+     (nil))
+(call_insn 25 24 26 5 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7fea7acccb00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":161:9 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 26 25 27 5 (set (reg:SI 83 [ _2 ])
+        (reg:SI 0 ax)) "schedule_demo.c":161:9 -1
+     (nil))
+(insn 27 26 28 5 (set (reg:CCZ 17 flags)
+        (compare:CCZ (reg:SI 83 [ _2 ])
+            (const_int 0 [0]))) "schedule_demo.c":161:8 -1
+     (nil))
+(jump_insn 28 27 29 5 (set (pc)
+        (if_then_else (eq (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 35)
+            (pc))) "schedule_demo.c":161:8 -1
+     (nil)
+ -> 35)
+(note 29 28 30 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
+(insn 30 29 31 6 (set (reg:DI 5 di)
+        (symbol_ref/f:DI ("*.LC5") [flags 0x2]  <var_decl 0x7fea7aa645a0 *.LC5>)) "schedule_demo.c":161:60 -1
+     (nil))
+(call_insn 31 30 32 6 (call (mem:QI (symbol_ref:DI ("perror") [flags 0x41]  <function_decl 0x7fea7ad3c200 perror>) [0 perror S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":161:60 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (nil)))
+(insn 32 31 33 6 (set (reg:SI 98 [ _17 ])
+        (const_int 1 [0x1])) "schedule_demo.c":161:95 -1
+     (nil))
+(jump_insn 33 32 34 6 (set (pc)
+        (label_ref 146)) "schedule_demo.c":161:95 -1
+     (nil)
+ -> 146)
+(barrier 34 33 35)
+(code_label 35 34 36 7 67 (nil) [1 uses])
+(note 36 35 37 7 [bb 7] NOTE_INSN_BASIC_BLOCK)
+(insn 37 36 38 7 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "schedule_demo.c":162:9 -1
+     (nil))
+(insn 38 37 39 7 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("worker_c") [flags 0x3]  <function_decl 0x7fea7a9e1400 worker_c>)) "schedule_demo.c":162:9 -1
+     (nil))
+(insn 39 38 40 7 (set (reg:DI 4 si)
+        (const_int 0 [0])) "schedule_demo.c":162:9 -1
+     (nil))
+(insn 40 39 41 7 (set (reg:DI 5 di)
+        (symbol_ref:DI ("th2") [flags 0x2]  <var_decl 0x7fea7ad1fbd0 th2>)) "schedule_demo.c":162:9 -1
+     (nil))
+(call_insn 41 40 42 7 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7fea7acccb00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":162:9 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 42 41 43 7 (set (reg:SI 84 [ _3 ])
+        (reg:SI 0 ax)) "schedule_demo.c":162:9 -1
+     (nil))
+(insn 43 42 44 7 (set (reg:CCZ 17 flags)
+        (compare:CCZ (reg:SI 84 [ _3 ])
+            (const_int 0 [0]))) "schedule_demo.c":162:8 -1
+     (nil))
+(jump_insn 44 43 45 7 (set (pc)
+        (if_then_else (eq (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 51)
+            (pc))) "schedule_demo.c":162:8 -1
+     (nil)
+ -> 51)
+(note 45 44 46 8 [bb 8] NOTE_INSN_BASIC_BLOCK)
+(insn 46 45 47 8 (set (reg:DI 5 di)
+        (symbol_ref/f:DI ("*.LC6") [flags 0x2]  <var_decl 0x7fea7aa64630 *.LC6>)) "schedule_demo.c":162:60 -1
+     (nil))
+(call_insn 47 46 48 8 (call (mem:QI (symbol_ref:DI ("perror") [flags 0x41]  <function_decl 0x7fea7ad3c200 perror>) [0 perror S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":162:60 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (nil)))
+(insn 48 47 49 8 (set (reg:SI 98 [ _17 ])
+        (const_int 1 [0x1])) "schedule_demo.c":162:95 -1
+     (nil))
+(jump_insn 49 48 50 8 (set (pc)
+        (label_ref 146)) "schedule_demo.c":162:95 -1
+     (nil)
+ -> 146)
+(barrier 50 49 51)
+(code_label 51 50 52 9 68 (nil) [1 uses])
+(note 52 51 53 9 [bb 9] NOTE_INSN_BASIC_BLOCK)
+(insn 53 52 54 9 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "schedule_demo.c":163:9 -1
+     (nil))
+(insn 54 53 55 9 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("worker_d") [flags 0x3]  <function_decl 0x7fea7a9e1600 worker_d>)) "schedule_demo.c":163:9 -1
+     (nil))
+(insn 55 54 56 9 (set (reg:DI 4 si)
+        (const_int 0 [0])) "schedule_demo.c":163:9 -1
+     (nil))
+(insn 56 55 57 9 (set (reg:DI 5 di)
+        (symbol_ref:DI ("th3") [flags 0x2]  <var_decl 0x7fea7ad1fc60 th3>)) "schedule_demo.c":163:9 -1
+     (nil))
+(call_insn 57 56 58 9 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7fea7acccb00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":163:9 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 58 57 59 9 (set (reg:SI 85 [ _4 ])
+        (reg:SI 0 ax)) "schedule_demo.c":163:9 -1
+     (nil))
+(insn 59 58 60 9 (set (reg:CCZ 17 flags)
+        (compare:CCZ (reg:SI 85 [ _4 ])
+            (const_int 0 [0]))) "schedule_demo.c":163:8 -1
+     (nil))
+(jump_insn 60 59 61 9 (set (pc)
+        (if_then_else (eq (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 67)
+            (pc))) "schedule_demo.c":163:8 -1
+     (nil)
+ -> 67)
+(note 61 60 62 10 [bb 10] NOTE_INSN_BASIC_BLOCK)
+(insn 62 61 63 10 (set (reg:DI 5 di)
+        (symbol_ref/f:DI ("*.LC7") [flags 0x2]  <var_decl 0x7fea7aa646c0 *.LC7>)) "schedule_demo.c":163:60 -1
+     (nil))
+(call_insn 63 62 64 10 (call (mem:QI (symbol_ref:DI ("perror") [flags 0x41]  <function_decl 0x7fea7ad3c200 perror>) [0 perror S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":163:60 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (nil)))
+(insn 64 63 65 10 (set (reg:SI 98 [ _17 ])
+        (const_int 1 [0x1])) "schedule_demo.c":163:95 -1
+     (nil))
+(jump_insn 65 64 66 10 (set (pc)
+        (label_ref 146)) "schedule_demo.c":163:95 -1
+     (nil)
+ -> 146)
+(barrier 66 65 67)
+(code_label 67 66 68 11 69 (nil) [1 uses])
+(note 68 67 69 11 [bb 11] NOTE_INSN_BASIC_BLOCK)
+(insn 69 68 70 11 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "schedule_demo.c":164:9 -1
+     (nil))
+(insn 70 69 71 11 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("worker_e") [flags 0x3]  <function_decl 0x7fea7a9e1800 worker_e>)) "schedule_demo.c":164:9 -1
+     (nil))
+(insn 71 70 72 11 (set (reg:DI 4 si)
+        (const_int 0 [0])) "schedule_demo.c":164:9 -1
+     (nil))
+(insn 72 71 73 11 (set (reg:DI 5 di)
+        (symbol_ref:DI ("th4") [flags 0x2]  <var_decl 0x7fea7ad1fcf0 th4>)) "schedule_demo.c":164:9 -1
+     (nil))
+(call_insn 73 72 74 11 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7fea7acccb00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":164:9 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 74 73 75 11 (set (reg:SI 86 [ _5 ])
+        (reg:SI 0 ax)) "schedule_demo.c":164:9 -1
+     (nil))
+(insn 75 74 76 11 (set (reg:CCZ 17 flags)
+        (compare:CCZ (reg:SI 86 [ _5 ])
+            (const_int 0 [0]))) "schedule_demo.c":164:8 -1
+     (nil))
+(jump_insn 76 75 77 11 (set (pc)
+        (if_then_else (eq (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 83)
+            (pc))) "schedule_demo.c":164:8 -1
+     (nil)
+ -> 83)
+(note 77 76 78 12 [bb 12] NOTE_INSN_BASIC_BLOCK)
+(insn 78 77 79 12 (set (reg:DI 5 di)
+        (symbol_ref/f:DI ("*.LC8") [flags 0x2]  <var_decl 0x7fea7aa64750 *.LC8>)) "schedule_demo.c":164:60 -1
+     (nil))
+(call_insn 79 78 80 12 (call (mem:QI (symbol_ref:DI ("perror") [flags 0x41]  <function_decl 0x7fea7ad3c200 perror>) [0 perror S1 A8])
+        (const_int 0 [0])) "schedule_demo.c":164:60 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (nil)))
+(insn 80 79 81 12 (set (reg:SI 98 [ _17 ])
+        (const_int 1 [0x1])) "schedule_demo.c":164:95 -1
+     (nil))
+(jump_insn 81 80 82 12 (set (pc)
+        (label_ref 146)) "schedule_demo.c":164:95 -1
+     (nil)
+ -> 146)
+(barrier 82 81 83)
+(code_label 83 82 84 13 70 (nil) [1 uses])
+(note 84 83 85 13 [bb 13] NOTE_INSN_BASIC_BLOCK)
+(insn 85 84 86 13 (set (reg:DI 87 [ th0.28_6 ])
+        (mem/c:DI (symbol_ref:DI ("th0") [flags 0x2]  <var_decl 0x7fea7ad1fab0 th0>) [2 th0+0 S8 A64])) "schedule_demo.c":166:5 -1
+     (nil))
+(insn 86 85 87 13 (set (reg:DI 4 si)
+        (const_int 0 [0])) "schedule_demo.c":166:5 -1
+     (nil))
+(insn 87 86 88 13 (set (reg:DI 5 di)
+        (reg:DI 87 [ th0.28_6 ])) "schedule_demo.c":166:5 -1
+     (nil))
+(call_insn 88 87 89 13 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7fea7acccd00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":166:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 89 88 90 13 (set (reg:DI 88 [ th1.29_7 ])
+        (mem/c:DI (symbol_ref:DI ("th1") [flags 0x2]  <var_decl 0x7fea7ad1fb40 th1>) [2 th1+0 S8 A64])) "schedule_demo.c":167:5 -1
+     (nil))
+(insn 90 89 91 13 (set (reg:DI 4 si)
+        (const_int 0 [0])) "schedule_demo.c":167:5 -1
+     (nil))
+(insn 91 90 92 13 (set (reg:DI 5 di)
+        (reg:DI 88 [ th1.29_7 ])) "schedule_demo.c":167:5 -1
+     (nil))
+(call_insn 92 91 93 13 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7fea7acccd00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":167:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 93 92 94 13 (set (reg:DI 89 [ th2.30_8 ])
+        (mem/c:DI (symbol_ref:DI ("th2") [flags 0x2]  <var_decl 0x7fea7ad1fbd0 th2>) [2 th2+0 S8 A64])) "schedule_demo.c":168:5 -1
+     (nil))
+(insn 94 93 95 13 (set (reg:DI 4 si)
+        (const_int 0 [0])) "schedule_demo.c":168:5 -1
+     (nil))
+(insn 95 94 96 13 (set (reg:DI 5 di)
+        (reg:DI 89 [ th2.30_8 ])) "schedule_demo.c":168:5 -1
+     (nil))
+(call_insn 96 95 97 13 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7fea7acccd00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":168:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 97 96 98 13 (set (reg:DI 90 [ th3.31_9 ])
+        (mem/c:DI (symbol_ref:DI ("th3") [flags 0x2]  <var_decl 0x7fea7ad1fc60 th3>) [2 th3+0 S8 A64])) "schedule_demo.c":169:5 -1
+     (nil))
+(insn 98 97 99 13 (set (reg:DI 4 si)
+        (const_int 0 [0])) "schedule_demo.c":169:5 -1
+     (nil))
+(insn 99 98 100 13 (set (reg:DI 5 di)
+        (reg:DI 90 [ th3.31_9 ])) "schedule_demo.c":169:5 -1
+     (nil))
+(call_insn 100 99 101 13 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7fea7acccd00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":169:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 101 100 102 13 (set (reg:DI 91 [ th4.32_10 ])
+        (mem/c:DI (symbol_ref:DI ("th4") [flags 0x2]  <var_decl 0x7fea7ad1fcf0 th4>) [2 th4+0 S8 A64])) "schedule_demo.c":170:5 -1
+     (nil))
+(insn 102 101 103 13 (set (reg:DI 4 si)
+        (const_int 0 [0])) "schedule_demo.c":170:5 -1
+     (nil))
+(insn 103 102 104 13 (set (reg:DI 5 di)
+        (reg:DI 91 [ th4.32_10 ])) "schedule_demo.c":170:5 -1
+     (nil))
+(call_insn 104 103 105 13 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7fea7acccd00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":170:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 105 104 106 13 (set (reg:SI 92 [ core_policy.33_11 ])
+        (mem/c:SI (symbol_ref:DI ("core_policy") [flags 0x2]  <var_decl 0x7fea7ad1f900 core_policy>) [1 core_policy+0 S4 A32])) "schedule_demo.c":172:5 -1
+     (nil))
+(insn 106 105 107 13 (set (reg:SI 4 si)
+        (reg:SI 92 [ core_policy.33_11 ])) "schedule_demo.c":172:5 -1
+     (nil))
+(insn 107 106 108 13 (set (reg:DI 5 di)
+        (symbol_ref/f:DI ("*.LC9") [flags 0x2]  <var_decl 0x7fea7aa647e0 *.LC9>)) "schedule_demo.c":172:5 -1
+     (nil))
+(insn 108 107 109 13 (set (reg:QI 0 ax)
+        (const_int 0 [0])) "schedule_demo.c":172:5 -1
+     (nil))
+(call_insn 109 108 110 13 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("printf") [flags 0x41]  <function_decl 0x7fea7abf5a00 printf>) [0 __builtin_printf S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":172:5 -1
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:SI (use (reg:SI 4 si))
+                (nil)))))
+(insn 110 109 111 13 (set (reg:SI 5 di)
+        (const_int 0 [0])) "schedule_demo.c":173:5 -1
+     (nil))
+(call_insn 111 110 112 13 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pick_core") [flags 0x3]  <function_decl 0x7fea7a9cdf00 pick_core>) [0 pick_core S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":173:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 112 111 113 13 (set (reg:SI 93 [ _12 ])
+        (reg:SI 0 ax)) "schedule_demo.c":173:5 -1
+     (nil))
+(insn 113 112 114 13 (set (reg:SI 4 si)
+        (reg:SI 93 [ _12 ])) "schedule_demo.c":173:5 -1
+     (nil))
+(insn 114 113 115 13 (set (reg:DI 5 di)
+        (symbol_ref/f:DI ("*.LC10") [flags 0x2]  <var_decl 0x7fea7aa64870 *.LC10>)) "schedule_demo.c":173:5 -1
+     (nil))
+(insn 115 114 116 13 (set (reg:QI 0 ax)
+        (const_int 0 [0])) "schedule_demo.c":173:5 -1
+     (nil))
+(call_insn 116 115 117 13 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("printf") [flags 0x41]  <function_decl 0x7fea7abf5a00 printf>) [0 __builtin_printf S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":173:5 -1
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:SI (use (reg:SI 4 si))
+                (nil)))))
+(insn 117 116 118 13 (set (reg:SI 5 di)
+        (const_int 1 [0x1])) "schedule_demo.c":174:5 -1
+     (nil))
+(call_insn 118 117 119 13 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pick_core") [flags 0x3]  <function_decl 0x7fea7a9cdf00 pick_core>) [0 pick_core S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":174:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 119 118 120 13 (set (reg:SI 94 [ _13 ])
+        (reg:SI 0 ax)) "schedule_demo.c":174:5 -1
+     (nil))
+(insn 120 119 121 13 (set (reg:SI 4 si)
+        (reg:SI 94 [ _13 ])) "schedule_demo.c":174:5 -1
+     (nil))
+(insn 121 120 122 13 (set (reg:DI 5 di)
+        (symbol_ref/f:DI ("*.LC11") [flags 0x2]  <var_decl 0x7fea7aa64900 *.LC11>)) "schedule_demo.c":174:5 -1
+     (nil))
+(insn 122 121 123 13 (set (reg:QI 0 ax)
+        (const_int 0 [0])) "schedule_demo.c":174:5 -1
+     (nil))
+(call_insn 123 122 124 13 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("printf") [flags 0x41]  <function_decl 0x7fea7abf5a00 printf>) [0 __builtin_printf S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":174:5 -1
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:SI (use (reg:SI 4 si))
+                (nil)))))
+(insn 124 123 125 13 (set (reg:SI 5 di)
+        (const_int 2 [0x2])) "schedule_demo.c":175:5 -1
+     (nil))
+(call_insn 125 124 126 13 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pick_core") [flags 0x3]  <function_decl 0x7fea7a9cdf00 pick_core>) [0 pick_core S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":175:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 126 125 127 13 (set (reg:SI 95 [ _14 ])
+        (reg:SI 0 ax)) "schedule_demo.c":175:5 -1
+     (nil))
+(insn 127 126 128 13 (set (reg:SI 4 si)
+        (reg:SI 95 [ _14 ])) "schedule_demo.c":175:5 -1
+     (nil))
+(insn 128 127 129 13 (set (reg:DI 5 di)
+        (symbol_ref/f:DI ("*.LC12") [flags 0x2]  <var_decl 0x7fea7aa64990 *.LC12>)) "schedule_demo.c":175:5 -1
+     (nil))
+(insn 129 128 130 13 (set (reg:QI 0 ax)
+        (const_int 0 [0])) "schedule_demo.c":175:5 -1
+     (nil))
+(call_insn 130 129 131 13 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("printf") [flags 0x41]  <function_decl 0x7fea7abf5a00 printf>) [0 __builtin_printf S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":175:5 -1
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:SI (use (reg:SI 4 si))
+                (nil)))))
+(insn 131 130 132 13 (set (reg:SI 5 di)
+        (const_int 3 [0x3])) "schedule_demo.c":176:5 -1
+     (nil))
+(call_insn 132 131 133 13 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pick_core") [flags 0x3]  <function_decl 0x7fea7a9cdf00 pick_core>) [0 pick_core S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":176:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 133 132 134 13 (set (reg:SI 96 [ _15 ])
+        (reg:SI 0 ax)) "schedule_demo.c":176:5 -1
+     (nil))
+(insn 134 133 135 13 (set (reg:SI 4 si)
+        (reg:SI 96 [ _15 ])) "schedule_demo.c":176:5 -1
+     (nil))
+(insn 135 134 136 13 (set (reg:DI 5 di)
+        (symbol_ref/f:DI ("*.LC13") [flags 0x2]  <var_decl 0x7fea7aa64a20 *.LC13>)) "schedule_demo.c":176:5 -1
+     (nil))
+(insn 136 135 137 13 (set (reg:QI 0 ax)
+        (const_int 0 [0])) "schedule_demo.c":176:5 -1
+     (nil))
+(call_insn 137 136 138 13 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("printf") [flags 0x41]  <function_decl 0x7fea7abf5a00 printf>) [0 __builtin_printf S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":176:5 -1
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:SI (use (reg:SI 4 si))
+                (nil)))))
+(insn 138 137 139 13 (set (reg:SI 5 di)
+        (const_int 4 [0x4])) "schedule_demo.c":177:5 -1
+     (nil))
+(call_insn 139 138 140 13 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pick_core") [flags 0x3]  <function_decl 0x7fea7a9cdf00 pick_core>) [0 pick_core S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":177:5 -1
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 140 139 141 13 (set (reg:SI 97 [ _16 ])
+        (reg:SI 0 ax)) "schedule_demo.c":177:5 -1
+     (nil))
+(insn 141 140 142 13 (set (reg:SI 4 si)
+        (reg:SI 97 [ _16 ])) "schedule_demo.c":177:5 -1
+     (nil))
+(insn 142 141 143 13 (set (reg:DI 5 di)
+        (symbol_ref/f:DI ("*.LC14") [flags 0x2]  <var_decl 0x7fea7aa64ab0 *.LC14>)) "schedule_demo.c":177:5 -1
+     (nil))
+(insn 143 142 144 13 (set (reg:QI 0 ax)
+        (const_int 0 [0])) "schedule_demo.c":177:5 -1
+     (nil))
+(call_insn 144 143 145 13 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("printf") [flags 0x41]  <function_decl 0x7fea7abf5a00 printf>) [0 __builtin_printf S1 A8])
+            (const_int 0 [0]))) "schedule_demo.c":177:5 -1
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:SI (use (reg:SI 4 si))
+                (nil)))))
+(insn 145 144 146 13 (set (reg:SI 98 [ _17 ])
+        (const_int 0 [0])) "schedule_demo.c":179:12 -1
+     (nil))
+(code_label 146 145 147 14 66 (nil) [5 uses])
+(note 147 146 148 14 [bb 14] NOTE_INSN_BASIC_BLOCK)
+(insn 148 147 152 14 (set (reg:SI 99 [ <retval> ])
+        (reg:SI 98 [ _17 ])) -1
+     (nil))
+(insn 152 148 153 14 (set (reg/i:SI 0 ax)
+        (reg:SI 99 [ <retval> ])) "schedule_demo.c":180:1 -1
+     (nil))
+(insn 153 152 0 14 (use (reg/i:SI 0 ax)) "schedule_demo.c":180:1 -1
+     (nil))

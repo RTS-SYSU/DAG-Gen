@@ -1,0 +1,195 @@
+一、先给一句“总纲”（非常重要）
+
+在你的这个 C 程序中，调度的最小粒度不是 C 语句，也不是 DAG 节点，而是「线程」。
+
+因此：
+DAG 的最短路径 → 关键线程集合 → 通过 set_priority 赋予更高优先级 → 由 Linux 调度器完成“谁先跑”
+
+只要你接受这一点，下面所有设计都是顺的。
+
+二、你的程序的“真实调度模型”（必须先看清）
+
+你的 time_analysis.c 本质结构是：
+
+main
+ ├─ pthread_create → threadtask1
+ │    └─ pthread_create → threadtask2
+ ├─ pthread_create → threadtask3
+ └─ pthread_create → threadtask4
+
+
+关键事实：
+
+threadtask1 / 2 / 3 / 4 是 并发调度实体
+
+OS 只会对线程调度，不关心你 DAG 里的 malloc / printf
+
+所以：
+
+你能调的，只有这些 threadtask
+
+DAG 节点只能“投射”到线程层面
+
+三、把 DAG 最短路径“翻译”为调度策略
+
+你在 dot 中已经算出了：
+
+最短路径（关键路径）经过哪些线程
+
+例如（假设你的 dot 高亮是）：
+
+main
+ → threadtask1
+ → threadtask2
+
+
+那么你就可以得到一个调度结论：
+
+线程	是否在最短路径	调度角色
+threadtask1	是	最高优先级
+threadtask2	是	次高优先级
+threadtask3	否	普通
+threadtask4	否	普通
+
+👉 这一步是 DAG → OS 调度的关键桥梁
+
+四、完整调度方案（一步一步来）
+Step 1：统一调度策略（必须）
+为什么？
+
+Linux 默认是 SCHED_OTHER（CFS）：
+
+忽略你设置的 priority 数值
+
+优先级对你几乎没意义
+
+正确做法
+
+你必须使用实时调度策略：
+
+SCHED_FIFO（推荐，确定性强）
+
+或 SCHED_RR
+
+Step 2：封装一个通用 set_priority（工程级）
+#include <pthread.h>
+#include <sched.h>
+#include <stdio.h>
+#include <errno.h>
+
+void set_priority(int prio)
+{
+    struct sched_param param;
+    param.sched_priority = prio;
+
+    int ret = pthread_setschedparam(
+        pthread_self(),
+        SCHED_FIFO,
+        &param
+    );
+
+    if (ret != 0) {
+        perror("pthread_setschedparam failed");
+    }
+}
+
+
+几点解释：
+
+作用对象：当前线程
+
+生效时机：线程调用之后
+
+调度语义：FIFO + 抢占
+
+Step 3：在“线程入口”插优先级（关键）
+为什么是线程入口？
+
+因为：
+
+调度器只关心线程
+
+优先级应在线程刚开始运行时设定
+
+避免中途切换带来的不可控行为
+
+示例：对你的程序做“最短路径优先”
+1️⃣ 最短路径线程：threadtask1
+void* threadtask1(void* arg)
+{
+    set_priority(80);   // 高优先级
+    Deg2rad(arg);
+    printf("task6结束\n");
+    return NULL;
+}
+
+2️⃣ 次关键线程：threadtask2
+void* threadtask2(void* arg)
+{
+    set_priority(70);   // 次高
+    cover(arg);
+    return NULL;
+}
+
+3️⃣ 非关键线程
+void* threadtask3(void* arg)
+{
+    set_priority(50);   // 普通
+    ...
+}
+
+void* threadtask4(void* arg)
+{
+    set_priority(50);   // 普通
+    ...
+}
+
+Step 4：main 线程要不要设优先级？
+
+建议设一个“中等”或“略低”的：
+
+int main() {
+    set_priority(60);  // 保证能创建线程，但不压关键线程
+    ...
+}
+
+
+否则可能出现：
+
+main 抢占线程
+
+影响你对最短路径的观察
+
+五、调度后“会发生什么”（你要有正确预期）
+✔ 能保证的
+
+关键线程一旦就绪，会优先运行
+
+高优先级线程可抢占低优先级线程
+
+多次运行结果 更稳定、可解释
+
+❌ 不能保证的
+
+精确到某一行 C 代码
+
+打破 pthread_join / mutex 等同步
+
+违反真实依赖关系
+
+六、你这个方案“什么时候成立”
+必须满足
+
+Linux 系统
+
+程序以以下之一运行：
+
+root
+
+或赋予 CAP_SYS_NICE
+
+sudo setcap cap_sys_nice+ep ./your_program
+
+
+否则：
+👉 代码跑了，但优先级没生效

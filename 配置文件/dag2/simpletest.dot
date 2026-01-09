@@ -1,0 +1,31 @@
+strict digraph callgraph {
+"main" -> "main/pthread_mutex_init1";
+"main/pthread_mutex_init1" -> "main/sem_init2";
+"main/sem_init2" -> "main/pthread_create3";
+"main/pthread_create3" -> "worker";
+"worker" -> "main/while/sem_wait4";
+"main/while/sem_wait4" [style=dashed]
+"main/while/sem_wait4" -> "main/while/pthread_mutex_lock5";
+"main/while/pthread_mutex_lock5" [style=dashed]
+"main/while/pthread_mutex_lock5" -> "main/while/printf6";
+"main/while/printf6" [style=dashed]
+"main/while/printf6" -> "main/while/pthread_mutex_unlock7";
+"main/while/pthread_mutex_unlock7" [style=dashed]
+"worker/while/sem_post5" -> "main/pthread_join8";
+"main/while/pthread_mutex_unlock7" -> "main/pthread_join8";
+"main/pthread_join8" -> "main/sem_destroy9";
+"main/sem_destroy9" -> "main/pthread_mutex_destroy10";
+"main/pthread_mutex_destroy10" -> "main/printf11";
+"main/printf11" -> "main/if/__stack_chk_fail12";
+"main/if/__stack_chk_fail12" [style=dashed]
+"worker" -> "worker/while/pthread_mutex_lock1";
+"worker/while/pthread_mutex_lock1" [style=dashed]
+"worker/while/pthread_mutex_lock1" -> "worker/while/printf2";
+"worker/while/printf2" [style=dashed]
+"worker/while/printf2" -> "worker/while/pthread_mutex_unlock3";
+"worker/while/pthread_mutex_unlock3" [style=dashed]
+"worker/while/pthread_mutex_unlock3" -> "worker/while/sleep4";
+"worker/while/sleep4" [style=dashed]
+"worker/while/sleep4" -> "worker/while/sem_post5";
+"worker/while/sem_post5" [style=dashed]
+}

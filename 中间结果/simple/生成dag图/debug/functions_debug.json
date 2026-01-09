@@ -1,0 +1,100 @@
+{
+  "threadtask1": {
+    "files": [
+      "/home/chove/Desktop/mydag/mycallyplus/配置文件/simple/simple.c.233r.expand"
+    ],
+    "calls": [
+      "printf"
+    ],
+    "refs": [
+      "simple.c"
+    ],
+    "callee_calls": [
+      "main"
+    ],
+    "callee_refs": [],
+    "mycalls": [
+      "threadtask1/printf1"
+    ],
+    "myinfo": {
+      "tail": "threadtask1/printf1"
+    },
+    "mycalls_meta": {
+      "threadtask1/printf1": {
+        "file": "simple.c",
+        "line": 6,
+        "col": 5,
+        "extern": 0
+      }
+    },
+    "call_src": {},
+    "call_src_full": {}
+  },
+  "main": {
+    "files": [
+      "/home/chove/Desktop/mydag/mycallyplus/配置文件/simple/simple.c.233r.expand"
+    ],
+    "calls": [
+      "malloc",
+      "threadtask1",
+      "printf",
+      "pthread_join",
+      "free"
+    ],
+    "refs": [
+      "simple.c"
+    ],
+    "callee_calls": [],
+    "callee_refs": [],
+    "mycalls": [
+      "main/malloc1",
+      "main/pthread_create2",
+      "threadtask1",
+      "main/printf3",
+      "main/pthread_join4",
+      "main/free5"
+    ],
+    "myinfo": {
+      "tail": "main/free5",
+      "thread": "threadtask1",
+      "__create_queue__": [
+        "threadtask1"
+      ],
+      "main/pthread_join4": "thread"
+    },
+    "mycalls_meta": {
+      "main/malloc1": {
+        "file": "simple.c",
+        "line": 10,
+        "col": 21,
+        "extern": 0
+      },
+      "main/pthread_create2": {
+        "file": "simple.c",
+        "line": 13,
+        "col": 5,
+        "extern": 0
+      },
+      "main/printf3": {
+        "file": "simple.c",
+        "line": 14,
+        "col": 5,
+        "extern": 0
+      },
+      "main/pthread_join4": {
+        "file": "simple.c",
+        "line": 15,
+        "col": 5,
+        "extern": 0
+      },
+      "main/free5": {
+        "file": "simple.c",
+        "line": 16,
+        "col": 5,
+        "extern": 0
+      }
+    },
+    "call_src": {},
+    "call_src_full": {}
+  }
+}

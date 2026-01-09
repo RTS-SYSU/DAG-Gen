@@ -1,0 +1,70 @@
+{
+  "rtl_files": [
+    "/home/chove/Desktop/test/mydag/mycallyplus/中间结果/simple/rtl文件/simple.c.233r.expand"
+  ],
+  "caller": null,
+  "callee": null,
+  "exclude": null,
+  "no_externs": false,
+  "max_depth": 0,
+  "functions": {
+    "threadtask1": {
+      "files": [
+        "/home/chove/Desktop/test/mydag/mycallyplus/中间结果/simple/rtl文件/simple.c.233r.expand"
+      ],
+      "calls": {
+        "printf": true
+      },
+      "refs": {
+        "simple.c": true
+      },
+      "callee_calls": {
+        "main": 1
+      },
+      "callee_refs": {},
+      "mycalls": [
+        "threadtask1/printf1"
+      ],
+      "myinfo": {
+        "tail": "threadtask1/printf1"
+      }
+    },
+    "main": {
+      "files": [
+        "/home/chove/Desktop/test/mydag/mycallyplus/中间结果/simple/rtl文件/simple.c.233r.expand"
+      ],
+      "calls": {
+        "malloc": true,
+        "fprintf": true,
+        "threadtask1": true,
+        "free": true,
+        "pthread_join": true,
+        "printf": true
+      },
+      "refs": {
+        "simple.c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [
+        "main/malloc1",
+        "main/fprintf2",
+        "main/pthread_create3",
+        "threadtask1",
+        "main/fprintf4",
+        "main/free5",
+        "main/pthread_join6",
+        "main/fprintf7",
+        "main/free8",
+        "main/free9",
+        "main/printf10"
+      ],
+      "myinfo": {
+        "tail": "main/printf10",
+        "thread": "threadtask1",
+        "__create_queue__": [],
+        "main/pthread_join6": "thread"
+      }
+    }
+  }
+}

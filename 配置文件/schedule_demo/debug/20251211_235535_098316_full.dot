@@ -1,0 +1,22 @@
+strict digraph callgraph {
+"bind_core" -> "bind_core/pthread_self1";
+"bind_core/pthread_self1" -> "bind_core/pthread_setaffinity_np2";
+"bind_core/pthread_setaffinity_np2" -> "bind_core/__stack_chk_fail3";
+"busy_work" -> "busy_work/printf1";
+"main" -> "while/pick_core";
+"while/pick_core" [style=dashed]
+"while/pick_core" -> "main/while/pthread_create2";
+"main/while/pthread_create2" [style=dashed]
+"main/while/pthread_create2" -> "main/perror3";
+"busy_work" -> "main/pthread_join4";
+"main/perror3" -> "main/pthread_join4";
+"main/pthread_join4" -> "main/printf5";
+"main/printf5" -> "main/printf6";
+"main/printf6" -> "main/if/__stack_chk_fail7";
+"main/if/__stack_chk_fail7" [style=dashed]
+"pick_core" -> "pick_core/if/sysconf1";
+"pick_core/if/sysconf1" [style=dashed]
+"worker" -> "bind_core";
+"bind_core" -> "busy_work";
+"busy_work" -> "busy_work";
+}

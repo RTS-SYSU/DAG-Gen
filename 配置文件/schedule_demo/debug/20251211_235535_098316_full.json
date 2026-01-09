@@ -1,0 +1,237 @@
+{
+  "rtl_files": [
+    "/home/chove/Desktop/mydag/mycallyplus/配置文件/schedule_demo/schedule_demo.c.233r.expand"
+  ],
+  "caller": null,
+  "callee": null,
+  "exclude": null,
+  "no_externs": false,
+  "max_depth": 0,
+  "functions": {
+    "bind_core": {
+      "files": [
+        "/home/chove/Desktop/mydag/mycallyplus/配置文件/schedule_demo/schedule_demo.c.233r.expand"
+      ],
+      "calls": {
+        "pthread_self": true,
+        "pthread_setaffinity_np": true,
+        "__stack_chk_fail": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {},
+      "callee_calls": {
+        "worker": 1
+      },
+      "callee_refs": {},
+      "mycalls": [
+        "bind_core/pthread_self1",
+        "bind_core/pthread_setaffinity_np2",
+        "bind_core/__stack_chk_fail3"
+      ],
+      "myinfo": {
+        "tail": "bind_core/__stack_chk_fail3"
+      },
+      "mycalls_meta": {
+        "bind_core/pthread_self1": {
+          "file": "schedule_demo.c",
+          "line": 33,
+          "col": 5,
+          "extern": 0
+        },
+        "bind_core/pthread_setaffinity_np2": {
+          "file": "schedule_demo.c",
+          "line": 33,
+          "col": 5,
+          "extern": 0
+        },
+        "bind_core/__stack_chk_fail3": {
+          "file": "schedule_demo.c",
+          "line": 34,
+          "col": 1,
+          "extern": 0
+        }
+      }
+    },
+    "busy_work": {
+      "files": [
+        "/home/chove/Desktop/mydag/mycallyplus/配置文件/schedule_demo/schedule_demo.c.233r.expand"
+      ],
+      "calls": {
+        "printf": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "schedule_demo.c": true
+      },
+      "callee_calls": {
+        "worker": 1
+      },
+      "callee_refs": {},
+      "mycalls": [
+        "busy_work/printf1"
+      ],
+      "myinfo": {
+        "tail": "busy_work/printf1"
+      },
+      "mycalls_meta": {
+        "busy_work/printf1": {
+          "file": "schedule_demo.c",
+          "line": 44,
+          "col": 9,
+          "extern": 0
+        }
+      }
+    },
+    "worker": {
+      "files": [
+        "/home/chove/Desktop/mydag/mycallyplus/配置文件/schedule_demo/schedule_demo.c.233r.expand"
+      ],
+      "calls": {
+        "bind_core": true,
+        "busy_work": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {},
+      "callee_calls": {
+        "main": 1
+      },
+      "callee_refs": {},
+      "mycalls": [
+        "bind_core",
+        "busy_work",
+        "busy_work"
+      ],
+      "myinfo": {
+        "tail": "busy_work"
+      },
+      "mycalls_meta": {
+        "bind_core": {
+          "file": "schedule_demo.c",
+          "line": 50,
+          "col": 5,
+          "extern": 0
+        },
+        "busy_work": {
+          "file": "schedule_demo.c",
+          "line": 52,
+          "col": 5,
+          "extern": 0
+        }
+      }
+    },
+    "pick_core": {
+      "files": [
+        "/home/chove/Desktop/mydag/mycallyplus/配置文件/schedule_demo/schedule_demo.c.233r.expand"
+      ],
+      "calls": {
+        "sysconf": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "schedule_demo.c": true
+      },
+      "callee_calls": {
+        "main": 1
+      },
+      "callee_refs": {},
+      "mycalls": [
+        "pick_core/if/sysconf1"
+      ],
+      "myinfo": {
+        "tail": "pick_core/if/sysconf1"
+      },
+      "mycalls_meta": {
+        "pick_core/if/sysconf1": {
+          "file": "schedule_demo.c",
+          "line": 58,
+          "col": 40,
+          "extern": 0
+        }
+      }
+    },
+    "main": {
+      "files": [
+        "/home/chove/Desktop/mydag/mycallyplus/配置文件/schedule_demo/schedule_demo.c.233r.expand"
+      ],
+      "calls": {
+        "pick_core": true,
+        "worker": true,
+        "perror": true,
+        "pthread_join": true,
+        "printf": true,
+        "__stack_chk_fail": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "schedule_demo.c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [
+        "while/pick_core",
+        "main/while/pthread_create2",
+        "worker",
+        "main/perror3",
+        "main/pthread_join4",
+        "main/printf5",
+        "main/printf6",
+        "main/if/__stack_chk_fail7"
+      ],
+      "myinfo": {
+        "tail": "main/if/__stack_chk_fail7",
+        "pthread_create": "worker",
+        "__create_queue__": [],
+        "main/pthread_join4": "pthread_join"
+      },
+      "mycalls_meta": {
+        "while/pick_core": {
+          "file": "schedule_demo.c",
+          "line": 69,
+          "col": 24,
+          "extern": 0
+        },
+        "main/while/pthread_create2": {
+          "file": "schedule_demo.c",
+          "line": 70,
+          "col": 13,
+          "extern": 0
+        },
+        "main/perror3": {
+          "file": "schedule_demo.c",
+          "line": 71,
+          "col": 13,
+          "extern": 0
+        },
+        "main/pthread_join4": {
+          "file": "schedule_demo.c",
+          "line": 77,
+          "col": 9,
+          "extern": 0
+        },
+        "main/printf5": {
+          "file": "schedule_demo.c",
+          "line": 80,
+          "col": 5,
+          "extern": 0
+        },
+        "main/printf6": {
+          "file": "schedule_demo.c",
+          "line": 82,
+          "col": 9,
+          "extern": 0
+        },
+        "main/if/__stack_chk_fail7": {
+          "file": "schedule_demo.c",
+          "line": 86,
+          "col": 1,
+          "extern": 0
+        }
+      }
+    }
+  }
+}

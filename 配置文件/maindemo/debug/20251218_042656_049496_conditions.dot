@@ -1,0 +1,28 @@
+strict digraph callgraph {
+"main" -> "main/if/fprintf2";
+"main/if/fprintf2" [style=dashed]
+"main/if/fprintf2" -> "main/if/fprintf4";
+"main/if/fprintf4" [style=dashed]
+"main/if/fprintf4" -> "main/if/free5";
+"main/if/free5" [style=dashed]
+"main/if/free5" -> "main/if/fprintf7";
+"main/if/fprintf7" [style=dashed]
+"main/if/fprintf7" -> "main/if/free8";
+"main/if/free8" [style=dashed]
+"threadtask1" -> "threadtask1/if/fprintf2";
+"threadtask1/if/fprintf2" [style=dashed]
+"threadtask1/if/fprintf2" -> "threadtask1/if/fprintf6";
+"threadtask1/if/fprintf6" [style=dashed]
+"threadtask1/if/fprintf6" -> "threadtask1/if/free7";
+"threadtask1/if/free7" [style=dashed]
+"threadtask2" -> "threadtask2/if/fprintf6";
+"threadtask2/if/fprintf6" [style=dashed]
+"threadtask2/if/fprintf6" -> "threadtask2/if/free7";
+"threadtask2/if/free7" [style=dashed]
+"threadtask2/if/free7" -> "threadtask2/if/fprintf9";
+"threadtask2/if/fprintf9" [style=dashed]
+"threadtask2/if/fprintf9" -> "threadtask2/if/free10";
+"threadtask2/if/free10" [style=dashed]
+"threadtask3"
+"threadtask4"
+}

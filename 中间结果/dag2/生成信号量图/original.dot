@@ -1,0 +1,35 @@
+digraph G {
+  rankdir=LR;
+  fontname="Microsoft YaHei";
+  node [shape=box];
+  "Main/Start";
+  "Main/End";
+  "Thread1/sem_wait1_1";
+  "Thread1/1_2";
+  "Thread1/sem_post1_3";
+  "Thread1/1_4";
+  "Thread2/sem_wait2_1";
+  "Thread2/2_2";
+  "Thread2/sem_post2_3";
+  "Thread2/2_4";
+  "Thread3/sem_wait3_1";
+  "Thread3/3_2";
+  "Thread3/sem_post3_3";
+  "Thread3/3_4";
+  "Main/Start" -> "Main/End";
+  "Main/End" -> "Thread1/sem_wait1_1";
+  "Main/End" -> "Thread2/sem_wait2_1";
+  "Main/End" -> "Thread3/sem_wait3_1";
+  "Thread1/sem_wait1_1" -> "Thread1/1_2";
+  "Thread1/1_2" -> "Thread1/sem_post1_3";
+  "Thread1/sem_post1_3" -> "Thread1/1_4";
+  "Thread1/sem_post1_3" -> "Thread2/sem_wait2_1" [style=dashed, color="#FF7043", label="semA sem1"];
+  "Thread2/sem_wait2_1" -> "Thread2/2_2";
+  "Thread2/2_2" -> "Thread2/sem_post2_3";
+  "Thread2/sem_post2_3" -> "Thread2/2_4";
+  "Thread2/sem_post2_3" -> "Thread3/sem_wait3_1" [style=dashed, color="#FF7043", label="semB sem2"];
+  "Thread3/sem_wait3_1" -> "Thread3/3_2";
+  "Thread3/3_2" -> "Thread3/sem_post3_3";
+  "Thread3/sem_post3_3" -> "Thread3/3_4";
+  "Thread3/sem_post3_3" -> "Thread1/sem_wait1_1" [style=dashed, color="#FF7043", label="semC sem3"];
+}

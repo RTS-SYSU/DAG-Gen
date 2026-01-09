@@ -1,0 +1,82 @@
+strict digraph callgraph {
+"bind_core" -> "bind_core/pthread_self1";
+"bind_core/pthread_self1" -> "bind_core/pthread_setaffinity_np2";
+"bind_core/pthread_setaffinity_np2" -> "bind_core/__stack_chk_fail3";
+"compute_loop" -> "while/mix64";
+"while/mix64" [style=dashed]
+"while/mix64" -> "compute_loop/printf2";
+"io_sim" -> "io_sim/usleep1";
+"main" -> "main/pthread_create1";
+"main/pthread_create1" -> "main/if/perror2";
+"main/if/perror2" [style=dashed]
+"main/if/perror2" -> "main/switch0/pthread_create3";
+"main/switch0/pthread_create3" [style=dashed]
+"main/switch0/pthread_create3" -> "main/perror4";
+"main/pthread_create1" -> "main/perror4";
+"0" -> "main/pthread_create5";
+"main/pthread_create5" -> "main/perror6";
+"main/perror6" -> "main/pthread_create7";
+"main/pthread_create7" -> "main/perror8";
+"main/perror8" -> "main/pthread_create9";
+"main/pthread_create9" -> "main/perror10";
+"compute_loop" -> "main/pthread_join11";
+"main/perror10" -> "main/pthread_join11";
+"memory_walk" -> "main/pthread_join12";
+"main/pthread_join11" -> "main/pthread_join12";
+"io_sim" -> "main/pthread_join13";
+"main/pthread_join12" -> "main/pthread_join13";
+"sort_tiny" -> "main/pthread_join14";
+"main/pthread_join13" -> "main/pthread_join14";
+"small_math" -> "main/pthread_join15";
+"main/pthread_join14" -> "main/pthread_join15";
+"main/pthread_join15" -> "main/printf16";
+"main/printf16" -> "pick_core";
+"pick_core" -> "main/printf18";
+"main/printf18" -> "pick_core";
+"pick_core" -> "main/printf20";
+"main/printf20" -> "pick_core";
+"pick_core" -> "main/printf22";
+"main/printf22" -> "pick_core";
+"pick_core" -> "main/printf24";
+"main/printf24" -> "pick_core";
+"pick_core" -> "main/printf26";
+"memory_walk" -> "memory_walk/malloc1";
+"memory_walk/malloc1" -> "memory_walk/if/printf2";
+"memory_walk/if/printf2" [style=dashed]
+"memory_walk/if/printf2" -> "memory_walk/free3";
+"memory_walk/malloc1" -> "memory_walk/free3";
+"pick_core" -> "pick_core/if/sysconf1";
+"pick_core/if/sysconf1" [style=dashed]
+"small_math" -> "while/gcd_int";
+"while/gcd_int" [style=dashed]
+"while/gcd_int" -> "small_math/printf2";
+"sort_tiny" -> "sort_tiny/if/printf1";
+"sort_tiny/if/printf1" [style=dashed]
+"sort_tiny/if/printf1" -> "sort_tiny/if/__stack_chk_fail2";
+"sort_tiny/if/__stack_chk_fail2" [style=dashed]
+"worker_a" -> "worker_a/pick_core1";
+"worker_a/pick_core1" -> "bind_core";
+"bind_core" -> "compute_loop";
+"compute_loop" -> "memory_walk";
+"memory_walk" -> "small_math";
+"worker_b" -> "worker_b/pick_core1";
+"worker_b/pick_core1" -> "bind_core";
+"bind_core" -> "memory_walk";
+"memory_walk" -> "compute_loop";
+"compute_loop" -> "sort_tiny";
+"worker_c" -> "worker_c/pick_core1";
+"worker_c/pick_core1" -> "bind_core";
+"bind_core" -> "small_math";
+"small_math" -> "compute_loop";
+"compute_loop" -> "io_sim";
+"worker_d" -> "worker_d/pick_core1";
+"worker_d/pick_core1" -> "bind_core";
+"bind_core" -> "compute_loop";
+"compute_loop" -> "sort_tiny";
+"sort_tiny" -> "memory_walk";
+"worker_e" -> "worker_e/pick_core1";
+"worker_e/pick_core1" -> "bind_core";
+"bind_core" -> "io_sim";
+"io_sim" -> "small_math";
+"small_math" -> "compute_loop";
+}

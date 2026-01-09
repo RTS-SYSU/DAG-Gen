@@ -1,0 +1,95 @@
+strict digraph callgraph {
+"main" -> "main/malloc1";
+"main/malloc1" -> "main/if/fprintf2";
+"main/if/fprintf2" [style=dashed]
+"main/if/fprintf2" -> "main/pthread_create3";
+"main/malloc1" -> "main/pthread_create3";
+"main/pthread_create3" -> "main/if/fprintf4";
+"main/if/fprintf4" [style=dashed]
+"main/if/fprintf4" -> "main/if/free5";
+"main/if/free5" [style=dashed]
+"threadtask1/printf15" -> "main/pthread_join6" [color="#D32F2F", penwidth=3.2];
+"main/if/free5" -> "main/pthread_join6";
+"main/pthread_create3" -> "main/pthread_join6";
+"main/pthread_join6" -> "main/if/fprintf7" [color="#D32F2F", penwidth=3.2];
+"main/if/fprintf7" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="0 ns"];
+"main/if/fprintf7" -> "main/if/free8" [color="#D32F2F", penwidth=3.2];
+"main/if/free8" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="0 ns"];
+"main/if/free8" -> "main/free9" [color="#D32F2F", penwidth=3.2];
+"main/pthread_join6" -> "main/free9";
+"main/free9" -> "main/printf10" [color="#D32F2F", penwidth=3.2];
+"threadtask1" -> "threadtask1/malloc1";
+"threadtask1/malloc1" -> "threadtask1/if/fprintf2";
+"threadtask1/if/fprintf2" [style=dashed]
+"threadtask1/if/fprintf2" -> "threadtask1/Deg2rad3";
+"threadtask1/malloc1" -> "threadtask1/Deg2rad3";
+"threadtask1/Deg2rad3" -> "threadtask1/printf4";
+"threadtask1/printf4" -> "threadtask1/pthread_create5";
+"threadtask1/pthread_create5" -> "threadtask1/if/fprintf6";
+"threadtask1/if/fprintf6" [style=dashed]
+"threadtask1/if/fprintf6" -> "threadtask1/if/free7";
+"threadtask1/if/free7" [style=dashed]
+"threadtask1/if/free7" -> "threadtask1/cover8";
+"threadtask1/pthread_create5" -> "threadtask1/cover8";
+"threadtask1/cover8" -> "threadtask1/printf9";
+"threadtask1/printf9" -> "threadtask1/duff10";
+"threadtask1/duff10" -> "threadtask1/printf11";
+"threadtask2/printf18" -> "threadtask1/pthread_join12" [color="#D32F2F", penwidth=3.2];
+"threadtask1/printf11" -> "threadtask1/pthread_join12";
+"threadtask1/pthread_join12" -> "threadtask1/free13" [color="#D32F2F", penwidth=3.2];
+"threadtask1/free13" -> "threadtask1/insertsort14" [color="#D32F2F", penwidth=3.2];
+"threadtask1/insertsort14" -> "threadtask1/printf15" [color="#D32F2F", penwidth=3.2];
+"threadtask2" -> "threadtask2/malloc1";
+"threadtask2/malloc1" -> "threadtask2/malloc2" [color="#D32F2F", penwidth=3.2];
+"threadtask2/malloc2" -> "threadtask2/minver3" [color="#D32F2F", penwidth=3.2];
+"threadtask2/minver3" -> "threadtask2/printf4" [color="#D32F2F", penwidth=3.2];
+"threadtask2/printf4" -> "threadtask2/pthread_create5" [color="#D32F2F", penwidth=3.2];
+"threadtask2/pthread_create5" -> "threadtask2/if/fprintf6" [color="#D32F2F", penwidth=3.2];
+"threadtask2/if/fprintf6" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="0 ns"];
+"threadtask2/if/fprintf6" -> "threadtask2/if/free7" [color="#D32F2F", penwidth=3.2];
+"threadtask2/if/free7" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="0 ns"];
+"threadtask2/if/free7" -> "threadtask2/pthread_create8" [color="#D32F2F", penwidth=3.2];
+"threadtask2/pthread_create5" -> "threadtask2/pthread_create8";
+"threadtask2/pthread_create8" -> "threadtask2/if/fprintf9" [color="#D32F2F", penwidth=3.2];
+"threadtask2/if/fprintf9" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="0 ns"];
+"threadtask2/if/fprintf9" -> "threadtask2/if/free10" [color="#D32F2F", penwidth=3.2];
+"threadtask2/if/free10" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="0 ns"];
+"threadtask2/if/free10" -> "threadtask2/ndes11" [color="#D32F2F", penwidth=3.2];
+"threadtask2/pthread_create8" -> "threadtask2/ndes11";
+"threadtask2/ndes11" -> "threadtask2/printf12" [color="#D32F2F", penwidth=3.2];
+"threadtask3/printf2" -> "threadtask2/pthread_join13";
+"threadtask2/printf12" -> "threadtask2/pthread_join13" [color="#D32F2F", penwidth=3.2];
+"threadtask4/printf2" -> "threadtask2/pthread_join14";
+"threadtask2/pthread_join13" -> "threadtask2/pthread_join14" [color="#D32F2F", penwidth=3.2];
+"threadtask2/pthread_join14" -> "threadtask2/free15" [color="#D32F2F", penwidth=3.2];
+"threadtask2/free15" -> "threadtask2/free16" [color="#D32F2F", penwidth=3.2];
+"threadtask2/free16" -> "threadtask2/ludcmp17" [color="#D32F2F", penwidth=3.2];
+"threadtask2/ludcmp17" -> "threadtask2/printf18" [color="#D32F2F", penwidth=3.2];
+"threadtask3" -> "threadtask3/rad2deg1";
+"threadtask3/rad2deg1" -> "threadtask3/printf2";
+"threadtask4" -> "threadtask4/prime1";
+"threadtask4/prime1" -> "threadtask4/printf2";
+
+  // === Longest path highlight patch (auto-generated) ===
+  "threadtask2/malloc1" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="13422 ns"];
+  "threadtask2/malloc2" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="112 ns"];
+  "threadtask2/minver3" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="2077 ns"];
+  "threadtask2/printf4" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="359 ns"];
+  "threadtask2/pthread_create5" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="24825 ns"];
+  "threadtask2/pthread_create8" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="17816 ns"];
+  "threadtask2/ndes11" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="2221 ns"];
+  "threadtask2/printf12" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="168 ns"];
+  "threadtask2/pthread_join13" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="223 ns"];
+  "threadtask2/pthread_join14" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="43812 ns"];
+  "threadtask2/free15" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="298 ns"];
+  "threadtask2/free16" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="53 ns"];
+  "threadtask2/ludcmp17" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="759 ns"];
+  "threadtask2/printf18" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="152 ns"];
+  "threadtask1/pthread_join12" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="169710 ns"];
+  "threadtask1/free13" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="171 ns"];
+  "threadtask1/insertsort14" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="313 ns"];
+  "threadtask1/printf15" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="103 ns"];
+  "main/pthread_join6" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="264345 ns"];
+  "main/free9" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="99 ns"];
+  "main/printf10" [style="filled", fillcolor="#FFE082", color="#D84315", penwidth=2.2, tooltip="177 ns"];
+}
