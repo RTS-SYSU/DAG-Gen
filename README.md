@@ -1,4 +1,4 @@
-# DAG-Describe: A Cross-Language DAG Generation Tool for C/C++/Python
+# ScratchDAG: Source-Level Task DAG Extraction for Multithreaded Programs
 
 > **Based on [chaudron/cally](https://github.com/chaudron/cally)**  
 > DAG-Describe is a lightweight tool designed to analyze the control and data flow of programs and generate task-level DAGs from C, C++, and Python code, facilitating task scheduling and static analysis in real-time.
