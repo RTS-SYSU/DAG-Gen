@@ -778,11 +778,15 @@ def full_call_graph(functions, **kwargs):
         if exclude is None or \
                 re.match(exclude, func) is None:
 
-            for caller in functions[func]["mycalls"]:
+            callers = functions[func]["mycalls"]
+            idx = 0
+            while idx < len(callers):
+                caller = callers[idx]
                 # extern_only 模式下，基于 mycalls_meta 筛掉 extern!=1 的调用
                 if extern_only:
                     meta = meta_map.get(caller, {})
                     if not isinstance(meta, dict) or meta.get("extern") != 0:
+                        idx += 1
                         continue
                 if (not no_externs or caller in functions) and \
                         (exclude is None or
@@ -792,34 +796,23 @@ def full_call_graph(functions, **kwargs):
                         for tail, join in resolve_join_edges(functions, func, caller):
                             print_buf(std_buf, '"{}" -> "{}";'.format(tail, join))
 
+                    if 'pthread_create' in caller:
+                        # create 特殊补边：create -> 线程名节点，同时 create -> 调用方下一个节点
+                        next_thread_node = callers[idx + 1] if idx + 1 < len(callers) else None
+                        caller_next = callers[idx + 2] if idx + 2 < len(callers) else None
+                        print_buf(std_buf, '"{}" -> "{}";'.format(pre, caller))
+                        if next_thread_node:
+                            print_buf(std_buf, '"{}" -> "{}";'.format(caller, next_thread_node))
+                        if caller_next:
+                            print_buf(std_buf, '"{}" -> "{}";'.format(caller, caller_next))
+                            pre = caller_next
+                            idx += 2  # 跳过线程名节点，直接处理 caller_next
+                        else:
+                            pre = caller
+                            idx += 1
+                        printed_functions += 1
+                        continue
 
-                    # if caller not in functions:
-                    #     print_buf(std_buf, '"{}" [style=dashed]'.
-                    #               format(caller))
-                    # if "if" in caller:
-                    #     if has_if==0:
-                    #         has_if=1
-                    #     count_if=count_if+1
-                    #     if count_if==1:
-                    #         start_if=pre
-                    #     print_buf(std_buf, '"{}" [style=dashed]'.
-                    #               format(caller))
-                    # else:
-                    #     if has_if==1:
-                    #         has_if=0
-                    #         end_if=caller
-                    #         print_buf(std_buf, '"{}" -> "{}";'.format(start_if, end_if))
-                    #         # print_buf(std_buf, '"{}" [style=dashed]'.
-                    #         #           format(start_if))
-                    #         # print_buf(std_buf, '"{}" [style=dashed]'.
-                    #         #           format(end_if))
-                    #     count_if=0
-                    #     if "while" in caller:
-                    #         print_buf(std_buf, '"{}" [style=dashed]'.
-                    #               format(caller))
-                    #     elif"switch" in caller:
-                    #         print_buf(std_buf, '"{}" [style=dashed]'.
-                    #                   format(caller))
                     if not threads_only:
                         # 条件节点处理（仅在非threads_only模式下）
                         if "if" in caller:
@@ -866,6 +859,7 @@ def full_call_graph(functions, **kwargs):
                         print_buf(std_buf, '"{}" -> "{}";'.format(pre, caller))
                     printed_functions += 1
                     pre = caller
+                idx += 1
             if printed_functions == 0:
                 print_buf(std_buf, '"{}"'.format(func))
     print_buf(std_buf, "}")

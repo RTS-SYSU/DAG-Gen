@@ -1,0 +1,643 @@
+{
+  "rtl_files": [
+    "/home/chove/Desktop/mydag/mycallyplus_v1/配置文件/cpu4_thread10/cpu4_thread10.c.233r.expand"
+  ],
+  "functions": {
+    "wait_ready": {
+      "files": [
+        "/home/chove/Desktop/mydag/mycallyplus_v1/配置文件/cpu4_thread10/cpu4_thread10.c.233r.expand"
+      ],
+      "calls": {
+        "pthread_mutex_lock": true,
+        "pthread_cond_wait": true,
+        "pthread_mutex_unlock": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "cpu4_thread10.c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [
+        "wait_ready/pthread_mutex_lock1",
+        "wait_ready/pthread_cond_wait2",
+        "wait_ready/pthread_mutex_unlock3"
+      ],
+      "myinfo": {
+        "tail": "wait_ready/pthread_mutex_unlock3"
+      },
+      "mycalls_meta": {
+        "wait_ready/pthread_mutex_lock1": {
+          "file": "cpu4_thread10.c",
+          "line": 55,
+          "col": 5,
+          "extern": 0
+        },
+        "wait_ready/pthread_cond_wait2": {
+          "file": "cpu4_thread10.c",
+          "line": 56,
+          "col": 22,
+          "extern": 0
+        },
+        "wait_ready/pthread_mutex_unlock3": {
+          "file": "cpu4_thread10.c",
+          "line": 57,
+          "col": 5,
+          "extern": 0
+        }
+      }
+    },
+    "worker": {
+      "files": [
+        "/home/chove/Desktop/mydag/mycallyplus_v1/配置文件/cpu4_thread10/cpu4_thread10.c.233r.expand"
+      ],
+      "calls": {
+        "pthread_barrier_wait": true,
+        "pthread_mutex_lock": true,
+        "pthread_cond_broadcast": true,
+        "pthread_mutex_unlock": true,
+        "wait_ready": true,
+        "pthread_cond_wait": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "cpu4_thread10.c": true,
+        "sink": true,
+        "readyA": true,
+        "readyB": true,
+        "latchA": true,
+        "latchB": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [
+        "worker/pthread_barrier_wait1",
+        "worker/pthread_mutex_lock2",
+        "worker/pthread_cond_broadcast3",
+        "worker/pthread_mutex_unlock4",
+        "worker/pthread_mutex_lock5",
+        "worker/pthread_cond_broadcast6",
+        "worker/pthread_mutex_unlock7",
+        "wait_ready",
+        "worker/pthread_mutex_lock9",
+        "worker/pthread_cond_broadcast10",
+        "worker/pthread_mutex_unlock11",
+        "wait_ready",
+        "worker/pthread_mutex_lock13",
+        "worker/pthread_cond_broadcast14",
+        "worker/pthread_mutex_unlock15",
+        "worker/pthread_mutex_lock16",
+        "worker/pthread_cond_wait17",
+        "worker/pthread_mutex_unlock18",
+        "worker/pthread_mutex_lock19",
+        "worker/pthread_cond_wait20",
+        "worker/pthread_mutex_unlock21"
+      ],
+      "myinfo": {
+        "tail": "worker/pthread_mutex_unlock21"
+      },
+      "mycalls_meta": {
+        "worker/pthread_barrier_wait1": {
+          "file": "cpu4_thread10.c",
+          "line": 66,
+          "col": 5,
+          "extern": 0
+        },
+        "worker/pthread_mutex_lock2": {
+          "file": "cpu4_thread10.c",
+          "line": 83,
+          "col": 9,
+          "extern": 0
+        },
+        "worker/pthread_cond_broadcast3": {
+          "file": "cpu4_thread10.c",
+          "line": 85,
+          "col": 9,
+          "extern": 0
+        },
+        "worker/pthread_mutex_unlock4": {
+          "file": "cpu4_thread10.c",
+          "line": 86,
+          "col": 9,
+          "extern": 0
+        },
+        "worker/pthread_mutex_lock5": {
+          "file": "cpu4_thread10.c",
+          "line": 105,
+          "col": 9,
+          "extern": 0
+        },
+        "worker/pthread_cond_broadcast6": {
+          "file": "cpu4_thread10.c",
+          "line": 107,
+          "col": 9,
+          "extern": 0
+        },
+        "worker/pthread_mutex_unlock7": {
+          "file": "cpu4_thread10.c",
+          "line": 108,
+          "col": 9,
+          "extern": 0
+        },
+        "wait_ready": {
+          "file": "cpu4_thread10.c",
+          "line": 136,
+          "col": 9,
+          "extern": 0
+        },
+        "worker/pthread_mutex_lock9": {
+          "file": "cpu4_thread10.c",
+          "line": 127,
+          "col": 9,
+          "extern": 0
+        },
+        "worker/pthread_cond_broadcast10": {
+          "file": "cpu4_thread10.c",
+          "line": 129,
+          "col": 26,
+          "extern": 0
+        },
+        "worker/pthread_mutex_unlock11": {
+          "file": "cpu4_thread10.c",
+          "line": 130,
+          "col": 9,
+          "extern": 0
+        },
+        "worker/pthread_mutex_lock13": {
+          "file": "cpu4_thread10.c",
+          "line": 149,
+          "col": 9,
+          "extern": 0
+        },
+        "worker/pthread_cond_broadcast14": {
+          "file": "cpu4_thread10.c",
+          "line": 151,
+          "col": 26,
+          "extern": 0
+        },
+        "worker/pthread_mutex_unlock15": {
+          "file": "cpu4_thread10.c",
+          "line": 152,
+          "col": 9,
+          "extern": 0
+        },
+        "worker/pthread_mutex_lock16": {
+          "file": "cpu4_thread10.c",
+          "line": 159,
+          "col": 9,
+          "extern": 0
+        },
+        "worker/pthread_cond_wait17": {
+          "file": "cpu4_thread10.c",
+          "line": 160,
+          "col": 28,
+          "extern": 0
+        },
+        "worker/pthread_mutex_unlock18": {
+          "file": "cpu4_thread10.c",
+          "line": 161,
+          "col": 9,
+          "extern": 0
+        },
+        "worker/pthread_mutex_lock19": {
+          "file": "cpu4_thread10.c",
+          "line": 163,
+          "col": 9,
+          "extern": 0
+        },
+        "worker/pthread_cond_wait20": {
+          "file": "cpu4_thread10.c",
+          "line": 164,
+          "col": 28,
+          "extern": 0
+        },
+        "worker/pthread_mutex_unlock21": {
+          "file": "cpu4_thread10.c",
+          "line": 165,
+          "col": 9,
+          "extern": 0
+        }
+      }
+    },
+    "create_fifo_thread": {
+      "files": [
+        "/home/chove/Desktop/mydag/mycallyplus_v1/配置文件/cpu4_thread10/cpu4_thread10.c.233r.expand"
+      ],
+      "calls": {
+        "pthread_attr_init": true,
+        "pthread_attr_setinheritsched": true,
+        "pthread_attr_setschedpolicy": true,
+        "pthread_attr_destroy": true,
+        "memset": true,
+        "pthread_attr_setschedparam": true,
+        "": true,
+        "__stack_chk_fail": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {},
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [
+        "create_fifo_thread/pthread_attr_init1",
+        "create_fifo_thread/pthread_attr_setinheritsched2",
+        "create_fifo_thread/pthread_attr_setschedpolicy3",
+        "create_fifo_thread/pthread_attr_destroy4",
+        "create_fifo_thread/memset5",
+        "create_fifo_thread/pthread_attr_setschedparam6",
+        "create_fifo_thread/pthread_attr_destroy7",
+        "create_fifo_thread/pthread_create8",
+        "",
+        "create_fifo_thread/pthread_attr_destroy9",
+        "create_fifo_thread/__stack_chk_fail10"
+      ],
+      "myinfo": {
+        "tail": "create_fifo_thread/__stack_chk_fail10",
+        "pthread_create": "",
+        "__create_queue__": [
+          ""
+        ]
+      },
+      "mycalls_meta": {
+        "create_fifo_thread/pthread_attr_init1": {
+          "file": "cpu4_thread10.c",
+          "line": 187,
+          "col": 9,
+          "extern": 0
+        },
+        "create_fifo_thread/pthread_attr_setinheritsched2": {
+          "file": "cpu4_thread10.c",
+          "line": 190,
+          "col": 5,
+          "extern": 0
+        },
+        "create_fifo_thread/pthread_attr_setschedpolicy3": {
+          "file": "cpu4_thread10.c",
+          "line": 193,
+          "col": 9,
+          "extern": 0
+        },
+        "create_fifo_thread/pthread_attr_destroy4": {
+          "file": "cpu4_thread10.c",
+          "line": 194,
+          "col": 9,
+          "extern": 0
+        },
+        "create_fifo_thread/memset5": {
+          "file": "cpu4_thread10.c",
+          "line": 198,
+          "col": 5,
+          "extern": 0
+        },
+        "create_fifo_thread/pthread_attr_setschedparam6": {
+          "file": "cpu4_thread10.c",
+          "line": 201,
+          "col": 9,
+          "extern": 0
+        },
+        "create_fifo_thread/pthread_attr_destroy7": {
+          "file": "cpu4_thread10.c",
+          "line": 202,
+          "col": 9,
+          "extern": 0
+        },
+        "create_fifo_thread/pthread_create8": {
+          "file": "cpu4_thread10.c",
+          "line": 206,
+          "col": 14,
+          "extern": 0
+        },
+        "create_fifo_thread/pthread_attr_destroy9": {
+          "file": "cpu4_thread10.c",
+          "line": 207,
+          "col": 5,
+          "extern": 0
+        },
+        "create_fifo_thread/__stack_chk_fail10": {
+          "file": "cpu4_thread10.c",
+          "line": 209,
+          "col": 1,
+          "extern": 0
+        }
+      }
+    },
+    "main": {
+      "files": [
+        "/home/chove/Desktop/mydag/mycallyplus_v1/配置文件/cpu4_thread10/cpu4_thread10.c.233r.expand"
+      ],
+      "calls": {
+        "sched_setaffinity": true,
+        "__errno_location": true,
+        "strerror": true,
+        "fprintf": true,
+        "pthread_barrier_init": true,
+        "create_fifo_thread": true,
+        "pthread_join": true,
+        "printf": true,
+        "__stack_chk_fail": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "cpu4_thread10.c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [
+        "main/sched_setaffinity1",
+        "main/__errno_location2",
+        "main/strerror3",
+        "main/fprintf4",
+        "main/pthread_barrier_init5",
+        "create_fifo_thread",
+        "main/strerror7",
+        "main/fprintf8",
+        "create_fifo_thread",
+        "main/strerror10",
+        "main/fprintf11",
+        "create_fifo_thread",
+        "main/strerror13",
+        "main/fprintf14",
+        "create_fifo_thread",
+        "main/strerror16",
+        "main/fprintf17",
+        "create_fifo_thread",
+        "main/strerror19",
+        "main/fprintf20",
+        "create_fifo_thread",
+        "main/strerror22",
+        "main/fprintf23",
+        "create_fifo_thread",
+        "main/strerror25",
+        "main/fprintf26",
+        "create_fifo_thread",
+        "main/strerror28",
+        "main/fprintf29",
+        "create_fifo_thread",
+        "main/strerror31",
+        "main/fprintf32",
+        "create_fifo_thread",
+        "main/strerror34",
+        "main/fprintf35",
+        "main/pthread_join36",
+        "main/pthread_join37",
+        "main/pthread_join38",
+        "main/pthread_join39",
+        "main/pthread_join40",
+        "main/pthread_join41",
+        "main/pthread_join42",
+        "main/pthread_join43",
+        "main/pthread_join44",
+        "main/pthread_join45",
+        "main/printf46",
+        "main/__stack_chk_fail47"
+      ],
+      "myinfo": {
+        "tail": "main/__stack_chk_fail47",
+        "main/pthread_join36": "t0",
+        "main/pthread_join37": "t1",
+        "main/pthread_join38": "t2",
+        "main/pthread_join39": "t3",
+        "main/pthread_join40": "t4",
+        "main/pthread_join41": "t5",
+        "main/pthread_join42": "t6",
+        "main/pthread_join43": "t7",
+        "main/pthread_join44": "t8",
+        "main/pthread_join45": "t9"
+      },
+      "mycalls_meta": {
+        "main/sched_setaffinity1": {
+          "file": "cpu4_thread10.c",
+          "line": 221,
+          "col": 9,
+          "extern": 0
+        },
+        "main/__errno_location2": {
+          "file": "cpu4_thread10.c",
+          "line": 222,
+          "col": 68,
+          "extern": 0
+        },
+        "main/strerror3": {
+          "file": "cpu4_thread10.c",
+          "line": 222,
+          "col": 9,
+          "extern": 0
+        },
+        "main/fprintf4": {
+          "file": "cpu4_thread10.c",
+          "line": 222,
+          "col": 9,
+          "extern": 0
+        },
+        "main/pthread_barrier_init5": {
+          "file": "cpu4_thread10.c",
+          "line": 227,
+          "col": 5,
+          "extern": 0
+        },
+        "create_fifo_thread": {
+          "file": "cpu4_thread10.c",
+          "line": 265,
+          "col": 10,
+          "extern": 0
+        },
+        "main/strerror7": {
+          "file": "cpu4_thread10.c",
+          "line": 253,
+          "col": 68,
+          "extern": 0
+        },
+        "main/fprintf8": {
+          "file": "cpu4_thread10.c",
+          "line": 253,
+          "col": 68,
+          "extern": 0
+        },
+        "main/strerror10": {
+          "file": "cpu4_thread10.c",
+          "line": 254,
+          "col": 68,
+          "extern": 0
+        },
+        "main/fprintf11": {
+          "file": "cpu4_thread10.c",
+          "line": 254,
+          "col": 68,
+          "extern": 0
+        },
+        "main/strerror13": {
+          "file": "cpu4_thread10.c",
+          "line": 256,
+          "col": 68,
+          "extern": 0
+        },
+        "main/fprintf14": {
+          "file": "cpu4_thread10.c",
+          "line": 256,
+          "col": 68,
+          "extern": 0
+        },
+        "main/strerror16": {
+          "file": "cpu4_thread10.c",
+          "line": 257,
+          "col": 68,
+          "extern": 0
+        },
+        "main/fprintf17": {
+          "file": "cpu4_thread10.c",
+          "line": 257,
+          "col": 68,
+          "extern": 0
+        },
+        "main/strerror19": {
+          "file": "cpu4_thread10.c",
+          "line": 258,
+          "col": 68,
+          "extern": 0
+        },
+        "main/fprintf20": {
+          "file": "cpu4_thread10.c",
+          "line": 258,
+          "col": 68,
+          "extern": 0
+        },
+        "main/strerror22": {
+          "file": "cpu4_thread10.c",
+          "line": 260,
+          "col": 68,
+          "extern": 0
+        },
+        "main/fprintf23": {
+          "file": "cpu4_thread10.c",
+          "line": 260,
+          "col": 68,
+          "extern": 0
+        },
+        "main/strerror25": {
+          "file": "cpu4_thread10.c",
+          "line": 261,
+          "col": 68,
+          "extern": 0
+        },
+        "main/fprintf26": {
+          "file": "cpu4_thread10.c",
+          "line": 261,
+          "col": 68,
+          "extern": 0
+        },
+        "main/strerror28": {
+          "file": "cpu4_thread10.c",
+          "line": 262,
+          "col": 68,
+          "extern": 0
+        },
+        "main/fprintf29": {
+          "file": "cpu4_thread10.c",
+          "line": 262,
+          "col": 68,
+          "extern": 0
+        },
+        "main/strerror31": {
+          "file": "cpu4_thread10.c",
+          "line": 264,
+          "col": 68,
+          "extern": 0
+        },
+        "main/fprintf32": {
+          "file": "cpu4_thread10.c",
+          "line": 264,
+          "col": 68,
+          "extern": 0
+        },
+        "main/strerror34": {
+          "file": "cpu4_thread10.c",
+          "line": 265,
+          "col": 68,
+          "extern": 0
+        },
+        "main/fprintf35": {
+          "file": "cpu4_thread10.c",
+          "line": 265,
+          "col": 68,
+          "extern": 0
+        },
+        "main/pthread_join36": {
+          "file": "cpu4_thread10.c",
+          "line": 268,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_join37": {
+          "file": "cpu4_thread10.c",
+          "line": 269,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_join38": {
+          "file": "cpu4_thread10.c",
+          "line": 270,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_join39": {
+          "file": "cpu4_thread10.c",
+          "line": 271,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_join40": {
+          "file": "cpu4_thread10.c",
+          "line": 272,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_join41": {
+          "file": "cpu4_thread10.c",
+          "line": 273,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_join42": {
+          "file": "cpu4_thread10.c",
+          "line": 274,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_join43": {
+          "file": "cpu4_thread10.c",
+          "line": 275,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_join44": {
+          "file": "cpu4_thread10.c",
+          "line": 276,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_join45": {
+          "file": "cpu4_thread10.c",
+          "line": 277,
+          "col": 5,
+          "extern": 0
+        },
+        "main/printf46": {
+          "file": "cpu4_thread10.c",
+          "line": 279,
+          "col": 5,
+          "extern": 0
+        },
+        "main/__stack_chk_fail47": {
+          "file": "cpu4_thread10.c",
+          "line": 281,
+          "col": 1,
+          "extern": 0
+        }
+      }
+    }
+  },
+  "thread_edges_preview": []
+}
