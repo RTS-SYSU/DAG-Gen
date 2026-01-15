@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-# ScratchDAG (formerly mycallyplus_v1)
+# ScratchDAG 
 
 ScratchDAG is a toolkit to build and explore call graphs for C/C++ projects, run time analysis via automatic instrumentation, and experiment with scheduling strategies (longest-path, CPC). It ships with GUI and CLI, outputs DOT/PNG/JSON, and keeps artifacts organized for comparison.
 
