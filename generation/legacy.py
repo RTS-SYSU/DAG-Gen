@@ -38,6 +38,7 @@ import copy
 import fileinput
 import json
 import os
+from collections import defaultdict
 from pathlib import Path
 import re
 import sys
@@ -49,9 +50,13 @@ from typing import Optional, Tuple
 # 兼容直接运行：尝试相对导入失败时调整 sys.path 后再导入
 try:
     from .thread_map import resolve_join_edges, collect_thread_edges
+    from ..core.func_ranges import extract_func_ranges
+    from ..level1.segment_dag import build_stage1_segments_and_dag
 except ImportError:
     sys.path.append(str(Path(__file__).resolve().parent.parent))
     from generation.thread_map import resolve_join_edges, collect_thread_edges
+    from core.func_ranges import extract_func_ranges
+    from level1.segment_dag import build_stage1_segments_and_dag
 
 #
 # Unit tests for the dump_path() function.
@@ -83,8 +88,8 @@ unit_test_full_dump_output = [
     '"main" -> "A";',
     '}'
 ]
-
-
+#全局变量，用来存储尾节点绑定信息
+tail_map = {}
 def _serialize_functions_for_dump(functions: dict) -> dict:
     """将 functions 结构转换为可 JSON 序列化的形式。"""
     out = {}
@@ -153,6 +158,75 @@ unit_test_maxdepth5_callee_output = [
     '"A" -> "A" -> "B" -> "C" -> "D";', '"main" -> "A" -> "B" -> "C" -> "D";',
     '"B" -> "G" -> "B" -> "C" -> "D";', '"B" -> "H" -> "I" -> "J" -> "D";'
 ]
+
+
+def instfunctions(functions: dict):
+    """对调用次数大于 1 的函数生成实例并更新调用方引用。
+
+    规则：
+    - 原始函数名保留第一次调用。
+    - 额外调用按全局计数追加 `@instanceN`。
+    - 只处理 functions 中的自定义函数；库函数等不在 functions 的不处理。
+    - 不展开递归/循环，遇到自调用不特殊处理。
+    """
+    if not functions:
+        return
+
+    call_count = defaultdict(int)
+    for finfo in functions.values():
+        for target in finfo.get("mycalls", []):
+            if target in functions:
+                call_count[target] += 1
+
+    clones = {}
+    for fn, cnt in call_count.items():
+        if cnt > 1:
+            clones[fn] = [f"{fn}@instance{i}" for i in range(1, cnt)]
+
+    if not clones:
+        return
+
+    for fn, inst_names in clones.items():
+        if fn not in functions:
+            continue
+        for inst_name in inst_names:
+            functions[inst_name] = copy.deepcopy(functions[fn])
+
+    seen = defaultdict(int)
+
+    for fn, finfo in functions.items():
+        mycalls = finfo.get("mycalls", [])
+        meta_map = finfo.get("mycalls_meta", {}) or {}
+        call_src_full_map = finfo.get("call_src_full", {}) or {}
+
+        new_calls = []
+        new_meta = {}
+        new_call_src_full = {}
+
+        for call in mycalls:
+            target = call
+            if call in clones:
+                seen[call] += 1
+                idx = seen[call]
+                if idx > 1:
+                    inst_list = clones[call]
+                    inst_idx = min(idx - 2, len(inst_list) - 1)
+                    target = inst_list[inst_idx]
+            new_calls.append(target)
+
+            if call in meta_map:
+                new_meta[target] = meta_map[call]
+            elif target in meta_map:
+                new_meta[target] = meta_map[target]
+
+            if call in call_src_full_map:
+                new_call_src_full[target] = call_src_full_map[call]
+            elif target in call_src_full_map:
+                new_call_src_full[target] = call_src_full_map[target]
+
+        finfo["mycalls"] = new_calls
+        finfo["mycalls_meta"] = new_meta
+        finfo["call_src_full"] = new_call_src_full
 
 
 #
@@ -772,7 +846,6 @@ def full_call_graph(functions, **kwargs):
         preswtich = ""
         prenum = 1
         meta_map = functions[func].get("mycalls_meta", {})
-
         printed_functions = 1
         pre = func
         if exclude is None or \
@@ -791,16 +864,16 @@ def full_call_graph(functions, **kwargs):
                 if (not no_externs or caller in functions) and \
                         (exclude is None or
                          re.match(exclude, caller) is None):
-                    join_search = re.search(myjoin, caller)#处理pthread——join节点
-                    if join_search is not None:
-                        for tail, join in resolve_join_edges(functions, func, caller):
-                            print_buf(std_buf, '"{}" -> "{}";'.format(tail, join))
-
+                    # join_search = re.search(myjoin, caller)#处理pthread——join节点
+                    # if join_search is not None:
+                    #     for tail, join in resolve_join_edges(functions, func, caller):
+                    #         print_buf(std_buf, '"{}" -> "{}";'.format(tail, join))
                     if 'pthread_create' in caller:
                         # create 特殊补边：create -> 线程名节点，同时 create -> 调用方下一个节点
                         next_thread_node = callers[idx + 1] if idx + 1 < len(callers) else None
                         caller_next = callers[idx + 2] if idx + 2 < len(callers) else None
-                        print_buf(std_buf, '"{}" -> "{}";'.format(pre, caller))
+                        if pre!=caller:
+                          print_buf(std_buf, '"{}" -> "{}";'.format(pre, caller))
                         if next_thread_node:
                             print_buf(std_buf, '"{}" -> "{}";'.format(caller, next_thread_node))
                         if caller_next:
@@ -856,12 +929,15 @@ def full_call_graph(functions, **kwargs):
                                   print_buf(std_buf, '"{}" -> "{}";'.format(pre, caller))
                     else:
                         # threads_only模式：只处理普通调用，不处理条件节点
-                        print_buf(std_buf, '"{}" -> "{}";'.format(pre, caller))
+                        if pre != caller:
+                          print_buf(std_buf, '"{}" -> "{}";'.format(pre, caller))
                     printed_functions += 1
                     pre = caller
                 idx += 1
             if printed_functions == 0:
                 print_buf(std_buf, '"{}"'.format(func))
+    #在这里完成补边
+    append_join_edges(functions, std_buf)
     print_buf(std_buf, "}")
 
 
@@ -944,7 +1020,57 @@ def mark_extern_by_selected(functions, selected_file=None, workspace_root=None):
                 # 仅按文件名匹配：匹配 = 内部调用(0)，不匹配 = 外部调用(1)
                 meta["extern"] = 0 if cur_name == sel_name else 1
 
+join_binding_map = {
+    "handle_to_thread": {},
+    "thread_to_tail": {},
+    "handle_to_joins": {},
+    "tail_to_joins": {},
+}
 
+
+def build_join_binding_map(functions: dict) -> None:
+    """构建四层映射：句柄->线程函数、线程函数->尾节点、句柄->join、尾节点->join。"""
+    global join_binding_map
+    join_binding_map = {
+        "handle_to_thread": {},
+        "thread_to_tail": {},
+        "handle_to_joins": {},
+        "tail_to_joins": {},
+    }
+    for fn_name, finfo in functions.items():
+        myinfo = finfo.get("myinfo", {}) or {}
+        tail_node = myinfo.get("tail")
+        if isinstance(tail_node, str):
+            join_binding_map["thread_to_tail"][fn_name] = tail_node
+        # 句柄 -> 线程函数（句柄来自 create 记录）
+        for key, val in myinfo.items():
+            if key in ("tail", "__create_queue__"):
+                continue
+            if isinstance(key, str) and isinstance(val, str):
+                join_binding_map["handle_to_thread"][key] = val
+        # 句柄 -> join 节点（来自 join 记录）
+        for join_node, join_var in myinfo.items():
+            if join_node in ("tail", "__create_queue__"):
+                continue
+            if not isinstance(join_var, str):
+                continue
+            join_binding_map["handle_to_joins"].setdefault(join_var, []).append(join_node)
+    # 尾节点 -> join 节点：句柄 -> 线程函数 -> 尾节点，再对应该句柄的 join 列表
+    for handle, thread_fn in join_binding_map["handle_to_thread"].items():
+        tail = join_binding_map["thread_to_tail"].get(thread_fn)
+        if not tail:
+            continue
+        joins = join_binding_map["handle_to_joins"].get(handle, [])
+        if joins:
+            join_binding_map["tail_to_joins"].setdefault(tail, []).extend(joins)
+
+
+def append_join_edges(functions: dict, std_buf: list):
+    """根据全局映射追加 join 补边：尾节点 -> join 节点。"""
+    global join_binding_map
+    for tail, joins in join_binding_map.get("tail_to_joins", {}).items():
+        for j in joins:
+            print_buf(std_buf, f'"{tail}" -> "{j}";')
 def preparse_pthread_join_bindings(rtl_files, *, max_backtrack_lines: int = 300):
     """预读 RTL 文件，按出现顺序提取 pthread_join 的线程变量名列表。
 
@@ -1125,6 +1251,11 @@ def main():
     parser.add_argument("--extern-only",
                         help="生成源码调用图时仅输出 extern==1 的节点/边",
                         action="store_true")
+    parser.add_argument(
+        "--level1-stage1",
+        help="Generate Level-1(stage1) segments and segment-DAG (create/join only) under 中间结果/<base>/生成dag图/",
+        action="store_true",
+    )
 
     parser.add_argument("RTLFILE", help="GCCs RTL .expand file", nargs="+")
 
@@ -1585,7 +1716,10 @@ def main():
         thread_edges_preview = collect_thread_edges(copy.deepcopy(functions))
     except Exception:
         thread_edges_preview = []
-
+    #在这里进行实例化处理
+    instfunctions(functions)
+    #在这里进行总表统计
+    build_join_binding_map(functions)
     _dump_debug_snapshot(
         config,
         "post_parse",
@@ -1666,6 +1800,68 @@ def main():
             json.dump(internal_meta, f, ensure_ascii=False, indent=2)
         if not config.no_warnings:
             print_dbg(f"[INFO] debug artifacts exported to {debug_dir}")
+
+        # 额外导出函数范围（用于 Level-1 切割）：优先用 first_stmt_line / last_stmt_line
+        try:
+            source_file = getattr(config, "source_file", None)
+            if source_file:
+                src_path = Path(str(source_file))
+                if src_path.exists() and src_path.suffix.lower() == ".c":
+                    ranges = extract_func_ranges(src_path, functions.keys())
+                    ranges_path = out_dir / "functions_ranges.json"
+                    payload = {
+                        "source": str(src_path),
+                        "functions": [
+                            {
+                                "name": r.name,
+                                "base_name": r.base_name,
+                                "start_line": r.start_line,
+                                "body_start_line": r.body_start_line,
+                                "first_stmt_line": r.first_stmt_line,
+                                "end_line": r.end_line,
+                                "last_stmt_line": r.last_stmt_line,
+                                "last_return_line": r.last_return_line,
+                                "level1_start_line": r.first_stmt_line if r.first_stmt_line is not None else r.body_start_line,
+                                "level1_end_line": r.last_stmt_line if r.last_stmt_line is not None else r.end_line,
+                            }
+                            for r in ranges
+                        ],
+                        "missing": sorted([n for n in functions.keys() if n not in {r.name for r in ranges}]),
+                    }
+                    with ranges_path.open("w", encoding="utf-8") as f:
+                        json.dump(payload, f, ensure_ascii=False, indent=2)
+                    if not config.no_warnings:
+                        print_dbg(f"[INFO] functions_ranges exported to {ranges_path}")
+        except Exception as e:
+            if not config.no_warnings:
+                print_err(f"WARNING: failed to export functions_ranges: {e}")
+
+        # Level-1(stage1): segments + segment DAG (create/join only)
+        try:
+            if getattr(config, "level1_stage1", False):
+                segments_json, dag_json = build_stage1_segments_and_dag(base_dir=base_dir, base_name=base_name)
+                level1_dir = base_dir / "中间结果" / base_name / "level1" / "stage1"
+                level1_dir.mkdir(parents=True, exist_ok=True)
+                seg_path = level1_dir / "segments_stage1.json"
+                dag_path = level1_dir / "dag_stage1_seg.json"
+                dot_path = level1_dir / "dag_stage1_seg.dot"
+                seg_path.write_text(json.dumps(segments_json, ensure_ascii=False, indent=2), encoding="utf-8")
+                dag_path.write_text(json.dumps(dag_json, ensure_ascii=False, indent=2), encoding="utf-8")
+                # Render dot inline (no graphviz dependency here)
+                try:
+                    from ..level1.segment_dag import _render_seg_dag_dot  # type: ignore
+                except Exception:
+                    try:
+                        from level1.segment_dag import _render_seg_dag_dot  # type: ignore
+                    except Exception:
+                        _render_seg_dag_dot = None  # type: ignore
+                if _render_seg_dag_dot is not None:
+                    dot_path.write_text(_render_seg_dag_dot(dag_json), encoding="utf-8")  # type: ignore[misc]
+                if not config.no_warnings:
+                    print_dbg(f"[INFO] level1 stage1 exported: {seg_path}, {dag_path}, {dot_path}")
+        except Exception as e:
+            if not config.no_warnings:
+                print_err(f"WARNING: failed to export level1 stage1: {e}")
     except Exception as e:
         if not config.no_warnings:
             print_err(f"WARNING: failed to export functions_full: {e}")

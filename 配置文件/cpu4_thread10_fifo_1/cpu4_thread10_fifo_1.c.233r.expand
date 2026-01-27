@@ -1,0 +1,3170 @@
+
+;; Function init_matrices (init_matrices, funcdef_no=6, decl_uid=3996, cgraph_uid=7, symbol_order=26)
+
+Partition 1: size 4 align 4
+	j_9
+Partition 0: size 4 align 4
+	i_8
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+;; Generating RTL for gimple basic block 4
+
+;; Generating RTL for gimple basic block 5
+
+;; Generating RTL for gimple basic block 6
+
+;; Generating RTL for gimple basic block 7
+
+;; Generating RTL for gimple basic block 8
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Forwarding edge 8->9 to 10 failed.
+Merging block 10 into block 9...
+Merged blocks 9 and 10.
+Merged 9 and 10 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 3 NOTE_INSN_DELETED)
+(note 3 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(note 2 3 5 2 NOTE_INSN_FUNCTION_BEG)
+(insn 5 2 6 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [3 i+0 S4 A32])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":56:14 -1
+     (nil))
+(jump_insn 6 5 7 2 (set (pc)
+        (label_ref 62)) "cpu4_thread10_fifo_1.c":56:5 -1
+     (nil)
+ -> 62)
+(barrier 7 6 64)
+(code_label 64 7 8 4 5 (nil) [1 uses])
+(note 8 64 9 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
+(insn 9 8 10 4 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [3 j+0 S4 A32])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":57:18 -1
+     (nil))
+(jump_insn 10 9 11 4 (set (pc)
+        (label_ref 53)) "cpu4_thread10_fifo_1.c":57:9 -1
+     (nil)
+ -> 53)
+(barrier 11 10 55)
+(code_label 55 11 12 5 4 (nil) [1 uses])
+(note 12 55 13 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
+(insn 13 12 14 5 (set (reg:SI 89)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [3 i+0 S4 A32])) "cpu4_thread10_fifo_1.c":58:34 -1
+     (nil))
+(insn 14 13 15 5 (set (reg:SI 90)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [3 j+0 S4 A32])) "cpu4_thread10_fifo_1.c":58:34 -1
+     (nil))
+(insn 15 14 16 5 (parallel [
+            (set (reg:SI 82 [ _1 ])
+                (plus:SI (reg:SI 89)
+                    (reg:SI 90)))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":58:34 -1
+     (expr_list:REG_EQUAL (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -8 [0xfffffffffffffff8])) [3 i+0 S4 A32])
+            (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -4 [0xfffffffffffffffc])) [3 j+0 S4 A32]))
+        (nil)))
+(insn 16 15 17 5 (parallel [
+            (set (reg:SI 83 [ _2 ])
+                (plus:SI (reg:SI 82 [ _1 ])
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":58:38 -1
+     (nil))
+(insn 17 16 18 5 (set (reg:DF 84 [ _3 ])
+        (float:DF (reg:SI 83 [ _2 ]))) "cpu4_thread10_fifo_1.c":58:23 -1
+     (nil))
+(insn 18 17 19 5 (set (reg:SI 92)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [3 j+0 S4 A32])) "cpu4_thread10_fifo_1.c":58:21 -1
+     (nil))
+(insn 19 18 20 5 (set (reg:DI 91)
+        (sign_extend:DI (reg:SI 92))) "cpu4_thread10_fifo_1.c":58:21 -1
+     (nil))
+(insn 20 19 21 5 (set (reg:SI 94)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [3 i+0 S4 A32])) "cpu4_thread10_fifo_1.c":58:21 -1
+     (nil))
+(insn 21 20 22 5 (set (reg:DI 93)
+        (sign_extend:DI (reg:SI 94))) "cpu4_thread10_fifo_1.c":58:21 -1
+     (nil))
+(insn 22 21 23 5 (parallel [
+            (set (reg:DI 95)
+                (ashift:DI (reg:DI 93)
+                    (const_int 6 [0x6])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":58:21 -1
+     (nil))
+(insn 23 22 24 5 (parallel [
+            (set (reg:DI 96)
+                (plus:DI (reg:DI 95)
+                    (reg:DI 91)))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":58:21 -1
+     (nil))
+(insn 24 23 25 5 (parallel [
+            (set (reg:DI 97)
+                (ashift:DI (reg:DI 96)
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":58:21 -1
+     (nil))
+(insn 25 24 26 5 (set (reg:DI 98)
+        (symbol_ref:DI ("A") [flags 0x2]  <var_decl 0x7f14f9a9b6c0 A>)) "cpu4_thread10_fifo_1.c":58:21 -1
+     (nil))
+(insn 26 25 27 5 (set (mem:DF (plus:DI (reg:DI 97)
+                (reg:DI 98)) [1 A S8 A64])
+        (reg:DF 84 [ _3 ])) "cpu4_thread10_fifo_1.c":58:21 -1
+     (nil))
+(insn 27 26 28 5 (set (reg:SI 99)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [3 i+0 S4 A32])) "cpu4_thread10_fifo_1.c":59:34 -1
+     (nil))
+(insn 28 27 29 5 (parallel [
+            (set (reg:SI 85 [ _4 ])
+                (ashift:SI (reg:SI 99)
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":59:34 -1
+     (expr_list:REG_EQUAL (ashift:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -8 [0xfffffffffffffff8])) [3 i+0 S4 A32])
+            (const_int 1 [0x1]))
+        (nil)))
+(insn 29 28 30 5 (set (reg:SI 100)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [3 j+0 S4 A32])) "cpu4_thread10_fifo_1.c":59:38 -1
+     (nil))
+(insn 30 29 31 5 (parallel [
+            (set (reg:SI 86 [ _5 ])
+                (plus:SI (reg:SI 85 [ _4 ])
+                    (reg:SI 100)))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":59:38 -1
+     (expr_list:REG_EQUAL (plus:SI (reg:SI 85 [ _4 ])
+            (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -4 [0xfffffffffffffffc])) [3 j+0 S4 A32]))
+        (nil)))
+(insn 31 30 32 5 (parallel [
+            (set (reg:SI 87 [ _6 ])
+                (plus:SI (reg:SI 86 [ _5 ])
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":59:42 -1
+     (nil))
+(insn 32 31 33 5 (set (reg:DF 88 [ _7 ])
+        (float:DF (reg:SI 87 [ _6 ]))) "cpu4_thread10_fifo_1.c":59:23 -1
+     (nil))
+(insn 33 32 34 5 (set (reg:SI 102)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [3 j+0 S4 A32])) "cpu4_thread10_fifo_1.c":59:21 -1
+     (nil))
+(insn 34 33 35 5 (set (reg:DI 101)
+        (sign_extend:DI (reg:SI 102))) "cpu4_thread10_fifo_1.c":59:21 -1
+     (nil))
+(insn 35 34 36 5 (set (reg:SI 104)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [3 i+0 S4 A32])) "cpu4_thread10_fifo_1.c":59:21 -1
+     (nil))
+(insn 36 35 37 5 (set (reg:DI 103)
+        (sign_extend:DI (reg:SI 104))) "cpu4_thread10_fifo_1.c":59:21 -1
+     (nil))
+(insn 37 36 38 5 (parallel [
+            (set (reg:DI 105)
+                (ashift:DI (reg:DI 103)
+                    (const_int 6 [0x6])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":59:21 -1
+     (nil))
+(insn 38 37 39 5 (parallel [
+            (set (reg:DI 106)
+                (plus:DI (reg:DI 105)
+                    (reg:DI 101)))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":59:21 -1
+     (nil))
+(insn 39 38 40 5 (parallel [
+            (set (reg:DI 107)
+                (ashift:DI (reg:DI 106)
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":59:21 -1
+     (nil))
+(insn 40 39 41 5 (set (reg:DI 108)
+        (symbol_ref:DI ("B") [flags 0x2]  <var_decl 0x7f14f9a9b750 B>)) "cpu4_thread10_fifo_1.c":59:21 -1
+     (nil))
+(insn 41 40 42 5 (set (mem:DF (plus:DI (reg:DI 107)
+                (reg:DI 108)) [1 B S8 A64])
+        (reg:DF 88 [ _7 ])) "cpu4_thread10_fifo_1.c":59:21 -1
+     (nil))
+(insn 42 41 43 5 (set (reg:SI 110)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [3 j+0 S4 A32])) "cpu4_thread10_fifo_1.c":60:21 -1
+     (nil))
+(insn 43 42 44 5 (set (reg:DI 109)
+        (sign_extend:DI (reg:SI 110))) "cpu4_thread10_fifo_1.c":60:21 -1
+     (nil))
+(insn 44 43 45 5 (set (reg:SI 112)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [3 i+0 S4 A32])) "cpu4_thread10_fifo_1.c":60:21 -1
+     (nil))
+(insn 45 44 46 5 (set (reg:DI 111)
+        (sign_extend:DI (reg:SI 112))) "cpu4_thread10_fifo_1.c":60:21 -1
+     (nil))
+(insn 46 45 47 5 (parallel [
+            (set (reg:DI 113)
+                (ashift:DI (reg:DI 111)
+                    (const_int 6 [0x6])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":60:21 -1
+     (nil))
+(insn 47 46 48 5 (parallel [
+            (set (reg:DI 114)
+                (plus:DI (reg:DI 113)
+                    (reg:DI 109)))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":60:21 -1
+     (nil))
+(insn 48 47 49 5 (parallel [
+            (set (reg:DI 115)
+                (ashift:DI (reg:DI 114)
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":60:21 -1
+     (nil))
+(insn 49 48 50 5 (set (reg:DI 116)
+        (symbol_ref:DI ("C") [flags 0x2]  <var_decl 0x7f14f9a9b7e0 C>)) "cpu4_thread10_fifo_1.c":60:21 -1
+     (nil))
+(insn 50 49 51 5 (set (reg:DF 117)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC0") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":60:21 -1
+     (nil))
+(insn 51 50 52 5 (set (mem:DF (plus:DI (reg:DI 115)
+                (reg:DI 116)) [1 C S8 A64])
+        (reg:DF 117)) "cpu4_thread10_fifo_1.c":60:21 -1
+     (nil))
+(insn 52 51 53 5 (parallel [
+            (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -4 [0xfffffffffffffffc])) [3 j+0 S4 A32])
+                (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -4 [0xfffffffffffffffc])) [3 j+0 S4 A32])
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":57:36 -1
+     (nil))
+(code_label 53 52 54 6 3 (nil) [1 uses])
+(note 54 53 58 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
+(insn 58 54 59 6 (set (reg:CCGC 17 flags)
+        (compare:CCGC (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -4 [0xfffffffffffffffc])) [3 j+0 S4 A32])
+            (const_int 63 [0x3f]))) "cpu4_thread10_fifo_1.c":57:9 -1
+     (nil))
+(jump_insn 59 58 60 6 (set (pc)
+        (if_then_else (le (reg:CCGC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 55)
+            (pc))) "cpu4_thread10_fifo_1.c":57:9 -1
+     (nil)
+ -> 55)
+(note 60 59 61 7 [bb 7] NOTE_INSN_BASIC_BLOCK)
+(insn 61 60 62 7 (parallel [
+            (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -8 [0xfffffffffffffff8])) [3 i+0 S4 A32])
+                (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -8 [0xfffffffffffffff8])) [3 i+0 S4 A32])
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":56:32 -1
+     (nil))
+(code_label 62 61 63 8 2 (nil) [1 uses])
+(note 63 62 67 8 [bb 8] NOTE_INSN_BASIC_BLOCK)
+(insn 67 63 68 8 (set (reg:CCGC 17 flags)
+        (compare:CCGC (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -8 [0xfffffffffffffff8])) [3 i+0 S4 A32])
+            (const_int 63 [0x3f]))) "cpu4_thread10_fifo_1.c":56:5 -1
+     (nil))
+(jump_insn 68 67 69 8 (set (pc)
+        (if_then_else (le (reg:CCGC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 64)
+            (pc))) "cpu4_thread10_fifo_1.c":56:5 -1
+     (nil)
+ -> 64)
+(note 69 68 0 9 [bb 9] NOTE_INSN_BASIC_BLOCK)
+
+;; Function busy_wait_seconds (busy_wait_seconds, funcdef_no=7, decl_uid=4007, cgraph_uid=8, symbol_order=27)
+
+Partition 4: size 8 align 8
+	acc_10
+Partition 5: size 4 align 4
+	k_11
+Partition 3: size 4 align 4
+	j_9
+Partition 2: size 4 align 4
+	i_8
+Partition 1: size 4 align 4
+	r_7
+Partition 0: size 4 align 4
+	repeat_6
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+;; Generating RTL for gimple basic block 4
+
+;; Generating RTL for gimple basic block 5
+
+;; Generating RTL for gimple basic block 6
+
+;; Generating RTL for gimple basic block 7
+
+;; Generating RTL for gimple basic block 8
+
+;; Generating RTL for gimple basic block 9
+
+;; Generating RTL for gimple basic block 10
+
+;; Generating RTL for gimple basic block 11
+
+;; Generating RTL for gimple basic block 12
+
+;; Generating RTL for gimple basic block 13
+
+;; Generating RTL for gimple basic block 14
+
+;; Generating RTL for gimple basic block 15
+
+;; Generating RTL for gimple basic block 16
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Forwarding edge 16->17 to 18 failed.
+Merging block 18 into block 17...
+Merged blocks 17 and 18.
+Merged 17 and 18 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/c:DF (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -40 [0xffffffffffffffd8])) [1 seconds+0 S8 A64])
+        (reg:DF 20 xmm0 [ seconds ])) "cpu4_thread10_fifo_1.c":66:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 87)
+        (mem/c:DF (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -40 [0xffffffffffffffd8])) [1 seconds+0 S8 A64])) "cpu4_thread10_fifo_1.c":67:32 -1
+     (nil))
+(insn 7 6 8 2 (set (reg:DF 88)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC1") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":67:32 -1
+     (expr_list:REG_EQUAL (const_double:DF 2.5e+4 [0x0.c35p+15])
+        (nil)))
+(insn 8 7 9 2 (set (reg:DF 82 [ _1 ])
+        (mult:DF (reg:DF 87)
+            (reg:DF 88))) "cpu4_thread10_fifo_1.c":67:32 -1
+     (nil))
+(insn 9 8 10 2 (set (reg:DF 89)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC2") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":67:45 -1
+     (expr_list:REG_EQUAL (const_double:DF 1.00000000000000005551115123125782702118158340454101562e-1 [0x0.ccccccccccccdp-3])
+        (nil)))
+(insn 10 9 11 2 (set (reg:DF 83 [ _2 ])
+        (mult:DF (reg:DF 82 [ _1 ])
+            (reg:DF 89))) "cpu4_thread10_fifo_1.c":67:45 -1
+     (nil))
+(insn 11 10 12 2 (set (reg:SI 90)
+        (fix:SI (reg:DF 83 [ _2 ]))) "cpu4_thread10_fifo_1.c":67:9 -1
+     (nil))
+(insn 12 11 15 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -28 [0xffffffffffffffe4])) [3 repeat+0 S4 A32])
+        (reg:SI 90)) "cpu4_thread10_fifo_1.c":67:9 -1
+     (nil))
+(insn 15 12 16 2 (set (reg:CCNO 17 flags)
+        (compare:CCNO (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -28 [0xffffffffffffffe4])) [3 repeat+0 S4 A32])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":68:8 -1
+     (nil))
+(jump_insn 16 15 17 2 (set (pc)
+        (if_then_else (gt (reg:CCNO 17 flags)
+                (const_int 0 [0]))
+            (label_ref 19)
+            (pc))) "cpu4_thread10_fifo_1.c":68:8 -1
+     (nil)
+ -> 19)
+(note 17 16 18 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
+(insn 18 17 19 4 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -28 [0xffffffffffffffe4])) [3 repeat+0 S4 A32])
+        (const_int 1 [0x1])) "cpu4_thread10_fifo_1.c":68:28 -1
+     (nil))
+(code_label 19 18 20 5 7 (nil) [1 uses])
+(note 20 19 21 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
+(insn 21 20 22 5 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -24 [0xffffffffffffffe8])) [3 r+0 S4 A32])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":69:14 -1
+     (nil))
+(jump_insn 22 21 23 5 (set (pc)
+        (label_ref 99)) "cpu4_thread10_fifo_1.c":69:5 -1
+     (nil)
+ -> 99)
+(barrier 23 22 101)
+(code_label 101 23 24 6 15 (nil) [1 uses])
+(note 24 101 25 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
+(insn 25 24 26 6 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -20 [0xffffffffffffffec])) [3 i+0 S4 A32])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":70:18 -1
+     (nil))
+(jump_insn 26 25 27 6 (set (pc)
+        (label_ref 90)) "cpu4_thread10_fifo_1.c":70:9 -1
+     (nil)
+ -> 90)
+(barrier 27 26 92)
+(code_label 92 27 28 7 14 (nil) [1 uses])
+(note 28 92 29 7 [bb 7] NOTE_INSN_BASIC_BLOCK)
+(insn 29 28 30 7 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [3 j+0 S4 A32])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":71:22 -1
+     (nil))
+(jump_insn 30 29 31 7 (set (pc)
+        (label_ref 81)) "cpu4_thread10_fifo_1.c":71:13 -1
+     (nil)
+ -> 81)
+(barrier 31 30 83)
+(code_label 83 31 32 8 13 (nil) [1 uses])
+(note 32 83 33 8 [bb 8] NOTE_INSN_BASIC_BLOCK)
+(insn 33 32 34 8 (set (reg:DF 91)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC0") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":72:24 -1
+     (nil))
+(insn 34 33 35 8 (set (mem/c:DF (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [1 acc+0 S8 A64])
+        (reg:DF 91)) "cpu4_thread10_fifo_1.c":72:24 -1
+     (nil))
+(insn 35 34 36 8 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -12 [0xfffffffffffffff4])) [3 k+0 S4 A32])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":73:26 -1
+     (nil))
+(jump_insn 36 35 37 8 (set (pc)
+        (label_ref 62)) "cpu4_thread10_fifo_1.c":73:17 -1
+     (nil)
+ -> 62)
+(barrier 37 36 64)
+(code_label 64 37 38 9 12 (nil) [1 uses])
+(note 38 64 39 9 [bb 9] NOTE_INSN_BASIC_BLOCK)
+(insn 39 38 40 9 (set (reg:SI 93)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -12 [0xfffffffffffffff4])) [3 k+0 S4 A32])) "cpu4_thread10_fifo_1.c":74:32 -1
+     (nil))
+(insn 40 39 41 9 (set (reg:DI 92)
+        (sign_extend:DI (reg:SI 93))) "cpu4_thread10_fifo_1.c":74:32 -1
+     (nil))
+(insn 41 40 42 9 (set (reg:SI 95)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -20 [0xffffffffffffffec])) [3 i+0 S4 A32])) "cpu4_thread10_fifo_1.c":74:32 -1
+     (nil))
+(insn 42 41 43 9 (set (reg:DI 94)
+        (sign_extend:DI (reg:SI 95))) "cpu4_thread10_fifo_1.c":74:32 -1
+     (nil))
+(insn 43 42 44 9 (parallel [
+            (set (reg:DI 96)
+                (ashift:DI (reg:DI 94)
+                    (const_int 6 [0x6])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":74:32 -1
+     (nil))
+(insn 44 43 45 9 (parallel [
+            (set (reg:DI 97)
+                (plus:DI (reg:DI 96)
+                    (reg:DI 92)))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":74:32 -1
+     (nil))
+(insn 45 44 46 9 (parallel [
+            (set (reg:DI 98)
+                (ashift:DI (reg:DI 97)
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":74:32 -1
+     (nil))
+(insn 46 45 47 9 (set (reg:DI 99)
+        (symbol_ref:DI ("A") [flags 0x2]  <var_decl 0x7f14f9a9b6c0 A>)) "cpu4_thread10_fifo_1.c":74:32 -1
+     (nil))
+(insn 47 46 48 9 (set (reg:DF 84 [ _3 ])
+        (mem:DF (plus:DI (reg:DI 98)
+                (reg:DI 99)) [1 A S8 A64])) "cpu4_thread10_fifo_1.c":74:32 -1
+     (nil))
+(insn 48 47 49 9 (set (reg:SI 101)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [3 j+0 S4 A32])) "cpu4_thread10_fifo_1.c":74:42 -1
+     (nil))
+(insn 49 48 50 9 (set (reg:DI 100)
+        (sign_extend:DI (reg:SI 101))) "cpu4_thread10_fifo_1.c":74:42 -1
+     (nil))
+(insn 50 49 51 9 (set (reg:SI 103)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -12 [0xfffffffffffffff4])) [3 k+0 S4 A32])) "cpu4_thread10_fifo_1.c":74:42 -1
+     (nil))
+(insn 51 50 52 9 (set (reg:DI 102)
+        (sign_extend:DI (reg:SI 103))) "cpu4_thread10_fifo_1.c":74:42 -1
+     (nil))
+(insn 52 51 53 9 (parallel [
+            (set (reg:DI 104)
+                (ashift:DI (reg:DI 102)
+                    (const_int 6 [0x6])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":74:42 -1
+     (nil))
+(insn 53 52 54 9 (parallel [
+            (set (reg:DI 105)
+                (plus:DI (reg:DI 104)
+                    (reg:DI 100)))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":74:42 -1
+     (nil))
+(insn 54 53 55 9 (parallel [
+            (set (reg:DI 106)
+                (ashift:DI (reg:DI 105)
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":74:42 -1
+     (nil))
+(insn 55 54 56 9 (set (reg:DI 107)
+        (symbol_ref:DI ("B") [flags 0x2]  <var_decl 0x7f14f9a9b750 B>)) "cpu4_thread10_fifo_1.c":74:42 -1
+     (nil))
+(insn 56 55 57 9 (set (reg:DF 85 [ _4 ])
+        (mem:DF (plus:DI (reg:DI 106)
+                (reg:DI 107)) [1 B S8 A64])) "cpu4_thread10_fifo_1.c":74:42 -1
+     (nil))
+(insn 57 56 58 9 (set (reg:DF 86 [ _5 ])
+        (mult:DF (reg:DF 84 [ _3 ])
+            (reg:DF 85 [ _4 ]))) "cpu4_thread10_fifo_1.c":74:36 -1
+     (nil))
+(insn 58 57 59 9 (set (reg:DF 109)
+        (mem/c:DF (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [1 acc+0 S8 A64])) "cpu4_thread10_fifo_1.c":74:25 -1
+     (nil))
+(insn 59 58 60 9 (set (reg:DF 108)
+        (plus:DF (reg:DF 109)
+            (reg:DF 86 [ _5 ]))) "cpu4_thread10_fifo_1.c":74:25 -1
+     (nil))
+(insn 60 59 61 9 (set (mem/c:DF (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [1 acc+0 S8 A64])
+        (reg:DF 108)) "cpu4_thread10_fifo_1.c":74:25 -1
+     (nil))
+(insn 61 60 62 9 (parallel [
+            (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -12 [0xfffffffffffffff4])) [3 k+0 S4 A32])
+                (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -12 [0xfffffffffffffff4])) [3 k+0 S4 A32])
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":73:44 -1
+     (nil))
+(code_label 62 61 63 10 11 (nil) [1 uses])
+(note 63 62 67 10 [bb 10] NOTE_INSN_BASIC_BLOCK)
+(insn 67 63 68 10 (set (reg:CCGC 17 flags)
+        (compare:CCGC (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -12 [0xfffffffffffffff4])) [3 k+0 S4 A32])
+            (const_int 63 [0x3f]))) "cpu4_thread10_fifo_1.c":73:17 -1
+     (nil))
+(jump_insn 68 67 69 10 (set (pc)
+        (if_then_else (le (reg:CCGC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 64)
+            (pc))) "cpu4_thread10_fifo_1.c":73:17 -1
+     (nil)
+ -> 64)
+(note 69 68 70 11 [bb 11] NOTE_INSN_BASIC_BLOCK)
+(insn 70 69 71 11 (set (reg:SI 111)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [3 j+0 S4 A32])) "cpu4_thread10_fifo_1.c":76:25 -1
+     (nil))
+(insn 71 70 72 11 (set (reg:DI 110)
+        (sign_extend:DI (reg:SI 111))) "cpu4_thread10_fifo_1.c":76:25 -1
+     (nil))
+(insn 72 71 73 11 (set (reg:SI 113)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -20 [0xffffffffffffffec])) [3 i+0 S4 A32])) "cpu4_thread10_fifo_1.c":76:25 -1
+     (nil))
+(insn 73 72 74 11 (set (reg:DI 112)
+        (sign_extend:DI (reg:SI 113))) "cpu4_thread10_fifo_1.c":76:25 -1
+     (nil))
+(insn 74 73 75 11 (parallel [
+            (set (reg:DI 114)
+                (ashift:DI (reg:DI 112)
+                    (const_int 6 [0x6])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":76:25 -1
+     (nil))
+(insn 75 74 76 11 (parallel [
+            (set (reg:DI 115)
+                (plus:DI (reg:DI 114)
+                    (reg:DI 110)))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":76:25 -1
+     (nil))
+(insn 76 75 77 11 (parallel [
+            (set (reg:DI 116)
+                (ashift:DI (reg:DI 115)
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":76:25 -1
+     (nil))
+(insn 77 76 78 11 (set (reg:DI 117)
+        (symbol_ref:DI ("C") [flags 0x2]  <var_decl 0x7f14f9a9b7e0 C>)) "cpu4_thread10_fifo_1.c":76:25 -1
+     (nil))
+(insn 78 77 79 11 (set (reg:DF 118)
+        (mem/c:DF (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [1 acc+0 S8 A64])) "cpu4_thread10_fifo_1.c":76:25 -1
+     (nil))
+(insn 79 78 80 11 (set (mem:DF (plus:DI (reg:DI 116)
+                (reg:DI 117)) [1 C S8 A64])
+        (reg:DF 118)) "cpu4_thread10_fifo_1.c":76:25 -1
+     (nil))
+(insn 80 79 81 11 (parallel [
+            (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -16 [0xfffffffffffffff0])) [3 j+0 S4 A32])
+                (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -16 [0xfffffffffffffff0])) [3 j+0 S4 A32])
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":71:40 -1
+     (nil))
+(code_label 81 80 82 12 10 (nil) [1 uses])
+(note 82 81 86 12 [bb 12] NOTE_INSN_BASIC_BLOCK)
+(insn 86 82 87 12 (set (reg:CCGC 17 flags)
+        (compare:CCGC (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -16 [0xfffffffffffffff0])) [3 j+0 S4 A32])
+            (const_int 63 [0x3f]))) "cpu4_thread10_fifo_1.c":71:13 -1
+     (nil))
+(jump_insn 87 86 88 12 (set (pc)
+        (if_then_else (le (reg:CCGC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 83)
+            (pc))) "cpu4_thread10_fifo_1.c":71:13 -1
+     (nil)
+ -> 83)
+(note 88 87 89 13 [bb 13] NOTE_INSN_BASIC_BLOCK)
+(insn 89 88 90 13 (parallel [
+            (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -20 [0xffffffffffffffec])) [3 i+0 S4 A32])
+                (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -20 [0xffffffffffffffec])) [3 i+0 S4 A32])
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":70:36 -1
+     (nil))
+(code_label 90 89 91 14 9 (nil) [1 uses])
+(note 91 90 95 14 [bb 14] NOTE_INSN_BASIC_BLOCK)
+(insn 95 91 96 14 (set (reg:CCGC 17 flags)
+        (compare:CCGC (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -20 [0xffffffffffffffec])) [3 i+0 S4 A32])
+            (const_int 63 [0x3f]))) "cpu4_thread10_fifo_1.c":70:9 -1
+     (nil))
+(jump_insn 96 95 97 14 (set (pc)
+        (if_then_else (le (reg:CCGC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 92)
+            (pc))) "cpu4_thread10_fifo_1.c":70:9 -1
+     (nil)
+ -> 92)
+(note 97 96 98 15 [bb 15] NOTE_INSN_BASIC_BLOCK)
+(insn 98 97 99 15 (parallel [
+            (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -24 [0xffffffffffffffe8])) [3 r+0 S4 A32])
+                (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                            (const_int -24 [0xffffffffffffffe8])) [3 r+0 S4 A32])
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":69:33 -1
+     (nil))
+(code_label 99 98 100 16 8 (nil) [1 uses])
+(note 100 99 102 16 [bb 16] NOTE_INSN_BASIC_BLOCK)
+(insn 102 100 103 16 (set (reg:SI 119)
+        (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -24 [0xffffffffffffffe8])) [3 r+0 S4 A32])) "cpu4_thread10_fifo_1.c":69:5 -1
+     (nil))
+(insn 103 102 104 16 (set (reg:CCGC 17 flags)
+        (compare:CCGC (reg:SI 119)
+            (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -28 [0xffffffffffffffe4])) [3 repeat+0 S4 A32]))) "cpu4_thread10_fifo_1.c":69:5 -1
+     (nil))
+(jump_insn 104 103 105 16 (set (pc)
+        (if_then_else (lt (reg:CCGC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 101)
+            (pc))) "cpu4_thread10_fifo_1.c":69:5 -1
+     (nil)
+ -> 101)
+(note 105 104 0 17 [bb 17] NOTE_INSN_BASIC_BLOCK)
+
+;; Function c4_fn (c4_fn, funcdef_no=8, decl_uid=3950, cgraph_uid=9, symbol_order=29)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 13.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "cpu4_thread10_fifo_1.c":85:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 84)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC3") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":87:5 -1
+     (expr_list:REG_EQUAL (const_double:DF 1.6e+1 [0x0.8p+5])
+        (nil)))
+(insn 7 6 8 2 (set (reg:DF 20 xmm0)
+        (reg:DF 84)) "cpu4_thread10_fifo_1.c":87:5 -1
+     (nil))
+(call_insn 8 7 9 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f14f971c700 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":87:5 -1
+     (nil)
+    (expr_list:DF (use (reg:DF 20 xmm0))
+        (nil)))
+(insn 9 8 12 2 (set (reg/f:DI 82 [ _3 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":88:12 -1
+     (nil))
+(insn 12 9 16 2 (set (reg/f:DI 83 [ <retval> ])
+        (reg/f:DI 82 [ _3 ])) "cpu4_thread10_fifo_1.c":88:12 -1
+     (nil))
+(insn 16 12 17 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 83 [ <retval> ])) "cpu4_thread10_fifo_1.c":89:1 -1
+     (nil))
+(insn 17 16 0 2 (use (reg/i:DI 0 ax)) "cpu4_thread10_fifo_1.c":89:1 -1
+     (nil))
+
+;; Function c3_fn (c3_fn, funcdef_no=9, decl_uid=3948, cgraph_uid=10, symbol_order=30)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 18.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "cpu4_thread10_fifo_1.c":92:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 84)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC4") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":93:5 -1
+     (expr_list:REG_EQUAL (const_double:DF 1.8e+1 [0x0.9p+5])
+        (nil)))
+(insn 7 6 8 2 (set (reg:DF 20 xmm0)
+        (reg:DF 84)) "cpu4_thread10_fifo_1.c":93:5 -1
+     (nil))
+(call_insn 8 7 9 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f14f971c700 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":93:5 -1
+     (nil)
+    (expr_list:DF (use (reg:DF 20 xmm0))
+        (nil)))
+(insn 9 8 10 2 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":94:5 -1
+     (nil))
+(insn 10 9 11 2 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("c4_fn") [flags 0x3]  <function_decl 0x7f14f9716800 c4_fn>)) "cpu4_thread10_fifo_1.c":94:5 -1
+     (nil))
+(insn 11 10 12 2 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":94:5 -1
+     (nil))
+(insn 12 11 13 2 (set (reg:DI 5 di)
+        (symbol_ref:DI ("tc4") [flags 0x2]  <var_decl 0x7f14f9a9bab0 tc4>)) "cpu4_thread10_fifo_1.c":94:5 -1
+     (nil))
+(call_insn 13 12 14 2 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f14f9a48b00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":94:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 14 13 17 2 (set (reg/f:DI 82 [ _4 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":95:12 -1
+     (nil))
+(insn 17 14 21 2 (set (reg/f:DI 83 [ <retval> ])
+        (reg/f:DI 82 [ _4 ])) "cpu4_thread10_fifo_1.c":95:12 -1
+     (nil))
+(insn 21 17 22 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 83 [ <retval> ])) "cpu4_thread10_fifo_1.c":96:1 -1
+     (nil))
+(insn 22 21 0 2 (use (reg/i:DI 0 ax)) "cpu4_thread10_fifo_1.c":96:1 -1
+     (nil))
+
+;; Function c2_fn (c2_fn, funcdef_no=10, decl_uid=3946, cgraph_uid=11, symbol_order=31)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 18.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "cpu4_thread10_fifo_1.c":99:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 84)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC5") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":101:5 -1
+     (expr_list:REG_EQUAL (const_double:DF 2.0e+1 [0x0.ap+5])
+        (nil)))
+(insn 7 6 8 2 (set (reg:DF 20 xmm0)
+        (reg:DF 84)) "cpu4_thread10_fifo_1.c":101:5 -1
+     (nil))
+(call_insn 8 7 9 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f14f971c700 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":101:5 -1
+     (nil)
+    (expr_list:DF (use (reg:DF 20 xmm0))
+        (nil)))
+(insn 9 8 10 2 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":102:5 -1
+     (nil))
+(insn 10 9 11 2 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("c3_fn") [flags 0x3]  <function_decl 0x7f14f9716700 c3_fn>)) "cpu4_thread10_fifo_1.c":102:5 -1
+     (nil))
+(insn 11 10 12 2 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":102:5 -1
+     (nil))
+(insn 12 11 13 2 (set (reg:DI 5 di)
+        (symbol_ref:DI ("tc3") [flags 0x2]  <var_decl 0x7f14f9a9ba20 tc3>)) "cpu4_thread10_fifo_1.c":102:5 -1
+     (nil))
+(call_insn 13 12 14 2 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f14f9a48b00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":102:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 14 13 17 2 (set (reg/f:DI 82 [ _4 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":103:12 -1
+     (nil))
+(insn 17 14 21 2 (set (reg/f:DI 83 [ <retval> ])
+        (reg/f:DI 82 [ _4 ])) "cpu4_thread10_fifo_1.c":103:12 -1
+     (nil))
+(insn 21 17 22 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 83 [ <retval> ])) "cpu4_thread10_fifo_1.c":104:1 -1
+     (nil))
+(insn 22 21 0 2 (use (reg/i:DI 0 ax)) "cpu4_thread10_fifo_1.c":104:1 -1
+     (nil))
+
+;; Function c1_fn (c1_fn, funcdef_no=11, decl_uid=3944, cgraph_uid=12, symbol_order=32)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 18.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "cpu4_thread10_fifo_1.c":107:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 84)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC6") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":108:5 -1
+     (expr_list:REG_EQUAL (const_double:DF 2.2e+1 [0x0.bp+5])
+        (nil)))
+(insn 7 6 8 2 (set (reg:DF 20 xmm0)
+        (reg:DF 84)) "cpu4_thread10_fifo_1.c":108:5 -1
+     (nil))
+(call_insn 8 7 9 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f14f971c700 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":108:5 -1
+     (nil)
+    (expr_list:DF (use (reg:DF 20 xmm0))
+        (nil)))
+(insn 9 8 10 2 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":109:5 -1
+     (nil))
+(insn 10 9 11 2 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("c2_fn") [flags 0x3]  <function_decl 0x7f14f9716600 c2_fn>)) "cpu4_thread10_fifo_1.c":109:5 -1
+     (nil))
+(insn 11 10 12 2 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":109:5 -1
+     (nil))
+(insn 12 11 13 2 (set (reg:DI 5 di)
+        (symbol_ref:DI ("tc2") [flags 0x2]  <var_decl 0x7f14f9a9b990 tc2>)) "cpu4_thread10_fifo_1.c":109:5 -1
+     (nil))
+(call_insn 13 12 14 2 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f14f9a48b00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":109:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 14 13 17 2 (set (reg/f:DI 82 [ _4 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":110:12 -1
+     (nil))
+(insn 17 14 21 2 (set (reg/f:DI 83 [ <retval> ])
+        (reg/f:DI 82 [ _4 ])) "cpu4_thread10_fifo_1.c":110:12 -1
+     (nil))
+(insn 21 17 22 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 83 [ <retval> ])) "cpu4_thread10_fifo_1.c":111:1 -1
+     (nil))
+(insn 22 21 0 2 (use (reg/i:DI 0 ax)) "cpu4_thread10_fifo_1.c":111:1 -1
+     (nil))
+
+;; Function c0_fn (c0_fn, funcdef_no=12, decl_uid=3942, cgraph_uid=13, symbol_order=33)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 18.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "cpu4_thread10_fifo_1.c":114:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 84)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC7") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":115:5 -1
+     (expr_list:REG_EQUAL (const_double:DF 2.5e+1 [0x0.c8p+5])
+        (nil)))
+(insn 7 6 8 2 (set (reg:DF 20 xmm0)
+        (reg:DF 84)) "cpu4_thread10_fifo_1.c":115:5 -1
+     (nil))
+(call_insn 8 7 9 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f14f971c700 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":115:5 -1
+     (nil)
+    (expr_list:DF (use (reg:DF 20 xmm0))
+        (nil)))
+(insn 9 8 10 2 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":116:5 -1
+     (nil))
+(insn 10 9 11 2 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("c1_fn") [flags 0x3]  <function_decl 0x7f14f9716500 c1_fn>)) "cpu4_thread10_fifo_1.c":116:5 -1
+     (nil))
+(insn 11 10 12 2 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":116:5 -1
+     (nil))
+(insn 12 11 13 2 (set (reg:DI 5 di)
+        (symbol_ref:DI ("tc1") [flags 0x2]  <var_decl 0x7f14f9a9b900 tc1>)) "cpu4_thread10_fifo_1.c":116:5 -1
+     (nil))
+(call_insn 13 12 14 2 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f14f9a48b00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":116:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 14 13 17 2 (set (reg/f:DI 82 [ _4 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":117:12 -1
+     (nil))
+(insn 17 14 21 2 (set (reg/f:DI 83 [ <retval> ])
+        (reg/f:DI 82 [ _4 ])) "cpu4_thread10_fifo_1.c":117:12 -1
+     (nil))
+(insn 21 17 22 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 83 [ <retval> ])) "cpu4_thread10_fifo_1.c":118:1 -1
+     (nil))
+(insn 22 21 0 2 (use (reg/i:DI 0 ax)) "cpu4_thread10_fifo_1.c":118:1 -1
+     (nil))
+
+;; Function f0_fn (f0_fn, funcdef_no=13, decl_uid=3952, cgraph_uid=14, symbol_order=34)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 13.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "cpu4_thread10_fifo_1.c":121:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 84)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC8") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":122:5 -1
+     (expr_list:REG_EQUAL (const_double:DF 5.0e+0 [0x0.ap+3])
+        (nil)))
+(insn 7 6 8 2 (set (reg:DF 20 xmm0)
+        (reg:DF 84)) "cpu4_thread10_fifo_1.c":122:5 -1
+     (nil))
+(call_insn 8 7 9 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f14f971c700 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":122:5 -1
+     (nil)
+    (expr_list:DF (use (reg:DF 20 xmm0))
+        (nil)))
+(insn 9 8 12 2 (set (reg/f:DI 82 [ _3 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":123:12 -1
+     (nil))
+(insn 12 9 16 2 (set (reg/f:DI 83 [ <retval> ])
+        (reg/f:DI 82 [ _3 ])) "cpu4_thread10_fifo_1.c":123:12 -1
+     (nil))
+(insn 16 12 17 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 83 [ <retval> ])) "cpu4_thread10_fifo_1.c":124:1 -1
+     (nil))
+(insn 17 16 0 2 (use (reg/i:DI 0 ax)) "cpu4_thread10_fifo_1.c":124:1 -1
+     (nil))
+
+;; Function f1_fn (f1_fn, funcdef_no=14, decl_uid=3954, cgraph_uid=15, symbol_order=35)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 13.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "cpu4_thread10_fifo_1.c":127:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 84)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC8") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":128:5 -1
+     (expr_list:REG_EQUAL (const_double:DF 5.0e+0 [0x0.ap+3])
+        (nil)))
+(insn 7 6 8 2 (set (reg:DF 20 xmm0)
+        (reg:DF 84)) "cpu4_thread10_fifo_1.c":128:5 -1
+     (nil))
+(call_insn 8 7 9 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f14f971c700 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":128:5 -1
+     (nil)
+    (expr_list:DF (use (reg:DF 20 xmm0))
+        (nil)))
+(insn 9 8 12 2 (set (reg/f:DI 82 [ _3 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":129:12 -1
+     (nil))
+(insn 12 9 16 2 (set (reg/f:DI 83 [ <retval> ])
+        (reg/f:DI 82 [ _3 ])) "cpu4_thread10_fifo_1.c":129:12 -1
+     (nil))
+(insn 16 12 17 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 83 [ <retval> ])) "cpu4_thread10_fifo_1.c":130:1 -1
+     (nil))
+(insn 17 16 0 2 (use (reg/i:DI 0 ax)) "cpu4_thread10_fifo_1.c":130:1 -1
+     (nil))
+
+;; Function f2_fn (f2_fn, funcdef_no=15, decl_uid=3956, cgraph_uid=16, symbol_order=36)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 13.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "cpu4_thread10_fifo_1.c":133:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 84)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC8") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":135:5 -1
+     (expr_list:REG_EQUAL (const_double:DF 5.0e+0 [0x0.ap+3])
+        (nil)))
+(insn 7 6 8 2 (set (reg:DF 20 xmm0)
+        (reg:DF 84)) "cpu4_thread10_fifo_1.c":135:5 -1
+     (nil))
+(call_insn 8 7 9 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f14f971c700 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":135:5 -1
+     (nil)
+    (expr_list:DF (use (reg:DF 20 xmm0))
+        (nil)))
+(insn 9 8 12 2 (set (reg/f:DI 82 [ _3 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":136:12 -1
+     (nil))
+(insn 12 9 16 2 (set (reg/f:DI 83 [ <retval> ])
+        (reg/f:DI 82 [ _3 ])) "cpu4_thread10_fifo_1.c":136:12 -1
+     (nil))
+(insn 16 12 17 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 83 [ <retval> ])) "cpu4_thread10_fifo_1.c":137:1 -1
+     (nil))
+(insn 17 16 0 2 (use (reg/i:DI 0 ax)) "cpu4_thread10_fifo_1.c":137:1 -1
+     (nil))
+
+;; Function f3_fn (f3_fn, funcdef_no=16, decl_uid=3958, cgraph_uid=17, symbol_order=37)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 13.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "cpu4_thread10_fifo_1.c":140:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 84)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC8") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":141:5 -1
+     (expr_list:REG_EQUAL (const_double:DF 5.0e+0 [0x0.ap+3])
+        (nil)))
+(insn 7 6 8 2 (set (reg:DF 20 xmm0)
+        (reg:DF 84)) "cpu4_thread10_fifo_1.c":141:5 -1
+     (nil))
+(call_insn 8 7 9 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f14f971c700 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":141:5 -1
+     (nil)
+    (expr_list:DF (use (reg:DF 20 xmm0))
+        (nil)))
+(insn 9 8 12 2 (set (reg/f:DI 82 [ _3 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":142:12 -1
+     (nil))
+(insn 12 9 16 2 (set (reg/f:DI 83 [ <retval> ])
+        (reg/f:DI 82 [ _3 ])) "cpu4_thread10_fifo_1.c":142:12 -1
+     (nil))
+(insn 16 12 17 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 83 [ <retval> ])) "cpu4_thread10_fifo_1.c":143:1 -1
+     (nil))
+(insn 17 16 0 2 (use (reg/i:DI 0 ax)) "cpu4_thread10_fifo_1.c":143:1 -1
+     (nil))
+
+;; Function f4_fn (f4_fn, funcdef_no=17, decl_uid=3960, cgraph_uid=18, symbol_order=38)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 13.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "cpu4_thread10_fifo_1.c":146:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 84)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC8") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":147:5 -1
+     (expr_list:REG_EQUAL (const_double:DF 5.0e+0 [0x0.ap+3])
+        (nil)))
+(insn 7 6 8 2 (set (reg:DF 20 xmm0)
+        (reg:DF 84)) "cpu4_thread10_fifo_1.c":147:5 -1
+     (nil))
+(call_insn 8 7 9 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f14f971c700 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":147:5 -1
+     (nil)
+    (expr_list:DF (use (reg:DF 20 xmm0))
+        (nil)))
+(insn 9 8 12 2 (set (reg/f:DI 82 [ _3 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":148:12 -1
+     (nil))
+(insn 12 9 16 2 (set (reg/f:DI 83 [ <retval> ])
+        (reg/f:DI 82 [ _3 ])) "cpu4_thread10_fifo_1.c":148:12 -1
+     (nil))
+(insn 16 12 17 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 83 [ <retval> ])) "cpu4_thread10_fifo_1.c":149:1 -1
+     (nil))
+(insn 17 16 0 2 (use (reg/i:DI 0 ax)) "cpu4_thread10_fifo_1.c":149:1 -1
+     (nil))
+
+;; Function f5_fn (f5_fn, funcdef_no=18, decl_uid=3962, cgraph_uid=19, symbol_order=39)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 13.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "cpu4_thread10_fifo_1.c":152:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 84)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC8") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":153:5 -1
+     (expr_list:REG_EQUAL (const_double:DF 5.0e+0 [0x0.ap+3])
+        (nil)))
+(insn 7 6 8 2 (set (reg:DF 20 xmm0)
+        (reg:DF 84)) "cpu4_thread10_fifo_1.c":153:5 -1
+     (nil))
+(call_insn 8 7 9 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f14f971c700 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":153:5 -1
+     (nil)
+    (expr_list:DF (use (reg:DF 20 xmm0))
+        (nil)))
+(insn 9 8 12 2 (set (reg/f:DI 82 [ _3 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":154:12 -1
+     (nil))
+(insn 12 9 16 2 (set (reg/f:DI 83 [ <retval> ])
+        (reg/f:DI 82 [ _3 ])) "cpu4_thread10_fifo_1.c":154:12 -1
+     (nil))
+(insn 16 12 17 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 83 [ <retval> ])) "cpu4_thread10_fifo_1.c":155:1 -1
+     (nil))
+(insn 17 16 0 2 (use (reg/i:DI 0 ax)) "cpu4_thread10_fifo_1.c":155:1 -1
+     (nil))
+
+;; Function f6_fn (f6_fn, funcdef_no=19, decl_uid=3964, cgraph_uid=20, symbol_order=40)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 13.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "cpu4_thread10_fifo_1.c":158:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 84)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC8") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":159:5 -1
+     (expr_list:REG_EQUAL (const_double:DF 5.0e+0 [0x0.ap+3])
+        (nil)))
+(insn 7 6 8 2 (set (reg:DF 20 xmm0)
+        (reg:DF 84)) "cpu4_thread10_fifo_1.c":159:5 -1
+     (nil))
+(call_insn 8 7 9 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f14f971c700 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":159:5 -1
+     (nil)
+    (expr_list:DF (use (reg:DF 20 xmm0))
+        (nil)))
+(insn 9 8 12 2 (set (reg/f:DI 82 [ _3 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":160:12 -1
+     (nil))
+(insn 12 9 16 2 (set (reg/f:DI 83 [ <retval> ])
+        (reg/f:DI 82 [ _3 ])) "cpu4_thread10_fifo_1.c":160:12 -1
+     (nil))
+(insn 16 12 17 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 83 [ <retval> ])) "cpu4_thread10_fifo_1.c":161:1 -1
+     (nil))
+(insn 17 16 0 2 (use (reg/i:DI 0 ax)) "cpu4_thread10_fifo_1.c":161:1 -1
+     (nil))
+
+;; Function f7_fn (f7_fn, funcdef_no=20, decl_uid=3966, cgraph_uid=21, symbol_order=41)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 13.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "cpu4_thread10_fifo_1.c":164:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 84)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC8") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":165:5 -1
+     (expr_list:REG_EQUAL (const_double:DF 5.0e+0 [0x0.ap+3])
+        (nil)))
+(insn 7 6 8 2 (set (reg:DF 20 xmm0)
+        (reg:DF 84)) "cpu4_thread10_fifo_1.c":165:5 -1
+     (nil))
+(call_insn 8 7 9 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f14f971c700 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":165:5 -1
+     (nil)
+    (expr_list:DF (use (reg:DF 20 xmm0))
+        (nil)))
+(insn 9 8 12 2 (set (reg/f:DI 82 [ _3 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":166:12 -1
+     (nil))
+(insn 12 9 16 2 (set (reg/f:DI 83 [ <retval> ])
+        (reg/f:DI 82 [ _3 ])) "cpu4_thread10_fifo_1.c":166:12 -1
+     (nil))
+(insn 16 12 17 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 83 [ <retval> ])) "cpu4_thread10_fifo_1.c":167:1 -1
+     (nil))
+(insn 17 16 0 2 (use (reg/i:DI 0 ax)) "cpu4_thread10_fifo_1.c":167:1 -1
+     (nil))
+
+;; Function f8_fn (f8_fn, funcdef_no=21, decl_uid=3968, cgraph_uid=22, symbol_order=42)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 13.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "cpu4_thread10_fifo_1.c":170:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 84)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC8") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":171:5 -1
+     (expr_list:REG_EQUAL (const_double:DF 5.0e+0 [0x0.ap+3])
+        (nil)))
+(insn 7 6 8 2 (set (reg:DF 20 xmm0)
+        (reg:DF 84)) "cpu4_thread10_fifo_1.c":171:5 -1
+     (nil))
+(call_insn 8 7 9 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f14f971c700 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":171:5 -1
+     (nil)
+    (expr_list:DF (use (reg:DF 20 xmm0))
+        (nil)))
+(insn 9 8 12 2 (set (reg/f:DI 82 [ _3 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":172:12 -1
+     (nil))
+(insn 12 9 16 2 (set (reg/f:DI 83 [ <retval> ])
+        (reg/f:DI 82 [ _3 ])) "cpu4_thread10_fifo_1.c":172:12 -1
+     (nil))
+(insn 16 12 17 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 83 [ <retval> ])) "cpu4_thread10_fifo_1.c":173:1 -1
+     (nil))
+(insn 17 16 0 2 (use (reg/i:DI 0 ax)) "cpu4_thread10_fifo_1.c":173:1 -1
+     (nil))
+
+;; Function f9_fn (f9_fn, funcdef_no=22, decl_uid=3970, cgraph_uid=23, symbol_order=43)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 13.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "cpu4_thread10_fifo_1.c":176:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 84)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC8") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":177:5 -1
+     (expr_list:REG_EQUAL (const_double:DF 5.0e+0 [0x0.ap+3])
+        (nil)))
+(insn 7 6 8 2 (set (reg:DF 20 xmm0)
+        (reg:DF 84)) "cpu4_thread10_fifo_1.c":177:5 -1
+     (nil))
+(call_insn 8 7 9 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f14f971c700 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":177:5 -1
+     (nil)
+    (expr_list:DF (use (reg:DF 20 xmm0))
+        (nil)))
+(insn 9 8 12 2 (set (reg/f:DI 82 [ _3 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":178:12 -1
+     (nil))
+(insn 12 9 16 2 (set (reg/f:DI 83 [ <retval> ])
+        (reg/f:DI 82 [ _3 ])) "cpu4_thread10_fifo_1.c":178:12 -1
+     (nil))
+(insn 16 12 17 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 83 [ <retval> ])) "cpu4_thread10_fifo_1.c":179:1 -1
+     (nil))
+(insn 17 16 0 2 (use (reg/i:DI 0 ax)) "cpu4_thread10_fifo_1.c":179:1 -1
+     (nil))
+
+;; Function f10_fn (f10_fn, funcdef_no=23, decl_uid=3972, cgraph_uid=24, symbol_order=44)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 13.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "cpu4_thread10_fifo_1.c":182:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 84)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC8") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":183:5 -1
+     (expr_list:REG_EQUAL (const_double:DF 5.0e+0 [0x0.ap+3])
+        (nil)))
+(insn 7 6 8 2 (set (reg:DF 20 xmm0)
+        (reg:DF 84)) "cpu4_thread10_fifo_1.c":183:5 -1
+     (nil))
+(call_insn 8 7 9 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f14f971c700 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":183:5 -1
+     (nil)
+    (expr_list:DF (use (reg:DF 20 xmm0))
+        (nil)))
+(insn 9 8 12 2 (set (reg/f:DI 82 [ _3 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":184:12 -1
+     (nil))
+(insn 12 9 16 2 (set (reg/f:DI 83 [ <retval> ])
+        (reg/f:DI 82 [ _3 ])) "cpu4_thread10_fifo_1.c":184:12 -1
+     (nil))
+(insn 16 12 17 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 83 [ <retval> ])) "cpu4_thread10_fifo_1.c":185:1 -1
+     (nil))
+(insn 17 16 0 2 (use (reg/i:DI 0 ax)) "cpu4_thread10_fifo_1.c":185:1 -1
+     (nil))
+
+;; Function f11_fn (f11_fn, funcdef_no=24, decl_uid=3974, cgraph_uid=25, symbol_order=45)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 13.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [5 arg+0 S8 A64])
+        (reg:DI 5 di [ arg ])) "cpu4_thread10_fifo_1.c":188:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 84)
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC8") [flags 0x2]) [0  S8 A64])) "cpu4_thread10_fifo_1.c":189:5 -1
+     (expr_list:REG_EQUAL (const_double:DF 5.0e+0 [0x0.ap+3])
+        (nil)))
+(insn 7 6 8 2 (set (reg:DF 20 xmm0)
+        (reg:DF 84)) "cpu4_thread10_fifo_1.c":189:5 -1
+     (nil))
+(call_insn 8 7 9 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f14f971c700 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":189:5 -1
+     (nil)
+    (expr_list:DF (use (reg:DF 20 xmm0))
+        (nil)))
+(insn 9 8 12 2 (set (reg/f:DI 82 [ _3 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":190:12 -1
+     (nil))
+(insn 12 9 16 2 (set (reg/f:DI 83 [ <retval> ])
+        (reg/f:DI 82 [ _3 ])) "cpu4_thread10_fifo_1.c":190:12 -1
+     (nil))
+(insn 16 12 17 2 (set (reg/i:DI 0 ax)
+        (reg/f:DI 83 [ <retval> ])) "cpu4_thread10_fifo_1.c":191:1 -1
+     (nil))
+(insn 17 16 0 2 (use (reg/i:DI 0 ax)) "cpu4_thread10_fifo_1.c":191:1 -1
+     (nil))
+
+;; Function main (main, funcdef_no=25, decl_uid=4080, cgraph_uid=26, symbol_order=46)
+
+Partition 6: size 128 align 16
+	set
+Partition 5: size 16 align 16
+	ts_prog_end	ts_prog_start
+Partition 3: size 8 align 8
+	__cpu_88
+Partition 2: size 8 align 8
+	__cpu_82
+Partition 1: size 8 align 8
+	__cpu_76
+Partition 0: size 8 align 8
+	__cpu_70
+
+;; Generating RTL for gimple basic block 2
+Selected stringop expansion strategy: rep_8byte
+
+;; Generating RTL for gimple basic block 3
+
+;; Generating RTL for gimple basic block 4
+
+;; Generating RTL for gimple basic block 5
+
+;; Generating RTL for gimple basic block 6
+
+;; Generating RTL for gimple basic block 7
+
+;; Generating RTL for gimple basic block 8
+
+;; Generating RTL for gimple basic block 9
+
+;; Generating RTL for gimple basic block 10
+
+;; Generating RTL for gimple basic block 11
+
+;; Generating RTL for gimple basic block 12
+
+;; Generating RTL for gimple basic block 13
+
+;; Generating RTL for gimple basic block 14
+
+;; Generating RTL for gimple basic block 15
+
+;; Generating RTL for gimple basic block 16
+
+;; Generating RTL for gimple basic block 17
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 18 into block 17...
+Merged blocks 17 and 18.
+Merged 17 and 18 without moving.
+Removing jump 299.
+Merging block 19 into block 17...
+Merged blocks 17 and 19.
+Merged 17 and 19 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(note 2 4 3 2 NOTE_INSN_FUNCTION_BEG)
+(insn 3 2 6 2 (parallel [
+            (set (mem/v/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                        (const_int -8 [0xfffffffffffffff8])) [5 D.4176+0 S8 A64])
+                (unspec:DI [
+                        (mem/v/f:DI (const_int 40 [0x28]) [0 MEM[(<address-space-1> long unsigned int *)40B]+0 S8 A64 AS1])
+                    ] UNSPEC_SP_SET))
+            (set (scratch:DI)
+                (const_int 0 [0]))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":194:1 -1
+     (nil))
+(insn 6 3 7 2 (parallel [
+            (set (reg:DI 150)
+                (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -144 [0xffffffffffffff70])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":197:5 -1
+     (nil))
+(insn 7 6 8 2 (set (reg/f:DI 151)
+        (reg:DI 150)) "cpu4_thread10_fifo_1.c":197:5 -1
+     (nil))
+(insn 8 7 9 2 (set (reg:DI 152)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":197:5 -1
+     (nil))
+(insn 9 8 10 2 (set (reg:DI 153)
+        (const_int 16 [0x10])) "cpu4_thread10_fifo_1.c":197:5 -1
+     (nil))
+(insn 10 9 11 2 (parallel [
+            (set (reg:DI 153)
+                (const_int 0 [0]))
+            (set (reg/f:DI 151)
+                (plus:DI (ashift:DI (reg:DI 153)
+                        (const_int 3 [0x3]))
+                    (reg/f:DI 151)))
+            (set (mem/c:BLK (reg/f:DI 151) [0 MEM[(void *)&set]+0 S128 A64])
+                (const_int 0 [0]))
+            (use (reg:DI 152))
+            (use (reg:DI 153))
+        ]) "cpu4_thread10_fifo_1.c":197:5 -1
+     (nil))
+(insn 11 10 14 2 (set (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -192 [0xffffffffffffff40])) [2 __cpu+0 S8 A64])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(insn 14 11 15 2 (set (reg:CC 17 flags)
+        (compare:CC (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -192 [0xffffffffffffff40])) [2 __cpu+0 S8 A64])
+            (const_int 1023 [0x3ff]))) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(jump_insn 15 14 16 2 (set (pc)
+        (if_then_else (gtu (reg:CC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 36)
+            (pc))) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil)
+ -> 36)
+(note 16 15 17 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
+(insn 17 16 18 4 (set (reg:DI 154)
+        (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -192 [0xffffffffffffff40])) [2 __cpu+0 S8 A64])) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(insn 18 17 19 4 (parallel [
+            (set (reg:DI 144 [ _72 ])
+                (lshiftrt:DI (reg:DI 154)
+                    (const_int 6 [0x6])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":198:5 -1
+     (expr_list:REG_EQUAL (udiv:DI (reg:DI 154)
+            (const_int 64 [0x40]))
+        (nil)))
+(insn 19 18 20 4 (parallel [
+            (set (reg:DI 82 [ _1 ])
+                (ashift:DI (reg:DI 144 [ _72 ])
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(insn 20 19 21 4 (parallel [
+            (set (reg:DI 155)
+                (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -144 [0xffffffffffffff70])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(insn 21 20 22 4 (parallel [
+            (set (reg/f:DI 83 [ _2 ])
+                (plus:DI (reg:DI 155)
+                    (reg:DI 82 [ _1 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(insn 22 21 23 4 (set (reg:DI 84 [ _3 ])
+        (mem:DI (reg/f:DI 83 [ _2 ]) [2 *_2+0 S8 A64])) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(insn 23 22 24 4 (set (reg:DI 156)
+        (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -192 [0xffffffffffffff40])) [2 __cpu+0 S8 A64])) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(insn 24 23 25 4 (set (reg:SI 85 [ _4 ])
+        (subreg:SI (reg:DI 156) 0)) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(insn 25 24 26 4 (parallel [
+            (set (reg:SI 86 [ _5 ])
+                (and:SI (reg:SI 85 [ _4 ])
+                    (const_int 63 [0x3f])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(insn 26 25 27 4 (set (reg:DI 157)
+        (const_int 1 [0x1])) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(insn 27 26 28 4 (parallel [
+            (set (reg:DI 87 [ _6 ])
+                (ashift:DI (reg:DI 157)
+                    (subreg:QI (reg:SI 86 [ _5 ]) 0)))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(insn 28 27 29 4 (parallel [
+            (set (reg:DI 88 [ _7 ])
+                (ashift:DI (reg:DI 144 [ _72 ])
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(insn 29 28 30 4 (parallel [
+            (set (reg:DI 158)
+                (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -144 [0xffffffffffffff70])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(insn 30 29 31 4 (parallel [
+            (set (reg/f:DI 89 [ _8 ])
+                (plus:DI (reg:DI 158)
+                    (reg:DI 88 [ _7 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(insn 31 30 32 4 (parallel [
+            (set (reg:DI 90 [ _9 ])
+                (ior:DI (reg:DI 84 [ _3 ])
+                    (reg:DI 87 [ _6 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(insn 32 31 33 4 (set (mem:DI (reg/f:DI 89 [ _8 ]) [2 *_8+0 S8 A64])
+        (reg:DI 90 [ _9 ])) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(insn 33 32 34 4 (set (reg:DI 140 [ iftmp.0_59 ])
+        (mem:DI (reg/f:DI 89 [ _8 ]) [2 *_8+0 S8 A64])) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(jump_insn 34 33 35 4 (set (pc)
+        (label_ref 39)) -1
+     (nil)
+ -> 39)
+(barrier 35 34 36)
+(code_label 36 35 37 5 51 (nil) [1 uses])
+(note 37 36 38 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
+(insn 38 37 39 5 (set (reg:DI 140 [ iftmp.0_59 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":198:5 -1
+     (nil))
+(code_label 39 38 40 6 52 (nil) [1 uses])
+(note 40 39 41 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
+(insn 41 40 44 6 (set (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -184 [0xffffffffffffff48])) [2 __cpu+0 S8 A64])
+        (const_int 1 [0x1])) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(insn 44 41 45 6 (set (reg:CC 17 flags)
+        (compare:CC (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -184 [0xffffffffffffff48])) [2 __cpu+0 S8 A64])
+            (const_int 1023 [0x3ff]))) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(jump_insn 45 44 46 6 (set (pc)
+        (if_then_else (gtu (reg:CC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 66)
+            (pc))) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil)
+ -> 66)
+(note 46 45 47 7 [bb 7] NOTE_INSN_BASIC_BLOCK)
+(insn 47 46 48 7 (set (reg:DI 159)
+        (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -184 [0xffffffffffffff48])) [2 __cpu+0 S8 A64])) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(insn 48 47 49 7 (parallel [
+            (set (reg:DI 145 [ _78 ])
+                (lshiftrt:DI (reg:DI 159)
+                    (const_int 6 [0x6])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":199:5 -1
+     (expr_list:REG_EQUAL (udiv:DI (reg:DI 159)
+            (const_int 64 [0x40]))
+        (nil)))
+(insn 49 48 50 7 (parallel [
+            (set (reg:DI 91 [ _10 ])
+                (ashift:DI (reg:DI 145 [ _78 ])
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(insn 50 49 51 7 (parallel [
+            (set (reg:DI 160)
+                (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -144 [0xffffffffffffff70])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(insn 51 50 52 7 (parallel [
+            (set (reg/f:DI 92 [ _11 ])
+                (plus:DI (reg:DI 160)
+                    (reg:DI 91 [ _10 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(insn 52 51 53 7 (set (reg:DI 93 [ _12 ])
+        (mem:DI (reg/f:DI 92 [ _11 ]) [2 *_11+0 S8 A64])) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(insn 53 52 54 7 (set (reg:DI 161)
+        (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -184 [0xffffffffffffff48])) [2 __cpu+0 S8 A64])) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(insn 54 53 55 7 (set (reg:SI 94 [ _13 ])
+        (subreg:SI (reg:DI 161) 0)) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(insn 55 54 56 7 (parallel [
+            (set (reg:SI 95 [ _14 ])
+                (and:SI (reg:SI 94 [ _13 ])
+                    (const_int 63 [0x3f])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(insn 56 55 57 7 (set (reg:DI 162)
+        (const_int 1 [0x1])) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(insn 57 56 58 7 (parallel [
+            (set (reg:DI 96 [ _15 ])
+                (ashift:DI (reg:DI 162)
+                    (subreg:QI (reg:SI 95 [ _14 ]) 0)))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(insn 58 57 59 7 (parallel [
+            (set (reg:DI 97 [ _16 ])
+                (ashift:DI (reg:DI 145 [ _78 ])
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(insn 59 58 60 7 (parallel [
+            (set (reg:DI 163)
+                (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -144 [0xffffffffffffff70])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(insn 60 59 61 7 (parallel [
+            (set (reg/f:DI 98 [ _17 ])
+                (plus:DI (reg:DI 163)
+                    (reg:DI 97 [ _16 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(insn 61 60 62 7 (parallel [
+            (set (reg:DI 99 [ _18 ])
+                (ior:DI (reg:DI 93 [ _12 ])
+                    (reg:DI 96 [ _15 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(insn 62 61 63 7 (set (mem:DI (reg/f:DI 98 [ _17 ]) [2 *_17+0 S8 A64])
+        (reg:DI 99 [ _18 ])) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(insn 63 62 64 7 (set (reg:DI 141 [ iftmp.1_60 ])
+        (mem:DI (reg/f:DI 98 [ _17 ]) [2 *_17+0 S8 A64])) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(jump_insn 64 63 65 7 (set (pc)
+        (label_ref 69)) -1
+     (nil)
+ -> 69)
+(barrier 65 64 66)
+(code_label 66 65 67 8 53 (nil) [1 uses])
+(note 67 66 68 8 [bb 8] NOTE_INSN_BASIC_BLOCK)
+(insn 68 67 69 8 (set (reg:DI 141 [ iftmp.1_60 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":199:5 -1
+     (nil))
+(code_label 69 68 70 9 54 (nil) [1 uses])
+(note 70 69 71 9 [bb 9] NOTE_INSN_BASIC_BLOCK)
+(insn 71 70 74 9 (set (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -176 [0xffffffffffffff50])) [2 __cpu+0 S8 A64])
+        (const_int 2 [0x2])) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(insn 74 71 75 9 (set (reg:CC 17 flags)
+        (compare:CC (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -176 [0xffffffffffffff50])) [2 __cpu+0 S8 A64])
+            (const_int 1023 [0x3ff]))) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(jump_insn 75 74 76 9 (set (pc)
+        (if_then_else (gtu (reg:CC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 96)
+            (pc))) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil)
+ -> 96)
+(note 76 75 77 10 [bb 10] NOTE_INSN_BASIC_BLOCK)
+(insn 77 76 78 10 (set (reg:DI 164)
+        (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -176 [0xffffffffffffff50])) [2 __cpu+0 S8 A64])) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(insn 78 77 79 10 (parallel [
+            (set (reg:DI 146 [ _84 ])
+                (lshiftrt:DI (reg:DI 164)
+                    (const_int 6 [0x6])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":200:5 -1
+     (expr_list:REG_EQUAL (udiv:DI (reg:DI 164)
+            (const_int 64 [0x40]))
+        (nil)))
+(insn 79 78 80 10 (parallel [
+            (set (reg:DI 100 [ _19 ])
+                (ashift:DI (reg:DI 146 [ _84 ])
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(insn 80 79 81 10 (parallel [
+            (set (reg:DI 165)
+                (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -144 [0xffffffffffffff70])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(insn 81 80 82 10 (parallel [
+            (set (reg/f:DI 101 [ _20 ])
+                (plus:DI (reg:DI 165)
+                    (reg:DI 100 [ _19 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(insn 82 81 83 10 (set (reg:DI 102 [ _21 ])
+        (mem:DI (reg/f:DI 101 [ _20 ]) [2 *_20+0 S8 A64])) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(insn 83 82 84 10 (set (reg:DI 166)
+        (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -176 [0xffffffffffffff50])) [2 __cpu+0 S8 A64])) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(insn 84 83 85 10 (set (reg:SI 103 [ _22 ])
+        (subreg:SI (reg:DI 166) 0)) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(insn 85 84 86 10 (parallel [
+            (set (reg:SI 104 [ _23 ])
+                (and:SI (reg:SI 103 [ _22 ])
+                    (const_int 63 [0x3f])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(insn 86 85 87 10 (set (reg:DI 167)
+        (const_int 1 [0x1])) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(insn 87 86 88 10 (parallel [
+            (set (reg:DI 105 [ _24 ])
+                (ashift:DI (reg:DI 167)
+                    (subreg:QI (reg:SI 104 [ _23 ]) 0)))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(insn 88 87 89 10 (parallel [
+            (set (reg:DI 106 [ _25 ])
+                (ashift:DI (reg:DI 146 [ _84 ])
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(insn 89 88 90 10 (parallel [
+            (set (reg:DI 168)
+                (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -144 [0xffffffffffffff70])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(insn 90 89 91 10 (parallel [
+            (set (reg/f:DI 107 [ _26 ])
+                (plus:DI (reg:DI 168)
+                    (reg:DI 106 [ _25 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(insn 91 90 92 10 (parallel [
+            (set (reg:DI 108 [ _27 ])
+                (ior:DI (reg:DI 102 [ _21 ])
+                    (reg:DI 105 [ _24 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(insn 92 91 93 10 (set (mem:DI (reg/f:DI 107 [ _26 ]) [2 *_26+0 S8 A64])
+        (reg:DI 108 [ _27 ])) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(insn 93 92 94 10 (set (reg:DI 142 [ iftmp.2_61 ])
+        (mem:DI (reg/f:DI 107 [ _26 ]) [2 *_26+0 S8 A64])) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(jump_insn 94 93 95 10 (set (pc)
+        (label_ref 99)) -1
+     (nil)
+ -> 99)
+(barrier 95 94 96)
+(code_label 96 95 97 11 55 (nil) [1 uses])
+(note 97 96 98 11 [bb 11] NOTE_INSN_BASIC_BLOCK)
+(insn 98 97 99 11 (set (reg:DI 142 [ iftmp.2_61 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":200:5 -1
+     (nil))
+(code_label 99 98 100 12 56 (nil) [1 uses])
+(note 100 99 101 12 [bb 12] NOTE_INSN_BASIC_BLOCK)
+(insn 101 100 104 12 (set (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -168 [0xffffffffffffff58])) [2 __cpu+0 S8 A64])
+        (const_int 3 [0x3])) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(insn 104 101 105 12 (set (reg:CC 17 flags)
+        (compare:CC (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -168 [0xffffffffffffff58])) [2 __cpu+0 S8 A64])
+            (const_int 1023 [0x3ff]))) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(jump_insn 105 104 106 12 (set (pc)
+        (if_then_else (gtu (reg:CC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 126)
+            (pc))) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil)
+ -> 126)
+(note 106 105 107 13 [bb 13] NOTE_INSN_BASIC_BLOCK)
+(insn 107 106 108 13 (set (reg:DI 169)
+        (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -168 [0xffffffffffffff58])) [2 __cpu+0 S8 A64])) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(insn 108 107 109 13 (parallel [
+            (set (reg:DI 147 [ _90 ])
+                (lshiftrt:DI (reg:DI 169)
+                    (const_int 6 [0x6])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":201:5 -1
+     (expr_list:REG_EQUAL (udiv:DI (reg:DI 169)
+            (const_int 64 [0x40]))
+        (nil)))
+(insn 109 108 110 13 (parallel [
+            (set (reg:DI 109 [ _28 ])
+                (ashift:DI (reg:DI 147 [ _90 ])
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(insn 110 109 111 13 (parallel [
+            (set (reg:DI 170)
+                (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -144 [0xffffffffffffff70])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(insn 111 110 112 13 (parallel [
+            (set (reg/f:DI 110 [ _29 ])
+                (plus:DI (reg:DI 170)
+                    (reg:DI 109 [ _28 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(insn 112 111 113 13 (set (reg:DI 111 [ _30 ])
+        (mem:DI (reg/f:DI 110 [ _29 ]) [2 *_29+0 S8 A64])) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(insn 113 112 114 13 (set (reg:DI 171)
+        (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                (const_int -168 [0xffffffffffffff58])) [2 __cpu+0 S8 A64])) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(insn 114 113 115 13 (set (reg:SI 112 [ _31 ])
+        (subreg:SI (reg:DI 171) 0)) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(insn 115 114 116 13 (parallel [
+            (set (reg:SI 113 [ _32 ])
+                (and:SI (reg:SI 112 [ _31 ])
+                    (const_int 63 [0x3f])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(insn 116 115 117 13 (set (reg:DI 172)
+        (const_int 1 [0x1])) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(insn 117 116 118 13 (parallel [
+            (set (reg:DI 114 [ _33 ])
+                (ashift:DI (reg:DI 172)
+                    (subreg:QI (reg:SI 113 [ _32 ]) 0)))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(insn 118 117 119 13 (parallel [
+            (set (reg:DI 115 [ _34 ])
+                (ashift:DI (reg:DI 147 [ _90 ])
+                    (const_int 3 [0x3])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(insn 119 118 120 13 (parallel [
+            (set (reg:DI 173)
+                (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -144 [0xffffffffffffff70])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(insn 120 119 121 13 (parallel [
+            (set (reg/f:DI 116 [ _35 ])
+                (plus:DI (reg:DI 173)
+                    (reg:DI 115 [ _34 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(insn 121 120 122 13 (parallel [
+            (set (reg:DI 117 [ _36 ])
+                (ior:DI (reg:DI 111 [ _30 ])
+                    (reg:DI 114 [ _33 ])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(insn 122 121 123 13 (set (mem:DI (reg/f:DI 116 [ _35 ]) [2 *_35+0 S8 A64])
+        (reg:DI 117 [ _36 ])) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(insn 123 122 124 13 (set (reg:DI 143 [ iftmp.3_62 ])
+        (mem:DI (reg/f:DI 116 [ _35 ]) [2 *_35+0 S8 A64])) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(jump_insn 124 123 125 13 (set (pc)
+        (label_ref 129)) -1
+     (nil)
+ -> 129)
+(barrier 125 124 126)
+(code_label 126 125 127 14 57 (nil) [1 uses])
+(note 127 126 128 14 [bb 14] NOTE_INSN_BASIC_BLOCK)
+(insn 128 127 129 14 (set (reg:DI 143 [ iftmp.3_62 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":201:5 -1
+     (nil))
+(code_label 129 128 130 15 58 (nil) [1 uses])
+(note 130 129 131 15 [bb 15] NOTE_INSN_BASIC_BLOCK)
+(insn 131 130 132 15 (parallel [
+            (set (reg:DI 174)
+                (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -144 [0xffffffffffffff70])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":202:9 -1
+     (nil))
+(insn 132 131 133 15 (set (reg:DI 1 dx)
+        (reg:DI 174)) "cpu4_thread10_fifo_1.c":202:9 -1
+     (nil))
+(insn 133 132 134 15 (set (reg:DI 4 si)
+        (const_int 128 [0x80])) "cpu4_thread10_fifo_1.c":202:9 -1
+     (nil))
+(insn 134 133 135 15 (set (reg:SI 5 di)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":202:9 -1
+     (nil))
+(call_insn 135 134 136 15 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("sched_setaffinity") [flags 0x41]  <function_decl 0x7f14f9a2ef00 sched_setaffinity>) [0 sched_setaffinity S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":202:9 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:SI (use (reg:SI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (nil)))))
+(insn 136 135 137 15 (set (reg:SI 118 [ _37 ])
+        (reg:SI 0 ax)) "cpu4_thread10_fifo_1.c":202:9 -1
+     (nil))
+(insn 137 136 138 15 (set (reg:CCZ 17 flags)
+        (compare:CCZ (reg:SI 118 [ _37 ])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":202:8 -1
+     (nil))
+(jump_insn 138 137 139 15 (set (pc)
+        (if_then_else (eq (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 152)
+            (pc))) "cpu4_thread10_fifo_1.c":202:8 -1
+     (nil)
+ -> 152)
+(note 139 138 140 16 [bb 16] NOTE_INSN_BASIC_BLOCK)
+(call_insn/u 140 139 141 16 (set (reg:DI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("__errno_location") [flags 0x41]  <function_decl 0x7f14f9716300 __errno_location>) [0 __errno_location S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":203:68 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (nil))
+(insn 141 140 142 16 (set (reg/f:DI 119 [ _38 ])
+        (reg:DI 0 ax)) "cpu4_thread10_fifo_1.c":203:68 -1
+     (nil))
+(insn 142 141 143 16 (set (reg:SI 120 [ _39 ])
+        (mem:SI (reg/f:DI 119 [ _38 ]) [3 *_38+0 S4 A32])) "cpu4_thread10_fifo_1.c":203:9 -1
+     (nil))
+(insn 143 142 144 16 (set (reg:SI 5 di)
+        (reg:SI 120 [ _39 ])) "cpu4_thread10_fifo_1.c":203:9 -1
+     (nil))
+(call_insn 144 143 145 16 (set (reg:DI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("strerror") [flags 0x41]  <function_decl 0x7f14f970c500 strerror>) [0 strerror S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":203:9 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:SI (use (reg:SI 5 di))
+        (nil)))
+(insn 145 144 146 16 (set (reg/f:DI 121 [ _40 ])
+        (reg:DI 0 ax)) "cpu4_thread10_fifo_1.c":203:9 -1
+     (nil))
+(insn 146 145 147 16 (set (reg/f:DI 122 [ stderr.4_41 ])
+        (mem/f/c:DI (symbol_ref:DI ("stderr") [flags 0x40]  <var_decl 0x7f14f9a9b090 stderr>) [7 stderr+0 S8 A64])) "cpu4_thread10_fifo_1.c":203:9 -1
+     (nil))
+(insn 147 146 148 16 (set (reg:DI 1 dx)
+        (reg/f:DI 121 [ _40 ])) "cpu4_thread10_fifo_1.c":203:9 -1
+     (nil))
+(insn 148 147 149 16 (set (reg:DI 4 si)
+        (symbol_ref/f:DI ("*.LC9") [flags 0x2]  <var_decl 0x7f14f979c510 *.LC9>)) "cpu4_thread10_fifo_1.c":203:9 -1
+     (nil))
+(insn 149 148 150 16 (set (reg:DI 5 di)
+        (reg/f:DI 122 [ stderr.4_41 ])) "cpu4_thread10_fifo_1.c":203:9 -1
+     (nil))
+(insn 150 149 151 16 (set (reg:QI 0 ax)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":203:9 -1
+     (nil))
+(call_insn 151 150 152 16 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("fprintf") [flags 0x41]  <function_decl 0x7f14f996e400 fprintf>) [0 __builtin_fprintf S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":203:9 -1
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:DI (use (reg:DI 4 si))
+                (expr_list:DI (use (reg:DI 1 dx))
+                    (nil))))))
+(code_label 152 151 153 17 59 (nil) [1 uses])
+(note 153 152 154 17 [bb 17] NOTE_INSN_BASIC_BLOCK)
+(call_insn 154 153 155 17 (call (mem:QI (symbol_ref:DI ("init_matrices") [flags 0x3]  <function_decl 0x7f14f971c500 init_matrices>) [0 init_matrices S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":206:5 -1
+     (nil)
+    (nil))
+(insn 155 154 156 17 (set (reg:DI 4 si)
+        (symbol_ref:DI ("g_prog_start") [flags 0x2]  <var_decl 0x7f14f971f750 g_prog_start>)) "cpu4_thread10_fifo_1.c":207:5 -1
+     (nil))
+(insn 156 155 157 17 (set (reg:SI 5 di)
+        (const_int 1 [0x1])) "cpu4_thread10_fifo_1.c":207:5 -1
+     (nil))
+(call_insn 157 156 158 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("clock_gettime") [flags 0x41]  <function_decl 0x7f14f9a44800 clock_gettime>) [0 clock_gettime S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":207:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:SI (use (reg:SI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 158 157 159 17 (parallel [
+            (set (reg:DI 175)
+                (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                    (const_int -160 [0xffffffffffffff60])))
+            (clobber (reg:CC 17 flags))
+        ]) "cpu4_thread10_fifo_1.c":208:5 -1
+     (nil))
+(insn 159 158 160 17 (set (reg:DI 4 si)
+        (reg:DI 175)) "cpu4_thread10_fifo_1.c":208:5 -1
+     (nil))
+(insn 160 159 161 17 (set (reg:SI 5 di)
+        (const_int 1 [0x1])) "cpu4_thread10_fifo_1.c":208:5 -1
+     (nil))
+(call_insn 161 160 162 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("clock_gettime") [flags 0x41]  <function_decl 0x7f14f9a44800 clock_gettime>) [0 clock_gettime S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":208:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:SI (use (reg:SI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 162 161 163 17 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":212:5 -1
+     (nil))
+(insn 163 162 164 17 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("f0_fn") [flags 0x3]  <function_decl 0x7f14f9716900 f0_fn>)) "cpu4_thread10_fifo_1.c":212:5 -1
+     (nil))
+(insn 164 163 165 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":212:5 -1
+     (nil))
+(insn 165 164 166 17 (set (reg:DI 5 di)
+        (symbol_ref:DI ("tf0") [flags 0x2]  <var_decl 0x7f14f9a9bb40 tf0>)) "cpu4_thread10_fifo_1.c":212:5 -1
+     (nil))
+(call_insn 166 165 167 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f14f9a48b00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":212:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 167 166 168 17 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":213:5 -1
+     (nil))
+(insn 168 167 169 17 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("f1_fn") [flags 0x3]  <function_decl 0x7f14f9716a00 f1_fn>)) "cpu4_thread10_fifo_1.c":213:5 -1
+     (nil))
+(insn 169 168 170 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":213:5 -1
+     (nil))
+(insn 170 169 171 17 (set (reg:DI 5 di)
+        (symbol_ref:DI ("tf1") [flags 0x2]  <var_decl 0x7f14f9a9bbd0 tf1>)) "cpu4_thread10_fifo_1.c":213:5 -1
+     (nil))
+(call_insn 171 170 172 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f14f9a48b00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":213:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 172 171 173 17 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":214:5 -1
+     (nil))
+(insn 173 172 174 17 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("f2_fn") [flags 0x3]  <function_decl 0x7f14f9716b00 f2_fn>)) "cpu4_thread10_fifo_1.c":214:5 -1
+     (nil))
+(insn 174 173 175 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":214:5 -1
+     (nil))
+(insn 175 174 176 17 (set (reg:DI 5 di)
+        (symbol_ref:DI ("tf2") [flags 0x2]  <var_decl 0x7f14f9a9bc60 tf2>)) "cpu4_thread10_fifo_1.c":214:5 -1
+     (nil))
+(call_insn 176 175 177 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f14f9a48b00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":214:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 177 176 178 17 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":215:5 -1
+     (nil))
+(insn 178 177 179 17 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("f3_fn") [flags 0x3]  <function_decl 0x7f14f9716c00 f3_fn>)) "cpu4_thread10_fifo_1.c":215:5 -1
+     (nil))
+(insn 179 178 180 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":215:5 -1
+     (nil))
+(insn 180 179 181 17 (set (reg:DI 5 di)
+        (symbol_ref:DI ("tf3") [flags 0x2]  <var_decl 0x7f14f9a9bcf0 tf3>)) "cpu4_thread10_fifo_1.c":215:5 -1
+     (nil))
+(call_insn 181 180 182 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f14f9a48b00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":215:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 182 181 183 17 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":216:5 -1
+     (nil))
+(insn 183 182 184 17 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("f4_fn") [flags 0x3]  <function_decl 0x7f14f9716d00 f4_fn>)) "cpu4_thread10_fifo_1.c":216:5 -1
+     (nil))
+(insn 184 183 185 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":216:5 -1
+     (nil))
+(insn 185 184 186 17 (set (reg:DI 5 di)
+        (symbol_ref:DI ("tf4") [flags 0x2]  <var_decl 0x7f14f9a9bd80 tf4>)) "cpu4_thread10_fifo_1.c":216:5 -1
+     (nil))
+(call_insn 186 185 187 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f14f9a48b00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":216:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 187 186 188 17 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":217:5 -1
+     (nil))
+(insn 188 187 189 17 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("f5_fn") [flags 0x3]  <function_decl 0x7f14f9716e00 f5_fn>)) "cpu4_thread10_fifo_1.c":217:5 -1
+     (nil))
+(insn 189 188 190 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":217:5 -1
+     (nil))
+(insn 190 189 191 17 (set (reg:DI 5 di)
+        (symbol_ref:DI ("tf5") [flags 0x2]  <var_decl 0x7f14f9a9be10 tf5>)) "cpu4_thread10_fifo_1.c":217:5 -1
+     (nil))
+(call_insn 191 190 192 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f14f9a48b00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":217:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 192 191 193 17 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":218:5 -1
+     (nil))
+(insn 193 192 194 17 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("f6_fn") [flags 0x3]  <function_decl 0x7f14f9716f00 f6_fn>)) "cpu4_thread10_fifo_1.c":218:5 -1
+     (nil))
+(insn 194 193 195 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":218:5 -1
+     (nil))
+(insn 195 194 196 17 (set (reg:DI 5 di)
+        (symbol_ref:DI ("tf6") [flags 0x2]  <var_decl 0x7f14f9a9bea0 tf6>)) "cpu4_thread10_fifo_1.c":218:5 -1
+     (nil))
+(call_insn 196 195 197 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f14f9a48b00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":218:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 197 196 198 17 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":219:5 -1
+     (nil))
+(insn 198 197 199 17 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("f7_fn") [flags 0x3]  <function_decl 0x7f14f971c000 f7_fn>)) "cpu4_thread10_fifo_1.c":219:5 -1
+     (nil))
+(insn 199 198 200 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":219:5 -1
+     (nil))
+(insn 200 199 201 17 (set (reg:DI 5 di)
+        (symbol_ref:DI ("tf7") [flags 0x2]  <var_decl 0x7f14f9a9bf30 tf7>)) "cpu4_thread10_fifo_1.c":219:5 -1
+     (nil))
+(call_insn 201 200 202 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f14f9a48b00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":219:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 202 201 203 17 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":220:5 -1
+     (nil))
+(insn 203 202 204 17 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("f8_fn") [flags 0x3]  <function_decl 0x7f14f971c100 f8_fn>)) "cpu4_thread10_fifo_1.c":220:5 -1
+     (nil))
+(insn 204 203 205 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":220:5 -1
+     (nil))
+(insn 205 204 206 17 (set (reg:DI 5 di)
+        (symbol_ref:DI ("tf8") [flags 0x2]  <var_decl 0x7f14f971f000 tf8>)) "cpu4_thread10_fifo_1.c":220:5 -1
+     (nil))
+(call_insn 206 205 207 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f14f9a48b00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":220:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 207 206 208 17 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":221:5 -1
+     (nil))
+(insn 208 207 209 17 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("f9_fn") [flags 0x3]  <function_decl 0x7f14f971c200 f9_fn>)) "cpu4_thread10_fifo_1.c":221:5 -1
+     (nil))
+(insn 209 208 210 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":221:5 -1
+     (nil))
+(insn 210 209 211 17 (set (reg:DI 5 di)
+        (symbol_ref:DI ("tf9") [flags 0x2]  <var_decl 0x7f14f971f090 tf9>)) "cpu4_thread10_fifo_1.c":221:5 -1
+     (nil))
+(call_insn 211 210 212 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f14f9a48b00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":221:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 212 211 213 17 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":222:5 -1
+     (nil))
+(insn 213 212 214 17 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("f10_fn") [flags 0x3]  <function_decl 0x7f14f971c300 f10_fn>)) "cpu4_thread10_fifo_1.c":222:5 -1
+     (nil))
+(insn 214 213 215 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":222:5 -1
+     (nil))
+(insn 215 214 216 17 (set (reg:DI 5 di)
+        (symbol_ref:DI ("tf10") [flags 0x2]  <var_decl 0x7f14f971f120 tf10>)) "cpu4_thread10_fifo_1.c":222:5 -1
+     (nil))
+(call_insn 216 215 217 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f14f9a48b00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":222:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 217 216 218 17 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":223:5 -1
+     (nil))
+(insn 218 217 219 17 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("f11_fn") [flags 0x3]  <function_decl 0x7f14f971c400 f11_fn>)) "cpu4_thread10_fifo_1.c":223:5 -1
+     (nil))
+(insn 219 218 220 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":223:5 -1
+     (nil))
+(insn 220 219 221 17 (set (reg:DI 5 di)
+        (symbol_ref:DI ("tf11") [flags 0x2]  <var_decl 0x7f14f971f1b0 tf11>)) "cpu4_thread10_fifo_1.c":223:5 -1
+     (nil))
+(call_insn 221 220 222 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f14f9a48b00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":223:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 222 221 223 17 (set (reg:DI 2 cx)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":224:5 -1
+     (nil))
+(insn 223 222 224 17 (set (reg:DI 1 dx)
+        (symbol_ref:DI ("c0_fn") [flags 0x3]  <function_decl 0x7f14f9716400 c0_fn>)) "cpu4_thread10_fifo_1.c":224:5 -1
+     (nil))
+(insn 224 223 225 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":224:5 -1
+     (nil))
+(insn 225 224 226 17 (set (reg:DI 5 di)
+        (symbol_ref:DI ("tc0") [flags 0x2]  <var_decl 0x7f14f9a9b870 tc0>)) "cpu4_thread10_fifo_1.c":224:5 -1
+     (nil))
+(call_insn 226 225 227 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f14f9a48b00 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":224:5 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (expr_list:DI (use (reg:DI 1 dx))
+                (expr_list:DI (use (reg:DI 2 cx))
+                    (nil))))))
+(insn 227 226 228 17 (set (reg:DI 123 [ tc0.5_42 ])
+        (mem/c:DI (symbol_ref:DI ("tc0") [flags 0x2]  <var_decl 0x7f14f9a9b870 tc0>) [2 tc0+0 S8 A64])) "cpu4_thread10_fifo_1.c":225:5 -1
+     (nil))
+(insn 228 227 229 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":225:5 -1
+     (nil))
+(insn 229 228 230 17 (set (reg:DI 5 di)
+        (reg:DI 123 [ tc0.5_42 ])) "cpu4_thread10_fifo_1.c":225:5 -1
+     (nil))
+(call_insn 230 229 231 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f14f9a48d00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":225:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 231 230 232 17 (set (reg:DI 124 [ tc1.6_43 ])
+        (mem/c:DI (symbol_ref:DI ("tc1") [flags 0x2]  <var_decl 0x7f14f9a9b900 tc1>) [2 tc1+0 S8 A64])) "cpu4_thread10_fifo_1.c":226:5 -1
+     (nil))
+(insn 232 231 233 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":226:5 -1
+     (nil))
+(insn 233 232 234 17 (set (reg:DI 5 di)
+        (reg:DI 124 [ tc1.6_43 ])) "cpu4_thread10_fifo_1.c":226:5 -1
+     (nil))
+(call_insn 234 233 235 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f14f9a48d00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":226:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 235 234 236 17 (set (reg:DI 125 [ tc2.7_44 ])
+        (mem/c:DI (symbol_ref:DI ("tc2") [flags 0x2]  <var_decl 0x7f14f9a9b990 tc2>) [2 tc2+0 S8 A64])) "cpu4_thread10_fifo_1.c":227:5 -1
+     (nil))
+(insn 236 235 237 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":227:5 -1
+     (nil))
+(insn 237 236 238 17 (set (reg:DI 5 di)
+        (reg:DI 125 [ tc2.7_44 ])) "cpu4_thread10_fifo_1.c":227:5 -1
+     (nil))
+(call_insn 238 237 239 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f14f9a48d00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":227:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 239 238 240 17 (set (reg:DI 126 [ tc3.8_45 ])
+        (mem/c:DI (symbol_ref:DI ("tc3") [flags 0x2]  <var_decl 0x7f14f9a9ba20 tc3>) [2 tc3+0 S8 A64])) "cpu4_thread10_fifo_1.c":228:5 -1
+     (nil))
+(insn 240 239 241 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":228:5 -1
+     (nil))
+(insn 241 240 242 17 (set (reg:DI 5 di)
+        (reg:DI 126 [ tc3.8_45 ])) "cpu4_thread10_fifo_1.c":228:5 -1
+     (nil))
+(call_insn 242 241 243 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f14f9a48d00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":228:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 243 242 244 17 (set (reg:DI 127 [ tc4.9_46 ])
+        (mem/c:DI (symbol_ref:DI ("tc4") [flags 0x2]  <var_decl 0x7f14f9a9bab0 tc4>) [2 tc4+0 S8 A64])) "cpu4_thread10_fifo_1.c":229:5 -1
+     (nil))
+(insn 244 243 245 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":229:5 -1
+     (nil))
+(insn 245 244 246 17 (set (reg:DI 5 di)
+        (reg:DI 127 [ tc4.9_46 ])) "cpu4_thread10_fifo_1.c":229:5 -1
+     (nil))
+(call_insn 246 245 247 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f14f9a48d00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":229:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 247 246 248 17 (set (reg:DI 128 [ tf0.10_47 ])
+        (mem/c:DI (symbol_ref:DI ("tf0") [flags 0x2]  <var_decl 0x7f14f9a9bb40 tf0>) [2 tf0+0 S8 A64])) "cpu4_thread10_fifo_1.c":230:5 -1
+     (nil))
+(insn 248 247 249 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":230:5 -1
+     (nil))
+(insn 249 248 250 17 (set (reg:DI 5 di)
+        (reg:DI 128 [ tf0.10_47 ])) "cpu4_thread10_fifo_1.c":230:5 -1
+     (nil))
+(call_insn 250 249 251 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f14f9a48d00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":230:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 251 250 252 17 (set (reg:DI 129 [ tf1.11_48 ])
+        (mem/c:DI (symbol_ref:DI ("tf1") [flags 0x2]  <var_decl 0x7f14f9a9bbd0 tf1>) [2 tf1+0 S8 A64])) "cpu4_thread10_fifo_1.c":231:5 -1
+     (nil))
+(insn 252 251 253 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":231:5 -1
+     (nil))
+(insn 253 252 254 17 (set (reg:DI 5 di)
+        (reg:DI 129 [ tf1.11_48 ])) "cpu4_thread10_fifo_1.c":231:5 -1
+     (nil))
+(call_insn 254 253 255 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f14f9a48d00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":231:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 255 254 256 17 (set (reg:DI 130 [ tf2.12_49 ])
+        (mem/c:DI (symbol_ref:DI ("tf2") [flags 0x2]  <var_decl 0x7f14f9a9bc60 tf2>) [2 tf2+0 S8 A64])) "cpu4_thread10_fifo_1.c":232:5 -1
+     (nil))
+(insn 256 255 257 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":232:5 -1
+     (nil))
+(insn 257 256 258 17 (set (reg:DI 5 di)
+        (reg:DI 130 [ tf2.12_49 ])) "cpu4_thread10_fifo_1.c":232:5 -1
+     (nil))
+(call_insn 258 257 259 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f14f9a48d00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":232:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 259 258 260 17 (set (reg:DI 131 [ tf3.13_50 ])
+        (mem/c:DI (symbol_ref:DI ("tf3") [flags 0x2]  <var_decl 0x7f14f9a9bcf0 tf3>) [2 tf3+0 S8 A64])) "cpu4_thread10_fifo_1.c":233:5 -1
+     (nil))
+(insn 260 259 261 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":233:5 -1
+     (nil))
+(insn 261 260 262 17 (set (reg:DI 5 di)
+        (reg:DI 131 [ tf3.13_50 ])) "cpu4_thread10_fifo_1.c":233:5 -1
+     (nil))
+(call_insn 262 261 263 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f14f9a48d00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":233:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 263 262 264 17 (set (reg:DI 132 [ tf4.14_51 ])
+        (mem/c:DI (symbol_ref:DI ("tf4") [flags 0x2]  <var_decl 0x7f14f9a9bd80 tf4>) [2 tf4+0 S8 A64])) "cpu4_thread10_fifo_1.c":234:5 -1
+     (nil))
+(insn 264 263 265 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":234:5 -1
+     (nil))
+(insn 265 264 266 17 (set (reg:DI 5 di)
+        (reg:DI 132 [ tf4.14_51 ])) "cpu4_thread10_fifo_1.c":234:5 -1
+     (nil))
+(call_insn 266 265 267 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f14f9a48d00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":234:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 267 266 268 17 (set (reg:DI 133 [ tf5.15_52 ])
+        (mem/c:DI (symbol_ref:DI ("tf5") [flags 0x2]  <var_decl 0x7f14f9a9be10 tf5>) [2 tf5+0 S8 A64])) "cpu4_thread10_fifo_1.c":235:5 -1
+     (nil))
+(insn 268 267 269 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":235:5 -1
+     (nil))
+(insn 269 268 270 17 (set (reg:DI 5 di)
+        (reg:DI 133 [ tf5.15_52 ])) "cpu4_thread10_fifo_1.c":235:5 -1
+     (nil))
+(call_insn 270 269 271 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f14f9a48d00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":235:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 271 270 272 17 (set (reg:DI 134 [ tf6.16_53 ])
+        (mem/c:DI (symbol_ref:DI ("tf6") [flags 0x2]  <var_decl 0x7f14f9a9bea0 tf6>) [2 tf6+0 S8 A64])) "cpu4_thread10_fifo_1.c":236:5 -1
+     (nil))
+(insn 272 271 273 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":236:5 -1
+     (nil))
+(insn 273 272 274 17 (set (reg:DI 5 di)
+        (reg:DI 134 [ tf6.16_53 ])) "cpu4_thread10_fifo_1.c":236:5 -1
+     (nil))
+(call_insn 274 273 275 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f14f9a48d00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":236:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 275 274 276 17 (set (reg:DI 135 [ tf7.17_54 ])
+        (mem/c:DI (symbol_ref:DI ("tf7") [flags 0x2]  <var_decl 0x7f14f9a9bf30 tf7>) [2 tf7+0 S8 A64])) "cpu4_thread10_fifo_1.c":237:5 -1
+     (nil))
+(insn 276 275 277 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":237:5 -1
+     (nil))
+(insn 277 276 278 17 (set (reg:DI 5 di)
+        (reg:DI 135 [ tf7.17_54 ])) "cpu4_thread10_fifo_1.c":237:5 -1
+     (nil))
+(call_insn 278 277 279 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f14f9a48d00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":237:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 279 278 280 17 (set (reg:DI 136 [ tf8.18_55 ])
+        (mem/c:DI (symbol_ref:DI ("tf8") [flags 0x2]  <var_decl 0x7f14f971f000 tf8>) [2 tf8+0 S8 A64])) "cpu4_thread10_fifo_1.c":238:5 -1
+     (nil))
+(insn 280 279 281 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":238:5 -1
+     (nil))
+(insn 281 280 282 17 (set (reg:DI 5 di)
+        (reg:DI 136 [ tf8.18_55 ])) "cpu4_thread10_fifo_1.c":238:5 -1
+     (nil))
+(call_insn 282 281 283 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f14f9a48d00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":238:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 283 282 284 17 (set (reg:DI 137 [ tf9.19_56 ])
+        (mem/c:DI (symbol_ref:DI ("tf9") [flags 0x2]  <var_decl 0x7f14f971f090 tf9>) [2 tf9+0 S8 A64])) "cpu4_thread10_fifo_1.c":239:5 -1
+     (nil))
+(insn 284 283 285 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":239:5 -1
+     (nil))
+(insn 285 284 286 17 (set (reg:DI 5 di)
+        (reg:DI 137 [ tf9.19_56 ])) "cpu4_thread10_fifo_1.c":239:5 -1
+     (nil))
+(call_insn 286 285 287 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f14f9a48d00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":239:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 287 286 288 17 (set (reg:DI 138 [ tf10.20_57 ])
+        (mem/c:DI (symbol_ref:DI ("tf10") [flags 0x2]  <var_decl 0x7f14f971f120 tf10>) [2 tf10+0 S8 A64])) "cpu4_thread10_fifo_1.c":240:5 -1
+     (nil))
+(insn 288 287 289 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":240:5 -1
+     (nil))
+(insn 289 288 290 17 (set (reg:DI 5 di)
+        (reg:DI 138 [ tf10.20_57 ])) "cpu4_thread10_fifo_1.c":240:5 -1
+     (nil))
+(call_insn 290 289 291 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f14f9a48d00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":240:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 291 290 292 17 (set (reg:DI 139 [ tf11.21_58 ])
+        (mem/c:DI (symbol_ref:DI ("tf11") [flags 0x2]  <var_decl 0x7f14f971f1b0 tf11>) [2 tf11+0 S8 A64])) "cpu4_thread10_fifo_1.c":241:5 -1
+     (nil))
+(insn 292 291 293 17 (set (reg:DI 4 si)
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":241:5 -1
+     (nil))
+(insn 293 292 294 17 (set (reg:DI 5 di)
+        (reg:DI 139 [ tf11.21_58 ])) "cpu4_thread10_fifo_1.c":241:5 -1
+     (nil))
+(call_insn 294 293 295 17 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f14f9a48d00 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "cpu4_thread10_fifo_1.c":241:5 -1
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (expr_list:DI (use (reg:DI 4 si))
+            (nil))))
+(insn 295 294 298 17 (set (reg:SI 148 [ _130 ])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":242:12 -1
+     (nil))
+(insn 298 295 302 17 (set (reg:SI 149 [ <retval> ])
+        (reg:SI 148 [ _130 ])) -1
+     (nil))
+(insn 302 298 303 17 (parallel [
+            (set (reg:CCZ 17 flags)
+                (unspec:CCZ [
+                        (mem/v/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
+                                (const_int -8 [0xfffffffffffffff8])) [5 D.4176+0 S8 A64])
+                        (mem/v/f:DI (const_int 40 [0x28]) [0 MEM[(<address-space-1> long unsigned int *)40B]+0 S8 A64 AS1])
+                    ] UNSPEC_SP_TEST))
+            (clobber (scratch:DI))
+        ]) "cpu4_thread10_fifo_1.c":243:1 -1
+     (nil))
+(jump_insn 303 302 310 17 (set (pc)
+        (if_then_else (eq (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 306)
+            (pc))) "cpu4_thread10_fifo_1.c":243:1 -1
+     (nil)
+ -> 306)
+(note 310 303 304 20 [bb 20] NOTE_INSN_BASIC_BLOCK)
+(call_insn 304 310 305 20 (call (mem:QI (symbol_ref:DI ("__stack_chk_fail") [flags 0x41]  <function_decl 0x7f14f979b600 __stack_chk_fail>) [0 __stack_chk_fail S1 A8])
+        (const_int 0 [0])) "cpu4_thread10_fifo_1.c":243:1 -1
+     (expr_list:REG_ARGS_SIZE (const_int 0 [0])
+        (expr_list:REG_NORETURN (const_int 0 [0])
+            (expr_list:REG_EH_REGION (const_int 0 [0])
+                (nil))))
+    (nil))
+(barrier 305 304 306)
+(code_label 306 305 311 21 61 (nil) [1 uses])
+(note 311 306 307 21 [bb 21] NOTE_INSN_BASIC_BLOCK)
+(insn 307 311 308 21 (set (reg/i:SI 0 ax)
+        (reg:SI 149 [ <retval> ])) "cpu4_thread10_fifo_1.c":243:1 -1
+     (nil))
+(insn 308 307 0 21 (use (reg/i:SI 0 ax)) "cpu4_thread10_fifo_1.c":243:1 -1
+     (nil))

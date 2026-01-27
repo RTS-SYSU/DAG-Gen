@@ -20,6 +20,9 @@ from PIL import Image, ImageTk
 
 # 使用包内模块，避免与非 v1 版本混淆
 from mycallyplus_v1 import filter_dot, time_analysis, time_charts, scheduler
+from mycallyplus_v1.level1 import time_analysis_level1 as level1_time_analysis
+from mycallyplus_v1.level1 import lpf_thread as level1_lpf_thread
+from mycallyplus_v1.level1 import instrument_prio_level1 as level1_prio_instrument
 
 try:
     import networkx as nx
@@ -808,7 +811,7 @@ class MycallyplusGUIv3:
             # 调用legacy生成dag图到配置文件目录
             cmd = [
                 sys.executable,
-                "-m", "mycallyplus.generation.legacy",
+                "-m", "mycallyplus_v1.generation.legacy",
                 str(self.state.expand_file),
                 "--threads-only",
                 "--output-base", str(self.base_dir)
@@ -896,7 +899,7 @@ class MycallyplusGUIv3:
 
             cmd = [
                 sys.executable,
-                "-m", "mycallyplus.generation.legacy",
+                "-m", "mycallyplus_v1.generation.legacy",
                 "--extern-only",
                 "--source-file", str(self.state.source_file),
                 "--output-base", str(self.base_dir),
@@ -1002,7 +1005,7 @@ class MycallyplusGUIv3:
             print("⚙️  调用mycallyplus生成条件节点视图（--conditions-only）...")
             cmd = [
                 sys.executable,
-                "-m", "mycallyplus.generation.legacy",
+                "-m", "mycallyplus_v1.generation.legacy",
                 "--conditions-only",
                 "--output-base", str(self.base_dir),
                 str(self.state.expand_file),
@@ -1028,7 +1031,7 @@ class MycallyplusGUIv3:
             txt_output_path = config_dir / "circle.txt"
             cmd_txt = [
                 sys.executable,
-                "-m", "mycallyplus.generation.legacy",
+                "-m", "mycallyplus_v1.generation.legacy",
                 str(self.state.expand_file),
                 "--export-txt", str(txt_output_path),
                 "--output-base", str(self.base_dir)
@@ -1499,11 +1502,168 @@ class MycallyplusGUIv3:
         self._set_subfunc_toolbar([
             ("选中源代码文件", self._select_ta_source_file),
             ("选中JSON文件", self._select_ta_json_file),
+            ("段级时间分析（Level-1）", self._ta_level1_one_click),
             ("线程中任务执行次数图", self._plot_thread_task_frequency),
             ("线程执行时间图", self._plot_thread_total_time),
             ("线程调用图", self._plot_thread_call_gantt),
         ])
         self._show_message("提示", "请选择源代码文件和 mycalls_meta_internal.json，完成后自动执行时间分析。")
+
+    def _ta_level1_one_click(self):
+        """时间分析子功能：段级时间分析（Level-1）一键跑到底。
+
+        Pipeline:
+          legacy(--source-file, --level1-stage1) -> stage1 seg DAG
+          -> segment timing -> LPF thread schedule -> prio instrument compare
+        Inputs come from status area (state.source_file, state.expand_file).
+        """
+        if not self.state.expand_file or not self.state.expand_file.exists():
+            self._show_message("错误", "状态区缺少 expand 文件，请先选择 expand 文件。", is_error=True)
+            return
+        if not self.state.source_file or not self.state.source_file.exists():
+            self._show_message("错误", "状态区缺少源 C 文件，请先选择源文件。", is_error=True)
+            return
+
+        base_name = self.state.source_file.stem if self.state.source_file else None
+        if not base_name:
+            base_name = self.state.get_base_name()
+        if not base_name:
+            self._show_message("错误", "无法推导 base_name。", is_error=True)
+            return
+
+        try:
+            # 1) legacy generate + level1 stage1
+            cmd = [
+                sys.executable,
+                "-m",
+                "mycallyplus_v1.generation.legacy",
+                str(self.state.expand_file),
+                "--threads-only",
+                "--source-file",
+                str(self.state.source_file),
+                "--output-base",
+                str(self.base_dir),
+                "--force",
+                "--level1-stage1",
+            ]
+            result = subprocess.run(cmd, cwd=str(self.base_dir.parent), capture_output=True, text=True)
+            if result.returncode != 0:
+                self._show_message("错误", f"Level-1 stage1 生成失败:\n{result.stderr}", is_error=True)
+                return
+
+            # 2) render segment DAG png and display (default)
+            seg_dot = self.base_dir / "中间结果" / base_name / "level1" / "stage1" / "dag_stage1_seg.dot"
+            seg_png = self.base_dir / "中间结果" / base_name / "level1" / "stage1" / "dag_stage1_seg.png"
+            subprocess.run(["dot", "-Tpng", str(seg_dot), "-o", str(seg_png)], check=True, capture_output=True)
+            self._display_image(seg_png)
+
+            # 3) segment timing (one run)
+            ta_cmd = [
+                sys.executable,
+                "-m",
+                "mycallyplus_v1.level1.time_analysis_level1",
+                "--base-dir",
+                str(self.base_dir),
+                "--base-name",
+                base_name,
+                "--source",
+                str(self.state.source_file),
+            ]
+            ta_res = subprocess.run(ta_cmd, cwd=str(self.base_dir.parent), capture_output=True, text=True)
+            if ta_res.returncode != 0:
+                self._show_message("错误", f"段级时间分析失败:\n{ta_res.stderr}", is_error=True)
+                return
+
+            # 4) LPF schedule (thread)
+            sched_cmd = [
+                sys.executable,
+                "-m",
+                "mycallyplus_v1.level1.lpf_segment",
+                "--base-dir",
+                str(self.base_dir),
+                "--base-name",
+                base_name,
+                "--project",
+                base_name,
+                "--prio-max",
+                "80",
+            ]
+            sched_res = subprocess.run(sched_cmd, cwd=str(self.base_dir.parent), capture_output=True, text=True)
+            if sched_res.returncode != 0:
+                self._show_message("错误", f"LPF 调度失败:\n{sched_res.stderr}", is_error=True)
+                return
+
+            # 5) prio instrument compare
+            prio_cmd = [
+                sys.executable,
+                "-m",
+                "mycallyplus_v1.level1.instrument_prio_level1",
+                "--base-dir",
+                str(self.base_dir),
+                "--base-name",
+                base_name,
+                "--source",
+                str(self.state.source_file),
+            ]
+            prio_res = subprocess.run(prio_cmd, cwd=str(self.base_dir.parent), capture_output=True, text=True)
+            if prio_res.returncode != 0:
+                self._show_message("错误", f"优先级插桩对比失败:\n{prio_res.stderr}", is_error=True)
+                return
+
+            # Parse compare.json path from stdout (last "wrote ...")
+            compare_path = None
+            for ln in prio_res.stdout.splitlines():
+                if ln.startswith("wrote "):
+                    compare_path = Path(ln[len("wrote ") :].strip())
+            if compare_path and compare_path.exists():
+                try:
+                    compare = json.loads(compare_path.read_text(encoding="utf-8"))
+                    if compare.get("prio_set_failed"):
+                        messagebox.showwarning(
+                            "提示",
+                            "检测到线程优先级设置失败（可能缺少 root/CAP_SYS_NICE 权限），"
+                            "本次 prio 对比结果可能与 FIFO 无显著差异。\n"
+                            f"详情见: {compare_path}",
+                        )
+                except Exception:
+                    pass
+
+            # 6) run experiment script (if present) to get baseline/prio runtimes
+            run_script = None
+            if compare_path:
+                candidate = compare_path.parent / "run_experiments.sh"
+                if candidate.exists():
+                    run_script = candidate
+            run_result_path = None
+            if run_script:
+                try:
+                    run_res = subprocess.run(
+                        ["bash", str(run_script)],
+                        cwd=str(run_script.parent),
+                        capture_output=True,
+                        text=True,
+                        check=True,
+                    )
+                    for ln in run_res.stdout.splitlines():
+                        if "Results saved to" in ln:
+                            run_result_path = Path(ln.split("Results saved to", 1)[1].strip())
+                            break
+                except Exception as e:
+                    self._show_message("错误", f"运行对照脚本失败:\n{e}", is_error=True)
+
+            self._show_message(
+                "成功",
+                "段级时间分析（Level-1）已完成：\n"
+                f"- 段级 DAG: {seg_png}\n"
+                f"- 段级测时: {self.base_dir/'中间结果'/base_name/'level1'/'timing'/base_name/'time_result_seg.json'}\n"
+                f"- LPF schedule: {self.base_dir/'中间结果'/base_name/'level1'/'schedule'/'lpf_segment'/'schedule_seg.json'}\n"
+                f"- 对比结果: {compare_path if compare_path else '(unknown)'}\n"
+                f"- 运行时间结果: {run_result_path if run_result_path else '未生成或脚本缺失'}",
+            )
+        except subprocess.CalledProcessError as e:
+            self._show_message("错误", f"命令执行失败:\n{e}", is_error=True)
+        except Exception as e:
+            self._show_message("错误", f"段级时间分析（Level-1）失败:\n{e}", is_error=True)
 
     # ===================== 按钮8: 调度算法 =====================
 

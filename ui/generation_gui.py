@@ -394,7 +394,7 @@ class MyCallyGUI:
         try:
             import sys
             import subprocess
-            cmd = [sys.executable, "-m", "mycallyplus.generation.legacy"]
+            cmd = [sys.executable, "-m", "mycallyplus_v1.generation.legacy"]
             if threads_only:
                 cmd.append("--threads-only")
             cmd.append(str(expand_path.resolve()))
@@ -437,7 +437,7 @@ class MyCallyGUI:
         try:
             import sys
             import subprocess
-            cmd = [sys.executable, "-m", "mycallyplus.generation.legacy", str(expand_path.resolve())]
+            cmd = [sys.executable, "-m", "mycallyplus_v1.generation.legacy", str(expand_path.resolve())]
             work_dir = PROJECT_ROOT.parent
             proc = subprocess.run(
                 cmd,
@@ -475,7 +475,7 @@ class MyCallyGUI:
         try:
             import sys
             import subprocess
-            cmd = [sys.executable, "-m", "mycallyplus.generation.legacy"]
+            cmd = [sys.executable, "-m", "mycallyplus_v1.generation.legacy"]
             if threads_only:
                 cmd.append("--threads-only")
             cmd.append(str(expand_path.resolve()))
@@ -536,7 +536,7 @@ class MyCallyGUI:
             txt_path = config_dir / "circle.txt"
             
             cmd = [
-                sys.executable, "-m", "mycallyplus.generation.legacy",
+                sys.executable, "-m", "mycallyplus_v1.generation.legacy",
                 str(expand_path.resolve()),
                 "--export-txt", str(txt_path),
                 "--output-base", str(PROJECT_ROOT)
