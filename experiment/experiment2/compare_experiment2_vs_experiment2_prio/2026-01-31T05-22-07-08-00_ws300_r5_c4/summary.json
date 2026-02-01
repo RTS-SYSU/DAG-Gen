@@ -1,0 +1,207 @@
+{
+  "task_id": "experiment2_vs_experiment2_prio_2026-01-31T05-22-07-08-00",
+  "created_at": "2026-01-31T05-22-07-08-00",
+  "cpu_set": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "cores_per_task": 4,
+  "work_scale": 300,
+  "repeats": 5,
+  "affinity_rewritten_in_source": {
+    "baseline": true,
+    "prio": true
+  },
+  "baseline": {
+    "c_file": "/home/chove/Desktop/mydag/mycallyplus_v1/中间结果/experiment2/level1/experiments/lpf_segment_20260129_013721/experiment2/baseline/project/experiment2/experiment2.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -DWORK_SCALE=300 experiment2.c prog_timer.c wrap_main.c -o /home/chove/Desktop/mydag/mycallyplus_v1/experiment/experiment2/compare_experiment2_vs_experiment2_prio/2026-01-31T05-22-07-08-00_ws300_r5_c4/baseline/app_baseline",
+    "stats": {
+      "n": 5.0,
+      "min_s": 2.676739021,
+      "max_s": 3.150877453,
+      "mean_s": 2.8716424552,
+      "median_s": 2.821145668
+    },
+    "times_s": [
+      2.676739021,
+      2.821145668,
+      2.721166895,
+      3.150877453,
+      2.988283239
+    ]
+  },
+  "prio": {
+    "c_file": "/home/chove/Desktop/mydag/mycallyplus_v1/中间结果/experiment2/level1/experiments/lpf_segment_20260129_013721/experiment2/prio/project/experiment2/experiment2_prio.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -DWORK_SCALE=300 experiment2_prio.c prog_timer.c wrap_main.c -o /home/chove/Desktop/mydag/mycallyplus_v1/experiment/experiment2/compare_experiment2_vs_experiment2_prio/2026-01-31T05-22-07-08-00_ws300_r5_c4/prio/app_prio",
+    "stats": {
+      "n": 5.0,
+      "min_s": 1.854974355,
+      "max_s": 2.259220754,
+      "mean_s": 1.9749891058,
+      "median_s": 1.891386293
+    },
+    "times_s": [
+      1.891386293,
+      1.879937087,
+      1.854974355,
+      1.98942704,
+      2.259220754
+    ]
+  },
+  "runs": [
+    {
+      "program": "baseline",
+      "iter": 0,
+      "time_s": 2.676739021,
+      "wall_s": 2.676739021,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #1 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=2673880690\n\n[warn] failed to parse internal time; fallback wall_s=2.676739\n"
+    },
+    {
+      "program": "prio",
+      "iter": 0,
+      "time_s": 1.891386293,
+      "wall_s": 1.891386293,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #1 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=1888342560\n\n[warn] failed to parse internal time; fallback wall_s=1.891386\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 1,
+      "time_s": 2.821145668,
+      "wall_s": 2.821145668,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #2 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=2818049349\n\n[warn] failed to parse internal time; fallback wall_s=2.821146\n"
+    },
+    {
+      "program": "prio",
+      "iter": 1,
+      "time_s": 1.879937087,
+      "wall_s": 1.879937087,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #2 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=1877091638\n\n[warn] failed to parse internal time; fallback wall_s=1.879937\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 2,
+      "time_s": 2.721166895,
+      "wall_s": 2.721166895,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #3 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=2718467875\n\n[warn] failed to parse internal time; fallback wall_s=2.721167\n"
+    },
+    {
+      "program": "prio",
+      "iter": 2,
+      "time_s": 1.854974355,
+      "wall_s": 1.854974355,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #3 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=1852155934\n\n[warn] failed to parse internal time; fallback wall_s=1.854974\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 3,
+      "time_s": 3.150877453,
+      "wall_s": 3.150877453,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #4 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=3148057567\n\n[warn] failed to parse internal time; fallback wall_s=3.150877\n"
+    },
+    {
+      "program": "prio",
+      "iter": 3,
+      "time_s": 1.98942704,
+      "wall_s": 1.98942704,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #4 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=1986402437\n\n[warn] failed to parse internal time; fallback wall_s=1.989427\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 4,
+      "time_s": 2.988283239,
+      "wall_s": 2.988283239,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #5 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=2985562774\n\n[warn] failed to parse internal time; fallback wall_s=2.988283\n"
+    },
+    {
+      "program": "prio",
+      "iter": 4,
+      "time_s": 2.259220754,
+      "wall_s": 2.259220754,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #5 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=2256381254\n\n[warn] failed to parse internal time; fallback wall_s=2.259221\n"
+    }
+  ],
+  "delta_mean_s": -0.8966533494,
+  "improvement_ratio": 0.31224407752306726
+}

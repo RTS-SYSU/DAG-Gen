@@ -48,6 +48,7 @@ static void *f11_fn(void *arg);
 static double A[MAT_N][MAT_N];
 static double B[MAT_N][MAT_N];
 static double C[MAT_N][MAT_N];
+static volatile double g_sink = 0.0;  // 防止 busy_wait 被 -O2 消除
 
 static pthread_t tc0, tc1, tc2, tc3, tc4;
 static pthread_t tf0, tf1, tf2, tf3, tf4, tf5, tf6, tf7, tf8, tf9, tf10, tf11;
@@ -75,6 +76,7 @@ static void busy_wait_seconds(double seconds)
                     acc += A[i][k] * B[k][j];
                 }
                 C[i][j] = acc;
+                g_sink += acc;
             }
         }
     }

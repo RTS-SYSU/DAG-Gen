@@ -1,0 +1,79 @@
+{
+  "task_id": "experiment2_vs_experiment2_prio_2026-01-31T05-37-50-08-00",
+  "created_at": "2026-01-31T05-37-50-08-00",
+  "cpu_set": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "cores_per_task": 4,
+  "work_scale": 25000,
+  "repeats": 1,
+  "affinity_rewritten_in_source": {
+    "baseline": true,
+    "prio": true
+  },
+  "baseline": {
+    "c_file": "/home/chove/Desktop/mydag/mycallyplus_v1/中间结果/experiment2/level1/experiments/lpf_segment_20260129_013721/experiment2/baseline/project/experiment2/experiment2.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -DWORK_SCALE=25000 experiment2.c prog_timer.c wrap_main.c -o /home/chove/Desktop/mydag/mycallyplus_v1/experiment/experiment2/compare_experiment2_vs_experiment2_prio/2026-01-31T05-37-50-08-00_ws25000_r1_c4/baseline/app_baseline",
+    "stats": {
+      "n": 1.0,
+      "min_s": 218.765511041,
+      "max_s": 218.765511041,
+      "mean_s": 218.765511041,
+      "median_s": 218.765511041
+    },
+    "times_s": [
+      218.765511041
+    ]
+  },
+  "prio": {
+    "c_file": "/home/chove/Desktop/mydag/mycallyplus_v1/中间结果/experiment2/level1/experiments/lpf_segment_20260129_013721/experiment2/prio/project/experiment2/experiment2_prio.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -DWORK_SCALE=25000 experiment2_prio.c prog_timer.c wrap_main.c -o /home/chove/Desktop/mydag/mycallyplus_v1/experiment/experiment2/compare_experiment2_vs_experiment2_prio/2026-01-31T05-37-50-08-00_ws25000_r1_c4/prio/app_prio",
+    "stats": {
+      "n": 1.0,
+      "min_s": 161.215179437,
+      "max_s": 161.215179437,
+      "mean_s": 161.215179437,
+      "median_s": 161.215179437
+    },
+    "times_s": [
+      161.215179437
+    ]
+  },
+  "runs": [
+    {
+      "program": "baseline",
+      "iter": 0,
+      "time_s": 218.765511041,
+      "wall_s": 218.765511041,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #1 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=218762215316\n\n[warn] failed to parse internal time; fallback wall_s=218.765511\n"
+    },
+    {
+      "program": "prio",
+      "iter": 0,
+      "time_s": 161.215179437,
+      "wall_s": 161.215179437,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #1 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=161212149391\n\n[warn] failed to parse internal time; fallback wall_s=161.215179\n"
+    }
+  ],
+  "delta_mean_s": -57.55033160400001,
+  "improvement_ratio": 0.2630685766241014
+}

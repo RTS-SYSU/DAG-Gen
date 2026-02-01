@@ -1,0 +1,55 @@
+=== RUN at 2026-01-30T06:14:35-08:00 (WORK_SCALE=100, REPEATS=5) ===
+BASE_PROJ=/home/chove/Desktop/mydag/mycallyplus_v1/中间结果/cpu4_thread10_fifo_1/level1/experiments/lpf_segment_20260126_044809/cpu4_thread10_fifo_1/baseline/project/cpu4_thread10_fifo_1
+PRIO_PROJ=/home/chove/Desktop/mydag/mycallyplus_v1/中间结果/cpu4_thread10_fifo_1/level1/experiments/lpf_segment_20260126_044809/cpu4_thread10_fifo_1/prio/project/cpu4_thread10_fifo_1
+baseline_bin=/home/chove/Desktop/mydag/mycallyplus_v1/中间结果/cpu4_thread10_fifo_1/level1/experiments/lpf_segment_20260126_044809/cpu4_thread10_fifo_1/bin/app_baseline
+prio_bin=/home/chove/Desktop/mydag/mycallyplus_v1/中间结果/cpu4_thread10_fifo_1/level1/experiments/lpf_segment_20260126_044809/cpu4_thread10_fifo_1/bin/app_prio
+
+=== PAIRED RESULTS (program-reported time, seconds) ===
+run	baseline	prio	delta(prio-baseline)
+1	0.000642	0.000864	+0.000221
+2	0.000654	0.000816	+0.000161
+3	0.000772	0.000701	-0.000071
+4	0.000742	0.000824	+0.000082
+5	0.000799	0.000895	+0.000096
+
+=== BASELINE STATS (program time) ===
+times_s=[0.000642, 0.000654, 0.000772, 0.000742, 0.000799]
+mean=0.000722s min=0.000642s max=0.000799s rcs=[0, 0, 0, 0, 0]
+
+=== PRIO STATS (program time) ===
+times_s=[0.000864, 0.000816, 0.000701, 0.000824, 0.000895]
+mean=0.000820s min=0.000701s max=0.000895s rcs=[0, 0, 0, 0, 0]
+
+relative_delta (baseline->prio) = -0.1357
+
+=== LOGS (raw program output) ===
+
+----- [baseline] run #1 (program=0.000642s, rc=0) -----
+PROGRAM_TOTAL_NS=642317
+
+----- [baseline] run #2 (program=0.000654s, rc=0) -----
+PROGRAM_TOTAL_NS=654494
+
+----- [baseline] run #3 (program=0.000772s, rc=0) -----
+PROGRAM_TOTAL_NS=771972
+
+----- [baseline] run #4 (program=0.000742s, rc=0) -----
+PROGRAM_TOTAL_NS=742066
+
+----- [baseline] run #5 (program=0.000799s, rc=0) -----
+PROGRAM_TOTAL_NS=798932
+
+----- [prio] run #1 (program=0.000864s, rc=0) -----
+PROGRAM_TOTAL_NS=863795
+
+----- [prio] run #2 (program=0.000816s, rc=0) -----
+PROGRAM_TOTAL_NS=815944
+
+----- [prio] run #3 (program=0.000701s, rc=0) -----
+PROGRAM_TOTAL_NS=700852
+
+----- [prio] run #4 (program=0.000824s, rc=0) -----
+PROGRAM_TOTAL_NS=823825
+
+----- [prio] run #5 (program=0.000895s, rc=0) -----
+PROGRAM_TOTAL_NS=895197
