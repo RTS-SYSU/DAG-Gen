@@ -1,0 +1,152 @@
+digraph G {
+  rankdir=TB;
+  splines=ortho;
+  nodesep=0.25;
+  ranksep=0.55;
+  concentrate=true;
+
+  node [shape=circle, fontsize=11, width=0.52, fixedsize=true];
+  edge [arrowsize=0.7, fontsize=9];
+
+  // Clean 4-layer tree under your rule set:
+  // - Each task has two stage-1 nodes: T_pre (compute before joins) and T_post (compute after joins)
+  // - seq:    T_pre  -> T_post
+  // - create: P_pre  -> C_pre
+  // - join:   C_post -> P_post
+  //
+  // This avoids extra "cr/jn" nodes to keep the picture tidy while still labeling edges by type.
+
+  // Legend
+  subgraph cluster_legend {
+    label="Legend";
+    fontsize=10;
+    style="rounded,dashed";
+    color="#bbbbbb";
+    l_seq_a [label="seq", shape=plaintext];
+    l_seq_b [label="", width=0.2, shape=point];
+    l_cr_a  [label="create", shape=plaintext];
+    l_cr_b  [label="", width=0.2, shape=point];
+    l_jn_a  [label="join", shape=plaintext];
+    l_jn_b  [label="", width=0.2, shape=point];
+    l_seq_a -> l_seq_b [color="#666666", label="seq"];
+    l_cr_a  -> l_cr_b  [color="#2b7bba", label="create"];
+    l_jn_a  -> l_jn_b  [color="#d9534f", label="join"];
+  }
+
+  // Tasks (4 layers): A; B1,B2; C1..C4; D1..D8
+  // Each task is represented by (pre, post) connected by a seq edge.
+  subgraph cluster_A {
+    label="A";
+    style="rounded";
+    color="#dddddd";
+    A_pre [label="A"];
+    A_post [label="A'"];
+    A_pre -> A_post [color="#666666", label="seq"];
+  }
+
+  subgraph cluster_B1 { label="B1"; style="rounded"; color="#dddddd";
+    B1_pre [label="B1"]; B1_post [label="B1'"];
+    B1_pre -> B1_post [color="#666666", label="seq"];
+  }
+  subgraph cluster_B2 { label="B2"; style="rounded"; color="#dddddd";
+    B2_pre [label="B2"]; B2_post [label="B2'"];
+    B2_pre -> B2_post [color="#666666", label="seq"];
+  }
+
+  subgraph cluster_C1 { label="C1"; style="rounded"; color="#dddddd";
+    C1_pre [label="C1"]; C1_post [label="C1'"];
+    C1_pre -> C1_post [color="#666666", label="seq"];
+  }
+  subgraph cluster_C2 { label="C2"; style="rounded"; color="#dddddd";
+    C2_pre [label="C2"]; C2_post [label="C2'"];
+    C2_pre -> C2_post [color="#666666", label="seq"];
+  }
+  subgraph cluster_C3 { label="C3"; style="rounded"; color="#dddddd";
+    C3_pre [label="C3"]; C3_post [label="C3'"];
+    C3_pre -> C3_post [color="#666666", label="seq"];
+  }
+  subgraph cluster_C4 { label="C4"; style="rounded"; color="#dddddd";
+    C4_pre [label="C4"]; C4_post [label="C4'"];
+    C4_pre -> C4_post [color="#666666", label="seq"];
+  }
+
+  // D layer
+  subgraph cluster_D1 { label="D1"; style="rounded"; color="#dddddd";
+    D1_pre [label="D1"]; D1_post [label="D1'"];
+    D1_pre -> D1_post [color="#666666", label="seq"];
+  }
+  subgraph cluster_D2 { label="D2"; style="rounded"; color="#dddddd";
+    D2_pre [label="D2"]; D2_post [label="D2'"];
+    D2_pre -> D2_post [color="#666666", label="seq"];
+  }
+  subgraph cluster_D3 { label="D3"; style="rounded"; color="#dddddd";
+    D3_pre [label="D3"]; D3_post [label="D3'"];
+    D3_pre -> D3_post [color="#666666", label="seq"];
+  }
+  subgraph cluster_D4 { label="D4"; style="rounded"; color="#dddddd";
+    D4_pre [label="D4"]; D4_post [label="D4'"];
+    D4_pre -> D4_post [color="#666666", label="seq"];
+  }
+  subgraph cluster_D5 { label="D5"; style="rounded"; color="#dddddd";
+    D5_pre [label="D5"]; D5_post [label="D5'"];
+    D5_pre -> D5_post [color="#666666", label="seq"];
+  }
+  subgraph cluster_D6 { label="D6"; style="rounded"; color="#dddddd";
+    D6_pre [label="D6"]; D6_post [label="D6'"];
+    D6_pre -> D6_post [color="#666666", label="seq"];
+  }
+  subgraph cluster_D7 { label="D7"; style="rounded"; color="#dddddd";
+    D7_pre [label="D7"]; D7_post [label="D7'"];
+    D7_pre -> D7_post [color="#666666", label="seq"];
+  }
+  subgraph cluster_D8 { label="D8"; style="rounded"; color="#dddddd";
+    D8_pre [label="D8"]; D8_post [label="D8'"];
+    D8_pre -> D8_post [color="#666666", label="seq"];
+  }
+
+  // create edges (parent_pre -> child_pre)
+  A_pre  -> B1_pre [color="#2b7bba", label="create"];
+  A_pre  -> B2_pre [color="#2b7bba", label="create"];
+
+  B1_pre -> C1_pre [color="#2b7bba", label="create"];
+  B1_pre -> C2_pre [color="#2b7bba", label="create"];
+  B2_pre -> C3_pre [color="#2b7bba", label="create"];
+  B2_pre -> C4_pre [color="#2b7bba", label="create"];
+
+  C1_pre -> D1_pre [color="#2b7bba", label="create"];
+  C1_pre -> D2_pre [color="#2b7bba", label="create"];
+  C2_pre -> D3_pre [color="#2b7bba", label="create"];
+  C2_pre -> D4_pre [color="#2b7bba", label="create"];
+  C3_pre -> D5_pre [color="#2b7bba", label="create"];
+  C3_pre -> D6_pre [color="#2b7bba", label="create"];
+  C4_pre -> D7_pre [color="#2b7bba", label="create"];
+  C4_pre -> D8_pre [color="#2b7bba", label="create"];
+
+  // join edges (child_post -> parent_post)
+  B1_post -> A_post [color="#d9534f", label="join"];
+  B2_post -> A_post [color="#d9534f", label="join"];
+
+  C1_post -> B1_post [color="#d9534f", label="join"];
+  C2_post -> B1_post [color="#d9534f", label="join"];
+  C3_post -> B2_post [color="#d9534f", label="join"];
+  C4_post -> B2_post [color="#d9534f", label="join"];
+
+  D1_post -> C1_post [color="#d9534f", label="join"];
+  D2_post -> C1_post [color="#d9534f", label="join"];
+  D3_post -> C2_post [color="#d9534f", label="join"];
+  D4_post -> C2_post [color="#d9534f", label="join"];
+  D5_post -> C3_post [color="#d9534f", label="join"];
+  D6_post -> C3_post [color="#d9534f", label="join"];
+  D7_post -> C4_post [color="#d9534f", label="join"];
+  D8_post -> C4_post [color="#d9534f", label="join"];
+
+  // rank alignment: show each layer on one horizontal band (pre+post mixed).
+  { rank=same; A_pre; A_post; }
+  { rank=same; B1_pre; B1_post; B2_pre; B2_post; }
+  { rank=same; C1_pre; C1_post; C2_pre; C2_post; C3_pre; C3_post; C4_pre; C4_post; }
+  { rank=same; D1_pre; D1_post; D2_pre; D2_post; D3_pre; D3_post; D4_pre; D4_post; D5_pre; D5_post; D6_pre; D6_post; D7_pre; D7_post; D8_pre; D8_post; }
+
+  labelloc="t";
+  label="Clean 4-layer DAG (strict rules): seq/create/join shown explicitly";
+}
+

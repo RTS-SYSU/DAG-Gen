@@ -1,0 +1,37 @@
+digraph G {
+  rankdir=TB;
+  splines=true;
+  nodesep=0.35;
+  ranksep=0.55;
+  node [shape=circle, fontsize=12, width=0.55, fixedsize=true];
+  edge [arrowsize=0.8];
+
+  // Scheme B: approximate Laplace-like diamond by forcing single-parent ownership
+  // (keeps join constraints but loses true multi-parent dependencies)
+
+  { rank=same; A1 [label="A1", style=filled, fillcolor="#f2f2f2"]; }
+  { rank=same; B1 [label="B1", style=filled, fillcolor="#d9edf7"]; B2 [label="B2", style=filled, fillcolor="#d9edf7"]; }
+  { rank=same; C1 [label="C1", style=filled, fillcolor="#dff0d8"]; C2 [label="C2", style=filled, fillcolor="#dff0d8"]; C3 [label="C3", style=filled, fillcolor="#dff0d8"]; }
+  { rank=same; D1 [label="D1", style=filled, fillcolor="#f5e79e"]; D2 [label="D2", style=filled, fillcolor="#f5e79e"]; }
+
+  // Example "ownership" mapping:
+  // A1 creates B1/B2
+  // B1 creates C1/C2 ; B2 creates C3
+  // C1 creates D1 ; C2 creates D2
+  // (No edge from C2 to D1; multi-parent join is removed.)
+  A1 -> B1;
+  A1 -> B2;
+
+  B1 -> C1;
+  B1 -> C2;
+  B2 -> C3;
+
+  C1 -> D1;
+  C2 -> D2;
+  // optional: keep a visual "laplace-ish" feel without semantics
+  C3 -> D2 [style=dashed, color="#999999", label="(optional)"];
+
+  labelloc="t";
+  label="Scheme B (approx): force single-parent ownership\nJoin-only dependencies, multi-parent edges removed";
+}
+

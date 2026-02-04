@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runtime Compare Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .section h2 {
+            margin-top: 0;
+        }
+        .form-group {
+            margin: 10px 0;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+        }
+        input, select {
+            padding: 5px;
+            width: 300px;
+        }
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button.danger {
+            background: #dc3545;
+        }
+        button.danger:hover {
+            background: #c82333;
+        }
+        button.success {
+            background: #28a745;
+        }
+        button.success:hover {
+            background: #218838;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .status-queued { color: #ffc107; font-weight: bold; }
+        .status-running { color: #007bff; font-weight: bold; }
+        .status-done { color: #28a745; font-weight: bold; }
+        .status-error { color: #dc3545; font-weight: bold; }
+        .status-cancelled { color: #6c757d; font-weight: bold; }
+        .progress-bar {
+            width: 100px;
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #007bff;
+            transition: width 0.3s;
+        }
+        .task-details {
+            display: none;
+            background-color: #f8f9fa;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 4px;
+        }
+        .task-details.show {
+            display: block;
+        }
+        .alert {
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 4px;
+            display: none;
+        }
+        .alert.show {
+            display: block;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .connection-status {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        .connection-status.online {
+            background-color: #28a745;
+        }
+        .connection-status.offline {
+            background-color: #dc3545;
+        }
+        .config-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .config-item {
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .config-item:last-child {
+            border-bottom: none;
+        }
+        .config-actions {
+            display: flex;
+            gap: 5px;
+        }
+        .filter-group {
+            margin: 10px 0;
+        }
+        .filter-group label {
+            width: auto;
+            margin-right: 10px;
+        }
+        .filter-group select {
+            width: auto;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Runtime Compare Tool <span class="connection-status online" id="connection-status" title="连接状态"></span></h1>
+        
+        <!-- 消息提示区域 -->
+        <div id="alert-area"></div>
+        
+        <div class="section">
+            <h2>系统信息</h2>
+            <div id="system-info">加载中...</div>
+            <div style="margin-top: 10px;">
+                <label>
+                    <input type="checkbox" id="queue-mode-checkbox" onchange="toggleQueueMode()">
+                    排队模式（所有任务串行执行）
+                </label>
+                <button style="margin-left: 10px;" onclick="saveSystemInfo()">保存系统信息</button>
+            </div>
+        </div>
+        
+        <!-- 配置文件管理区域 -->
+        <div class="section">
+            <h2>配置文件管理</h2>
+            <div style="margin-bottom: 10px;">
+                <button onclick="refreshConfigList()">刷新配置列表</button>
+                <button class="success" onclick="exportConfig()">导出当前配置</button>
+                <label style="width: auto; margin-left: 20px;">
+                    <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importConfig()">
+                    <button onclick="document.getElementById('import-file').click()">导入配置文件</button>
+                </label>
+            </div>
+            <div id="config-list-area">
+                <div class="config-list" id="config-list">加载中...</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>添加新任务</h2>
+            <form id="task-form">
+                <div class="form-group">
+                    <label>配置名称 (可选):</label>
+                    <input type="text" id="config_name" placeholder="留空则自动命名">
+                    <small style="color: #666; margin-left: 10px;">用于命名导出的配置文件</small>
+                </div>
+                <div class="form-group">
+                    <label>Baseline C 文件:</label>
+                    <input type="text" id="baseline_c" required placeholder="/path/to/baseline.c">
+                </div>
+                <div class="form-group">
+                    <label>Prio C 文件:</label>
+                    <input type="text" id="prio_c" required placeholder="/path/to/prio.c">
+                </div>
+                <div class="form-group">
+                    <label>WORK_SCALE:</label>
+                    <input type="number" id="work_scale" value="25000" required>
+                </div>
+                <div class="form-group">
+                    <label>重复次数:</label>
+                    <input type="number" id="repeats" value="1" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label>每任务核数:</label>
+                    <input type="number" id="cores_per_task" value="1" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label>CPU 核心列表 (可选):</label>
+                    <input type="text" id="cpu_list" placeholder="例如: 4,5,6,7 (留空则自动分配)">
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="use_sudo"> 使用 sudo 运行
+                    </label>
+                </div>
+                <button type="submit">添加任务</button>
+                <small style="color: #666; margin-left: 10px;">任务添加后会自动导出配置文件</small>
+            </form>
+        </div>
+        
+        <div class="section">
+            <h2>任务列表</h2>
+            <div class="filter-group">
+                <label>筛选状态:</label>
+                <select id="status-filter" onchange="refreshTasks()">
+                    <option value="">全部</option>
+                    <option value="queued">等待中</option>
+                    <option value="running">运行中</option>
+                    <option value="done">已完成</option>
+                    <option value="error">错误</option>
+                    <option value="cancelled">已取消</option>
+                </select>
+                <button onclick="refreshTasks()">刷新</button>
+            </div>
+            <table id="tasks-table">
+                <thead>
+                    <tr>
+                        <th>任务ID</th>
+                        <th>状态</th>
+                        <th>阶段</th>
+                        <th>进度</th>
+                        <th>CPU</th>
+                        <th>耗时</th>
+                        <th>消息</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="tasks-body">
+                    <tr><td colspan="8">加载中...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        let refreshInterval;
+        let allTasks = [];  // 存储所有任务用于筛选
+        
+        // 显示消息提示
+        function showAlert(message, type = 'info') {
+            const alertArea = document.getElementById('alert-area');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type} show`;
+            alert.textContent = message;
+            alertArea.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.classList.remove('show');
+                setTimeout(() => alert.remove(), 300);
+            }, 3000);
+        }
+        
+        // 更新连接状态
+        function updateConnectionStatus(online) {
+            const status = document.getElementById('connection-status');
+            status.className = `connection-status ${online ? 'online' : 'offline'}`;
+            status.title = online ? '在线' : '离线';
+        }
+        
+        // 加载系统信息
+        async function loadSystemInfo() {
+            try {
+                const res = await fetch('/api/system');
+                if (!res.ok) throw new Error('请求失败');
+                const data = await res.json();
+                updateConnectionStatus(true);
+                
+                // 更新排队模式复选框
+                document.getElementById('queue-mode-checkbox').checked = data.queue_mode;
+                
+                // 构建系统信息显示
+                let infoHtml = `<p><strong>在线 CPU:</strong> ${data.cpu_online.join(', ')} (共 ${data.cpu_total} 核)</p>`;
+                infoHtml += `<p><strong>空闲 CPU:</strong> ${data.cpu_free} 核</p>`;
+                
+                // 显示 CPU 集群信息（大核/小核）
+                if (data.cpu_info && data.cpu_info.has_big_little && data.cpu_info.clusters) {
+                    const clusters = data.cpu_info.clusters;
+                    infoHtml += `<p><strong>CPU 架构:</strong> big.LITTLE</p>`;
+                    
+                    if (clusters.big) {
+                        infoHtml += `<p style="margin-left: 20px;">
+                            <strong>大核 (Big):</strong> CPU ${clusters.big.cpus.join(', ')} 
+                            - ${clusters.big.freq_ghz} GHz (${clusters.big.cpus.length} 核)
+                        </p>`;
+                    }
+                    
+                    if (clusters.little) {
+                        infoHtml += `<p style="margin-left: 20px;">
+                            <strong>小核 (LITTLE):</strong> CPU ${clusters.little.cpus.join(', ')} 
+                            - ${clusters.little.freq_ghz} GHz (${clusters.little.cpus.length} 核)
+                        </p>`;
+                    }
+                } else if (data.cpu_info && data.cpu_info.cpu_freqs) {
+                    // 无法区分大小核，显示所有 CPU 的频率
+                    infoHtml += `<p><strong>CPU 架构:</strong> 同构（无法区分大小核）</p>`;
+                    const freqGroups = {};
+                    for (const [cpu, freq] of Object.entries(data.cpu_info.cpu_freqs)) {
+                        if (!freqGroups[freq]) {
+                            freqGroups[freq] = [];
+                        }
+                        freqGroups[freq].push(cpu);
+                    }
+                    for (const [freq, cpus] of Object.entries(freqGroups)) {
+                        infoHtml += `<p style="margin-left: 20px;">
+                            CPU ${cpus.join(', ')}: ${freq} GHz
+                        </p>`;
+                    }
+                } else {
+                    infoHtml += `<p><strong>CPU 架构:</strong> 无法获取频率信息</p>`;
+                }
+
+                // 核心速度基准
+                if (data.core_bench && Object.keys(data.core_bench).length > 0) {
+                    infoHtml += `<p><strong>核心速度基准 (MOPS，轻量测试):</strong></p>`;
+                    const rows = Object.entries(data.core_bench).map(([cpu, mops]) => {
+                        return `<span style="margin-left:20px;">CPU ${cpu}: ${mops} MOPS</span>`;
+                    });
+                    infoHtml += `<p>${rows.join('<br>')}</p>`;
+                }
+                
+                infoHtml += `<p><strong>排队模式:</strong> ${data.queue_mode ? '启用' : '禁用'}</p>`;
+                infoHtml += `<p><strong>主机名:</strong> ${data.hostname || '-'}</p>`;
+                
+                document.getElementById('system-info').innerHTML = infoHtml;
+            } catch (e) {
+                updateConnectionStatus(false);
+                console.error('加载系统信息失败:', e);
+            }
+        }
+
+        // 保存系统信息
+        async function saveSystemInfo() {
+            try {
+                const res = await fetch('/api/system/save', {method: 'POST'});
+                if (res.ok) {
+                    const data = await res.json();
+                    showAlert('已保存到: ' + data.file, 'success');
+                } else {
+                    const err = await res.json();
+                    showAlert('保存失败: ' + err.error, 'error');
+                }
+            } catch (e) {
+                showAlert('保存失败: ' + e.message, 'error');
+            }
+        }
+        
+        // 切换排队模式
+        async function toggleQueueMode() {
+            const checkbox = document.getElementById('queue-mode-checkbox');
+            const queueMode = checkbox.checked;
+            
+            try {
+                const res = await fetch('/api/system/queue-mode', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({queue_mode: queueMode}),
+                });
+                
+                if (res.ok) {
+                    showAlert(`排队模式已${queueMode ? '启用' : '禁用'}`, 'success');
+                    loadSystemInfo();  // 刷新系统信息
+                } else {
+                    const err = await res.json();
+                    showAlert('设置失败: ' + err.error, 'error');
+                    checkbox.checked = !queueMode;  // 恢复原状态
+                }
+            } catch (e) {
+                showAlert('设置失败: ' + e.message, 'error');
+                checkbox.checked = !queueMode;  // 恢复原状态
+            }
+        }
+        
+        // 加载配置文件列表
+        async function refreshConfigList() {
+            try {
+                const res = await fetch('/api/config/list');
+                if (!res.ok) throw new Error('加载失败');
+                const data = await res.json();
+                const listDiv = document.getElementById('config-list');
+                
+                if (data.configs.length === 0) {
+                    listDiv.innerHTML = '<p style="color: #666;">暂无配置文件</p>';
+                    return;
+                }
+                
+                listDiv.innerHTML = data.configs.map(config => {
+                    const sizeKB = (config.size / 1024).toFixed(2);
+                    const date = new Date(config.modified * 1000).toLocaleString('zh-CN');
+                    return `
+                        <div class="config-item">
+                            <div>
+                                <strong>${config.filename}</strong>
+                                <small style="color: #666; margin-left: 10px;">${sizeKB} KB - ${date}</small>
+                            </div>
+                            <div class="config-actions">
+                                <button onclick="downloadConfig('${config.filename}')">下载</button>
+                                <button class="danger" onclick="deleteConfig('${config.filename}')">删除</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (e) {
+                showAlert('加载配置文件列表失败: ' + e.message, 'error');
+            }
+        }
+        
+        // 导出配置文件
+        async function exportConfig() {
+            const configName = prompt('请输入配置文件名（留空则自动命名）:');
+            try {
+                const res = await fetch('/api/config/export', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({config_name: configName || null}),
+                });
+                
+                if (res.ok) {
+                    const data = await res.json();
+                    showAlert(`配置文件已导出: ${data.filename}`, 'success');
+                    refreshConfigList();
+                } else {
+                    const err = await res.json();
+                    showAlert('导出失败: ' + err.error, 'error');
+                }
+            } catch (e) {
+                showAlert('导出失败: ' + e.message, 'error');
+            }
+        }
+        
+        // 导入配置文件
+        async function importConfig() {
+            const fileInput = document.getElementById('import-file');
+            const file = fileInput.files[0];
+            if (!file) return;
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            try {
+                const res = await fetch('/api/config/import', {
+                    method: 'POST',
+                    body: formData,
+                });
+                
+                if (res.ok) {
+                    const data = await res.json();
+                    showAlert(data.message, 'success');
+                    refreshTasks();
+                    refreshConfigList();
+                } else {
+                    const err = await res.json();
+                    showAlert('导入失败: ' + err.error, 'error');
+                }
+            } catch (e) {
+                showAlert('导入失败: ' + e.message, 'error');
+            }
+            
+            fileInput.value = '';  // 重置文件选择
+        }
+        
+        // 下载配置文件
+        function downloadConfig(filename) {
+            window.open(`/api/config/download/${filename}`, '_blank');
+        }
+        
+        // 删除配置文件
+        async function deleteConfig(filename) {
+            if (!confirm(`确定要删除配置文件 "${filename}" 吗？`)) return;
+            
+            try {
+                const res = await fetch(`/api/config/delete/${filename}`, {method: 'DELETE'});
+                if (res.ok) {
+                    showAlert('配置文件已删除', 'success');
+                    refreshConfigList();
+                } else {
+                    const err = await res.json();
+                    showAlert('删除失败: ' + err.error, 'error');
+                }
+            } catch (e) {
+                showAlert('删除失败: ' + e.message, 'error');
+            }
+        }
+        
+        // 加载任务列表
+        async function refreshTasks() {
+            try {
+                const res = await fetch('/api/tasks');
+                if (!res.ok) throw new Error('请求失败');
+                const data = await res.json();
+                allTasks = data.tasks;
+                
+                // 应用筛选
+                const filter = document.getElementById('status-filter').value;
+                const filteredTasks = filter ? allTasks.filter(t => t.status === filter) : allTasks;
+                
+                const tbody = document.getElementById('tasks-body');
+                
+                if (filteredTasks.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8">暂无任务</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = filteredTasks.map(task => {
+                    // 计算进度百分比
+                    let progressPercent = 0;
+                    if (task.progress_n > 0) {
+                        progressPercent = Math.round((task.progress_i / task.progress_n) * 100);
+                    }
+                    
+                    // 生成进度条
+                    const progressBar = task.progress_n > 0 ? 
+                        `<div class="progress-bar"><div class="progress-fill" style="width: ${progressPercent}%"></div></div> ${progressPercent}%` :
+                        task.progress || '-';
+                    
+                    return `
+                        <tr>
+                            <td>
+                                <strong>${task.task_id}</strong>
+                                <button onclick="toggleTaskDetails('${task.task_id}')" style="font-size: 12px; padding: 2px 6px; margin-left: 5px;">详情</button>
+                            </td>
+                            <td class="status-${task.status}">${task.status}</td>
+                            <td>${task.phase}</td>
+                            <td>${progressBar}</td>
+                            <td>${task.cpu_set.join(',') || '-'}</td>
+                            <td>${task.elapsed || '-'}</td>
+                            <td>${task.message || '-'}</td>
+                            <td>
+                                ${task.status === 'queued' ? 
+                                    `<button class="danger" onclick="cancelTask('${task.task_id}')">取消</button>` : 
+                                    ''}
+                                ${task.out_dir ? 
+                                    `<button onclick="viewLog('${task.task_id}')">查看日志</button>
+                                     <button onclick="viewResultDir('${task.out_dir}')">结果目录</button>` : 
+                                    ''}
+                            </td>
+                        </tr>
+                        <tr id="details-${task.task_id}" class="task-details">
+                            <td colspan="8">
+                                <strong>任务详情:</strong><br>
+                                Baseline: ${task.baseline_c}<br>
+                                Prio: ${task.prio_c}<br>
+                                WORK_SCALE: ${task.work_scale}<br>
+                                重复次数: ${task.repeats}<br>
+                                每任务核数: ${task.cores_per_task}<br>
+                                ${task.out_dir ? `结果目录: ${task.out_dir}` : ''}
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            } catch (e) {
+                updateConnectionStatus(false);
+                console.error('加载任务失败:', e);
+            }
+        }
+        
+        // 切换任务详情显示
+        function toggleTaskDetails(taskId) {
+            const details = document.getElementById(`details-${taskId}`);
+            if (details) {
+                details.classList.toggle('show');
+            }
+        }
+        
+        // 查看结果目录
+        function viewResultDir(outDir) {
+            if (outDir) {
+                showAlert(`结果目录: ${outDir}`, 'info');
+            }
+        }
+        
+        // 添加任务
+        document.getElementById('task-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = {
+                baseline_c: document.getElementById('baseline_c').value,
+                prio_c: document.getElementById('prio_c').value,
+                work_scale: parseInt(document.getElementById('work_scale').value),
+                repeats: parseInt(document.getElementById('repeats').value),
+                cores_per_task: parseInt(document.getElementById('cores_per_task').value),
+                use_sudo: document.getElementById('use_sudo').checked,
+            };
+            
+            const configName = document.getElementById('config_name').value.trim();
+            if (configName) {
+                formData.config_name = configName;
+            }
+            
+            const cpuListStr = document.getElementById('cpu_list').value.trim();
+            if (cpuListStr) {
+                formData.cpu_list = cpuListStr.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
+            }
+            
+            try {
+                const res = await fetch('/api/tasks', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(formData),
+                });
+                
+                if (res.ok) {
+                    showAlert('任务已添加，配置文件已自动导出', 'success');
+                    // 只清空配置名称，保留其他字段
+                    document.getElementById('config_name').value = '';
+                    refreshTasks();
+                    refreshConfigList();
+                } else {
+                    const err = await res.json();
+                    showAlert('添加任务失败: ' + err.error, 'error');
+                }
+            } catch (e) {
+                showAlert('添加任务失败: ' + e.message, 'error');
+            }
+        });
+        
+        // 取消任务
+        async function cancelTask(taskId) {
+            if (!confirm('确定要取消这个任务吗？')) return;
+            
+            try {
+                const res = await fetch(`/api/tasks/${taskId}`, {method: 'DELETE'});
+                if (res.ok) {
+                    showAlert('任务已取消', 'success');
+                    refreshTasks();
+                } else {
+                    const err = await res.json();
+                    showAlert('取消任务失败: ' + err.error, 'error');
+                }
+            } catch (e) {
+                showAlert('取消任务失败: ' + e.message, 'error');
+            }
+        }
+        
+        // 查看日志
+        function viewLog(taskId) {
+            window.open(`/api/tasks/${taskId}/log`, '_blank');
+        }
+        
+        // 初始化
+        loadSystemInfo();
+        refreshTasks();
+        refreshConfigList();
+        refreshInterval = setInterval(() => {
+            loadSystemInfo();
+            refreshTasks();
+        }, 2000);  // 每2秒刷新一次
+    </script>
+</body>
+</html>

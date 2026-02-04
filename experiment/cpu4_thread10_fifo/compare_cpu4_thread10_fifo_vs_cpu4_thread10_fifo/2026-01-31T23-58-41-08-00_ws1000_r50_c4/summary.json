@@ -1,0 +1,1647 @@
+{
+  "task_id": "cpu4_thread10_fifo_vs_cpu4_thread10_fifo_2026-01-31T19-49-49-08-00",
+  "created_at": "2026-01-31T23-58-41-08-00",
+  "cpu_set": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "cores_per_task": 4,
+  "work_scale": 1000,
+  "repeats": 50,
+  "affinity_rewritten_in_source": {
+    "baseline": true,
+    "prio": true
+  },
+  "baseline": {
+    "c_file": "/home/chove/Desktop/mydag/mycallyplus_v1/中间结果/cpu4_thread10_fifo/level1/experiments/lpf_segment_20260126_003151/cpu4_thread10_fifo/baseline/project/cpu4_thread10_fifo/cpu4_thread10_fifo.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -DWORK_SCALE=1000 cpu4_thread10_fifo.c prog_timer.c wrap_main.c -o /home/chove/Desktop/mydag/mycallyplus_v1/experiment/cpu4_thread10_fifo/compare_cpu4_thread10_fifo_vs_cpu4_thread10_fifo/2026-01-31T23-58-41-08-00_ws1000_r50_c4/baseline/app_baseline",
+    "stats": {
+      "n": 50.0,
+      "min_s": 5.0,
+      "max_s": 5.324,
+      "mean_s": 5.220439999999999,
+      "median_s": 5.238
+    },
+    "times_s": [
+      5.324,
+      5.289,
+      5.224,
+      5.0,
+      5.232,
+      5.166,
+      5.159,
+      5.145,
+      5.316,
+      5.291,
+      5.264,
+      5.287,
+      5.122,
+      5.242,
+      5.257,
+      5.259,
+      5.256,
+      5.195,
+      5.206,
+      5.161,
+      5.273,
+      5.296,
+      5.184,
+      5.214,
+      5.221,
+      5.262,
+      5.266,
+      5.19,
+      5.233,
+      5.211,
+      5.244,
+      5.314,
+      5.224,
+      5.196,
+      5.033,
+      5.283,
+      5.253,
+      5.274,
+      5.266,
+      5.268,
+      5.154,
+      5.044,
+      5.23,
+      5.275,
+      5.286,
+      5.246,
+      5.062,
+      5.184,
+      5.203,
+      5.238
+    ]
+  },
+  "prio": {
+    "c_file": "/home/chove/Desktop/mydag/mycallyplus_v1/中间结果/cpu4_thread10_fifo/level1/experiments/lpf_segment_20260126_003151/cpu4_thread10_fifo/prio/project/cpu4_thread10_fifo/cpu4_thread10_fifo.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -DWORK_SCALE=1000 cpu4_thread10_fifo.c prog_timer.c wrap_main.c -o /home/chove/Desktop/mydag/mycallyplus_v1/experiment/cpu4_thread10_fifo/compare_cpu4_thread10_fifo_vs_cpu4_thread10_fifo/2026-01-31T23-58-41-08-00_ws1000_r50_c4/prio/app_prio",
+    "stats": {
+      "n": 50.0,
+      "min_s": 4.778,
+      "max_s": 4.968,
+      "mean_s": 4.823680000000001,
+      "median_s": 4.817
+    },
+    "times_s": [
+      4.828,
+      4.829,
+      4.813,
+      4.813,
+      4.824,
+      4.799,
+      4.811,
+      4.815,
+      4.813,
+      4.835,
+      4.822,
+      4.785,
+      4.817,
+      4.826,
+      4.783,
+      4.811,
+      4.816,
+      4.798,
+      4.845,
+      4.862,
+      4.793,
+      4.85,
+      4.814,
+      4.849,
+      4.804,
+      4.834,
+      4.807,
+      4.907,
+      4.849,
+      4.822,
+      4.797,
+      4.809,
+      4.968,
+      4.859,
+      4.845,
+      4.803,
+      4.824,
+      4.798,
+      4.804,
+      4.83,
+      4.778,
+      4.821,
+      4.817,
+      4.838,
+      4.869,
+      4.788,
+      4.811,
+      4.837,
+      4.82,
+      4.794
+    ]
+  },
+  "runs": [
+    {
+      "program": "baseline",
+      "iter": 0,
+      "time_s": 5.324,
+      "wall_s": 5.326616441,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #1 (rc=0) -----\nf0 start (CPU 2) at 0.000s\nf1 start (CPU 1) at 0.000s\nf3 start (CPU 3) at 0.000s\nf5 start (CPU 0) at 0.000s\nf7 start (CPU 3) at 0.007s\nf4 start (CPU 0) at 0.007s\nf9 start (CPU 2) at 0.011s\nf6 start (CPU 1) at 0.011s\nf8 start (CPU 3) at 0.015s\nf10 start (CPU 2) at 0.015s\nc0 start (CPU 3) at 0.019s\nf11 start (CPU 2) at 0.019s\nf2 start (CPU 1) at 0.023s\nf5 done (CPU 0, target 0.500s, real 0.594s)\nf6 done (CPU 1, target 0.500s, real 0.594s)\nf4 done (CPU 1, target 0.500s, real 0.601s)\nf11 done (CPU 2, target 0.300s, real 0.593s)\nf1 done (CPU 0, target 0.500s, real 0.613s)\nf2 done (CPU 1, target 0.500s, real 0.621s)\nf10 done (CPU 0, target 0.500s, real 0.701s)\nf3 done (CPU 1, target 0.500s, real 0.736s)\nf0 done (CPU 2, target 0.500s, real 0.763s)\nf9 done (CPU 0, target 0.500s, real 0.761s)\nf7 done (CPU 1, target 0.500s, real 0.794s)\nf8 done (CPU 2, target 0.500s, real 0.799s)\nc0 done (CPU 3, target 2.500s, real 1.724s)\nc1 start (CPU 0) at 1.744s\nc1 done (CPU 2, target 2.200s, real 1.029s)\nc2 start (CPU 0) at 2.773s\nc2 done (CPU 2, target 2.000s, real 0.944s)\nc3 start (CPU 0) at 3.717s\nc3 done (CPU 2, target 1.800s, real 0.848s)\nc4 start (CPU 0) at 4.565s\nc4 done (CPU 2, target 1.600s, real 0.758s)\nProgram total time: 5.324s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5323832612\n"
+    },
+    {
+      "program": "prio",
+      "iter": 0,
+      "time_s": 4.828,
+      "wall_s": 4.830818281,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #1 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf10 start (CPU 3) at 0.000s\nf11 start (CPU 2) at 0.000s\nc0 start (CPU 2) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.152s)\nf10 done (CPU 3, target 0.500s, real 0.251s)\nf0 done (CPU 1, target 0.500s, real 0.251s)\nf3 start (CPU 1) at 0.251s\nf1 done (CPU 0, target 0.500s, real 0.402s)\nf4 start (CPU 0) at 0.402s\nf2 done (CPU 3, target 0.500s, real 0.500s)\nf7 start (CPU 3) at 0.500s\nf5 start (CPU 3) at 0.501s\nf3 done (CPU 1, target 0.500s, real 0.255s)\nf6 start (CPU 1) at 0.506s\nf4 done (CPU 0, target 0.500s, real 0.261s)\nf8 start (CPU 0) at 0.663s\nf5 done (CPU 3, target 0.500s, real 0.252s)\nf9 start (CPU 3) at 0.752s\nf6 done (CPU 1, target 0.500s, real 0.257s)\nf7 done (CPU 0, target 0.500s, real 0.413s)\nf8 done (CPU 3, target 0.500s, real 0.340s)\nf9 done (CPU 1, target 0.500s, real 0.262s)\nc0 done (CPU 2, target 2.500s, real 1.289s)\nc1 start (CPU 3) at 1.290s\nc1 done (CPU 3, target 2.200s, real 1.032s)\nc2 start (CPU 2) at 2.322s\nc2 done (CPU 2, target 2.000s, real 0.943s)\nc3 start (CPU 3) at 3.264s\nc3 done (CPU 3, target 1.800s, real 0.831s)\nc4 start (CPU 2) at 4.096s\nc4 done (CPU 2, target 1.600s, real 0.732s)\nProgram total time: 4.828s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4827809117\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 1,
+      "time_s": 5.289,
+      "wall_s": 5.291779788,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #2 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 3) at 0.000s\nf2 start (CPU 0) at 0.000s\nf5 start (CPU 2) at 0.000s\nf8 start (CPU 1) at 0.009s\nf11 start (CPU 0) at 0.009s\nf3 start (CPU 3) at 0.013s\nf6 start (CPU 0) at 0.009s\nf9 start (CPU 1) at 0.017s\nf4 start (CPU 3) at 0.017s\nf7 start (CPU 0) at 0.009s\nf10 start (CPU 1) at 0.021s\nc0 start (CPU 0) at 0.025s\nf5 done (CPU 2, target 0.500s, real 0.360s)\nf3 done (CPU 2, target 0.500s, real 0.453s)\nf1 done (CPU 3, target 0.500s, real 0.496s)\nf4 done (CPU 2, target 0.500s, real 0.524s)\nf11 done (CPU 3, target 0.300s, real 0.539s)\nf6 done (CPU 3, target 0.500s, real 0.673s)\nf10 done (CPU 3, target 0.500s, real 0.739s)\nf2 done (CPU 3, target 0.500s, real 0.770s)\nf7 done (CPU 2, target 0.500s, real 0.774s)\nf8 done (CPU 3, target 0.500s, real 0.788s)\nf0 done (CPU 0, target 0.500s, real 0.798s)\nf9 done (CPU 1, target 0.500s, real 0.789s)\nc0 done (CPU 2, target 2.500s, real 1.737s)\nc1 start (CPU 0) at 1.762s\nc1 done (CPU 2, target 2.200s, real 1.021s)\nc2 start (CPU 0) at 2.783s\nc2 done (CPU 2, target 2.000s, real 0.927s)\nc3 start (CPU 0) at 3.711s\nc3 done (CPU 2, target 1.800s, real 0.830s)\nc4 start (CPU 0) at 4.541s\nc4 done (CPU 2, target 1.600s, real 0.748s)\nProgram total time: 5.289s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5288968289\n"
+    },
+    {
+      "program": "prio",
+      "iter": 1,
+      "time_s": 4.829,
+      "wall_s": 4.831895152,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #2 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf2 start (CPU 3) at 0.000s\nf1 start (CPU 2) at 0.000s\nf6 start (CPU 2) at 0.000s\nf10 start (CPU 2) at 0.000s\nf11 start (CPU 3) at 0.000s\nc0 start (CPU 3) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.148s)\nf8 start (CPU 1) at 0.000s\nf0 done (CPU 1, target 0.500s, real 0.248s)\nf10 done (CPU 2, target 0.500s, real 0.251s)\nf3 start (CPU 2) at 0.251s\nf1 done (CPU 0, target 0.500s, real 0.399s)\nf4 start (CPU 0) at 0.399s\nf3 done (CPU 2, target 0.500s, real 0.263s)\nf5 start (CPU 2) at 0.514s\nf2 done (CPU 1, target 0.500s, real 0.518s)\nf4 done (CPU 0, target 0.500s, real 0.273s)\nf7 start (CPU 0) at 0.673s\nf5 done (CPU 2, target 0.500s, real 0.257s)\nf6 done (CPU 1, target 0.500s, real 0.787s)\nf9 start (CPU 1) at 0.787s\nf7 done (CPU 0, target 0.500s, real 0.266s)\nf8 done (CPU 2, target 0.500s, real 1.093s)\nf9 done (CPU 1, target 0.500s, real 0.339s)\nc0 done (CPU 3, target 2.500s, real 1.299s)\nc1 start (CPU 2) at 1.300s\nc1 done (CPU 2, target 2.200s, real 1.032s)\nc2 start (CPU 3) at 2.332s\nc2 done (CPU 3, target 2.000s, real 0.926s)\nc3 start (CPU 2) at 3.258s\nc3 done (CPU 2, target 1.800s, real 0.835s)\nc4 start (CPU 3) at 4.093s\nc4 done (CPU 3, target 1.600s, real 0.735s)\nProgram total time: 4.829s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4828894134\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 2,
+      "time_s": 5.224,
+      "wall_s": 5.22668086,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #3 (rc=0) -----\nf1 start (CPU 3) at 0.000s\nf2 start (CPU 1) at 0.000s\nf0 start (CPU 1) at 0.000s\nf9 start (CPU 2) at 0.001s\nf5 start (CPU 3) at 0.008s\nf8 start (CPU 1) at 0.009s\nf6 start (CPU 0) at 0.013s\nf10 start (CPU 1) at 0.016s\nf4 start (CPU 0) at 0.017s\nf7 start (CPU 0) at 0.016s\nf11 start (CPU 1) at 0.020s\nc0 start (CPU 1) at 0.024s\nf3 start (CPU 0) at 0.048s\nf9 done (CPU 3, target 0.500s, real 0.369s)\nf1 done (CPU 2, target 0.500s, real 0.374s)\nf5 done (CPU 3, target 0.500s, real 0.378s)\nf11 done (CPU 3, target 0.300s, real 0.447s)\nf6 done (CPU 3, target 0.500s, real 0.611s)\nf0 done (CPU 3, target 0.500s, real 0.671s)\nf2 done (CPU 2, target 0.500s, real 0.677s)\nf3 done (CPU 2, target 0.500s, real 0.721s)\nf8 done (CPU 1, target 0.500s, real 0.792s)\nf10 done (CPU 2, target 0.500s, real 0.786s)\nf4 done (CPU 1, target 0.500s, real 0.807s)\nf7 done (CPU 0, target 0.500s, real 0.818s)\nc0 done (CPU 3, target 2.500s, real 1.666s)\nc1 start (CPU 0) at 1.690s\nc1 done (CPU 2, target 2.200s, real 1.016s)\nc2 start (CPU 0) at 2.706s\nc2 done (CPU 2, target 2.000s, real 0.937s)\nc3 start (CPU 0) at 3.644s\nc3 done (CPU 2, target 1.800s, real 0.839s)\nc4 start (CPU 0) at 4.483s\nc4 done (CPU 2, target 1.600s, real 0.740s)\nProgram total time: 5.224s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5223750981\n"
+    },
+    {
+      "program": "prio",
+      "iter": 2,
+      "time_s": 4.813,
+      "wall_s": 4.815958055,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #3 (rc=0) -----\nf0 start (CPU 0) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf3 start (CPU 2) at 0.000s\nf10 start (CPU 3) at 0.000s\nf11 start (CPU 2) at 0.000s\nc0 start (CPU 2) at 0.000s\nf4 start (CPU 0) at 0.000s\nf11 done (CPU 1, target 0.300s, real 0.151s)\nf0 done (CPU 0, target 0.500s, real 0.247s)\nf10 done (CPU 3, target 0.500s, real 0.258s)\nf6 start (CPU 3) at 0.258s\nf1 done (CPU 1, target 0.500s, real 0.402s)\nf2 done (CPU 0, target 0.500s, real 0.498s)\nf5 start (CPU 0) at 0.498s\nf3 done (CPU 3, target 0.500s, real 0.507s)\nf4 done (CPU 1, target 0.500s, real 0.653s)\nf7 start (CPU 1) at 0.653s\nf5 done (CPU 3, target 0.500s, real 0.251s)\nf8 start (CPU 3) at 0.749s\nf6 done (CPU 0, target 0.500s, real 0.498s)\nf9 start (CPU 0) at 0.756s\nf7 done (CPU 1, target 0.500s, real 0.249s)\nf8 done (CPU 3, target 0.500s, real 0.282s)\nf9 done (CPU 0, target 0.500s, real 0.281s)\nc0 done (CPU 2, target 2.500s, real 1.273s)\nc1 start (CPU 3) at 1.273s\nc1 done (CPU 3, target 2.200s, real 1.026s)\nc2 start (CPU 2) at 2.300s\nc2 done (CPU 2, target 2.000s, real 0.938s)\nc3 start (CPU 3) at 3.238s\nc3 done (CPU 3, target 1.800s, real 0.834s)\nc4 start (CPU 2) at 4.072s\nc4 done (CPU 2, target 1.600s, real 0.741s)\nProgram total time: 4.813s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4812942185\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 3,
+      "time_s": 5.0,
+      "wall_s": 5.002848895,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #4 (rc=0) -----\nf0 start (CPU 0) at 0.000s\nf2 start (CPU 1) at 0.000s\nf1 start (CPU 3) at 0.000s\nf7 start (CPU 2) at 0.000s\nf3 start (CPU 1) at 0.001s\nf4 start (CPU 1) at 0.005s\nf5 start (CPU 0) at 0.013s\nf6 start (CPU 0) at 0.017s\nf8 start (CPU 0) at 0.021s\nf9 start (CPU 0) at 0.025s\nf10 start (CPU 0) at 0.029s\nf11 start (CPU 1) at 0.049s\nc0 start (CPU 1) at 0.057s\nf7 done (CPU 2, target 0.500s, real 0.251s)\nf1 done (CPU 3, target 0.500s, real 0.264s)\nf5 done (CPU 2, target 0.500s, real 0.454s)\nf11 done (CPU 2, target 0.300s, real 0.556s)\nf6 done (CPU 2, target 0.500s, real 0.748s)\nf9 done (CPU 2, target 0.500s, real 0.746s)\nf4 done (CPU 2, target 0.500s, real 0.813s)\nf3 done (CPU 1, target 0.500s, real 0.856s)\nf2 done (CPU 1, target 0.500s, real 0.867s)\nf10 done (CPU 2, target 0.500s, real 0.855s)\nf0 done (CPU 0, target 0.500s, real 0.904s)\nf8 done (CPU 1, target 0.500s, real 0.893s)\nc0 done (CPU 3, target 2.500s, real 1.434s)\nc1 start (CPU 0) at 1.491s\nc1 done (CPU 2, target 2.200s, real 1.016s)\nc2 start (CPU 1) at 2.507s\nc2 done (CPU 1, target 2.000s, real 0.923s)\nc3 start (CPU 2) at 3.431s\nc3 done (CPU 2, target 1.800s, real 0.833s)\nc4 start (CPU 0) at 4.264s\nc4 done (CPU 0, target 1.600s, real 0.736s)\nProgram total time: 5.000s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4999835343\n"
+    },
+    {
+      "program": "prio",
+      "iter": 3,
+      "time_s": 4.813,
+      "wall_s": 4.816115699,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #4 (rc=0) -----\nf1 start (CPU 2) at 0.000s\nf3 start (CPU 3) at 0.000s\nf0 start (CPU 1) at 0.000s\nf2 start (CPU 1) at 0.000s\nf10 start (CPU 2) at 0.000s\nf11 start (CPU 3) at 0.000s\nc0 start (CPU 3) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.151s)\nf8 start (CPU 0) at 0.151s\nf10 done (CPU 2, target 0.500s, real 0.249s)\nf0 done (CPU 1, target 0.500s, real 0.250s)\nf1 done (CPU 0, target 0.500s, real 0.400s)\nf4 start (CPU 0) at 0.401s\nf2 done (CPU 2, target 0.500s, real 0.498s)\nf5 start (CPU 2) at 0.499s\nf3 done (CPU 1, target 0.500s, real 0.500s)\nf6 start (CPU 1) at 0.500s\nf4 done (CPU 0, target 0.500s, real 0.259s)\nf7 start (CPU 0) at 0.660s\nf6 done (CPU 1, target 0.500s, real 0.268s)\nf5 done (CPU 2, target 0.500s, real 0.276s)\nf9 start (CPU 2) at 0.775s\nf7 done (CPU 0, target 0.500s, real 0.250s)\nf8 done (CPU 1, target 0.500s, real 0.865s)\nf9 done (CPU 2, target 0.500s, real 0.249s)\nc0 done (CPU 3, target 2.500s, real 1.285s)\nc1 start (CPU 2) at 1.285s\nc1 done (CPU 2, target 2.200s, real 1.014s)\nc2 start (CPU 3) at 2.299s\nc2 done (CPU 3, target 2.000s, real 0.932s)\nc3 start (CPU 2) at 3.231s\nc3 done (CPU 2, target 1.800s, real 0.839s)\nc4 start (CPU 3) at 4.071s\nc4 done (CPU 3, target 1.600s, real 0.742s)\nProgram total time: 4.813s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4813055559\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 4,
+      "time_s": 5.232,
+      "wall_s": 5.235041454,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #5 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf3 start (CPU 0) at 0.000s\nf2 start (CPU 3) at 0.000s\nf4 start (CPU 0) at 0.013s\nf6 start (CPU 1) at 0.013s\nf5 start (CPU 0) at 0.018s\nf8 start (CPU 1) at 0.018s\nf7 start (CPU 1) at 0.018s\nf10 start (CPU 0) at 0.022s\nf9 start (CPU 1) at 0.026s\nf11 start (CPU 0) at 0.026s\nc0 start (CPU 0) at 0.030s\nf2 done (CPU 3, target 0.500s, real 0.250s)\nf1 done (CPU 3, target 0.500s, real 0.262s)\nf7 done (CPU 2, target 0.500s, real 0.441s)\nf10 done (CPU 3, target 0.500s, real 0.451s)\nf11 done (CPU 1, target 0.300s, real 0.595s)\nf8 done (CPU 1, target 0.500s, real 0.694s)\nf0 done (CPU 2, target 0.500s, real 0.734s)\nf4 done (CPU 2, target 0.500s, real 0.760s)\nf5 done (CPU 1, target 0.500s, real 0.770s)\nf9 done (CPU 3, target 0.500s, real 0.772s)\nf3 done (CPU 2, target 0.500s, real 0.811s)\nf6 done (CPU 0, target 0.500s, real 0.801s)\nc0 done (CPU 1, target 2.500s, real 1.684s)\nc1 start (CPU 2) at 1.714s\nc1 done (CPU 2, target 2.200s, real 1.025s)\nc2 start (CPU 0) at 2.740s\nc2 done (CPU 2, target 2.000s, real 0.923s)\nc3 start (CPU 0) at 3.662s\nc3 done (CPU 0, target 1.800s, real 0.832s)\nc4 start (CPU 2) at 4.494s\nc4 done (CPU 2, target 1.600s, real 0.738s)\nProgram total time: 5.232s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5231863874\n"
+    },
+    {
+      "program": "prio",
+      "iter": 4,
+      "time_s": 4.824,
+      "wall_s": 4.827274262,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #5 (rc=0) -----\nf0 start (CPU 0) at 0.000s\nf2 start (CPU 3) at 0.000s\nf1 start (CPU 2) at 0.000s\nf10 start (CPU 3) at 0.000s\nc0 start (CPU 2) at 0.000s\nf11 start (CPU 1) at 0.000s\nf11 done (CPU 1, target 0.300s, real 0.149s)\nf0 done (CPU 0, target 0.500s, real 0.248s)\nf10 done (CPU 3, target 0.500s, real 0.251s)\nf3 start (CPU 3) at 0.252s\nf1 done (CPU 1, target 0.500s, real 0.399s)\nf4 start (CPU 1) at 0.399s\nf2 done (CPU 0, target 0.500s, real 0.499s)\nf5 start (CPU 0) at 0.499s\nf3 done (CPU 3, target 0.500s, real 0.251s)\nf6 start (CPU 3) at 0.503s\nf4 done (CPU 1, target 0.500s, real 0.249s)\nf7 start (CPU 1) at 0.648s\nf5 done (CPU 0, target 0.500s, real 0.250s)\nf8 start (CPU 0) at 0.749s\nf6 done (CPU 3, target 0.500s, real 0.250s)\nf9 start (CPU 3) at 0.753s\nf7 done (CPU 1, target 0.500s, real 0.251s)\nf8 done (CPU 0, target 0.500s, real 0.249s)\nf9 done (CPU 3, target 0.500s, real 0.254s)\nc0 done (CPU 2, target 2.500s, real 1.288s)\nc1 start (CPU 3) at 1.289s\nc1 done (CPU 3, target 2.200s, real 1.019s)\nc2 start (CPU 2) at 2.308s\nc2 done (CPU 2, target 2.000s, real 0.955s)\nc3 start (CPU 3) at 3.263s\nc3 done (CPU 3, target 1.800s, real 0.832s)\nc4 start (CPU 2) at 4.095s\nc4 done (CPU 2, target 1.600s, real 0.729s)\nProgram total time: 4.824s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4824297728\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 5,
+      "time_s": 5.166,
+      "wall_s": 5.169322277,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #6 (rc=0) -----\nf0 start (CPU 0) at 0.000s\nf1 start (CPU 3) at 0.000s\nf2 start (CPU 1) at 0.000s\nf7 start (CPU 2) at 0.000s\nf4 start (CPU 0) at 0.015s\nf3 start (CPU 1) at 0.015s\nf5 start (CPU 0) at 0.019s\nf6 start (CPU 1) at 0.019s\nf10 start (CPU 0) at 0.027s\nf8 start (CPU 1) at 0.027s\nf9 start (CPU 1) at 0.031s\nf11 start (CPU 0) at 0.031s\nc0 start (CPU 0) at 0.039s\nf7 done (CPU 2, target 0.500s, real 0.248s)\nf1 done (CPU 3, target 0.500s, real 0.249s)\nf0 done (CPU 2, target 0.500s, real 0.449s)\nf8 done (CPU 3, target 0.500s, real 0.431s)\nf11 done (CPU 0, target 0.300s, real 0.631s)\nf10 done (CPU 2, target 0.500s, real 0.661s)\nf5 done (CPU 2, target 0.500s, real 0.734s)\nf4 done (CPU 0, target 0.500s, real 0.802s)\nf3 done (CPU 0, target 0.500s, real 0.816s)\nf9 done (CPU 1, target 0.500s, real 0.804s)\nf2 done (CPU 0, target 0.500s, real 0.834s)\nf6 done (CPU 2, target 0.500s, real 0.833s)\nc0 done (CPU 3, target 2.500s, real 1.593s)\nc1 start (CPU 0) at 1.632s\nc1 done (CPU 2, target 2.200s, real 1.030s)\nc2 start (CPU 0) at 2.663s\nc2 done (CPU 2, target 2.000s, real 0.930s)\nc3 start (CPU 0) at 3.593s\nc3 done (CPU 2, target 1.800s, real 0.834s)\nc4 start (CPU 1) at 4.427s\nc4 done (CPU 1, target 1.600s, real 0.739s)\nProgram total time: 5.166s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5166352040\n"
+    },
+    {
+      "program": "prio",
+      "iter": 5,
+      "time_s": 4.799,
+      "wall_s": 4.802917818,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #6 (rc=0) -----\nf0 start (CPU 2) at 0.000s\nf1 start (CPU 0) at 0.000s\nf2 start (CPU 1) at 0.000s\nf3 start (CPU 0) at 0.000s\nf10 start (CPU 0) at 0.000s\nf11 start (CPU 1) at 0.000s\nc0 start (CPU 1) at 0.000s\nf11 done (CPU 3, target 0.300s, real 0.149s)\nf0 done (CPU 2, target 0.500s, real 0.249s)\nf5 start (CPU 2) at 0.249s\nf10 done (CPU 0, target 0.500s, real 0.252s)\nf8 start (CPU 0) at 0.252s\nf4 start (CPU 0) at 0.252s\nf1 done (CPU 3, target 0.500s, real 0.400s)\nf2 done (CPU 2, target 0.500s, real 0.499s)\nf3 done (CPU 0, target 0.500s, real 0.505s)\nf6 start (CPU 0) at 0.505s\nf4 done (CPU 3, target 0.500s, real 0.400s)\nf7 start (CPU 3) at 0.653s\nf5 done (CPU 2, target 0.500s, real 0.499s)\nf9 start (CPU 2) at 0.749s\nf6 done (CPU 0, target 0.500s, real 0.250s)\nf7 done (CPU 3, target 0.500s, real 0.252s)\nf8 done (CPU 2, target 0.500s, real 0.748s)\nf9 done (CPU 0, target 0.500s, real 0.259s)\nc0 done (CPU 1, target 2.500s, real 1.291s)\nc1 start (CPU 0) at 1.292s\nc1 done (CPU 0, target 2.200s, real 1.016s)\nc2 start (CPU 1) at 2.308s\nc2 done (CPU 1, target 2.000s, real 0.930s)\nc3 start (CPU 0) at 3.238s\nc3 done (CPU 0, target 1.800s, real 0.826s)\nc4 start (CPU 1) at 4.065s\nc4 done (CPU 1, target 1.600s, real 0.734s)\nProgram total time: 4.799s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4798828913\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 6,
+      "time_s": 5.159,
+      "wall_s": 5.162183908,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #7 (rc=0) -----\nf0 start (CPU 2) at 0.000s\nf1 start (CPU 0) at 0.000s\nf3 start (CPU 3) at 0.000s\nf5 start (CPU 1) at 0.000s\nf6 start (CPU 3) at 0.009s\nf2 start (CPU 0) at 0.013s\nf8 start (CPU 2) at 0.013s\nf7 start (CPU 3) at 0.013s\nf9 start (CPU 2) at 0.017s\nf4 start (CPU 0) at 0.017s\nf11 start (CPU 3) at 0.017s\nf10 start (CPU 2) at 0.022s\nc0 start (CPU 3) at 0.022s\nf5 done (CPU 1, target 0.500s, real 0.262s)\nf2 done (CPU 1, target 0.500s, real 0.430s)\nf1 done (CPU 1, target 0.500s, real 0.516s)\nf4 done (CPU 0, target 0.500s, real 0.562s)\nf11 done (CPU 2, target 0.300s, real 0.650s)\nf6 done (CPU 0, target 0.500s, real 0.724s)\nf3 done (CPU 0, target 0.500s, real 0.794s)\nf10 done (CPU 0, target 0.500s, real 0.810s)\nf7 done (CPU 0, target 0.500s, real 0.830s)\nf0 done (CPU 3, target 0.500s, real 0.847s)\nf8 done (CPU 2, target 0.500s, real 0.840s)\nf9 done (CPU 0, target 0.500s, real 0.843s)\nc0 done (CPU 1, target 2.500s, real 1.619s)\nc1 start (CPU 2) at 1.641s\nc1 done (CPU 2, target 2.200s, real 1.015s)\nc2 start (CPU 0) at 2.656s\nc2 done (CPU 2, target 2.000s, real 0.927s)\nc3 start (CPU 0) at 3.583s\nc3 done (CPU 2, target 1.800s, real 0.839s)\nc4 start (CPU 0) at 4.422s\nc4 done (CPU 2, target 1.600s, real 0.737s)\nProgram total time: 5.159s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5159184980\n"
+    },
+    {
+      "program": "prio",
+      "iter": 6,
+      "time_s": 4.811,
+      "wall_s": 4.813796691,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #7 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf2 start (CPU 3) at 0.000s\nf6 start (CPU 2) at 0.000s\nf3 start (CPU 2) at 0.000s\nc0 start (CPU 3) at 0.000s\nf10 start (CPU 3) at 0.000s\nf11 start (CPU 3) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.147s)\nf1 start (CPU 2) at 0.000s\nf10 done (CPU 2, target 0.500s, real 0.249s)\nf0 done (CPU 1, target 0.500s, real 0.251s)\nf1 done (CPU 0, target 0.500s, real 0.398s)\nf4 start (CPU 3) at 0.000s\nf2 done (CPU 2, target 0.500s, real 0.501s)\nf5 start (CPU 2) at 0.000s\nf3 done (CPU 1, target 0.500s, real 0.501s)\nf4 done (CPU 0, target 0.500s, real 0.648s)\nf7 start (CPU 3) at 0.000s\nf6 done (CPU 1, target 0.500s, real 0.751s)\nf8 start (CPU 3) at 0.000s\nf5 done (CPU 2, target 0.500s, real 0.752s)\nf9 start (CPU 3) at 0.000s\nf7 done (CPU 0, target 0.500s, real 0.898s)\nf8 done (CPU 1, target 0.500s, real 1.002s)\nf9 done (CPU 2, target 0.500s, real 1.002s)\nc0 done (CPU 3, target 2.500s, real 1.284s)\nc1 start (CPU 2) at 1.285s\nc1 done (CPU 2, target 2.200s, real 1.020s)\nc2 start (CPU 3) at 2.304s\nc2 done (CPU 3, target 2.000s, real 0.933s)\nc3 start (CPU 2) at 3.238s\nc3 done (CPU 2, target 1.800s, real 0.842s)\nc4 start (CPU 3) at 4.080s\nc4 done (CPU 3, target 1.600s, real 0.731s)\nProgram total time: 4.811s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4810864416\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 7,
+      "time_s": 5.145,
+      "wall_s": 5.14735563,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #8 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf2 start (CPU 3) at 0.000s\nf1 start (CPU 3) at 0.000s\nf3 start (CPU 2) at 0.000s\nf4 start (CPU 0) at 0.009s\nf7 start (CPU 1) at 0.009s\nf6 start (CPU 1) at 0.009s\nf10 start (CPU 0) at 0.013s\nf8 start (CPU 1) at 0.017s\nf5 start (CPU 0) at 0.013s\nf11 start (CPU 0) at 0.021s\nf9 start (CPU 1) at 0.021s\nc0 start (CPU 0) at 0.025s\nf3 done (CPU 2, target 0.500s, real 0.251s)\nf2 done (CPU 3, target 0.500s, real 0.260s)\nf8 done (CPU 3, target 0.500s, real 0.447s)\nf10 done (CPU 2, target 0.500s, real 0.457s)\nf11 done (CPU 0, target 0.300s, real 0.598s)\nf5 done (CPU 0, target 0.500s, real 0.741s)\nf9 done (CPU 0, target 0.500s, real 0.779s)\nf0 done (CPU 0, target 0.500s, real 0.811s)\nf6 done (CPU 1, target 0.500s, real 0.814s)\nf7 done (CPU 2, target 0.500s, real 0.815s)\nf1 done (CPU 0, target 0.500s, real 0.847s)\nf4 done (CPU 2, target 0.500s, real 0.843s)\nc0 done (CPU 3, target 2.500s, real 1.600s)\nc1 start (CPU 0) at 1.625s\nc1 done (CPU 2, target 2.200s, real 1.027s)\nc2 start (CPU 0) at 2.652s\nc2 done (CPU 2, target 2.000s, real 0.926s)\nc3 start (CPU 0) at 3.579s\nc3 done (CPU 2, target 1.800s, real 0.831s)\nc4 start (CPU 0) at 4.410s\nc4 done (CPU 2, target 1.600s, real 0.735s)\nProgram total time: 5.145s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5144713872\n"
+    },
+    {
+      "program": "prio",
+      "iter": 7,
+      "time_s": 4.815,
+      "wall_s": 4.818148088,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #8 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf2 start (CPU 3) at 0.000s\nf1 start (CPU 2) at 0.000s\nf10 start (CPU 3) at 0.000s\nc0 start (CPU 2) at 0.000s\nf11 start (CPU 0) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.151s)\nf10 done (CPU 3, target 0.500s, real 0.250s)\nf0 done (CPU 1, target 0.500s, real 0.258s)\nf3 start (CPU 1) at 0.258s\nf1 done (CPU 0, target 0.500s, real 0.414s)\nf4 start (CPU 0) at 0.414s\nf2 done (CPU 3, target 0.500s, real 0.499s)\nf5 start (CPU 3) at 0.499s\nf3 done (CPU 1, target 0.500s, real 0.250s)\nf6 start (CPU 1) at 0.508s\nf4 done (CPU 0, target 0.500s, real 0.251s)\nf7 start (CPU 0) at 0.665s\nf5 done (CPU 3, target 0.500s, real 0.250s)\nf8 start (CPU 3) at 0.749s\nf6 done (CPU 1, target 0.500s, real 0.250s)\nf9 start (CPU 1) at 0.758s\nf7 done (CPU 0, target 0.500s, real 0.250s)\nf8 done (CPU 3, target 0.500s, real 0.249s)\nf9 done (CPU 0, target 0.500s, real 0.250s)\nc0 done (CPU 2, target 2.500s, real 1.298s)\nc1 start (CPU 3) at 1.299s\nc1 done (CPU 3, target 2.200s, real 1.009s)\nc2 start (CPU 2) at 2.308s\nc2 done (CPU 2, target 2.000s, real 0.926s)\nc3 start (CPU 3) at 3.234s\nc3 done (CPU 3, target 1.800s, real 0.836s)\nc4 start (CPU 2) at 4.070s\nc4 done (CPU 2, target 1.600s, real 0.745s)\nProgram total time: 4.815s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4815234087\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 8,
+      "time_s": 5.316,
+      "wall_s": 5.31939845,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #9 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 3) at 0.000s\nf2 start (CPU 0) at 0.000s\nf5 start (CPU 2) at 0.000s\nf6 start (CPU 0) at 0.011s\nf8 start (CPU 1) at 0.011s\nf7 start (CPU 0) at 0.015s\nf4 start (CPU 3) at 0.015s\nf9 start (CPU 1) at 0.015s\nf11 start (CPU 0) at 0.019s\nf3 start (CPU 3) at 0.015s\nc0 start (CPU 0) at 0.023s\nf10 start (CPU 1) at 0.023s\nf5 done (CPU 2, target 0.500s, real 0.379s)\nf3 done (CPU 2, target 0.500s, real 0.475s)\nf1 done (CPU 2, target 0.500s, real 0.585s)\nf4 done (CPU 3, target 0.500s, real 0.580s)\nf11 done (CPU 3, target 0.300s, real 0.612s)\nf7 done (CPU 2, target 0.500s, real 0.699s)\nf6 done (CPU 3, target 0.500s, real 0.736s)\nf2 done (CPU 2, target 0.500s, real 0.797s)\nf10 done (CPU 3, target 0.500s, real 0.779s)\nf0 done (CPU 3, target 0.500s, real 0.818s)\nf8 done (CPU 1, target 0.500s, real 0.823s)\nf9 done (CPU 2, target 0.500s, real 0.820s)\nc0 done (CPU 2, target 2.500s, real 1.766s)\nc1 start (CPU 0) at 1.788s\nc1 done (CPU 2, target 2.200s, real 1.022s)\nc2 start (CPU 0) at 2.810s\nc2 done (CPU 2, target 2.000s, real 0.927s)\nc3 start (CPU 0) at 3.737s\nc3 done (CPU 2, target 1.800s, real 0.839s)\nc4 start (CPU 1) at 4.577s\nc4 done (CPU 1, target 1.600s, real 0.739s)\nProgram total time: 5.316s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5316491358\n"
+    },
+    {
+      "program": "prio",
+      "iter": 8,
+      "time_s": 4.813,
+      "wall_s": 4.815702776,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #9 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf3 start (CPU 2) at 0.000s\nf5 start (CPU 1) at 0.000s\nf4 start (CPU 3) at 0.000s\nf10 start (CPU 3) at 0.000s\nf11 start (CPU 1) at 0.000s\nc0 start (CPU 3) at 0.000s\nf11 done (CPU 1, target 0.300s, real 0.149s)\nf10 done (CPU 0, target 0.500s, real 0.246s)\nf0 done (CPU 2, target 0.500s, real 0.258s)\nf1 done (CPU 1, target 0.500s, real 0.398s)\nf2 done (CPU 0, target 0.500s, real 0.497s)\nf3 done (CPU 2, target 0.500s, real 0.508s)\nf6 start (CPU 2) at 0.508s\nf4 done (CPU 1, target 0.500s, real 0.648s)\nf7 start (CPU 1) at 0.648s\nf5 done (CPU 0, target 0.500s, real 0.745s)\nf9 start (CPU 0) at 0.745s\nf8 start (CPU 0) at 0.745s\nf6 done (CPU 2, target 0.500s, real 0.250s)\nf7 done (CPU 1, target 0.500s, real 0.253s)\nf8 done (CPU 0, target 0.500s, real 0.250s)\nf9 done (CPU 2, target 0.500s, real 0.318s)\nc0 done (CPU 3, target 2.500s, real 1.278s)\nc1 start (CPU 2) at 1.278s\nc1 done (CPU 2, target 2.200s, real 1.021s)\nc2 start (CPU 3) at 2.299s\nc2 done (CPU 3, target 2.000s, real 0.949s)\nc3 start (CPU 2) at 3.249s\nc3 done (CPU 2, target 1.800s, real 0.828s)\nc4 start (CPU 3) at 4.076s\nc4 done (CPU 3, target 1.600s, real 0.736s)\nProgram total time: 4.813s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4812850637\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 9,
+      "time_s": 5.291,
+      "wall_s": 5.294282819,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #10 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf3 start (CPU 0) at 0.000s\nf5 start (CPU 3) at 0.000s\nf6 start (CPU 0) at 0.011s\nf8 start (CPU 1) at 0.011s\nf2 start (CPU 2) at 0.015s\nf7 start (CPU 0) at 0.015s\nf9 start (CPU 1) at 0.015s\nf11 start (CPU 0) at 0.019s\nf4 start (CPU 2) at 0.019s\nf10 start (CPU 1) at 0.023s\nc0 start (CPU 0) at 0.027s\nf5 done (CPU 3, target 0.500s, real 0.386s)\nf2 done (CPU 3, target 0.500s, real 0.470s)\nf1 done (CPU 3, target 0.500s, real 0.545s)\nf11 done (CPU 3, target 0.300s, real 0.546s)\nf4 done (CPU 3, target 0.500s, real 0.563s)\nf9 done (CPU 3, target 0.500s, real 0.683s)\nf3 done (CPU 2, target 0.500s, real 0.758s)\nf7 done (CPU 3, target 0.500s, real 0.761s)\nf10 done (CPU 2, target 0.500s, real 0.785s)\nf0 done (CPU 1, target 0.500s, real 0.828s)\nf6 done (CPU 0, target 0.500s, real 0.825s)\nf8 done (CPU 2, target 0.500s, real 0.845s)\nc0 done (CPU 3, target 2.500s, real 1.731s)\nc1 start (CPU 0) at 1.758s\nc1 done (CPU 2, target 2.200s, real 1.024s)\nc2 start (CPU 1) at 2.782s\nc2 done (CPU 1, target 2.000s, real 0.925s)\nc3 start (CPU 2) at 3.708s\nc3 done (CPU 2, target 1.800s, real 0.836s)\nc4 start (CPU 0) at 4.543s\nc4 done (CPU 2, target 1.600s, real 0.748s)\nProgram total time: 5.291s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5291316221\n"
+    },
+    {
+      "program": "prio",
+      "iter": 9,
+      "time_s": 4.835,
+      "wall_s": 4.837984087,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #10 (rc=0) -----\nf0 start (CPU 0) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf10 start (CPU 3) at 0.000s\nf11 start (CPU 2) at 0.000s\nc0 start (CPU 2) at 0.000s\nf11 done (CPU 1, target 0.300s, real 0.153s)\nf9 start (CPU 1) at 0.153s\nf10 done (CPU 3, target 0.500s, real 0.250s)\nf0 done (CPU 0, target 0.500s, real 0.253s)\nf3 start (CPU 0) at 0.253s\nf1 done (CPU 1, target 0.500s, real 0.403s)\nf4 start (CPU 1) at 0.403s\nf3 done (CPU 0, target 0.500s, real 0.250s)\nf6 start (CPU 0) at 0.503s\nf5 start (CPU 0) at 0.503s\nf2 done (CPU 3, target 0.500s, real 0.510s)\nf7 start (CPU 3) at 0.510s\nf4 done (CPU 1, target 0.500s, real 0.254s)\nf8 start (CPU 1) at 0.658s\nf5 done (CPU 0, target 0.500s, real 0.252s)\nf6 done (CPU 3, target 0.500s, real 0.255s)\nf7 done (CPU 1, target 0.500s, real 0.411s)\nf8 done (CPU 0, target 0.500s, real 0.365s)\nf9 done (CPU 3, target 0.500s, real 0.874s)\nc0 done (CPU 2, target 2.500s, real 1.270s)\nc1 start (CPU 3) at 1.270s\nc1 done (CPU 3, target 2.200s, real 1.042s)\nc2 start (CPU 2) at 2.313s\nc2 done (CPU 2, target 2.000s, real 0.939s)\nc3 start (CPU 3) at 3.252s\nc3 done (CPU 3, target 1.800s, real 0.836s)\nc4 start (CPU 2) at 4.088s\nc4 done (CPU 2, target 1.600s, real 0.747s)\nProgram total time: 4.835s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4835138011\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 10,
+      "time_s": 5.264,
+      "wall_s": 5.267494076,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #11 (rc=0) -----\nf0 start (CPU 0) at 0.000s\nf1 start (CPU 3) at 0.000s\nf2 start (CPU 1) at 0.000s\nf7 start (CPU 2) at 0.000s\nf5 start (CPU 0) at 0.014s\nf4 start (CPU 1) at 0.014s\nf3 start (CPU 1) at 0.014s\nf6 start (CPU 0) at 0.018s\nf11 start (CPU 1) at 0.022s\nf8 start (CPU 0) at 0.022s\nf9 start (CPU 0) at 0.026s\nc0 start (CPU 1) at 0.026s\nf10 start (CPU 0) at 0.030s\nf7 done (CPU 2, target 0.500s, real 0.251s)\nf1 done (CPU 3, target 0.500s, real 0.256s)\nf4 done (CPU 3, target 0.500s, real 0.453s)\nf8 done (CPU 2, target 0.500s, real 0.450s)\nf11 done (CPU 3, target 0.300s, real 0.580s)\nf10 done (CPU 3, target 0.500s, real 0.670s)\nf6 done (CPU 0, target 0.500s, real 0.712s)\nf0 done (CPU 3, target 0.500s, real 0.777s)\nf2 done (CPU 1, target 0.500s, real 0.801s)\nf3 done (CPU 1, target 0.500s, real 0.794s)\nf5 done (CPU 3, target 0.500s, real 0.817s)\nf9 done (CPU 2, target 0.500s, real 0.820s)\nc0 done (CPU 2, target 2.500s, real 1.694s)\nc1 start (CPU 0) at 1.720s\nc1 done (CPU 2, target 2.200s, real 1.017s)\nc2 start (CPU 0) at 2.737s\nc2 done (CPU 2, target 2.000s, real 0.930s)\nc3 start (CPU 0) at 3.667s\nc3 done (CPU 2, target 1.800s, real 0.841s)\nc4 start (CPU 0) at 4.508s\nc4 done (CPU 2, target 1.600s, real 0.756s)\nProgram total time: 5.264s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5264513884\n"
+    },
+    {
+      "program": "prio",
+      "iter": 10,
+      "time_s": 4.822,
+      "wall_s": 4.824711266,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #11 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf3 start (CPU 2) at 0.000s\nf11 start (CPU 2) at 0.000s\nf10 start (CPU 2) at 0.000s\nc0 start (CPU 3) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.158s)\nf1 start (CPU 2) at 0.000s\nf10 done (CPU 2, target 0.500s, real 0.250s)\nf2 start (CPU 3) at 0.000s\nf0 done (CPU 1, target 0.500s, real 0.252s)\nf1 done (CPU 0, target 0.500s, real 0.412s)\nf4 start (CPU 3) at 0.000s\nf2 done (CPU 2, target 0.500s, real 0.502s)\nf5 start (CPU 2) at 0.000s\nf3 done (CPU 1, target 0.500s, real 0.505s)\nf6 start (CPU 3) at 0.000s\nf4 done (CPU 0, target 0.500s, real 0.675s)\nf7 start (CPU 3) at 0.000s\nf5 done (CPU 2, target 0.500s, real 0.752s)\nf8 start (CPU 2) at 0.000s\nf6 done (CPU 1, target 0.500s, real 0.768s)\nf9 start (CPU 1) at 0.768s\nf7 done (CPU 0, target 0.500s, real 0.931s)\nf8 done (CPU 2, target 0.500s, real 1.010s)\nf9 done (CPU 1, target 0.500s, real 0.250s)\nc0 done (CPU 3, target 2.500s, real 1.261s)\nc1 start (CPU 2) at 1.262s\nc1 done (CPU 2, target 2.200s, real 1.036s)\nc2 start (CPU 3) at 2.298s\nc2 done (CPU 3, target 2.000s, real 0.930s)\nc3 start (CPU 2) at 3.228s\nc3 done (CPU 2, target 1.800s, real 0.834s)\nc4 start (CPU 3) at 4.062s\nc4 done (CPU 3, target 1.600s, real 0.759s)\nProgram total time: 4.822s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4821731402\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 11,
+      "time_s": 5.287,
+      "wall_s": 5.289878527,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #12 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 0) at 0.000s\nf6 start (CPU 3) at 0.000s\nf7 start (CPU 1) at 0.009s\nf9 start (CPU 0) at 0.009s\nf8 start (CPU 1) at 0.013s\nf11 start (CPU 1) at 0.013s\nf3 start (CPU 2) at 0.013s\nf10 start (CPU 0) at 0.013s\nc0 start (CPU 1) at 0.017s\nf4 start (CPU 0) at 0.021s\nf5 start (CPU 2) at 0.037s\nf6 done (CPU 3, target 0.500s, real 0.357s)\nf3 done (CPU 3, target 0.500s, real 0.445s)\nf1 done (CPU 3, target 0.500s, real 0.497s)\nf5 done (CPU 2, target 0.500s, real 0.487s)\nf11 done (CPU 3, target 0.300s, real 0.544s)\nf7 done (CPU 2, target 0.500s, real 0.661s)\nf0 done (CPU 3, target 0.500s, real 0.686s)\nf9 done (CPU 3, target 0.500s, real 0.751s)\nf4 done (CPU 2, target 0.500s, real 0.742s)\nf2 done (CPU 0, target 0.500s, real 0.789s)\nf10 done (CPU 3, target 0.500s, real 0.787s)\nf8 done (CPU 1, target 0.500s, real 0.810s)\nc0 done (CPU 2, target 2.500s, real 1.731s)\nc1 start (CPU 0) at 1.748s\nc1 done (CPU 2, target 2.200s, real 1.040s)\nc2 start (CPU 0) at 2.788s\nc2 done (CPU 2, target 2.000s, real 0.925s)\nc3 start (CPU 0) at 3.713s\nc3 done (CPU 2, target 1.800s, real 0.831s)\nc4 start (CPU 1) at 4.545s\nc4 done (CPU 1, target 1.600s, real 0.742s)\nProgram total time: 5.287s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5286790559\n"
+    },
+    {
+      "program": "prio",
+      "iter": 11,
+      "time_s": 4.785,
+      "wall_s": 4.787822759,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #12 (rc=0) -----\nf1 start (CPU 2) at 0.000s\nf0 start (CPU 1) at 0.000s\nf2 start (CPU 3) at 0.000s\nf10 start (CPU 2) at 0.000s\nf11 start (CPU 3) at 0.000s\nc0 start (CPU 3) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.147s)\nf0 done (CPU 1, target 0.500s, real 0.246s)\nf10 done (CPU 2, target 0.500s, real 0.247s)\nf3 start (CPU 2) at 0.000s\nf1 done (CPU 0, target 0.500s, real 0.398s)\nf4 start (CPU 1) at 0.000s\nf3 done (CPU 2, target 0.500s, real 0.497s)\nf5 start (CPU 2) at 0.497s\nf2 done (CPU 1, target 0.500s, real 0.498s)\nf7 start (CPU 1) at 0.498s\nf6 start (CPU 1) at 0.498s\nf4 done (CPU 0, target 0.500s, real 0.649s)\nf5 done (CPU 2, target 0.500s, real 0.250s)\nf8 start (CPU 2) at 0.747s\nf6 done (CPU 1, target 0.500s, real 0.250s)\nf9 start (CPU 1) at 0.748s\nf7 done (CPU 0, target 0.500s, real 0.401s)\nf8 done (CPU 2, target 0.500s, real 0.250s)\nf9 done (CPU 1, target 0.500s, real 0.252s)\nc0 done (CPU 3, target 2.500s, real 1.236s)\nc1 start (CPU 2) at 1.236s\nc1 done (CPU 2, target 2.200s, real 1.025s)\nc2 start (CPU 3) at 2.262s\nc2 done (CPU 3, target 2.000s, real 0.928s)\nc3 start (CPU 2) at 3.190s\nc3 done (CPU 2, target 1.800s, real 0.841s)\nc4 start (CPU 3) at 4.031s\nc4 done (CPU 3, target 1.600s, real 0.754s)\nProgram total time: 4.785s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4784775714\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 12,
+      "time_s": 5.122,
+      "wall_s": 5.124696346,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #13 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf2 start (CPU 0) at 0.000s\nf1 start (CPU 3) at 0.000s\nf4 start (CPU 2) at 0.000s\nf8 start (CPU 1) at 0.007s\nf7 start (CPU 0) at 0.007s\nf3 start (CPU 2) at 0.007s\nf9 start (CPU 1) at 0.011s\nf6 start (CPU 0) at 0.007s\nf5 start (CPU 3) at 0.007s\nf10 start (CPU 1) at 0.015s\nf11 start (CPU 0) at 0.027s\nc0 start (CPU 0) at 0.035s\nf1 done (CPU 3, target 0.500s, real 0.265s)\nf4 done (CPU 2, target 0.500s, real 0.372s)\nf3 done (CPU 3, target 0.500s, real 0.373s)\nf11 done (CPU 3, target 0.300s, real 0.562s)\nf9 done (CPU 2, target 0.500s, real 0.715s)\nf2 done (CPU 3, target 0.500s, real 0.752s)\nf6 done (CPU 3, target 0.500s, real 0.754s)\nf7 done (CPU 0, target 0.500s, real 0.766s)\nf0 done (CPU 0, target 0.500s, real 0.833s)\nf10 done (CPU 3, target 0.500s, real 0.823s)\nf5 done (CPU 1, target 0.500s, real 0.859s)\nf8 done (CPU 0, target 0.500s, real 0.860s)\nc0 done (CPU 2, target 2.500s, real 1.547s)\nc1 start (CPU 0) at 1.582s\nc1 done (CPU 2, target 2.200s, real 1.018s)\nc2 start (CPU 0) at 2.600s\nc2 done (CPU 2, target 2.000s, real 0.929s)\nc3 start (CPU 0) at 3.529s\nc3 done (CPU 2, target 1.800s, real 0.833s)\nc4 start (CPU 0) at 4.362s\nc4 done (CPU 2, target 1.600s, real 0.759s)\nProgram total time: 5.122s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5121689135\n"
+    },
+    {
+      "program": "prio",
+      "iter": 12,
+      "time_s": 4.817,
+      "wall_s": 4.820469352,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #13 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf2 start (CPU 3) at 0.000s\nf1 start (CPU 2) at 0.000s\nf10 start (CPU 2) at 0.000s\nf11 start (CPU 3) at 0.000s\nc0 start (CPU 2) at 0.000s\nf11 done (CPU 3, target 0.300s, real 0.160s)\nf10 done (CPU 0, target 0.500s, real 0.247s)\nf4 start (CPU 0) at 0.247s\nf0 done (CPU 1, target 0.500s, real 0.252s)\nf3 start (CPU 1) at 0.253s\nf1 done (CPU 3, target 0.500s, real 0.410s)\nf5 start (CPU 3) at 0.411s\nf2 done (CPU 0, target 0.500s, real 0.498s)\nf6 start (CPU 0) at 0.498s\nf3 done (CPU 1, target 0.500s, real 0.251s)\nf4 done (CPU 3, target 0.500s, real 0.415s)\nf7 start (CPU 3) at 0.662s\nf5 done (CPU 0, target 0.500s, real 0.344s)\nf8 start (CPU 0) at 0.755s\nf6 done (CPU 1, target 0.500s, real 0.257s)\nf9 start (CPU 1) at 0.755s\nf7 done (CPU 3, target 0.500s, real 0.255s)\nf9 done (CPU 1, target 0.500s, real 0.252s)\nf8 done (CPU 0, target 0.500s, real 0.252s)\nc0 done (CPU 2, target 2.500s, real 1.242s)\nc1 start (CPU 3) at 1.242s\nc1 done (CPU 3, target 2.200s, real 1.022s)\nc2 start (CPU 2) at 2.264s\nc2 done (CPU 2, target 2.000s, real 0.959s)\nc3 start (CPU 3) at 3.224s\nc3 done (CPU 3, target 1.800s, real 0.834s)\nc4 start (CPU 2) at 4.057s\nc4 done (CPU 2, target 1.600s, real 0.760s)\nProgram total time: 4.817s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4817486014\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 13,
+      "time_s": 5.242,
+      "wall_s": 5.244876653,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #14 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 3) at 0.000s\nf2 start (CPU 0) at 0.000s\nf5 start (CPU 2) at 0.000s\nf6 start (CPU 0) at 0.013s\nf4 start (CPU 3) at 0.013s\nf8 start (CPU 1) at 0.013s\nf3 start (CPU 3) at 0.013s\nf7 start (CPU 0) at 0.017s\nf9 start (CPU 1) at 0.013s\nf10 start (CPU 0) at 0.022s\nf11 start (CPU 0) at 0.030s\nc0 start (CPU 0) at 0.034s\nf5 done (CPU 2, target 0.500s, real 0.363s)\nf3 done (CPU 2, target 0.500s, real 0.462s)\nf1 done (CPU 3, target 0.500s, real 0.514s)\nf4 done (CPU 2, target 0.500s, real 0.511s)\nf11 done (CPU 0, target 0.300s, real 0.602s)\nf7 done (CPU 2, target 0.500s, real 0.792s)\nf2 done (CPU 2, target 0.500s, real 0.810s)\nf9 done (CPU 2, target 0.500s, real 0.797s)\nf10 done (CPU 3, target 0.500s, real 0.804s)\nf0 done (CPU 1, target 0.500s, real 0.831s)\nf8 done (CPU 2, target 0.500s, real 0.819s)\nf6 done (CPU 3, target 0.500s, real 0.854s)\nc0 done (CPU 2, target 2.500s, real 1.687s)\nc1 start (CPU 0) at 1.721s\nc1 done (CPU 2, target 2.200s, real 1.032s)\nc2 start (CPU 0) at 2.753s\nc2 done (CPU 2, target 2.000s, real 0.917s)\nc3 start (CPU 1) at 3.671s\nc3 done (CPU 1, target 1.800s, real 0.834s)\nc4 start (CPU 3) at 4.504s\nc4 done (CPU 3, target 1.600s, real 0.737s)\nProgram total time: 5.242s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5242058921\n"
+    },
+    {
+      "program": "prio",
+      "iter": 13,
+      "time_s": 4.826,
+      "wall_s": 4.828650137,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #14 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf3 start (CPU 2) at 0.000s\nf10 start (CPU 2) at 0.000s\nc0 start (CPU 2) at 0.000s\nf11 start (CPU 3) at 0.001s\nf11 done (CPU 3, target 0.300s, real 0.160s)\nf0 done (CPU 1, target 0.500s, real 0.249s)\nf10 done (CPU 0, target 0.500s, real 0.251s)\nf1 done (CPU 3, target 0.500s, real 0.411s)\nf4 start (CPU 3) at 0.411s\nf2 done (CPU 1, target 0.500s, real 0.500s)\nf5 start (CPU 1) at 0.501s\nf3 done (CPU 0, target 0.500s, real 0.503s)\nf7 start (CPU 0) at 0.504s\nf6 start (CPU 0) at 0.504s\nf4 done (CPU 3, target 0.500s, real 0.252s)\nf9 start (CPU 3) at 0.663s\nf5 done (CPU 1, target 0.500s, real 0.249s)\nf8 start (CPU 1) at 0.749s\nf6 done (CPU 0, target 0.500s, real 0.252s)\nf7 done (CPU 3, target 0.500s, real 0.412s)\nf8 done (CPU 1, target 0.500s, real 0.253s)\nf9 done (CPU 0, target 0.500s, real 0.342s)\nc0 done (CPU 2, target 2.500s, real 1.248s)\nc1 start (CPU 3) at 1.248s\nc1 done (CPU 3, target 2.200s, real 1.049s)\nc2 start (CPU 2) at 2.297s\nc2 done (CPU 2, target 2.000s, real 0.946s)\nc3 start (CPU 3) at 3.244s\nc3 done (CPU 3, target 1.800s, real 0.833s)\nc4 start (CPU 2) at 4.077s\nc4 done (CPU 2, target 1.600s, real 0.748s)\nProgram total time: 4.826s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4825619612\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 14,
+      "time_s": 5.257,
+      "wall_s": 5.260160351,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #15 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 3) at 0.000s\nf4 start (CPU 0) at 0.000s\nf5 start (CPU 2) at 0.000s\nf6 start (CPU 0) at 0.011s\nf8 start (CPU 1) at 0.011s\nf2 start (CPU 3) at 0.000s\nf10 start (CPU 1) at 0.015s\nf7 start (CPU 0) at 0.015s\nf9 start (CPU 1) at 0.015s\nf11 start (CPU 0) at 0.019s\nc0 start (CPU 0) at 0.023s\nf3 start (CPU 3) at 0.047s\nf5 done (CPU 2, target 0.500s, real 0.255s)\nf2 done (CPU 2, target 0.500s, real 0.426s)\nf1 done (CPU 2, target 0.500s, real 0.499s)\nf3 done (CPU 3, target 0.500s, real 0.471s)\nf11 done (CPU 1, target 0.300s, real 0.632s)\nf10 done (CPU 3, target 0.500s, real 0.637s)\nf8 done (CPU 2, target 0.500s, real 0.700s)\nf4 done (CPU 3, target 0.500s, real 0.721s)\nf9 done (CPU 1, target 0.500s, real 0.760s)\nf7 done (CPU 3, target 0.500s, real 0.772s)\nf0 done (CPU 0, target 0.500s, real 0.805s)\nf6 done (CPU 2, target 0.500s, real 0.813s)\nc0 done (CPU 1, target 2.500s, real 1.708s)\nc1 start (CPU 2) at 1.731s\nc1 done (CPU 2, target 2.200s, real 1.021s)\nc2 start (CPU 0) at 2.753s\nc2 done (CPU 2, target 2.000s, real 0.924s)\nc3 start (CPU 0) at 3.677s\nc3 done (CPU 2, target 1.800s, real 0.838s)\nc4 start (CPU 0) at 4.514s\nc4 done (CPU 2, target 1.600s, real 0.742s)\nProgram total time: 5.257s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5257071276\n"
+    },
+    {
+      "program": "prio",
+      "iter": 14,
+      "time_s": 4.783,
+      "wall_s": 4.785911396,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #15 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf11 start (CPU 3) at 0.000s\nf10 start (CPU 2) at 0.000s\nc0 start (CPU 3) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.148s)\nf10 done (CPU 2, target 0.500s, real 0.248s)\nf3 start (CPU 2) at 0.000s\nf0 done (CPU 1, target 0.500s, real 0.255s)\nf1 done (CPU 0, target 0.500s, real 0.398s)\nf6 start (CPU 0) at 0.398s\nf4 start (CPU 3) at 0.000s\nf2 done (CPU 2, target 0.500s, real 0.498s)\nf8 start (CPU 2) at 0.498s\nf5 start (CPU 2) at 0.498s\nf3 done (CPU 1, target 0.500s, real 0.504s)\nf4 done (CPU 0, target 0.500s, real 0.646s)\nf7 start (CPU 0) at 0.646s\nf5 done (CPU 2, target 0.500s, real 0.254s)\nf6 done (CPU 1, target 0.500s, real 0.357s)\nf9 start (CPU 1) at 0.755s\nf7 done (CPU 0, target 0.500s, real 0.258s)\nf8 done (CPU 2, target 0.500s, real 0.507s)\nf9 done (CPU 1, target 0.500s, real 0.255s)\nc0 done (CPU 3, target 2.500s, real 1.239s)\nc1 start (CPU 2) at 1.239s\nc1 done (CPU 2, target 2.200s, real 1.021s)\nc2 start (CPU 3) at 2.261s\nc2 done (CPU 3, target 2.000s, real 0.932s)\nc3 start (CPU 2) at 3.193s\nc3 done (CPU 2, target 1.800s, real 0.845s)\nc4 start (CPU 3) at 4.039s\nc4 done (CPU 3, target 1.600s, real 0.744s)\nProgram total time: 4.783s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4782870200\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 15,
+      "time_s": 5.259,
+      "wall_s": 5.262215697,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #16 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 0) at 0.000s\nf2 start (CPU 2) at 0.000s\nf5 start (CPU 3) at 0.001s\nf6 start (CPU 0) at 0.012s\nf10 start (CPU 1) at 0.012s\nf8 start (CPU 1) at 0.012s\nf7 start (CPU 0) at 0.017s\nf3 start (CPU 2) at 0.017s\nf4 start (CPU 2) at 0.021s\nf9 start (CPU 1) at 0.012s\nf11 start (CPU 0) at 0.021s\nc0 start (CPU 0) at 0.025s\nf5 done (CPU 3, target 0.500s, real 0.264s)\nf3 done (CPU 3, target 0.500s, real 0.494s)\nf2 done (CPU 3, target 0.500s, real 0.564s)\nf4 done (CPU 2, target 0.500s, real 0.551s)\nf11 done (CPU 0, target 0.300s, real 0.587s)\nf8 done (CPU 1, target 0.500s, real 0.693s)\nf10 done (CPU 1, target 0.500s, real 0.785s)\nf7 done (CPU 0, target 0.500s, real 0.785s)\nf1 done (CPU 1, target 0.500s, real 0.816s)\nf6 done (CPU 2, target 0.500s, real 0.834s)\nf9 done (CPU 0, target 0.500s, real 0.838s)\nf0 done (CPU 1, target 0.500s, real 0.858s)\nc0 done (CPU 3, target 2.500s, real 1.708s)\nc1 start (CPU 0) at 1.733s\nc1 done (CPU 2, target 2.200s, real 1.018s)\nc2 start (CPU 0) at 2.751s\nc2 done (CPU 2, target 2.000s, real 0.931s)\nc3 start (CPU 0) at 3.683s\nc3 done (CPU 2, target 1.800s, real 0.835s)\nc4 start (CPU 0) at 4.518s\nc4 done (CPU 2, target 1.600s, real 0.741s)\nProgram total time: 5.259s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5258952965\n"
+    },
+    {
+      "program": "prio",
+      "iter": 15,
+      "time_s": 4.811,
+      "wall_s": 4.813865788,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #16 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf2 start (CPU 3) at 0.000s\nf1 start (CPU 2) at 0.000s\nf10 start (CPU 3) at 0.000s\nf11 start (CPU 0) at 0.000s\nc0 start (CPU 2) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.152s)\nf0 done (CPU 1, target 0.500s, real 0.245s)\nf10 done (CPU 3, target 0.500s, real 0.249s)\nf3 start (CPU 3) at 0.249s\nf1 done (CPU 1, target 0.500s, real 0.400s)\nf4 start (CPU 1) at 0.400s\nf2 done (CPU 0, target 0.500s, real 0.499s)\nf5 start (CPU 0) at 0.499s\nf3 done (CPU 3, target 0.500s, real 0.253s)\nf6 start (CPU 3) at 0.502s\nf4 done (CPU 1, target 0.500s, real 0.254s)\nf7 start (CPU 1) at 0.654s\nf6 done (CPU 3, target 0.500s, real 0.249s)\nf8 start (CPU 3) at 0.751s\nf5 done (CPU 0, target 0.500s, real 0.258s)\nf9 start (CPU 0) at 0.757s\nf7 done (CPU 1, target 0.500s, real 0.248s)\nf8 done (CPU 3, target 0.500s, real 0.249s)\nf9 done (CPU 0, target 0.500s, real 0.250s)\nc0 done (CPU 2, target 2.500s, real 1.248s)\nc1 start (CPU 3) at 1.248s\nc1 done (CPU 3, target 2.200s, real 1.037s)\nc2 start (CPU 2) at 2.285s\nc2 done (CPU 2, target 2.000s, real 0.936s)\nc3 start (CPU 3) at 3.221s\nc3 done (CPU 3, target 1.800s, real 0.835s)\nc4 start (CPU 2) at 4.056s\nc4 done (CPU 2, target 1.600s, real 0.755s)\nProgram total time: 4.811s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4810967347\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 16,
+      "time_s": 5.256,
+      "wall_s": 5.25905315,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #17 (rc=0) -----\nf0 start (CPU 0) at 0.000s\nf1 start (CPU 3) at 0.000s\nf2 start (CPU 1) at 0.000s\nf6 start (CPU 2) at 0.000s\nf9 start (CPU 1) at 0.012s\nf8 start (CPU 0) at 0.012s\nf10 start (CPU 1) at 0.016s\nf3 start (CPU 3) at 0.016s\nf7 start (CPU 0) at 0.012s\nf5 start (CPU 3) at 0.024s\nf11 start (CPU 0) at 0.024s\nc0 start (CPU 0) at 0.028s\nf4 start (CPU 1) at 0.028s\nf6 done (CPU 2, target 0.500s, real 0.382s)\nf1 done (CPU 2, target 0.500s, real 0.463s)\nf3 done (CPU 3, target 0.500s, real 0.537s)\nf5 done (CPU 3, target 0.500s, real 0.532s)\nf11 done (CPU 3, target 0.300s, real 0.555s)\nf10 done (CPU 2, target 0.500s, real 0.606s)\nf4 done (CPU 3, target 0.500s, real 0.678s)\nf8 done (CPU 3, target 0.500s, real 0.750s)\nf7 done (CPU 0, target 0.500s, real 0.757s)\nf0 done (CPU 1, target 0.500s, real 0.798s)\nf2 done (CPU 2, target 0.500s, real 0.799s)\nf9 done (CPU 3, target 0.500s, real 0.790s)\nc0 done (CPU 2, target 2.500s, real 1.700s)\nc1 start (CPU 0) at 1.728s\nc1 done (CPU 2, target 2.200s, real 1.018s)\nc2 start (CPU 0) at 2.747s\nc2 done (CPU 2, target 2.000s, real 0.923s)\nc3 start (CPU 0) at 3.670s\nc3 done (CPU 2, target 1.800s, real 0.827s)\nc4 start (CPU 0) at 4.497s\nc4 done (CPU 2, target 1.600s, real 0.759s)\nProgram total time: 5.256s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5256117635\n"
+    },
+    {
+      "program": "prio",
+      "iter": 16,
+      "time_s": 4.816,
+      "wall_s": 4.819218661,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #17 (rc=0) -----\nf0 start (CPU 0) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf7 start (CPU 0) at 0.000s\nf10 start (CPU 0) at 0.000s\nf11 start (CPU 3) at 0.000s\nc0 start (CPU 0) at 0.000s\nf11 done (CPU 3, target 0.300s, real 0.146s)\nf10 done (CPU 1, target 0.500s, real 0.246s)\nf5 start (CPU 1) at 0.247s\nf3 start (CPU 1) at 0.247s\nf0 done (CPU 2, target 0.500s, real 0.251s)\nf4 start (CPU 2) at 0.251s\nf1 done (CPU 3, target 0.500s, real 0.406s)\nf8 start (CPU 3) at 0.406s\nf2 done (CPU 1, target 0.500s, real 0.496s)\nf6 start (CPU 1) at 0.496s\nf3 done (CPU 2, target 0.500s, real 0.261s)\nf4 done (CPU 3, target 0.500s, real 0.408s)\nf5 done (CPU 1, target 0.500s, real 0.505s)\nf6 done (CPU 2, target 0.500s, real 0.262s)\nf9 start (CPU 2) at 0.759s\nf7 done (CPU 3, target 0.500s, real 0.911s)\nf8 done (CPU 1, target 0.500s, real 0.596s)\nf9 done (CPU 2, target 0.500s, real 0.249s)\nc0 done (CPU 0, target 2.500s, real 1.254s)\nc1 start (CPU 3) at 1.254s\nc1 done (CPU 3, target 2.200s, real 1.032s)\nc2 start (CPU 2) at 2.286s\nc2 done (CPU 2, target 2.000s, real 0.931s)\nc3 start (CPU 3) at 3.217s\nc3 done (CPU 3, target 1.800s, real 0.857s)\nc4 start (CPU 2) at 4.074s\nc4 done (CPU 2, target 1.600s, real 0.742s)\nProgram total time: 4.816s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4816176230\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 17,
+      "time_s": 5.195,
+      "wall_s": 5.197760583,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #18 (rc=0) -----\nf1 start (CPU 3) at 0.000s\nf3 start (CPU 1) at 0.000s\nf0 start (CPU 0) at 0.000s\nf2 start (CPU 1) at 0.000s\nf7 start (CPU 2) at 0.000s\nf4 start (CPU 0) at 0.013s\nf5 start (CPU 0) at 0.017s\nf10 start (CPU 0) at 0.021s\nf11 start (CPU 0) at 0.029s\nc0 start (CPU 0) at 0.033s\nf6 start (CPU 1) at 0.037s\nf8 start (CPU 1) at 0.041s\nf9 start (CPU 1) at 0.049s\nf1 done (CPU 3, target 0.500s, real 0.245s)\nf7 done (CPU 2, target 0.500s, real 0.246s)\nf0 done (CPU 3, target 0.500s, real 0.443s)\nf6 done (CPU 2, target 0.500s, real 0.428s)\nf11 done (CPU 2, target 0.300s, real 0.545s)\nf3 done (CPU 3, target 0.500s, real 0.612s)\nf9 done (CPU 3, target 0.500s, real 0.672s)\nf8 done (CPU 2, target 0.500s, real 0.692s)\nf10 done (CPU 0, target 0.500s, real 0.757s)\nf5 done (CPU 1, target 0.500s, real 0.775s)\nf2 done (CPU 0, target 0.500s, real 0.800s)\nf4 done (CPU 2, target 0.500s, real 0.793s)\nc0 done (CPU 3, target 2.500s, real 1.662s)\nc1 start (CPU 0) at 1.695s\nc1 done (CPU 2, target 2.200s, real 1.010s)\nc2 start (CPU 0) at 2.705s\nc2 done (CPU 2, target 2.000s, real 0.928s)\nc3 start (CPU 0) at 3.633s\nc3 done (CPU 2, target 1.800s, real 0.824s)\nc4 start (CPU 0) at 4.457s\nc4 done (CPU 2, target 1.600s, real 0.738s)\nProgram total time: 5.195s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5194977409\n"
+    },
+    {
+      "program": "prio",
+      "iter": 17,
+      "time_s": 4.798,
+      "wall_s": 4.801320048,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #18 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf2 start (CPU 3) at 0.000s\nf1 start (CPU 2) at 0.000s\nf10 start (CPU 3) at 0.000s\nf11 start (CPU 0) at 0.000s\nc0 start (CPU 2) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.147s)\nf0 done (CPU 1, target 0.500s, real 0.247s)\nf10 done (CPU 3, target 0.500s, real 0.253s)\nf3 start (CPU 3) at 0.253s\nf1 done (CPU 0, target 0.500s, real 0.399s)\nf4 start (CPU 0) at 0.400s\nf2 done (CPU 1, target 0.500s, real 0.498s)\nf5 start (CPU 1) at 0.498s\nf3 done (CPU 3, target 0.500s, real 0.251s)\nf6 start (CPU 3) at 0.504s\nf4 done (CPU 0, target 0.500s, real 0.254s)\nf7 start (CPU 0) at 0.653s\nf5 done (CPU 1, target 0.500s, real 0.249s)\nf8 start (CPU 1) at 0.748s\nf6 done (CPU 3, target 0.500s, real 0.253s)\nf9 start (CPU 3) at 0.757s\nf7 done (CPU 0, target 0.500s, real 0.252s)\nf8 done (CPU 1, target 0.500s, real 0.249s)\nf9 done (CPU 3, target 0.500s, real 0.252s)\nc0 done (CPU 2, target 2.500s, real 1.247s)\nc1 start (CPU 3) at 1.247s\nc1 done (CPU 3, target 2.200s, real 1.027s)\nc2 start (CPU 2) at 2.274s\nc2 done (CPU 2, target 2.000s, real 0.934s)\nc3 start (CPU 3) at 3.208s\nc3 done (CPU 3, target 1.800s, real 0.838s)\nc4 start (CPU 2) at 4.046s\nc4 done (CPU 2, target 1.600s, real 0.752s)\nProgram total time: 4.798s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4798278387\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 18,
+      "time_s": 5.206,
+      "wall_s": 5.208492062,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #19 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf2 start (CPU 2) at 0.000s\nf1 start (CPU 2) at 0.000s\nf7 start (CPU 3) at 0.000s\nf8 start (CPU 0) at 0.010s\nf10 start (CPU 1) at 0.017s\nf9 start (CPU 0) at 0.018s\nf11 start (CPU 1) at 0.018s\nc0 start (CPU 1) at 0.022s\nf3 start (CPU 0) at 0.026s\nf4 start (CPU 1) at 0.030s\nf5 start (CPU 1) at 0.038s\nf6 start (CPU 0) at 0.038s\nf7 done (CPU 3, target 0.500s, real 0.253s)\nf2 done (CPU 2, target 0.500s, real 0.262s)\nf9 done (CPU 2, target 0.500s, real 0.446s)\nf0 done (CPU 3, target 0.500s, real 0.477s)\nf11 done (CPU 3, target 0.300s, real 0.580s)\nf8 done (CPU 3, target 0.500s, real 0.634s)\nf10 done (CPU 2, target 0.500s, real 0.721s)\nf1 done (CPU 2, target 0.500s, real 0.793s)\nf3 done (CPU 0, target 0.500s, real 0.785s)\nf6 done (CPU 2, target 0.500s, real 0.779s)\nf5 done (CPU 1, target 0.500s, real 0.796s)\nf4 done (CPU 0, target 0.500s, real 0.808s)\nc0 done (CPU 3, target 2.500s, real 1.665s)\nc1 start (CPU 0) at 1.687s\nc1 done (CPU 2, target 2.200s, real 1.012s)\nc2 start (CPU 0) at 2.699s\nc2 done (CPU 2, target 2.000s, real 0.933s)\nc3 start (CPU 0) at 3.632s\nc3 done (CPU 2, target 1.800s, real 0.824s)\nc4 start (CPU 0) at 4.456s\nc4 done (CPU 2, target 1.600s, real 0.749s)\nProgram total time: 5.206s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5205682529\n"
+    },
+    {
+      "program": "prio",
+      "iter": 18,
+      "time_s": 4.845,
+      "wall_s": 4.847788878,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #19 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf3 start (CPU 2) at 0.000s\nf10 start (CPU 1) at 0.000s\nf11 start (CPU 2) at 0.000s\nc0 start (CPU 1) at 0.000s\nf11 done (CPU 2, target 0.300s, real 0.160s)\nf0 done (CPU 3, target 0.500s, real 0.247s)\nf10 done (CPU 0, target 0.500s, real 0.249s)\nf4 start (CPU 1) at 0.000s\nf1 done (CPU 2, target 0.500s, real 0.409s)\nf8 start (CPU 2) at 0.409s\nf2 done (CPU 3, target 0.500s, real 0.498s)\nf5 start (CPU 3) at 0.498s\nf3 done (CPU 0, target 0.500s, real 0.499s)\nf6 start (CPU 0) at 0.500s\nf4 done (CPU 2, target 0.500s, real 0.667s)\nf7 start (CPU 2) at 0.667s\nf6 done (CPU 0, target 0.500s, real 0.253s)\nf5 done (CPU 3, target 0.500s, real 0.263s)\nf9 start (CPU 3) at 0.762s\nf7 done (CPU 2, target 0.500s, real 0.254s)\nf8 done (CPU 0, target 0.500s, real 0.595s)\nf9 done (CPU 3, target 0.500s, real 0.259s)\nc0 done (CPU 1, target 2.500s, real 1.258s)\nc1 start (CPU 1) at 1.258s\nc1 done (CPU 1, target 2.200s, real 1.068s)\nc2 start (CPU 0) at 2.327s\nc2 done (CPU 2, target 2.000s, real 0.927s)\nc3 start (CPU 3) at 3.254s\nc3 done (CPU 3, target 1.800s, real 0.846s)\nc4 start (CPU 2) at 4.100s\nc4 done (CPU 2, target 1.600s, real 0.745s)\nProgram total time: 4.845s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4844922843\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 19,
+      "time_s": 5.161,
+      "wall_s": 5.163585155,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #20 (rc=0) -----\nf0 start (CPU 2) at 0.000s\nf1 start (CPU 1) at 0.000s\nf2 start (CPU 3) at 0.000s\nc0 start (CPU 0) at 0.000s\nf4 start (CPU 0) at 0.005s\nf7 start (CPU 3) at 0.007s\nf8 start (CPU 3) at 0.009s\nf5 start (CPU 1) at 0.013s\nf3 start (CPU 0) at 0.017s\nf6 start (CPU 1) at 0.017s\nf9 start (CPU 1) at 0.021s\nf10 start (CPU 1) at 0.025s\nf11 start (CPU 1) at 0.029s\nf0 done (CPU 2, target 0.500s, real 0.325s)\nf2 done (CPU 2, target 0.500s, real 0.440s)\nf7 done (CPU 2, target 0.500s, real 0.495s)\nf8 done (CPU 3, target 0.500s, real 0.495s)\nf4 done (CPU 3, target 0.500s, real 0.588s)\nf3 done (CPU 0, target 0.500s, real 0.665s)\nf11 done (CPU 0, target 0.300s, real 0.685s)\nf10 done (CPU 2, target 0.500s, real 0.710s)\nf6 done (CPU 3, target 0.500s, real 0.729s)\nf9 done (CPU 0, target 0.500s, real 0.799s)\nf1 done (CPU 1, target 0.500s, real 0.832s)\nf5 done (CPU 3, target 0.500s, real 0.822s)\nc0 done (CPU 2, target 2.500s, real 1.637s)\nc1 start (CPU 0) at 1.637s\nc1 done (CPU 2, target 2.200s, real 1.014s)\nc2 start (CPU 0) at 2.651s\nc2 done (CPU 2, target 2.000s, real 0.934s)\nc3 start (CPU 0) at 3.585s\nc3 done (CPU 2, target 1.800s, real 0.835s)\nc4 start (CPU 0) at 4.420s\nc4 done (CPU 2, target 1.600s, real 0.740s)\nProgram total time: 5.161s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5160559785\n"
+    },
+    {
+      "program": "prio",
+      "iter": 19,
+      "time_s": 4.862,
+      "wall_s": 4.864661531,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #20 (rc=0) -----\nf0 start (CPU 3) at 0.000s\nf1 start (CPU 0) at 0.000s\nf2 start (CPU 1) at 0.000s\nf3 start (CPU 0) at 0.000s\nf4 start (CPU 1) at 0.000s\nf10 start (CPU 0) at 0.000s\nf11 start (CPU 1) at 0.000s\nc0 start (CPU 0) at 0.000s\nf11 done (CPU 1, target 0.300s, real 0.150s)\nf0 done (CPU 3, target 0.500s, real 0.249s)\nf10 done (CPU 2, target 0.500s, real 0.250s)\nf1 done (CPU 1, target 0.500s, real 0.409s)\nf2 done (CPU 3, target 0.500s, real 0.499s)\nf5 start (CPU 3) at 0.499s\nf3 done (CPU 2, target 0.500s, real 0.508s)\nf6 start (CPU 2) at 0.509s\nf4 done (CPU 1, target 0.500s, real 0.667s)\nf9 start (CPU 1) at 0.668s\nf7 start (CPU 1) at 0.668s\nf5 done (CPU 3, target 0.500s, real 0.252s)\nf8 start (CPU 3) at 0.752s\nf6 done (CPU 2, target 0.500s, real 0.253s)\nf7 done (CPU 1, target 0.500s, real 0.254s)\nf8 done (CPU 3, target 0.500s, real 0.261s)\nf9 done (CPU 2, target 0.500s, real 0.353s)\nc0 done (CPU 0, target 2.500s, real 1.269s)\nc1 start (CPU 1) at 1.270s\nc1 done (CPU 1, target 2.200s, real 1.050s)\nc2 start (CPU 0) at 2.320s\nc2 done (CPU 0, target 2.000s, real 0.930s)\nc3 start (CPU 1) at 3.251s\nc3 done (CPU 1, target 1.800s, real 0.865s)\nc4 start (CPU 0) at 4.116s\nc4 done (CPU 0, target 1.600s, real 0.745s)\nProgram total time: 4.862s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4861656753\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 20,
+      "time_s": 5.273,
+      "wall_s": 5.275925658,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #21 (rc=0) -----\nf0 start (CPU 0) at 0.000s\nf1 start (CPU 3) at 0.000s\nf2 start (CPU 1) at 0.000s\nf4 start (CPU 2) at 0.000s\nf3 start (CPU 2) at 0.008s\nf5 start (CPU 3) at 0.008s\nf9 start (CPU 0) at 0.008s\nf6 start (CPU 3) at 0.012s\nf7 start (CPU 1) at 0.012s\nf10 start (CPU 3) at 0.016s\nf8 start (CPU 1) at 0.016s\nf11 start (CPU 3) at 0.020s\nc0 start (CPU 3) at 0.028s\nf9 done (CPU 0, target 0.500s, real 0.296s)\nf7 done (CPU 0, target 0.500s, real 0.496s)\nf11 done (CPU 2, target 0.300s, real 0.574s)\nf2 done (CPU 0, target 0.500s, real 0.604s)\nf0 done (CPU 0, target 0.500s, real 0.636s)\nf8 done (CPU 1, target 0.500s, real 0.643s)\nf3 done (CPU 1, target 0.500s, real 0.726s)\nf10 done (CPU 2, target 0.500s, real 0.728s)\nf4 done (CPU 0, target 0.500s, real 0.764s)\nf6 done (CPU 1, target 0.500s, real 0.777s)\nf1 done (CPU 2, target 0.500s, real 0.799s)\nf5 done (CPU 3, target 0.500s, real 0.816s)\nc0 done (CPU 2, target 2.500s, real 1.732s)\nc1 start (CPU 0) at 1.759s\nc1 done (CPU 2, target 2.200s, real 1.018s)\nc2 start (CPU 0) at 2.777s\nc2 done (CPU 2, target 2.000s, real 0.921s)\nc3 start (CPU 0) at 3.699s\nc3 done (CPU 2, target 1.800s, real 0.834s)\nc4 start (CPU 1) at 4.532s\nc4 done (CPU 1, target 1.600s, real 0.740s)\nProgram total time: 5.273s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5272600463\n"
+    },
+    {
+      "program": "prio",
+      "iter": 20,
+      "time_s": 4.793,
+      "wall_s": 4.795740416,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #21 (rc=0) -----\nf0 start (CPU 0) at 0.000s\nf2 start (CPU 3) at 0.000s\nf1 start (CPU 2) at 0.000s\nf10 start (CPU 3) at 0.000s\nf11 start (CPU 2) at 0.000s\nc0 start (CPU 3) at 0.000s\nf11 done (CPU 2, target 0.300s, real 0.145s)\nf0 done (CPU 0, target 0.500s, real 0.249s)\nf10 done (CPU 1, target 0.500s, real 0.256s)\nf3 start (CPU 1) at 0.256s\nf1 done (CPU 2, target 0.500s, real 0.399s)\nf4 start (CPU 2) at 0.399s\nf2 done (CPU 0, target 0.500s, real 0.499s)\nf5 start (CPU 0) at 0.499s\nf3 done (CPU 1, target 0.500s, real 0.251s)\nf6 start (CPU 0) at 0.507s\nf4 done (CPU 2, target 0.500s, real 0.251s)\nf7 start (CPU 2) at 0.650s\nf5 done (CPU 1, target 0.500s, real 0.252s)\nf8 start (CPU 1) at 0.751s\nf6 done (CPU 0, target 0.500s, real 0.250s)\nf9 start (CPU 0) at 0.757s\nf7 done (CPU 2, target 0.500s, real 0.251s)\nf8 done (CPU 1, target 0.500s, real 0.251s)\nf9 done (CPU 0, target 0.500s, real 0.251s)\nc0 done (CPU 3, target 2.500s, real 1.251s)\nc1 start (CPU 2) at 1.251s\nc1 done (CPU 2, target 2.200s, real 1.025s)\nc2 start (CPU 3) at 2.277s\nc2 done (CPU 3, target 2.000s, real 0.927s)\nc3 start (CPU 2) at 3.204s\nc3 done (CPU 2, target 1.800s, real 0.837s)\nc4 start (CPU 3) at 4.041s\nc4 done (CPU 3, target 1.600s, real 0.751s)\nProgram total time: 4.793s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4792732936\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 21,
+      "time_s": 5.296,
+      "wall_s": 5.299226562,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #22 (rc=0) -----\nf0 start (CPU 0) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 1) at 0.000s\nf7 start (CPU 3) at 0.000s\nf3 start (CPU 1) at 0.004s\nf5 start (CPU 0) at 0.016s\nf6 start (CPU 0) at 0.028s\nf8 start (CPU 0) at 0.032s\nf9 start (CPU 0) at 0.035s\nf4 start (CPU 1) at 0.040s\nf10 start (CPU 0) at 0.040s\nf11 start (CPU 1) at 0.044s\nc0 start (CPU 1) at 0.048s\nf7 done (CPU 3, target 0.500s, real 0.252s)\nf1 done (CPU 3, target 0.500s, real 0.256s)\nf11 done (CPU 3, target 0.300s, real 0.322s)\nf8 done (CPU 2, target 0.500s, real 0.436s)\nf10 done (CPU 3, target 0.500s, real 0.539s)\nf4 done (CPU 3, target 0.500s, real 0.644s)\nf0 done (CPU 3, target 0.500s, real 0.740s)\nf5 done (CPU 2, target 0.500s, real 0.740s)\nf3 done (CPU 2, target 0.500s, real 0.773s)\nf2 done (CPU 1, target 0.500s, real 0.780s)\nf6 done (CPU 2, target 0.500s, real 0.785s)\nf9 done (CPU 0, target 0.500s, real 0.788s)\nc0 done (CPU 3, target 2.500s, real 1.706s)\nc1 start (CPU 0) at 1.754s\nc1 done (CPU 2, target 2.200s, real 1.019s)\nc2 start (CPU 0) at 2.773s\nc2 done (CPU 2, target 2.000s, real 0.948s)\nc3 start (CPU 0) at 3.721s\nc3 done (CPU 2, target 1.800s, real 0.841s)\nc4 start (CPU 0) at 4.562s\nc4 done (CPU 2, target 1.600s, real 0.734s)\nProgram total time: 5.296s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5296394444\n"
+    },
+    {
+      "program": "prio",
+      "iter": 21,
+      "time_s": 4.85,
+      "wall_s": 4.852515182,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #22 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf3 start (CPU 2) at 0.000s\nf10 start (CPU 2) at 0.000s\nf11 start (CPU 0) at 0.000s\nc0 start (CPU 3) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.148s)\nf0 done (CPU 1, target 0.500s, real 0.248s)\nf10 done (CPU 2, target 0.500s, real 0.252s)\nf4 start (CPU 2) at 0.253s\nf1 done (CPU 0, target 0.500s, real 0.398s)\nf2 done (CPU 1, target 0.500s, real 0.500s)\nf5 start (CPU 1) at 0.500s\nf3 done (CPU 2, target 0.500s, real 0.504s)\nf6 start (CPU 2) at 0.504s\nf4 done (CPU 0, target 0.500s, real 0.399s)\nf7 start (CPU 0) at 0.652s\nf5 done (CPU 1, target 0.500s, real 0.253s)\nf8 start (CPU 1) at 0.754s\nf6 done (CPU 2, target 0.500s, real 0.251s)\nf9 start (CPU 2) at 0.755s\nf7 done (CPU 0, target 0.500s, real 0.253s)\nf8 done (CPU 1, target 0.500s, real 0.249s)\nf9 done (CPU 2, target 0.500s, real 0.251s)\nc0 done (CPU 3, target 2.500s, real 1.300s)\nc1 start (CPU 2) at 1.301s\nc1 done (CPU 2, target 2.200s, real 1.023s)\nc2 start (CPU 3) at 2.324s\nc2 done (CPU 3, target 2.000s, real 0.955s)\nc3 start (CPU 2) at 3.279s\nc3 done (CPU 2, target 1.800s, real 0.830s)\nc4 start (CPU 3) at 4.109s\nc4 done (CPU 3, target 1.600s, real 0.740s)\nProgram total time: 4.850s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4849745324\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 22,
+      "time_s": 5.184,
+      "wall_s": 5.187387906,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #23 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf2 start (CPU 3) at 0.000s\nf1 start (CPU 3) at 0.000s\nf3 start (CPU 2) at 0.000s\nf4 start (CPU 0) at 0.011s\nf5 start (CPU 0) at 0.015s\nf6 start (CPU 1) at 0.015s\nf9 start (CPU 0) at 0.019s\nf7 start (CPU 1) at 0.019s\nf8 start (CPU 1) at 0.024s\nf10 start (CPU 0) at 0.024s\nf11 start (CPU 1) at 0.028s\nc0 start (CPU 1) at 0.032s\nf3 done (CPU 2, target 0.500s, real 0.246s)\nf2 done (CPU 3, target 0.500s, real 0.261s)\nf1 done (CPU 3, target 0.500s, real 0.456s)\nf7 done (CPU 2, target 0.500s, real 0.444s)\nf11 done (CPU 2, target 0.300s, real 0.650s)\nf10 done (CPU 2, target 0.500s, real 0.716s)\nf9 done (CPU 2, target 0.500s, real 0.764s)\nf5 done (CPU 0, target 0.500s, real 0.798s)\nf0 done (CPU 3, target 0.500s, real 0.818s)\nf8 done (CPU 3, target 0.500s, real 0.815s)\nf4 done (CPU 1, target 0.500s, real 0.827s)\nf6 done (CPU 0, target 0.500s, real 0.826s)\nc0 done (CPU 2, target 2.500s, real 1.638s)\nc1 start (CPU 0) at 1.670s\nc1 done (CPU 2, target 2.200s, real 1.020s)\nc2 start (CPU 0) at 2.690s\nc2 done (CPU 2, target 2.000s, real 0.923s)\nc3 start (CPU 0) at 3.613s\nc3 done (CPU 2, target 1.800s, real 0.832s)\nc4 start (CPU 0) at 4.445s\nc4 done (CPU 2, target 1.600s, real 0.739s)\nProgram total time: 5.184s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5184516747\n"
+    },
+    {
+      "program": "prio",
+      "iter": 22,
+      "time_s": 4.814,
+      "wall_s": 4.817407335,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #23 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf3 start (CPU 2) at 0.000s\nf10 start (CPU 3) at 0.000s\nf11 start (CPU 2) at 0.000s\nc0 start (CPU 2) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.156s)\nf4 start (CPU 0) at 0.156s\nf10 done (CPU 3, target 0.500s, real 0.249s)\nf0 done (CPU 1, target 0.500s, real 0.259s)\nf1 done (CPU 0, target 0.500s, real 0.406s)\nf2 done (CPU 3, target 0.500s, real 0.500s)\nf6 start (CPU 3) at 0.500s\nf5 start (CPU 3) at 0.500s\nf3 done (CPU 1, target 0.500s, real 0.509s)\nf7 start (CPU 1) at 0.509s\nf4 done (CPU 0, target 0.500s, real 0.504s)\nf5 done (CPU 3, target 0.500s, real 0.252s)\nf8 start (CPU 3) at 0.753s\nf6 done (CPU 1, target 0.500s, real 0.261s)\nf9 start (CPU 1) at 0.762s\nf7 done (CPU 0, target 0.500s, real 0.402s)\nf8 done (CPU 3, target 0.500s, real 0.248s)\nf9 done (CPU 1, target 0.500s, real 0.247s)\nc0 done (CPU 2, target 2.500s, real 1.293s)\nc1 start (CPU 3) at 1.294s\nc1 done (CPU 3, target 2.200s, real 1.013s)\nc2 start (CPU 2) at 2.307s\nc2 done (CPU 2, target 2.000s, real 0.929s)\nc3 start (CPU 3) at 3.236s\nc3 done (CPU 3, target 1.800s, real 0.829s)\nc4 start (CPU 2) at 4.066s\nc4 done (CPU 2, target 1.600s, real 0.748s)\nProgram total time: 4.814s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4814276465\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 23,
+      "time_s": 5.214,
+      "wall_s": 5.217136016,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #24 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 3) at 0.000s\nf3 start (CPU 0) at 0.000s\nf5 start (CPU 2) at 0.000s\nf8 start (CPU 1) at 0.010s\nf6 start (CPU 0) at 0.010s\nf9 start (CPU 1) at 0.014s\nf4 start (CPU 3) at 0.014s\nf7 start (CPU 0) at 0.014s\nf11 start (CPU 0) at 0.018s\nf2 start (CPU 3) at 0.014s\nf10 start (CPU 1) at 0.018s\nc0 start (CPU 0) at 0.022s\nf5 done (CPU 2, target 0.500s, real 0.357s)\nf2 done (CPU 2, target 0.500s, real 0.448s)\nf1 done (CPU 3, target 0.500s, real 0.498s)\nf4 done (CPU 2, target 0.500s, real 0.490s)\nf9 done (CPU 3, target 0.500s, real 0.624s)\nf3 done (CPU 2, target 0.500s, real 0.644s)\nf11 done (CPU 0, target 0.300s, real 0.633s)\nf0 done (CPU 0, target 0.500s, real 0.739s)\nf6 done (CPU 2, target 0.500s, real 0.739s)\nf10 done (CPU 1, target 0.500s, real 0.791s)\nf8 done (CPU 0, target 0.500s, real 0.801s)\nf7 done (CPU 2, target 0.500s, real 0.804s)\nc0 done (CPU 3, target 2.500s, real 1.673s)\nc1 start (CPU 0) at 1.695s\nc1 done (CPU 2, target 2.200s, real 1.016s)\nc2 start (CPU 0) at 2.711s\nc2 done (CPU 2, target 2.000s, real 0.934s)\nc3 start (CPU 0) at 3.645s\nc3 done (CPU 2, target 1.800s, real 0.831s)\nc4 start (CPU 0) at 4.477s\nc4 done (CPU 2, target 1.600s, real 0.737s)\nProgram total time: 5.214s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5214329761\n"
+    },
+    {
+      "program": "prio",
+      "iter": 23,
+      "time_s": 4.849,
+      "wall_s": 4.852118087,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #24 (rc=0) -----\nf0 start (CPU 0) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 1) at 0.000s\nf3 start (CPU 2) at 0.000s\nf10 start (CPU 1) at 0.000s\nf11 start (CPU 2) at 0.000s\nc0 start (CPU 2) at 0.000s\nf11 done (CPU 3, target 0.300s, real 0.151s)\nf0 done (CPU 0, target 0.500s, real 0.251s)\nf4 start (CPU 0) at 0.251s\nf10 done (CPU 1, target 0.500s, real 0.251s)\nf6 start (CPU 1) at 0.251s\nf1 done (CPU 3, target 0.500s, real 0.403s)\nf2 done (CPU 0, target 0.500s, real 0.502s)\nf5 start (CPU 0) at 0.502s\nf3 done (CPU 1, target 0.500s, real 0.503s)\nf8 start (CPU 1) at 0.503s\nf4 done (CPU 3, target 0.500s, real 0.404s)\nf7 start (CPU 3) at 0.654s\nf5 done (CPU 0, target 0.500s, real 0.249s)\nf9 start (CPU 0) at 0.752s\nf6 done (CPU 1, target 0.500s, real 0.502s)\nf7 done (CPU 3, target 0.500s, real 0.250s)\nf8 done (CPU 0, target 0.500s, real 0.499s)\nf9 done (CPU 1, target 0.500s, real 0.253s)\nc0 done (CPU 2, target 2.500s, real 1.289s)\nc1 start (CPU 2) at 1.290s\nc1 done (CPU 2, target 2.200s, real 1.072s)\nc2 start (CPU 0) at 2.362s\nc2 done (CPU 0, target 2.000s, real 0.924s)\nc3 start (CPU 1) at 3.286s\nc3 done (CPU 1, target 1.800s, real 0.831s)\nc4 start (CPU 0) at 4.117s\nc4 done (CPU 0, target 1.600s, real 0.732s)\nProgram total time: 4.849s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4849265859\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 24,
+      "time_s": 5.221,
+      "wall_s": 5.224050884,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #25 (rc=0) -----\nf0 start (CPU 3) at 0.000s\nf1 start (CPU 1) at 0.000s\nf3 start (CPU 2) at 0.000s\nf5 start (CPU 0) at 0.000s\nf7 start (CPU 3) at 0.012s\nf6 start (CPU 2) at 0.012s\nf8 start (CPU 3) at 0.016s\nf2 start (CPU 1) at 0.016s\nf9 start (CPU 2) at 0.016s\nf4 start (CPU 1) at 0.020s\nf11 start (CPU 3) at 0.020s\nf10 start (CPU 2) at 0.020s\nc0 start (CPU 3) at 0.024s\nf5 done (CPU 0, target 0.500s, real 0.368s)\nf2 done (CPU 0, target 0.500s, real 0.446s)\nf1 done (CPU 0, target 0.500s, real 0.506s)\nf4 done (CPU 1, target 0.500s, real 0.492s)\nf11 done (CPU 3, target 0.300s, real 0.619s)\nf0 done (CPU 1, target 0.500s, real 0.640s)\nf9 done (CPU 0, target 0.500s, real 0.639s)\nf7 done (CPU 1, target 0.500s, real 0.751s)\nf8 done (CPU 1, target 0.500s, real 0.781s)\nf10 done (CPU 3, target 0.500s, real 0.787s)\nf3 done (CPU 1, target 0.500s, real 0.821s)\nf6 done (CPU 2, target 0.500s, real 0.813s)\nc0 done (CPU 2, target 2.500s, real 1.679s)\nc1 start (CPU 0) at 1.703s\nc1 done (CPU 2, target 2.200s, real 1.018s)\nc2 start (CPU 0) at 2.721s\nc2 done (CPU 2, target 2.000s, real 0.927s)\nc3 start (CPU 0) at 3.647s\nc3 done (CPU 2, target 1.800s, real 0.835s)\nc4 start (CPU 0) at 4.482s\nc4 done (CPU 2, target 1.600s, real 0.738s)\nProgram total time: 5.221s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5220721972\n"
+    },
+    {
+      "program": "prio",
+      "iter": 24,
+      "time_s": 4.804,
+      "wall_s": 4.807364475,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #25 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf4 start (CPU 1) at 0.000s\nf5 start (CPU 3) at 0.000s\nf3 start (CPU 3) at 0.000s\nf10 start (CPU 1) at 0.000s\nf11 start (CPU 3) at 0.000s\nc0 start (CPU 1) at 0.000s\nf11 done (CPU 3, target 0.300s, real 0.154s)\nf10 done (CPU 0, target 0.500s, real 0.247s)\nf0 done (CPU 2, target 0.500s, real 0.252s)\nf1 done (CPU 3, target 0.500s, real 0.404s)\nf2 done (CPU 0, target 0.500s, real 0.497s)\nf6 start (CPU 0) at 0.497s\nf3 done (CPU 2, target 0.500s, real 0.500s)\nf4 done (CPU 3, target 0.500s, real 0.657s)\nf7 start (CPU 3) at 0.658s\nf5 done (CPU 0, target 0.500s, real 0.747s)\nf8 start (CPU 0) at 0.747s\nf6 done (CPU 2, target 0.500s, real 0.254s)\nf9 start (CPU 2) at 0.751s\nf7 done (CPU 3, target 0.500s, real 0.249s)\nf9 done (CPU 2, target 0.500s, real 0.246s)\nf8 done (CPU 0, target 0.500s, real 0.251s)\nc0 done (CPU 1, target 2.500s, real 1.286s)\nc1 start (CPU 3) at 1.287s\nc1 done (CPU 3, target 2.200s, real 1.023s)\nc2 start (CPU 2) at 2.309s\nc2 done (CPU 2, target 2.000s, real 0.925s)\nc3 start (CPU 3) at 3.235s\nc3 done (CPU 3, target 1.800s, real 0.833s)\nc4 start (CPU 2) at 4.068s\nc4 done (CPU 2, target 1.600s, real 0.736s)\nProgram total time: 4.804s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4804275495\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 25,
+      "time_s": 5.262,
+      "wall_s": 5.265232881,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #26 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 3) at 0.000s\nf2 start (CPU 0) at 0.000s\nf7 start (CPU 2) at 0.000s\nf3 start (CPU 0) at 0.016s\nf5 start (CPU 1) at 0.016s\nf4 start (CPU 0) at 0.020s\nf6 start (CPU 1) at 0.020s\nf11 start (CPU 0) at 0.023s\nf8 start (CPU 1) at 0.023s\nf9 start (CPU 1) at 0.028s\nc0 start (CPU 0) at 0.028s\nf10 start (CPU 1) at 0.032s\nf7 done (CPU 2, target 0.500s, real 0.253s)\nf1 done (CPU 3, target 0.500s, real 0.270s)\nf6 done (CPU 2, target 0.500s, real 0.442s)\nf3 done (CPU 3, target 0.500s, real 0.458s)\nf11 done (CPU 2, target 0.300s, real 0.548s)\nf9 done (CPU 3, target 0.500s, real 0.612s)\nf2 done (CPU 3, target 0.500s, real 0.727s)\nf4 done (CPU 2, target 0.500s, real 0.721s)\nf0 done (CPU 3, target 0.500s, real 0.782s)\nf5 done (CPU 1, target 0.500s, real 0.773s)\nf10 done (CPU 3, target 0.500s, real 0.782s)\nf8 done (CPU 0, target 0.500s, real 0.792s)\nc0 done (CPU 2, target 2.500s, real 1.714s)\nc1 start (CPU 0) at 1.742s\nc1 done (CPU 2, target 2.200s, real 1.019s)\nc2 start (CPU 0) at 2.761s\nc2 done (CPU 2, target 2.000s, real 0.929s)\nc3 start (CPU 0) at 3.690s\nc3 done (CPU 2, target 1.800s, real 0.833s)\nc4 start (CPU 0) at 4.523s\nc4 done (CPU 2, target 1.600s, real 0.740s)\nProgram total time: 5.262s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5262340868\n"
+    },
+    {
+      "program": "prio",
+      "iter": 25,
+      "time_s": 4.834,
+      "wall_s": 4.837465258,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #26 (rc=0) -----\nf1 start (CPU 2) at 0.000s\nf4 start (CPU 3) at 0.000s\nf2 start (CPU 3) at 0.000s\nf11 start (CPU 3) at 0.000s\nf3 start (CPU 1) at 0.000s\nf0 start (CPU 1) at 0.000s\nc0 start (CPU 3) at 0.000s\nf10 start (CPU 2) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.161s)\nf0 done (CPU 1, target 0.500s, real 0.249s)\nf5 start (CPU 1) at 0.249s\nf10 done (CPU 2, target 0.500s, real 0.250s)\nf7 start (CPU 2) at 0.000s\nf1 done (CPU 0, target 0.500s, real 0.412s)\nf2 done (CPU 1, target 0.500s, real 0.502s)\nf9 start (CPU 1) at 0.502s\nf6 start (CPU 1) at 0.502s\nf3 done (CPU 2, target 0.500s, real 0.502s)\nf4 done (CPU 0, target 0.500s, real 0.662s)\nf6 done (CPU 2, target 0.500s, real 0.250s)\nf8 start (CPU 2) at 0.752s\nf5 done (CPU 1, target 0.500s, real 0.504s)\nf7 done (CPU 0, target 0.500s, real 0.915s)\nf8 done (CPU 2, target 0.500s, real 0.302s)\nf9 done (CPU 1, target 0.500s, real 0.556s)\nc0 done (CPU 3, target 2.500s, real 1.290s)\nc1 start (CPU 2) at 1.290s\nc1 done (CPU 2, target 2.200s, real 1.031s)\nc2 start (CPU 3) at 2.321s\nc2 done (CPU 3, target 2.000s, real 0.929s)\nc3 start (CPU 2) at 3.251s\nc3 done (CPU 2, target 1.800s, real 0.842s)\nc4 start (CPU 3) at 4.092s\nc4 done (CPU 3, target 1.600s, real 0.742s)\nProgram total time: 4.834s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4834352345\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 26,
+      "time_s": 5.266,
+      "wall_s": 5.268851025,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #27 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf2 start (CPU 1) at 0.000s\nf3 start (CPU 3) at 0.000s\nf4 start (CPU 0) at 0.000s\nf5 start (CPU 0) at 0.004s\nf7 start (CPU 1) at 0.008s\nf1 start (CPU 2) at 0.000s\nf8 start (CPU 1) at 0.017s\nf6 start (CPU 0) at 0.024s\nf11 start (CPU 1) at 0.024s\nf9 start (CPU 0) at 0.032s\nc0 start (CPU 1) at 0.032s\nf10 start (CPU 0) at 0.036s\nf3 done (CPU 3, target 0.500s, real 0.250s)\nf0 done (CPU 3, target 0.500s, real 0.383s)\nf1 done (CPU 3, target 0.500s, real 0.386s)\nf11 done (CPU 2, target 0.300s, real 0.440s)\nf9 done (CPU 3, target 0.500s, real 0.561s)\nf6 done (CPU 3, target 0.500s, real 0.688s)\nf8 done (CPU 3, target 0.500s, real 0.734s)\nf4 done (CPU 2, target 0.500s, real 0.755s)\nf5 done (CPU 3, target 0.500s, real 0.787s)\nf7 done (CPU 2, target 0.500s, real 0.793s)\nf2 done (CPU 0, target 0.500s, real 0.811s)\nf10 done (CPU 3, target 0.500s, real 0.782s)\nc0 done (CPU 1, target 2.500s, real 1.727s)\nc1 start (CPU 2) at 1.759s\nc1 done (CPU 2, target 2.200s, real 1.015s)\nc2 start (CPU 0) at 2.774s\nc2 done (CPU 2, target 2.000s, real 0.923s)\nc3 start (CPU 0) at 3.696s\nc3 done (CPU 2, target 1.800s, real 0.834s)\nc4 start (CPU 0) at 4.530s\nc4 done (CPU 2, target 1.600s, real 0.735s)\nProgram total time: 5.266s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5265848052\n"
+    },
+    {
+      "program": "prio",
+      "iter": 26,
+      "time_s": 4.807,
+      "wall_s": 4.810271814,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #27 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf2 start (CPU 3) at 0.000s\nf1 start (CPU 2) at 0.000s\nf9 start (CPU 1) at 0.000s\nf10 start (CPU 3) at 0.000s\nf11 start (CPU 1) at 0.000s\nc0 start (CPU 2) at 0.000s\nf11 done (CPU 1, target 0.300s, real 0.152s)\nf0 done (CPU 0, target 0.500s, real 0.247s)\nf10 done (CPU 3, target 0.500s, real 0.265s)\nf4 start (CPU 3) at 0.266s\nf3 start (CPU 3) at 0.266s\nf1 done (CPU 1, target 0.500s, real 0.404s)\nf5 start (CPU 1) at 0.404s\nf2 done (CPU 0, target 0.500s, real 0.503s)\nf3 done (CPU 3, target 0.500s, real 0.250s)\nf6 start (CPU 3) at 0.516s\nf4 done (CPU 1, target 0.500s, real 0.390s)\nf7 start (CPU 1) at 0.656s\nf5 done (CPU 0, target 0.500s, real 0.350s)\nf8 start (CPU 0) at 0.754s\nf6 done (CPU 3, target 0.500s, real 0.249s)\nf7 done (CPU 1, target 0.500s, real 0.254s)\nf8 done (CPU 0, target 0.500s, real 0.250s)\nf9 done (CPU 3, target 0.500s, real 1.014s)\nc0 done (CPU 2, target 2.500s, real 1.247s)\nc1 start (CPU 3) at 1.248s\nc1 done (CPU 3, target 2.200s, real 1.044s)\nc2 start (CPU 2) at 2.292s\nc2 done (CPU 2, target 2.000s, real 0.922s)\nc3 start (CPU 3) at 3.214s\nc3 done (CPU 3, target 1.800s, real 0.842s)\nc4 start (CPU 2) at 4.056s\nc4 done (CPU 2, target 1.600s, real 0.751s)\nProgram total time: 4.807s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4807363227\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 27,
+      "time_s": 5.19,
+      "wall_s": 5.192861223,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #28 (rc=0) -----\nf0 start (CPU 2) at 0.000s\nf1 start (CPU 1) at 0.000s\nf2 start (CPU 3) at 0.000s\nf4 start (CPU 0) at 0.000s\nf3 start (CPU 0) at 0.004s\nf9 start (CPU 2) at 0.008s\nf8 start (CPU 3) at 0.008s\nf5 start (CPU 1) at 0.008s\nf7 start (CPU 3) at 0.008s\nf6 start (CPU 1) at 0.012s\nf10 start (CPU 1) at 0.016s\nf11 start (CPU 1) at 0.021s\nc0 start (CPU 1) at 0.029s\nf8 done (CPU 3, target 0.500s, real 0.560s)\nf2 done (CPU 3, target 0.500s, real 0.575s)\nf0 done (CPU 2, target 0.500s, real 0.599s)\nf9 done (CPU 2, target 0.500s, real 0.605s)\nf11 done (CPU 2, target 0.300s, real 0.619s)\nf7 done (CPU 3, target 0.500s, real 0.636s)\nf10 done (CPU 3, target 0.500s, real 0.709s)\nf6 done (CPU 3, target 0.500s, real 0.773s)\nf4 done (CPU 0, target 0.500s, real 0.793s)\nf3 done (CPU 0, target 0.500s, real 0.801s)\nf1 done (CPU 3, target 0.500s, real 0.820s)\nf5 done (CPU 1, target 0.500s, real 0.812s)\nc0 done (CPU 2, target 2.500s, real 1.651s)\nc1 start (CPU 0) at 1.680s\nc1 done (CPU 2, target 2.200s, real 1.011s)\nc2 start (CPU 0) at 2.692s\nc2 done (CPU 2, target 2.000s, real 0.930s)\nc3 start (CPU 0) at 3.622s\nc3 done (CPU 2, target 1.800s, real 0.832s)\nc4 start (CPU 0) at 4.454s\nc4 done (CPU 2, target 1.600s, real 0.735s)\nProgram total time: 5.190s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5189770195\n"
+    },
+    {
+      "program": "prio",
+      "iter": 27,
+      "time_s": 4.907,
+      "wall_s": 4.910439113,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #28 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf7 start (CPU 1) at 0.000s\nf10 start (CPU 3) at 0.000s\nf11 start (CPU 2) at 0.000s\nc0 start (CPU 3) at 0.000s\nf11 done (CPU 2, target 0.300s, real 0.154s)\nf10 done (CPU 0, target 0.500s, real 0.247s)\nf3 start (CPU 0) at 0.247s\nf0 done (CPU 1, target 0.500s, real 0.252s)\nf9 start (CPU 1) at 0.252s\nf1 done (CPU 2, target 0.500s, real 0.406s)\nf5 start (CPU 2) at 0.406s\nf4 start (CPU 2) at 0.406s\nf2 done (CPU 0, target 0.500s, real 0.499s)\nf3 done (CPU 1, target 0.500s, real 0.258s)\nf6 start (CPU 1) at 0.506s\nf4 done (CPU 2, target 0.500s, real 0.250s)\nf5 done (CPU 0, target 0.500s, real 0.343s)\nf8 start (CPU 0) at 0.750s\nf6 done (CPU 1, target 0.500s, real 0.256s)\nf7 done (CPU 2, target 0.500s, real 0.913s)\nf8 done (CPU 0, target 0.500s, real 0.267s)\nf9 done (CPU 1, target 0.500s, real 0.780s)\nc0 done (CPU 3, target 2.500s, real 1.257s)\nc1 start (CPU 2) at 1.258s\nc1 done (CPU 2, target 2.200s, real 1.061s)\nc2 start (CPU 3) at 2.319s\nc2 done (CPU 3, target 2.000s, real 0.947s)\nc3 start (CPU 2) at 3.266s\nc3 done (CPU 2, target 1.800s, real 0.885s)\nc4 start (CPU 3) at 4.151s\nc4 done (CPU 3, target 1.600s, real 0.756s)\nProgram total time: 4.907s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4907479966\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 28,
+      "time_s": 5.233,
+      "wall_s": 5.235742486,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #29 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 3) at 0.000s\nf2 start (CPU 0) at 0.000s\nf5 start (CPU 2) at 0.000s\nf3 start (CPU 3) at 0.000s\nf6 start (CPU 1) at 0.009s\nf7 start (CPU 1) at 0.013s\nf8 start (CPU 1) at 0.017s\nf9 start (CPU 0) at 0.021s\nf10 start (CPU 0) at 0.025s\nf11 start (CPU 1) at 0.025s\nc0 start (CPU 1) at 0.029s\nf4 start (CPU 0) at 0.049s\nf5 done (CPU 2, target 0.500s, real 0.250s)\nf1 done (CPU 3, target 0.500s, real 0.252s)\nf11 done (CPU 2, target 0.300s, real 0.520s)\nf4 done (CPU 3, target 0.500s, real 0.628s)\nf3 done (CPU 3, target 0.500s, real 0.703s)\nf7 done (CPU 2, target 0.500s, real 0.701s)\nf10 done (CPU 3, target 0.500s, real 0.704s)\nf6 done (CPU 2, target 0.500s, real 0.754s)\nf2 done (CPU 0, target 0.500s, real 0.778s)\nf8 done (CPU 2, target 0.500s, real 0.784s)\nf0 done (CPU 1, target 0.500s, real 0.801s)\nf9 done (CPU 0, target 0.500s, real 0.790s)\nc0 done (CPU 3, target 2.500s, real 1.680s)\nc1 start (CPU 0) at 1.709s\nc1 done (CPU 0, target 2.200s, real 1.015s)\nc2 start (CPU 3) at 2.724s\nc2 done (CPU 3, target 2.000s, real 0.925s)\nc3 start (CPU 0) at 3.650s\nc3 done (CPU 2, target 1.800s, real 0.844s)\nc4 start (CPU 0) at 4.493s\nc4 done (CPU 2, target 1.600s, real 0.739s)\nProgram total time: 5.233s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5232897233\n"
+    },
+    {
+      "program": "prio",
+      "iter": 28,
+      "time_s": 4.849,
+      "wall_s": 4.851961206,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #29 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf3 start (CPU 2) at 0.000s\nf10 start (CPU 2) at 0.000s\nf11 start (CPU 3) at 0.000s\nc0 start (CPU 2) at 0.000s\nf11 done (CPU 3, target 0.300s, real 0.152s)\nf0 done (CPU 1, target 0.500s, real 0.248s)\nf4 start (CPU 1) at 0.248s\nf10 done (CPU 0, target 0.500s, real 0.264s)\nf1 done (CPU 3, target 0.500s, real 0.404s)\nf5 start (CPU 3) at 0.404s\nf2 done (CPU 1, target 0.500s, real 0.505s)\nf6 start (CPU 1) at 0.505s\nf3 done (CPU 0, target 0.500s, real 0.516s)\nf4 done (CPU 3, target 0.500s, real 0.412s)\nf7 start (CPU 3) at 0.660s\nf5 done (CPU 1, target 0.500s, real 0.363s)\nf8 start (CPU 1) at 0.767s\nf6 done (CPU 0, target 0.500s, real 0.273s)\nf9 start (CPU 0) at 0.778s\nf7 done (CPU 3, target 0.500s, real 0.255s)\nf8 done (CPU 1, target 0.500s, real 0.249s)\nf9 done (CPU 0, target 0.500s, real 0.250s)\nc0 done (CPU 2, target 2.500s, real 1.258s)\nc1 start (CPU 3) at 1.259s\nc1 done (CPU 3, target 2.200s, real 1.034s)\nc2 start (CPU 2) at 2.293s\nc2 done (CPU 2, target 2.000s, real 0.960s)\nc3 start (CPU 3) at 3.253s\nc3 done (CPU 3, target 1.800s, real 0.851s)\nc4 start (CPU 2) at 4.103s\nc4 done (CPU 2, target 1.600s, real 0.746s)\nProgram total time: 4.849s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4849096878\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 29,
+      "time_s": 5.211,
+      "wall_s": 5.213847636,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #30 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 3) at 0.000s\nf3 start (CPU 0) at 0.000s\nf2 start (CPU 2) at 0.000s\nf4 start (CPU 0) at 0.013s\nf5 start (CPU 0) at 0.017s\nf6 start (CPU 1) at 0.017s\nf7 start (CPU 1) at 0.021s\nf10 start (CPU 0) at 0.021s\nf8 start (CPU 1) at 0.025s\nf11 start (CPU 0) at 0.025s\nf9 start (CPU 1) at 0.029s\nc0 start (CPU 0) at 0.033s\nf1 done (CPU 3, target 0.500s, real 0.251s)\nf2 done (CPU 2, target 0.500s, real 0.257s)\nf3 done (CPU 3, target 0.500s, real 0.453s)\nf7 done (CPU 2, target 0.500s, real 0.441s)\nf11 done (CPU 0, target 0.300s, real 0.579s)\nf0 done (CPU 3, target 0.500s, real 0.650s)\nf8 done (CPU 0, target 0.500s, real 0.708s)\nf6 done (CPU 3, target 0.500s, real 0.722s)\nf4 done (CPU 2, target 0.500s, real 0.774s)\nf9 done (CPU 0, target 0.500s, real 0.760s)\nf5 done (CPU 0, target 0.500s, real 0.803s)\nf10 done (CPU 1, target 0.500s, real 0.808s)\nc0 done (CPU 3, target 2.500s, real 1.656s)\nc1 start (CPU 1) at 1.689s\nc1 done (CPU 1, target 2.200s, real 1.019s)\nc2 start (CPU 2) at 2.708s\nc2 done (CPU 2, target 2.000s, real 0.925s)\nc3 start (CPU 0) at 3.633s\nc3 done (CPU 2, target 1.800s, real 0.839s)\nc4 start (CPU 0) at 4.471s\nc4 done (CPU 2, target 1.600s, real 0.740s)\nProgram total time: 5.211s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5211169603\n"
+    },
+    {
+      "program": "prio",
+      "iter": 29,
+      "time_s": 4.822,
+      "wall_s": 4.824959072,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #30 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf2 start (CPU 3) at 0.000s\nf1 start (CPU 2) at 0.000s\nf10 start (CPU 1) at 0.000s\nf11 start (CPU 1) at 0.000s\nc0 start (CPU 2) at 0.000s\nf11 done (CPU 1, target 0.300s, real 0.148s)\nf0 done (CPU 3, target 0.500s, real 0.248s)\nf4 start (CPU 3) at 0.248s\nf10 done (CPU 0, target 0.500s, real 0.260s)\nf3 start (CPU 0) at 0.260s\nf1 done (CPU 1, target 0.500s, real 0.398s)\nf8 start (CPU 1) at 0.398s\nf2 done (CPU 3, target 0.500s, real 0.499s)\nf5 start (CPU 3) at 0.499s\nf3 done (CPU 0, target 0.500s, real 0.250s)\nf6 start (CPU 0) at 0.511s\nf4 done (CPU 1, target 0.500s, real 0.408s)\nf7 start (CPU 1) at 0.656s\nf5 done (CPU 3, target 0.500s, real 0.263s)\nf9 start (CPU 3) at 0.762s\nf6 done (CPU 0, target 0.500s, real 0.256s)\nf7 done (CPU 1, target 0.500s, real 0.260s)\nf8 done (CPU 3, target 0.500s, real 0.618s)\nf9 done (CPU 0, target 0.500s, real 0.261s)\nc0 done (CPU 2, target 2.500s, real 1.263s)\nc1 start (CPU 3) at 1.264s\nc1 done (CPU 3, target 2.200s, real 1.028s)\nc2 start (CPU 2) at 2.292s\nc2 done (CPU 2, target 2.000s, real 0.951s)\nc3 start (CPU 3) at 3.244s\nc3 done (CPU 3, target 1.800s, real 0.837s)\nc4 start (CPU 2) at 4.081s\nc4 done (CPU 2, target 1.600s, real 0.740s)\nProgram total time: 4.822s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4821999483\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 30,
+      "time_s": 5.244,
+      "wall_s": 5.246559664,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #31 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 3) at 0.000s\nf2 start (CPU 0) at 0.000s\nf7 start (CPU 2) at 0.000s\nf3 start (CPU 0) at 0.001s\nf4 start (CPU 1) at 0.013s\nf5 start (CPU 1) at 0.021s\nf10 start (CPU 1) at 0.025s\nf11 start (CPU 1) at 0.029s\nf6 start (CPU 0) at 0.029s\nc0 start (CPU 1) at 0.033s\nf8 start (CPU 0) at 0.033s\nf9 start (CPU 0) at 0.037s\nf1 done (CPU 3, target 0.500s, real 0.248s)\nf7 done (CPU 2, target 0.500s, real 0.250s)\nf4 done (CPU 2, target 0.500s, real 0.449s)\nf8 done (CPU 3, target 0.500s, real 0.433s)\nf11 done (CPU 0, target 0.300s, real 0.599s)\nf6 done (CPU 0, target 0.500s, real 0.625s)\nf0 done (CPU 0, target 0.500s, real 0.702s)\nf3 done (CPU 2, target 0.500s, real 0.749s)\nf10 done (CPU 1, target 0.500s, real 0.767s)\nf5 done (CPU 2, target 0.500s, real 0.773s)\nf2 done (CPU 3, target 0.500s, real 0.819s)\nf9 done (CPU 2, target 0.500s, real 0.782s)\nc0 done (CPU 2, target 2.500s, real 1.699s)\nc1 start (CPU 0) at 1.732s\nc1 done (CPU 2, target 2.200s, real 1.024s)\nc2 start (CPU 0) at 2.756s\nc2 done (CPU 2, target 2.000s, real 0.925s)\nc3 start (CPU 1) at 3.681s\nc3 done (CPU 1, target 1.800s, real 0.829s)\nc4 start (CPU 3) at 4.509s\nc4 done (CPU 3, target 1.600s, real 0.734s)\nProgram total time: 5.244s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5243754728\n"
+    },
+    {
+      "program": "prio",
+      "iter": 30,
+      "time_s": 4.797,
+      "wall_s": 4.799313656,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #31 (rc=0) -----\nf0 start (CPU 2) at 0.000s\nf1 start (CPU 0) at 0.000s\nf2 start (CPU 1) at 0.000s\nf11 start (CPU 0) at 0.000s\nf10 start (CPU 3) at 0.000s\nc0 start (CPU 1) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.147s)\nf3 start (CPU 0) at 0.000s\nf0 done (CPU 2, target 0.500s, real 0.247s)\nf10 done (CPU 3, target 0.500s, real 0.247s)\nf1 done (CPU 0, target 0.500s, real 0.398s)\nf6 start (CPU 0) at 0.398s\nf4 start (CPU 0) at 0.398s\nf3 done (CPU 3, target 0.500s, real 0.497s)\nf5 start (CPU 3) at 0.497s\nf2 done (CPU 2, target 0.500s, real 0.498s)\nf8 start (CPU 2) at 0.498s\nf7 start (CPU 2) at 0.498s\nf4 done (CPU 0, target 0.500s, real 0.253s)\nf9 start (CPU 0) at 0.651s\nf5 done (CPU 3, target 0.500s, real 0.249s)\nf6 done (CPU 2, target 0.500s, real 0.352s)\nf7 done (CPU 0, target 0.500s, real 0.403s)\nf8 done (CPU 3, target 0.500s, real 0.498s)\nf9 done (CPU 2, target 0.500s, real 0.347s)\nc0 done (CPU 1, target 2.500s, real 1.259s)\nc1 start (CPU 0) at 1.260s\nc1 done (CPU 0, target 2.200s, real 1.019s)\nc2 start (CPU 1) at 2.279s\nc2 done (CPU 1, target 2.000s, real 0.929s)\nc3 start (CPU 0) at 3.208s\nc3 done (CPU 0, target 1.800s, real 0.835s)\nc4 start (CPU 1) at 4.044s\nc4 done (CPU 1, target 1.600s, real 0.753s)\nProgram total time: 4.797s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4796575916\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 31,
+      "time_s": 5.314,
+      "wall_s": 5.31672347,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #32 (rc=0) -----\nf0 start (CPU 2) at 0.000s\nf1 start (CPU 0) at 0.000s\nf2 start (CPU 3) at 0.000s\nf5 start (CPU 1) at 0.000s\nf6 start (CPU 3) at 0.011s\nf8 start (CPU 2) at 0.011s\nf7 start (CPU 3) at 0.015s\nf3 start (CPU 0) at 0.015s\nf4 start (CPU 0) at 0.019s\nf9 start (CPU 2) at 0.019s\nf10 start (CPU 2) at 0.019s\nf11 start (CPU 3) at 0.022s\nc0 start (CPU 3) at 0.026s\nf5 done (CPU 1, target 0.500s, real 0.252s)\nf1 done (CPU 1, target 0.500s, real 0.416s)\nf4 done (CPU 1, target 0.500s, real 0.485s)\nf3 done (CPU 0, target 0.500s, real 0.492s)\nf0 done (CPU 1, target 0.500s, real 0.636s)\nf11 done (CPU 2, target 0.300s, real 0.616s)\nf2 done (CPU 0, target 0.500s, real 0.647s)\nf6 done (CPU 0, target 0.500s, real 0.745s)\nf7 done (CPU 0, target 0.500s, real 0.801s)\nf8 done (CPU 0, target 0.500s, real 0.809s)\nf9 done (CPU 3, target 0.500s, real 0.824s)\nf10 done (CPU 2, target 0.500s, real 0.845s)\nc0 done (CPU 2, target 2.500s, real 1.750s)\nc1 start (CPU 0) at 1.777s\nc1 done (CPU 2, target 2.200s, real 1.022s)\nc2 start (CPU 0) at 2.798s\nc2 done (CPU 2, target 2.000s, real 0.932s)\nc3 start (CPU 0) at 3.730s\nc3 done (CPU 2, target 1.800s, real 0.834s)\nc4 start (CPU 0) at 4.564s\nc4 done (CPU 2, target 1.600s, real 0.750s)\nProgram total time: 5.314s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5313917387\n"
+    },
+    {
+      "program": "prio",
+      "iter": 31,
+      "time_s": 4.809,
+      "wall_s": 4.812292567,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #32 (rc=0) -----\nf0 start (CPU 3) at 0.000s\nf2 start (CPU 1) at 0.000s\nf4 start (CPU 3) at 0.000s\nf3 start (CPU 3) at 0.000s\nf1 start (CPU 0) at 0.000s\nf10 start (CPU 3) at 0.000s\nf11 start (CPU 3) at 0.000s\nc0 start (CPU 1) at 0.000s\nf11 done (CPU 3, target 0.300s, real 0.148s)\nf10 done (CPU 2, target 0.500s, real 0.246s)\nf5 start (CPU 2) at 0.247s\nf0 done (CPU 0, target 0.500s, real 0.258s)\nf8 start (CPU 0) at 0.258s\nf1 done (CPU 3, target 0.500s, real 0.400s)\nf2 done (CPU 2, target 0.500s, real 0.504s)\nf3 done (CPU 0, target 0.500s, real 0.515s)\nf6 start (CPU 0) at 0.515s\nf4 done (CPU 3, target 0.500s, real 0.649s)\nf7 start (CPU 3) at 0.650s\nf5 done (CPU 2, target 0.500s, real 0.512s)\nf6 done (CPU 0, target 0.500s, real 0.250s)\nf9 start (CPU 0) at 0.765s\nf7 done (CPU 3, target 0.500s, real 0.253s)\nf8 done (CPU 2, target 0.500s, real 0.749s)\nf9 done (CPU 0, target 0.500s, real 0.250s)\nc0 done (CPU 1, target 2.500s, real 1.243s)\nc1 start (CPU 0) at 1.243s\nc1 done (CPU 0, target 2.200s, real 1.026s)\nc2 start (CPU 1) at 2.270s\nc2 done (CPU 1, target 2.000s, real 0.958s)\nc3 start (CPU 0) at 3.228s\nc3 done (CPU 0, target 1.800s, real 0.838s)\nc4 start (CPU 1) at 4.066s\nc4 done (CPU 1, target 1.600s, real 0.743s)\nProgram total time: 4.809s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4809445544\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 32,
+      "time_s": 5.224,
+      "wall_s": 5.226383101,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #33 (rc=0) -----\nf0 start (CPU 3) at 0.000s\nf1 start (CPU 0) at 0.000s\nf3 start (CPU 2) at 0.000s\nf5 start (CPU 1) at 0.000s\nf6 start (CPU 2) at 0.009s\nf8 start (CPU 3) at 0.009s\nf2 start (CPU 0) at 0.000s\nf7 start (CPU 2) at 0.013s\nf9 start (CPU 3) at 0.013s\nf11 start (CPU 2) at 0.017s\nf10 start (CPU 3) at 0.017s\nc0 start (CPU 2) at 0.025s\nf4 start (CPU 0) at 0.041s\nf5 done (CPU 1, target 0.500s, real 0.362s)\nf1 done (CPU 1, target 0.500s, real 0.449s)\nf2 done (CPU 1, target 0.500s, real 0.503s)\nf4 done (CPU 1, target 0.500s, real 0.477s)\nf10 done (CPU 0, target 0.500s, real 0.626s)\nf11 done (CPU 2, target 0.300s, real 0.637s)\nf0 done (CPU 2, target 0.500s, real 0.927s)\nf8 done (CPU 2, target 0.500s, real 0.932s)\nf9 done (CPU 2, target 0.500s, real 0.935s)\nf3 done (CPU 3, target 0.500s, real 0.957s)\nf6 done (CPU 2, target 0.500s, real 0.949s)\nf7 done (CPU 3, target 0.500s, real 0.953s)\nc0 done (CPU 2, target 2.500s, real 1.678s)\nc1 start (CPU 0) at 1.703s\nc1 done (CPU 2, target 2.200s, real 1.030s)\nc2 start (CPU 0) at 2.733s\nc2 done (CPU 2, target 2.000s, real 0.921s)\nc3 start (CPU 0) at 3.654s\nc3 done (CPU 2, target 1.800s, real 0.830s)\nc4 start (CPU 1) at 4.484s\nc4 done (CPU 1, target 1.600s, real 0.739s)\nProgram total time: 5.224s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5223603089\n"
+    },
+    {
+      "program": "prio",
+      "iter": 32,
+      "time_s": 4.968,
+      "wall_s": 4.971097802,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #33 (rc=0) -----\nf0 start (CPU 3) at 0.000s\nf2 start (CPU 1) at 0.000s\nf5 start (CPU 3) at 0.000s\nf1 start (CPU 0) at 0.000s\nf3 start (CPU 3) at 0.000s\nc0 start (CPU 3) at 0.000s\nf11 start (CPU 2) at 0.000s\nf10 start (CPU 1) at 0.000s\nf11 done (CPU 2, target 0.300s, real 0.147s)\nf0 done (CPU 0, target 0.500s, real 0.248s)\nf4 start (CPU 0) at 0.248s\nf10 done (CPU 1, target 0.500s, real 0.265s)\nf6 start (CPU 1) at 0.265s\nf1 done (CPU 2, target 0.500s, real 0.397s)\nf2 done (CPU 0, target 0.500s, real 0.501s)\nf3 done (CPU 1, target 0.500s, real 0.532s)\nf4 done (CPU 2, target 0.500s, real 0.405s)\nf7 start (CPU 2) at 0.653s\nf5 done (CPU 0, target 0.500s, real 0.751s)\nf8 start (CPU 0) at 0.751s\nf6 done (CPU 1, target 0.500s, real 0.524s)\nf9 start (CPU 1) at 0.789s\nf7 done (CPU 2, target 0.500s, real 0.257s)\nf8 done (CPU 0, target 0.500s, real 0.260s)\nf9 done (CPU 1, target 0.500s, real 0.253s)\nc0 done (CPU 3, target 2.500s, real 1.258s)\nc1 start (CPU 3) at 1.259s\nc1 done (CPU 3, target 2.200s, real 1.073s)\nc2 start (CPU 3) at 2.332s\nc2 done (CPU 3, target 2.000s, real 0.971s)\nc3 start (CPU 3) at 3.304s\nc3 done (CPU 3, target 1.800s, real 0.877s)\nc4 start (CPU 3) at 4.181s\nc4 done (CPU 3, target 1.600s, real 0.787s)\nProgram total time: 4.968s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4968241671\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 33,
+      "time_s": 5.196,
+      "wall_s": 5.198950865,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #34 (rc=0) -----\nf0 start (CPU 3) at 0.000s\nf1 start (CPU 1) at 0.000s\nf2 start (CPU 2) at 0.000s\nc0 start (CPU 0) at 0.000s\nf11 start (CPU 0) at 0.003s\nf10 start (CPU 0) at 0.007s\nf6 start (CPU 1) at 0.007s\nf5 start (CPU 1) at 0.007s\nf7 start (CPU 2) at 0.011s\nf8 start (CPU 1) at 0.015s\nf9 start (CPU 1) at 0.019s\nf4 start (CPU 0) at 0.015s\nf3 start (CPU 0) at 0.039s\nf0 done (CPU 3, target 0.500s, real 0.262s)\nf2 done (CPU 2, target 0.500s, real 0.365s)\nf7 done (CPU 3, target 0.500s, real 0.390s)\nf11 done (CPU 0, target 0.300s, real 0.573s)\nf5 done (CPU 3, target 0.500s, real 0.671s)\nf9 done (CPU 3, target 0.500s, real 0.705s)\nf6 done (CPU 3, target 0.500s, real 0.735s)\nf3 done (CPU 3, target 0.500s, real 0.750s)\nf1 done (CPU 3, target 0.500s, real 0.806s)\nf8 done (CPU 1, target 0.500s, real 0.796s)\nf4 done (CPU 0, target 0.500s, real 0.808s)\nf10 done (CPU 0, target 0.500s, real 0.832s)\nc0 done (CPU 2, target 2.500s, real 1.672s)\nc1 start (CPU 0) at 1.672s\nc1 done (CPU 2, target 2.200s, real 1.027s)\nc2 start (CPU 0) at 2.699s\nc2 done (CPU 2, target 2.000s, real 0.931s)\nc3 start (CPU 0) at 3.631s\nc3 done (CPU 2, target 1.800s, real 0.829s)\nc4 start (CPU 0) at 4.460s\nc4 done (CPU 2, target 1.600s, real 0.736s)\nProgram total time: 5.196s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5196149549\n"
+    },
+    {
+      "program": "prio",
+      "iter": 33,
+      "time_s": 4.859,
+      "wall_s": 4.861806539,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #34 (rc=0) -----\nf0 start (CPU 3) at 0.000s\nf1 start (CPU 0) at 0.000s\nf2 start (CPU 1) at 0.000s\nf7 start (CPU 3) at 0.000s\nf5 start (CPU 1) at 0.000s\nf10 start (CPU 0) at 0.000s\nf11 start (CPU 3) at 0.000s\nc0 start (CPU 3) at 0.000s\nf11 done (CPU 2, target 0.300s, real 0.157s)\nf3 start (CPU 2) at 0.157s\nf10 done (CPU 0, target 0.500s, real 0.251s)\nf4 start (CPU 0) at 0.251s\nf0 done (CPU 1, target 0.500s, real 0.261s)\nf1 done (CPU 2, target 0.500s, real 0.407s)\nf6 start (CPU 2) at 0.407s\nf2 done (CPU 0, target 0.500s, real 0.508s)\nf3 done (CPU 1, target 0.500s, real 0.356s)\nf8 start (CPU 1) at 0.514s\nf4 done (CPU 2, target 0.500s, real 0.406s)\nf5 done (CPU 0, target 0.500s, real 0.763s)\nf6 done (CPU 1, target 0.500s, real 0.360s)\nf9 start (CPU 1) at 0.767s\nf7 done (CPU 2, target 0.500s, real 0.908s)\nf8 done (CPU 0, target 0.500s, real 0.499s)\nf9 done (CPU 1, target 0.500s, real 0.250s)\nc0 done (CPU 3, target 2.500s, real 1.310s)\nc1 start (CPU 0) at 1.310s\nc1 done (CPU 0, target 2.200s, real 1.052s)\nc2 start (CPU 1) at 2.362s\nc2 done (CPU 1, target 2.000s, real 0.921s)\nc3 start (CPU 0) at 3.283s\nc3 done (CPU 0, target 1.800s, real 0.827s)\nc4 start (CPU 1) at 4.111s\nc4 done (CPU 1, target 1.600s, real 0.748s)\nProgram total time: 4.859s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4858633169\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 34,
+      "time_s": 5.033,
+      "wall_s": 5.035878585,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #35 (rc=0) -----\nf0 start (CPU 3) at 0.000s\nf1 start (CPU 1) at 0.000s\nf2 start (CPU 2) at 0.000s\nf7 start (CPU 0) at 0.000s\nf3 start (CPU 2) at 0.002s\nf8 start (CPU 3) at 0.010s\nf9 start (CPU 3) at 0.014s\nf10 start (CPU 3) at 0.021s\nf11 start (CPU 2) at 0.025s\nf5 start (CPU 3) at 0.029s\nc0 start (CPU 2) at 0.029s\nf6 start (CPU 3) at 0.037s\nf4 start (CPU 2) at 0.049s\nf7 done (CPU 0, target 0.500s, real 0.249s)\nf1 done (CPU 1, target 0.500s, real 0.257s)\nf11 done (CPU 2, target 0.300s, real 0.431s)\nf4 done (CPU 1, target 0.500s, real 0.439s)\nf2 done (CPU 0, target 0.500s, real 0.545s)\nf3 done (CPU 1, target 0.500s, real 0.581s)\nf6 done (CPU 3, target 0.500s, real 0.673s)\nf9 done (CPU 3, target 0.500s, real 0.820s)\nf0 done (CPU 3, target 0.500s, real 0.870s)\nf10 done (CPU 0, target 0.500s, real 0.855s)\nf5 done (CPU 1, target 0.500s, real 0.865s)\nf8 done (CPU 3, target 0.500s, real 0.891s)\nc0 done (CPU 2, target 2.500s, real 1.486s)\nc1 start (CPU 0) at 1.515s\nc1 done (CPU 2, target 2.200s, real 1.021s)\nc2 start (CPU 0) at 2.537s\nc2 done (CPU 2, target 2.000s, real 0.919s)\nc3 start (CPU 0) at 3.456s\nc3 done (CPU 2, target 1.800s, real 0.833s)\nc4 start (CPU 0) at 4.289s\nc4 done (CPU 2, target 1.600s, real 0.743s)\nProgram total time: 5.033s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5032716142\n"
+    },
+    {
+      "program": "prio",
+      "iter": 34,
+      "time_s": 4.845,
+      "wall_s": 4.847446676,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #35 (rc=0) -----\nf0 start (CPU 2) at 0.000s\nf1 start (CPU 0) at 0.000s\nf2 start (CPU 1) at 0.000s\nf8 start (CPU 2) at 0.000s\nf10 start (CPU 2) at 0.000s\nc0 start (CPU 2) at 0.000s\nf11 start (CPU 1) at 0.000s\nf11 done (CPU 1, target 0.300s, real 0.146s)\nf0 done (CPU 0, target 0.500s, real 0.244s)\nf3 start (CPU 0) at 0.244s\nf10 done (CPU 3, target 0.500s, real 0.248s)\nf1 done (CPU 1, target 0.500s, real 0.394s)\nf6 start (CPU 1) at 0.394s\nf4 start (CPU 1) at 0.394s\nf2 done (CPU 0, target 0.500s, real 0.514s)\nf5 start (CPU 0) at 0.514s\nf3 done (CPU 3, target 0.500s, real 0.273s)\nf7 start (CPU 3) at 0.516s\nf4 done (CPU 1, target 0.500s, real 0.256s)\nf9 start (CPU 1) at 0.650s\nf5 done (CPU 0, target 0.500s, real 0.255s)\nf6 done (CPU 3, target 0.500s, real 0.377s)\nf7 done (CPU 1, target 0.500s, real 0.399s)\nf8 done (CPU 0, target 0.500s, real 1.028s)\nf9 done (CPU 3, target 0.500s, real 0.379s)\nc0 done (CPU 2, target 2.500s, real 1.259s)\nc1 start (CPU 2) at 1.259s\nc1 done (CPU 2, target 2.200s, real 1.073s)\nc2 start (CPU 0) at 2.333s\nc2 done (CPU 0, target 2.000s, real 0.932s)\nc3 start (CPU 1) at 3.265s\nc3 done (CPU 1, target 1.800s, real 0.825s)\nc4 start (CPU 0) at 4.090s\nc4 done (CPU 0, target 1.600s, real 0.754s)\nProgram total time: 4.845s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4844750565\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 35,
+      "time_s": 5.283,
+      "wall_s": 5.286499968,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #36 (rc=0) -----\nf0 start (CPU 0) at 0.000s\nf1 start (CPU 2) at 0.000s\nf3 start (CPU 1) at 0.000s\nc0 start (CPU 3) at 0.000s\nf11 start (CPU 3) at 0.002s\nf9 start (CPU 0) at 0.010s\nf6 start (CPU 2) at 0.010s\nf10 start (CPU 3) at 0.013s\nf7 start (CPU 1) at 0.010s\nf8 start (CPU 1) at 0.010s\nf5 start (CPU 3) at 0.018s\nf2 start (CPU 2) at 0.021s\nf4 start (CPU 3) at 0.037s\nf9 done (CPU 0, target 0.500s, real 0.288s)\nf7 done (CPU 0, target 0.500s, real 0.591s)\nf3 done (CPU 0, target 0.500s, real 0.636s)\nf0 done (CPU 0, target 0.500s, real 0.650s)\nf8 done (CPU 1, target 0.500s, real 0.649s)\nf6 done (CPU 0, target 0.500s, real 0.693s)\nf11 done (CPU 3, target 0.300s, real 0.726s)\nf1 done (CPU 2, target 0.500s, real 0.728s)\nf2 done (CPU 0, target 0.500s, real 0.708s)\nf10 done (CPU 1, target 0.500s, real 0.770s)\nf4 done (CPU 2, target 0.500s, real 0.806s)\nf5 done (CPU 0, target 0.500s, real 0.841s)\nc0 done (CPU 3, target 2.500s, real 1.782s)\nc1 start (CPU 0) at 1.782s\nc1 done (CPU 2, target 2.200s, real 1.010s)\nc2 start (CPU 0) at 2.792s\nc2 done (CPU 2, target 2.000s, real 0.923s)\nc3 start (CPU 0) at 3.716s\nc3 done (CPU 2, target 1.800s, real 0.831s)\nc4 start (CPU 0) at 4.547s\nc4 done (CPU 2, target 1.600s, real 0.736s)\nProgram total time: 5.283s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5283470311\n"
+    },
+    {
+      "program": "prio",
+      "iter": 35,
+      "time_s": 4.803,
+      "wall_s": 4.805692563,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #36 (rc=0) -----\nf0 start (CPU 0) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.001s\nf11 start (CPU 3) at 0.001s\nf10 start (CPU 2) at 0.001s\nc0 start (CPU 3) at 0.001s\nf11 done (CPU 1, target 0.300s, real 0.147s)\nf0 done (CPU 0, target 0.500s, real 0.246s)\nf3 start (CPU 2) at 0.001s\nf10 done (CPU 2, target 0.500s, real 0.253s)\nf4 start (CPU 2) at 0.001s\nf1 done (CPU 1, target 0.500s, real 0.399s)\nf2 done (CPU 0, target 0.500s, real 0.496s)\nf5 start (CPU 2) at 0.001s\nf3 done (CPU 2, target 0.500s, real 0.504s)\nf7 start (CPU 2) at 0.505s\nf6 start (CPU 2) at 0.505s\nf4 done (CPU 1, target 0.500s, real 0.647s)\nf5 done (CPU 0, target 0.500s, real 0.752s)\nf8 start (CPU 0) at 0.753s\nf6 done (CPU 2, target 0.500s, real 0.254s)\nf9 start (CPU 2) at 0.759s\nf7 done (CPU 1, target 0.500s, real 0.399s)\nf8 done (CPU 0, target 0.500s, real 0.252s)\nf9 done (CPU 2, target 0.500s, real 0.256s)\nc0 done (CPU 3, target 2.500s, real 1.296s)\nc1 start (CPU 2) at 1.297s\nc1 done (CPU 2, target 2.200s, real 1.028s)\nc2 start (CPU 3) at 2.325s\nc2 done (CPU 3, target 2.000s, real 0.916s)\nc3 start (CPU 2) at 3.241s\nc3 done (CPU 2, target 1.800s, real 0.825s)\nc4 start (CPU 3) at 4.067s\nc4 done (CPU 3, target 1.600s, real 0.736s)\nProgram total time: 4.803s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4802898524\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 36,
+      "time_s": 5.253,
+      "wall_s": 5.255719965,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #37 (rc=0) -----\nf0 start (CPU 0) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 1) at 0.000s\nf5 start (CPU 3) at 0.000s\nf6 start (CPU 1) at 0.013s\nf9 start (CPU 0) at 0.013s\nf8 start (CPU 0) at 0.013s\nf4 start (CPU 2) at 0.017s\nf7 start (CPU 1) at 0.017s\nf3 start (CPU 2) at 0.017s\nf10 start (CPU 0) at 0.021s\nf11 start (CPU 1) at 0.021s\nc0 start (CPU 1) at 0.025s\nf5 done (CPU 3, target 0.500s, real 0.250s)\nf1 done (CPU 3, target 0.500s, real 0.417s)\nf4 done (CPU 2, target 0.500s, real 0.513s)\nf3 done (CPU 3, target 0.500s, real 0.517s)\nf11 done (CPU 3, target 0.300s, real 0.538s)\nf6 done (CPU 3, target 0.500s, real 0.680s)\nf9 done (CPU 3, target 0.500s, real 0.716s)\nf2 done (CPU 2, target 0.500s, real 0.772s)\nf10 done (CPU 3, target 0.500s, real 0.799s)\nf0 done (CPU 1, target 0.500s, real 0.828s)\nf7 done (CPU 0, target 0.500s, real 0.815s)\nf8 done (CPU 3, target 0.500s, real 0.854s)\nc0 done (CPU 2, target 2.500s, real 1.720s)\nc1 start (CPU 0) at 1.745s\nc1 done (CPU 2, target 2.200s, real 1.018s)\nc2 start (CPU 0) at 2.763s\nc2 done (CPU 2, target 2.000s, real 0.919s)\nc3 start (CPU 0) at 3.682s\nc3 done (CPU 2, target 1.800s, real 0.833s)\nc4 start (CPU 0) at 4.516s\nc4 done (CPU 2, target 1.600s, real 0.737s)\nProgram total time: 5.253s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5253062241\n"
+    },
+    {
+      "program": "prio",
+      "iter": 36,
+      "time_s": 4.824,
+      "wall_s": 4.827002819,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #37 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf10 start (CPU 3) at 0.001s\nf11 start (CPU 2) at 0.001s\nc0 start (CPU 2) at 0.001s\nf11 done (CPU 0, target 0.300s, real 0.149s)\nf0 done (CPU 1, target 0.500s, real 0.248s)\nf3 start (CPU 1) at 0.248s\nf10 done (CPU 3, target 0.500s, real 0.249s)\nf5 start (CPU 3) at 0.250s\nf1 done (CPU 0, target 0.500s, real 0.400s)\nf4 start (CPU 0) at 0.400s\nf3 done (CPU 3, target 0.500s, real 0.252s)\nf2 done (CPU 1, target 0.500s, real 0.504s)\nf6 start (CPU 1) at 0.505s\nf4 done (CPU 0, target 0.500s, real 0.258s)\nf7 start (CPU 0) at 0.658s\nf5 done (CPU 3, target 0.500s, real 0.501s)\nf8 start (CPU 3) at 0.751s\nf6 done (CPU 1, target 0.500s, real 0.251s)\nf9 start (CPU 1) at 0.756s\nf7 done (CPU 0, target 0.500s, real 0.253s)\nf8 done (CPU 3, target 0.500s, real 0.250s)\nf9 done (CPU 1, target 0.500s, real 0.249s)\nc0 done (CPU 2, target 2.500s, real 1.290s)\nc1 start (CPU 3) at 1.291s\nc1 done (CPU 3, target 2.200s, real 1.016s)\nc2 start (CPU 2) at 2.307s\nc2 done (CPU 2, target 2.000s, real 0.920s)\nc3 start (CPU 3) at 3.227s\nc3 done (CPU 3, target 1.800s, real 0.833s)\nc4 start (CPU 2) at 4.060s\nc4 done (CPU 2, target 1.600s, real 0.763s)\nProgram total time: 4.824s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4824152581\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 37,
+      "time_s": 5.274,
+      "wall_s": 5.276814352,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #38 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 3) at 0.000s\nf2 start (CPU 0) at 0.000s\nf7 start (CPU 2) at 0.000s\nf4 start (CPU 1) at 0.013s\nf3 start (CPU 0) at 0.017s\nf5 start (CPU 1) at 0.017s\nf10 start (CPU 1) at 0.021s\nf6 start (CPU 0) at 0.021s\nf11 start (CPU 1) at 0.025s\nf8 start (CPU 0) at 0.025s\nc0 start (CPU 1) at 0.029s\nf9 start (CPU 0) at 0.029s\nf1 done (CPU 3, target 0.500s, real 0.251s)\nf7 done (CPU 2, target 0.500s, real 0.255s)\nf3 done (CPU 3, target 0.500s, real 0.442s)\nf10 done (CPU 2, target 0.500s, real 0.446s)\nf11 done (CPU 1, target 0.300s, real 0.527s)\nf9 done (CPU 1, target 0.500s, real 0.649s)\nf6 done (CPU 0, target 0.500s, real 0.709s)\nf2 done (CPU 1, target 0.500s, real 0.730s)\nf8 done (CPU 0, target 0.500s, real 0.743s)\nf0 done (CPU 1, target 0.500s, real 0.778s)\nf4 done (CPU 3, target 0.500s, real 0.793s)\nf5 done (CPU 0, target 0.500s, real 0.810s)\nc0 done (CPU 2, target 2.500s, real 1.726s)\nc1 start (CPU 0) at 1.755s\nc1 done (CPU 2, target 2.200s, real 1.019s)\nc2 start (CPU 0) at 2.774s\nc2 done (CPU 2, target 2.000s, real 0.922s)\nc3 start (CPU 0) at 3.696s\nc3 done (CPU 2, target 1.800s, real 0.835s)\nc4 start (CPU 0) at 4.531s\nc4 done (CPU 2, target 1.600s, real 0.743s)\nProgram total time: 5.274s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5274032269\n"
+    },
+    {
+      "program": "prio",
+      "iter": 37,
+      "time_s": 4.798,
+      "wall_s": 4.801210594,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #38 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf10 start (CPU 3) at 0.000s\nf11 start (CPU 2) at 0.000s\nc0 start (CPU 2) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.150s)\nf0 done (CPU 1, target 0.500s, real 0.251s)\nf3 start (CPU 2) at 0.000s\nf10 done (CPU 3, target 0.500s, real 0.262s)\nf5 start (CPU 3) at 0.262s\nf1 done (CPU 0, target 0.500s, real 0.400s)\nf4 start (CPU 2) at 0.000s\nf2 done (CPU 1, target 0.500s, real 0.503s)\nf6 start (CPU 1) at 0.503s\nf3 done (CPU 3, target 0.500s, real 0.513s)\nf7 start (CPU 3) at 0.513s\nf4 done (CPU 0, target 0.500s, real 0.650s)\nf8 start (CPU 0) at 0.650s\nf5 done (CPU 1, target 0.500s, real 0.489s)\nf6 done (CPU 3, target 0.500s, real 0.259s)\nf9 start (CPU 3) at 0.762s\nf7 done (CPU 0, target 0.500s, real 0.387s)\nf8 done (CPU 1, target 0.500s, real 0.353s)\nf9 done (CPU 3, target 0.500s, real 0.251s)\nc0 done (CPU 2, target 2.500s, real 1.283s)\nc1 start (CPU 3) at 1.283s\nc1 done (CPU 3, target 2.200s, real 1.017s)\nc2 start (CPU 2) at 2.300s\nc2 done (CPU 2, target 2.000s, real 0.932s)\nc3 start (CPU 3) at 3.232s\nc3 done (CPU 3, target 1.800s, real 0.832s)\nc4 start (CPU 2) at 4.064s\nc4 done (CPU 2, target 1.600s, real 0.734s)\nProgram total time: 4.798s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4798198127\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 38,
+      "time_s": 5.266,
+      "wall_s": 5.268868682,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #39 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 3) at 0.000s\nf2 start (CPU 0) at 0.000s\nf7 start (CPU 2) at 0.000s\nf3 start (CPU 0) at 0.002s\nf4 start (CPU 1) at 0.014s\nf5 start (CPU 1) at 0.018s\nf10 start (CPU 1) at 0.022s\nf11 start (CPU 1) at 0.026s\nc0 start (CPU 1) at 0.030s\nf8 start (CPU 0) at 0.030s\nf9 start (CPU 0) at 0.034s\nf6 start (CPU 0) at 0.030s\nf7 done (CPU 2, target 0.500s, real 0.250s)\nf1 done (CPU 3, target 0.500s, real 0.253s)\nf0 done (CPU 2, target 0.500s, real 0.450s)\nf6 done (CPU 3, target 0.500s, real 0.435s)\nf3 done (CPU 3, target 0.500s, real 0.606s)\nf11 done (CPU 1, target 0.300s, real 0.615s)\nf4 done (CPU 3, target 0.500s, real 0.730s)\nf5 done (CPU 3, target 0.500s, real 0.744s)\nf2 done (CPU 3, target 0.500s, real 0.778s)\nf8 done (CPU 0, target 0.500s, real 0.755s)\nf10 done (CPU 2, target 0.500s, real 0.786s)\nf9 done (CPU 0, target 0.500s, real 0.775s)\nc0 done (CPU 1, target 2.500s, real 1.720s)\nc1 start (CPU 3) at 1.750s\nc1 done (CPU 3, target 2.200s, real 1.016s)\nc2 start (CPU 0) at 2.765s\nc2 done (CPU 2, target 2.000s, real 0.920s)\nc3 start (CPU 0) at 3.685s\nc3 done (CPU 2, target 1.800s, real 0.845s)\nc4 start (CPU 0) at 4.530s\nc4 done (CPU 2, target 1.600s, real 0.735s)\nProgram total time: 5.266s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5265545759\n"
+    },
+    {
+      "program": "prio",
+      "iter": 38,
+      "time_s": 4.804,
+      "wall_s": 4.807051573,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #39 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf3 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf11 start (CPU 3) at 0.000s\nf10 start (CPU 2) at 0.000s\nc0 start (CPU 3) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.149s)\nf0 done (CPU 1, target 0.500s, real 0.256s)\nf10 done (CPU 2, target 0.500s, real 0.256s)\nf1 done (CPU 0, target 0.500s, real 0.398s)\nf4 start (CPU 0) at 0.398s\nf2 done (CPU 1, target 0.500s, real 0.505s)\nf5 start (CPU 1) at 0.506s\nf3 done (CPU 2, target 0.500s, real 0.506s)\nf6 start (CPU 2) at 0.507s\nf4 done (CPU 0, target 0.500s, real 0.251s)\nf7 start (CPU 0) at 0.650s\nf6 done (CPU 2, target 0.500s, real 0.248s)\nf8 start (CPU 2) at 0.755s\nf5 done (CPU 1, target 0.500s, real 0.251s)\nf9 start (CPU 1) at 0.756s\nf7 done (CPU 0, target 0.500s, real 0.252s)\nf9 done (CPU 1, target 0.500s, real 0.304s)\nf8 done (CPU 2, target 0.500s, real 0.313s)\nc0 done (CPU 3, target 2.500s, real 1.278s)\nc1 start (CPU 2) at 1.278s\nc1 done (CPU 2, target 2.200s, real 1.019s)\nc2 start (CPU 3) at 2.297s\nc2 done (CPU 3, target 2.000s, real 0.925s)\nc3 start (CPU 2) at 3.223s\nc3 done (CPU 2, target 1.800s, real 0.844s)\nc4 start (CPU 3) at 4.067s\nc4 done (CPU 3, target 1.600s, real 0.736s)\nProgram total time: 4.804s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4803557561\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 39,
+      "time_s": 5.268,
+      "wall_s": 5.270915934,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #40 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf5 start (CPU 3) at 0.000s\nf6 start (CPU 0) at 0.000s\nf7 start (CPU 0) at 0.001s\nf11 start (CPU 0) at 0.005s\nc0 start (CPU 0) at 0.009s\nf9 start (CPU 1) at 0.009s\nf2 start (CPU 2) at 0.000s\nf8 start (CPU 1) at 0.009s\nf10 start (CPU 1) at 0.017s\nf4 start (CPU 0) at 0.021s\nf3 start (CPU 2) at 0.041s\nf5 done (CPU 3, target 0.500s, real 0.391s)\nf3 done (CPU 3, target 0.500s, real 0.442s)\nf1 done (CPU 3, target 0.500s, real 0.510s)\nf2 done (CPU 2, target 0.500s, real 0.543s)\nf11 done (CPU 1, target 0.300s, real 0.630s)\nf0 done (CPU 3, target 0.500s, real 0.652s)\nf9 done (CPU 2, target 0.500s, real 0.667s)\nf6 done (CPU 3, target 0.500s, real 0.751s)\nf7 done (CPU 2, target 0.500s, real 0.755s)\nf10 done (CPU 1, target 0.500s, real 0.792s)\nf8 done (CPU 0, target 0.500s, real 0.809s)\nf4 done (CPU 2, target 0.500s, real 0.799s)\nc0 done (CPU 3, target 2.500s, real 1.735s)\nc1 start (CPU 0) at 1.744s\nc1 done (CPU 2, target 2.200s, real 1.017s)\nc2 start (CPU 0) at 2.761s\nc2 done (CPU 2, target 2.000s, real 0.928s)\nc3 start (CPU 0) at 3.689s\nc3 done (CPU 2, target 1.800s, real 0.838s)\nc4 start (CPU 0) at 4.527s\nc4 done (CPU 2, target 1.600s, real 0.740s)\nProgram total time: 5.268s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5267620410\n"
+    },
+    {
+      "program": "prio",
+      "iter": 39,
+      "time_s": 4.83,
+      "wall_s": 4.833090841,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #40 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf7 start (CPU 1) at 0.000s\nf4 start (CPU 3) at 0.000s\nf10 start (CPU 1) at 0.000s\nf11 start (CPU 3) at 0.000s\nc0 start (CPU 1) at 0.000s\nf11 done (CPU 3, target 0.300s, real 0.149s)\nf0 done (CPU 2, target 0.500s, real 0.249s)\nf3 start (CPU 2) at 0.249s\nf10 done (CPU 0, target 0.500s, real 0.251s)\nf1 done (CPU 3, target 0.500s, real 0.400s)\nf2 done (CPU 2, target 0.500s, real 0.501s)\nf5 start (CPU 2) at 0.501s\nf3 done (CPU 0, target 0.500s, real 0.254s)\nf6 start (CPU 0) at 0.503s\nf4 done (CPU 3, target 0.500s, real 0.650s)\nf8 start (CPU 3) at 0.651s\nf5 done (CPU 2, target 0.500s, real 0.250s)\nf9 start (CPU 2) at 0.751s\nf6 done (CPU 0, target 0.500s, real 0.252s)\nf7 done (CPU 3, target 0.500s, real 0.908s)\nf8 done (CPU 2, target 0.500s, real 0.350s)\nf9 done (CPU 0, target 0.500s, real 0.252s)\nc0 done (CPU 1, target 2.500s, real 1.239s)\nc1 start (CPU 2) at 1.239s\nc1 done (CPU 2, target 2.200s, real 1.039s)\nc2 start (CPU 3) at 2.278s\nc2 done (CPU 3, target 2.000s, real 0.957s)\nc3 start (CPU 2) at 3.236s\nc3 done (CPU 2, target 1.800s, real 0.848s)\nc4 start (CPU 3) at 4.084s\nc4 done (CPU 3, target 1.600s, real 0.746s)\nProgram total time: 4.830s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4830224995\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 40,
+      "time_s": 5.154,
+      "wall_s": 5.157218282,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #41 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 3) at 0.000s\nf6 start (CPU 0) at 0.000s\nf4 start (CPU 2) at 0.000s\nf7 start (CPU 0) at 0.001s\nf3 start (CPU 2) at 0.005s\nf11 start (CPU 0) at 0.005s\nf8 start (CPU 1) at 0.009s\nf5 start (CPU 3) at 0.009s\nc0 start (CPU 0) at 0.021s\nf10 start (CPU 1) at 0.021s\nf2 start (CPU 0) at 0.025s\nf9 start (CPU 1) at 0.021s\nf1 done (CPU 3, target 0.500s, real 0.253s)\nf11 done (CPU 3, target 0.300s, real 0.319s)\nf4 done (CPU 3, target 0.500s, real 0.453s)\nf3 done (CPU 2, target 0.500s, real 0.452s)\nf5 done (CPU 3, target 0.500s, real 0.611s)\nf7 done (CPU 0, target 0.500s, real 0.755s)\nf2 done (CPU 1, target 0.500s, real 0.756s)\nf6 done (CPU 0, target 0.500s, real 0.787s)\nf0 done (CPU 1, target 0.500s, real 0.825s)\nf9 done (CPU 2, target 0.500s, real 0.805s)\nf10 done (CPU 0, target 0.500s, real 0.808s)\nf8 done (CPU 3, target 0.500s, real 0.822s)\nc0 done (CPU 2, target 2.500s, real 1.630s)\nc1 start (CPU 0) at 1.651s\nc1 done (CPU 2, target 2.200s, real 1.014s)\nc2 start (CPU 0) at 2.665s\nc2 done (CPU 2, target 2.000s, real 0.920s)\nc3 start (CPU 0) at 3.585s\nc3 done (CPU 2, target 1.800s, real 0.830s)\nc4 start (CPU 0) at 4.415s\nc4 done (CPU 2, target 1.600s, real 0.739s)\nProgram total time: 5.154s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5154359927\n"
+    },
+    {
+      "program": "prio",
+      "iter": 40,
+      "time_s": 4.778,
+      "wall_s": 4.78087745,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #41 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf3 start (CPU 2) at 0.000s\nf10 start (CPU 3) at 0.000s\nf11 start (CPU 2) at 0.000s\nc0 start (CPU 2) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.152s)\nf10 done (CPU 3, target 0.500s, real 0.250s)\nf0 done (CPU 1, target 0.500s, real 0.252s)\nf1 done (CPU 0, target 0.500s, real 0.403s)\nf4 start (CPU 0) at 0.403s\nf2 done (CPU 3, target 0.500s, real 0.500s)\nf5 start (CPU 3) at 0.501s\nf3 done (CPU 1, target 0.500s, real 0.502s)\nf6 start (CPU 1) at 0.502s\nf4 done (CPU 0, target 0.500s, real 0.250s)\nf8 start (CPU 0) at 0.654s\nf7 start (CPU 0) at 0.654s\nf5 done (CPU 3, target 0.500s, real 0.250s)\nf9 start (CPU 3) at 0.751s\nf6 done (CPU 1, target 0.500s, real 0.251s)\nf7 done (CPU 0, target 0.500s, real 0.248s)\nf8 done (CPU 3, target 0.500s, real 0.357s)\nf9 done (CPU 1, target 0.500s, real 0.263s)\nc0 done (CPU 2, target 2.500s, real 1.246s)\nc1 start (CPU 3) at 1.246s\nc1 done (CPU 3, target 2.200s, real 1.034s)\nc2 start (CPU 2) at 2.281s\nc2 done (CPU 2, target 2.000s, real 0.922s)\nc3 start (CPU 3) at 3.202s\nc3 done (CPU 3, target 1.800s, real 0.834s)\nc4 start (CPU 2) at 4.037s\nc4 done (CPU 2, target 1.600s, real 0.741s)\nProgram total time: 4.778s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4777938731\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 41,
+      "time_s": 5.044,
+      "wall_s": 5.04736058,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #42 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 3) at 0.000s\nf2 start (CPU 0) at 0.000s\nf7 start (CPU 2) at 0.000s\nf3 start (CPU 0) at 0.014s\nf5 start (CPU 1) at 0.014s\nf6 start (CPU 1) at 0.015s\nf8 start (CPU 1) at 0.018s\nf4 start (CPU 0) at 0.018s\nf11 start (CPU 0) at 0.022s\nf9 start (CPU 1) at 0.022s\nc0 start (CPU 0) at 0.026s\nf10 start (CPU 0) at 0.034s\nf7 done (CPU 2, target 0.500s, real 0.256s)\nf1 done (CPU 3, target 0.500s, real 0.257s)\nf3 done (CPU 2, target 0.500s, real 0.452s)\nf6 done (CPU 2, target 0.500s, real 0.618s)\nf11 done (CPU 1, target 0.300s, real 0.669s)\nf10 done (CPU 2, target 0.500s, real 0.718s)\nf5 done (CPU 3, target 0.500s, real 0.767s)\nf0 done (CPU 3, target 0.500s, real 0.831s)\nf2 done (CPU 1, target 0.500s, real 0.851s)\nf8 done (CPU 3, target 0.500s, real 0.852s)\nf9 done (CPU 1, target 0.500s, real 0.856s)\nf4 done (CPU 0, target 0.500s, real 0.865s)\nc0 done (CPU 2, target 2.500s, real 1.514s)\nc1 start (CPU 1) at 1.540s\nc1 done (CPU 1, target 2.200s, real 1.014s)\nc2 start (CPU 3) at 2.553s\nc2 done (CPU 3, target 2.000s, real 0.917s)\nc3 start (CPU 0) at 3.471s\nc3 done (CPU 2, target 1.800s, real 0.834s)\nc4 start (CPU 0) at 4.305s\nc4 done (CPU 2, target 1.600s, real 0.739s)\nProgram total time: 5.044s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5044375553\n"
+    },
+    {
+      "program": "prio",
+      "iter": 41,
+      "time_s": 4.821,
+      "wall_s": 4.824151456,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #42 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf2 start (CPU 3) at 0.000s\nf3 start (CPU 2) at 0.000s\nf1 start (CPU 2) at 0.000s\nf10 start (CPU 3) at 0.000s\nf11 start (CPU 2) at 0.000s\nc0 start (CPU 3) at 0.000s\nf11 done (CPU 2, target 0.300s, real 0.149s)\nf0 done (CPU 1, target 0.500s, real 0.249s)\nf10 done (CPU 0, target 0.500s, real 0.249s)\nf1 done (CPU 2, target 0.500s, real 0.401s)\nf5 start (CPU 2) at 0.402s\nf4 start (CPU 2) at 0.402s\nf3 done (CPU 0, target 0.500s, real 0.499s)\nf2 done (CPU 1, target 0.500s, real 0.500s)\nf7 start (CPU 1) at 0.500s\nf6 start (CPU 1) at 0.500s\nf4 done (CPU 2, target 0.500s, real 0.250s)\nf9 start (CPU 2) at 0.652s\nf6 done (CPU 1, target 0.500s, real 0.250s)\nf8 start (CPU 1) at 0.750s\nf5 done (CPU 0, target 0.500s, real 0.351s)\nf7 done (CPU 2, target 0.500s, real 0.407s)\nf8 done (CPU 1, target 0.500s, real 0.249s)\nf9 done (CPU 0, target 0.500s, real 0.350s)\nc0 done (CPU 3, target 2.500s, real 1.285s)\nc1 start (CPU 2) at 1.285s\nc1 done (CPU 2, target 2.200s, real 1.011s)\nc2 start (CPU 3) at 2.296s\nc2 done (CPU 3, target 2.000s, real 0.924s)\nc3 start (CPU 2) at 3.220s\nc3 done (CPU 2, target 1.800s, real 0.838s)\nc4 start (CPU 3) at 4.059s\nc4 done (CPU 3, target 1.600s, real 0.762s)\nProgram total time: 4.821s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4821189087\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 42,
+      "time_s": 5.23,
+      "wall_s": 5.233335569,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #43 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf3 start (CPU 0) at 0.000s\nf5 start (CPU 3) at 0.000s\nf6 start (CPU 0) at 0.010s\nf2 start (CPU 2) at 0.014s\nf8 start (CPU 1) at 0.014s\nf7 start (CPU 0) at 0.014s\nf11 start (CPU 0) at 0.018s\nf9 start (CPU 1) at 0.018s\nf4 start (CPU 2) at 0.018s\nf10 start (CPU 1) at 0.026s\nc0 start (CPU 0) at 0.026s\nf5 done (CPU 3, target 0.500s, real 0.312s)\nf1 done (CPU 3, target 0.500s, real 0.441s)\nf2 done (CPU 3, target 0.500s, real 0.490s)\nf4 done (CPU 2, target 0.500s, real 0.498s)\nf11 done (CPU 2, target 0.300s, real 0.611s)\nf6 done (CPU 3, target 0.500s, real 0.637s)\nf7 done (CPU 3, target 0.500s, real 0.722s)\nf10 done (CPU 3, target 0.500s, real 0.764s)\nf0 done (CPU 1, target 0.500s, real 0.791s)\nf3 done (CPU 3, target 0.500s, real 0.797s)\nf9 done (CPU 0, target 0.500s, real 0.786s)\nf8 done (CPU 1, target 0.500s, real 0.797s)\nc0 done (CPU 2, target 2.500s, real 1.687s)\nc1 start (CPU 0) at 1.713s\nc1 done (CPU 2, target 2.200s, real 1.021s)\nc2 start (CPU 0) at 2.734s\nc2 done (CPU 2, target 2.000s, real 0.924s)\nc3 start (CPU 0) at 3.658s\nc3 done (CPU 2, target 1.800s, real 0.832s)\nc4 start (CPU 0) at 4.490s\nc4 done (CPU 2, target 1.600s, real 0.740s)\nProgram total time: 5.230s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5230520366\n"
+    },
+    {
+      "program": "prio",
+      "iter": 42,
+      "time_s": 4.817,
+      "wall_s": 4.819747718,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #43 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf6 start (CPU 1) at 0.000s\nf4 start (CPU 3) at 0.000s\nf10 start (CPU 1) at 0.000s\nf11 start (CPU 3) at 0.000s\nc0 start (CPU 1) at 0.000s\nf11 done (CPU 3, target 0.300s, real 0.166s)\nf0 done (CPU 2, target 0.500s, real 0.247s)\nf3 start (CPU 2) at 0.247s\nf10 done (CPU 0, target 0.500s, real 0.248s)\nf1 done (CPU 3, target 0.500s, real 0.416s)\nf2 done (CPU 2, target 0.500s, real 0.496s)\nf5 start (CPU 2) at 0.497s\nf3 done (CPU 0, target 0.500s, real 0.253s)\nf4 done (CPU 3, target 0.500s, real 0.666s)\nf7 start (CPU 3) at 0.667s\nf5 done (CPU 2, target 0.500s, real 0.250s)\nf8 start (CPU 2) at 0.747s\nf6 done (CPU 0, target 0.500s, real 0.750s)\nf9 start (CPU 0) at 0.751s\nf7 done (CPU 3, target 0.500s, real 0.256s)\nf8 done (CPU 2, target 0.500s, real 0.249s)\nf9 done (CPU 0, target 0.500s, real 0.250s)\nc0 done (CPU 1, target 2.500s, real 1.291s)\nc1 start (CPU 2) at 1.292s\nc1 done (CPU 2, target 2.200s, real 1.016s)\nc2 start (CPU 3) at 2.308s\nc2 done (CPU 2, target 2.000s, real 0.923s)\nc3 start (CPU 3) at 3.231s\nc3 done (CPU 3, target 1.800s, real 0.850s)\nc4 start (CPU 2) at 4.081s\nc4 done (CPU 2, target 1.600s, real 0.736s)\nProgram total time: 4.817s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4816830333\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 43,
+      "time_s": 5.275,
+      "wall_s": 5.278409152,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #44 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 3) at 0.000s\nf2 start (CPU 0) at 0.000s\nf7 start (CPU 2) at 0.000s\nf3 start (CPU 0) at 0.004s\nf5 start (CPU 1) at 0.016s\nf6 start (CPU 1) at 0.020s\nf8 start (CPU 1) at 0.024s\nf9 start (CPU 1) at 0.028s\nf4 start (CPU 0) at 0.032s\nf10 start (CPU 1) at 0.032s\nf11 start (CPU 0) at 0.040s\nc0 start (CPU 0) at 0.044s\nf1 done (CPU 3, target 0.500s, real 0.251s)\nf7 done (CPU 2, target 0.500s, real 0.250s)\nf4 done (CPU 3, target 0.500s, real 0.429s)\nf11 done (CPU 1, target 0.300s, real 0.536s)\nf6 done (CPU 3, target 0.500s, real 0.635s)\nf10 done (CPU 3, target 0.500s, real 0.710s)\nf0 done (CPU 1, target 0.500s, real 0.764s)\nf5 done (CPU 3, target 0.500s, real 0.764s)\nf3 done (CPU 1, target 0.500s, real 0.782s)\nf9 done (CPU 2, target 0.500s, real 0.761s)\nf8 done (CPU 3, target 0.500s, real 0.779s)\nf2 done (CPU 0, target 0.500s, real 0.812s)\nc0 done (CPU 2, target 2.500s, real 1.707s)\nc1 start (CPU 0) at 1.751s\nc1 done (CPU 2, target 2.200s, real 1.018s)\nc2 start (CPU 1) at 2.770s\nc2 done (CPU 1, target 2.000s, real 0.928s)\nc3 start (CPU 2) at 3.698s\nc3 done (CPU 2, target 1.800s, real 0.833s)\nc4 start (CPU 0) at 4.531s\nc4 done (CPU 2, target 1.600s, real 0.744s)\nProgram total time: 5.275s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5275497281\n"
+    },
+    {
+      "program": "prio",
+      "iter": 43,
+      "time_s": 4.838,
+      "wall_s": 4.840574369,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #44 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf6 start (CPU 1) at 0.000s\nf3 start (CPU 1) at 0.000s\nf5 start (CPU 2) at 0.000s\nf10 start (CPU 1) at 0.000s\nf11 start (CPU 2) at 0.000s\nc0 start (CPU 1) at 0.000s\nf11 done (CPU 2, target 0.300s, real 0.148s)\nf10 done (CPU 0, target 0.500s, real 0.248s)\nf0 done (CPU 3, target 0.500s, real 0.256s)\nf4 start (CPU 3) at 0.256s\nf1 done (CPU 2, target 0.500s, real 0.398s)\nf2 done (CPU 0, target 0.500s, real 0.498s)\nf3 done (CPU 3, target 0.500s, real 0.506s)\nf7 start (CPU 3) at 0.507s\nf4 done (CPU 2, target 0.500s, real 0.395s)\nf9 start (CPU 2) at 0.652s\nf8 start (CPU 2) at 0.652s\nf5 done (CPU 0, target 0.500s, real 0.750s)\nf6 done (CPU 3, target 0.500s, real 0.757s)\nf7 done (CPU 2, target 0.500s, real 0.401s)\nf8 done (CPU 0, target 0.500s, real 0.370s)\nf9 done (CPU 3, target 0.500s, real 0.375s)\nc0 done (CPU 1, target 2.500s, real 1.267s)\nc1 start (CPU 1) at 1.268s\nc1 done (CPU 1, target 2.200s, real 1.071s)\nc2 start (CPU 0) at 2.339s\nc2 done (CPU 2, target 2.000s, real 0.927s)\nc3 start (CPU 3) at 3.266s\nc3 done (CPU 3, target 1.800s, real 0.831s)\nc4 start (CPU 2) at 4.098s\nc4 done (CPU 2, target 1.600s, real 0.740s)\nProgram total time: 4.838s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4837649447\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 44,
+      "time_s": 5.286,
+      "wall_s": 5.28884894,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #45 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 0) at 0.000s\nf2 start (CPU 3) at 0.000s\nf5 start (CPU 2) at 0.000s\nf6 start (CPU 0) at 0.012s\nf7 start (CPU 0) at 0.016s\nf3 start (CPU 3) at 0.016s\nf8 start (CPU 1) at 0.016s\nf4 start (CPU 3) at 0.020s\nf11 start (CPU 0) at 0.020s\nf9 start (CPU 1) at 0.020s\nc0 start (CPU 0) at 0.024s\nf10 start (CPU 1) at 0.028s\nf5 done (CPU 2, target 0.500s, real 0.254s)\nf3 done (CPU 2, target 0.500s, real 0.411s)\nf2 done (CPU 2, target 0.500s, real 0.506s)\nf4 done (CPU 3, target 0.500s, real 0.491s)\nf11 done (CPU 2, target 0.300s, real 0.524s)\nf9 done (CPU 3, target 0.500s, real 0.636s)\nf8 done (CPU 2, target 0.500s, real 0.681s)\nf1 done (CPU 3, target 0.500s, real 0.738s)\nf7 done (CPU 3, target 0.500s, real 0.774s)\nf6 done (CPU 0, target 0.500s, real 0.795s)\nf10 done (CPU 1, target 0.500s, real 0.785s)\nf0 done (CPU 3, target 0.500s, real 0.820s)\nc0 done (CPU 2, target 2.500s, real 1.741s)\nc1 start (CPU 0) at 1.766s\nc1 done (CPU 2, target 2.200s, real 1.025s)\nc2 start (CPU 0) at 2.791s\nc2 done (CPU 2, target 2.000s, real 0.927s)\nc3 start (CPU 0) at 3.718s\nc3 done (CPU 2, target 1.800s, real 0.829s)\nc4 start (CPU 0) at 4.547s\nc4 done (CPU 2, target 1.600s, real 0.738s)\nProgram total time: 5.286s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5285906045\n"
+    },
+    {
+      "program": "prio",
+      "iter": 44,
+      "time_s": 4.869,
+      "wall_s": 4.872058276,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #45 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf4 start (CPU 1) at 0.000s\nf10 start (CPU 3) at 0.000s\nf11 start (CPU 1) at 0.000s\nc0 start (CPU 1) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.149s)\nf0 done (CPU 2, target 0.500s, real 0.248s)\nf3 start (CPU 2) at 0.248s\nf10 done (CPU 3, target 0.500s, real 0.250s)\nf5 start (CPU 3) at 0.250s\nf1 done (CPU 0, target 0.500s, real 0.401s)\nf6 start (CPU 0) at 0.401s\nf2 done (CPU 2, target 0.500s, real 0.499s)\nf3 done (CPU 3, target 0.500s, real 0.255s)\nf8 start (CPU 3) at 0.503s\nf7 start (CPU 3) at 0.503s\nf4 done (CPU 0, target 0.500s, real 0.652s)\nf9 start (CPU 0) at 0.652s\nf5 done (CPU 2, target 0.500s, real 0.506s)\nf6 done (CPU 3, target 0.500s, real 0.363s)\nf7 done (CPU 0, target 0.500s, real 0.400s)\nf8 done (CPU 2, target 0.500s, real 0.503s)\nf9 done (CPU 3, target 0.500s, real 0.364s)\nc0 done (CPU 1, target 2.500s, real 1.248s)\nc1 start (CPU 1) at 1.248s\nc1 done (CPU 1, target 2.200s, real 1.068s)\nc2 start (CPU 1) at 2.316s\nc2 done (CPU 1, target 2.000s, real 0.973s)\nc3 start (CPU 2) at 3.289s\nc3 done (CPU 2, target 1.800s, real 0.839s)\nc4 start (CPU 3) at 4.128s\nc4 done (CPU 3, target 1.600s, real 0.741s)\nProgram total time: 4.869s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4869240267\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 45,
+      "time_s": 5.246,
+      "wall_s": 5.249222396,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #46 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 0) at 0.000s\nf5 start (CPU 3) at 0.000s\nf6 start (CPU 0) at 0.011s\nf8 start (CPU 1) at 0.011s\nf7 start (CPU 0) at 0.015s\nf3 start (CPU 2) at 0.015s\nf9 start (CPU 1) at 0.015s\nf4 start (CPU 2) at 0.019s\nc0 start (CPU 0) at 0.019s\nf10 start (CPU 1) at 0.019s\nf11 start (CPU 0) at 0.019s\nf5 done (CPU 3, target 0.500s, real 0.386s)\nf11 done (CPU 2, target 0.300s, real 0.396s)\nf1 done (CPU 2, target 0.500s, real 0.510s)\nf6 done (CPU 2, target 0.500s, real 0.628s)\nf4 done (CPU 3, target 0.500s, real 0.620s)\nf3 done (CPU 3, target 0.500s, real 0.643s)\nf8 done (CPU 3, target 0.500s, real 0.728s)\nf2 done (CPU 2, target 0.500s, real 0.741s)\nf10 done (CPU 3, target 0.500s, real 0.764s)\nf7 done (CPU 3, target 0.500s, real 0.787s)\nf0 done (CPU 0, target 0.500s, real 0.812s)\nf9 done (CPU 2, target 0.500s, real 0.817s)\nc0 done (CPU 1, target 2.500s, real 1.690s)\nc1 start (CPU 2) at 1.709s\nc1 done (CPU 2, target 2.200s, real 1.020s)\nc2 start (CPU 0) at 2.729s\nc2 done (CPU 2, target 2.000s, real 0.930s)\nc3 start (CPU 0) at 3.659s\nc3 done (CPU 2, target 1.800s, real 0.835s)\nc4 start (CPU 1) at 4.494s\nc4 done (CPU 1, target 1.600s, real 0.752s)\nProgram total time: 5.246s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5246400292\n"
+    },
+    {
+      "program": "prio",
+      "iter": 45,
+      "time_s": 4.788,
+      "wall_s": 4.791014102,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #46 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf4 start (CPU 3) at 0.000s\nf5 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf10 start (CPU 1) at 0.000s\nc0 start (CPU 1) at 0.000s\nf11 start (CPU 2) at 0.000s\nf11 done (CPU 2, target 0.300s, real 0.150s)\nf10 done (CPU 0, target 0.500s, real 0.249s)\nf3 start (CPU 0) at 0.250s\nf2 start (CPU 3) at 0.000s\nf0 done (CPU 3, target 0.500s, real 0.255s)\nf1 done (CPU 2, target 0.500s, real 0.399s)\nf6 start (CPU 2) at 0.399s\nf2 done (CPU 0, target 0.500s, real 0.499s)\nf7 start (CPU 0) at 0.499s\nf3 done (CPU 3, target 0.500s, real 0.256s)\nf4 done (CPU 2, target 0.500s, real 0.648s)\nf8 start (CPU 2) at 0.649s\nf5 done (CPU 0, target 0.500s, real 0.749s)\nf6 done (CPU 3, target 0.500s, real 0.360s)\nf9 start (CPU 3) at 0.759s\nf7 done (CPU 2, target 0.500s, real 0.401s)\nf8 done (CPU 0, target 0.500s, real 0.350s)\nf9 done (CPU 3, target 0.500s, real 0.250s)\nc0 done (CPU 1, target 2.500s, real 1.233s)\nc1 start (CPU 0) at 1.233s\nc1 done (CPU 2, target 2.200s, real 1.014s)\nc2 start (CPU 3) at 2.247s\nc2 done (CPU 3, target 2.000s, real 0.938s)\nc3 start (CPU 2) at 3.185s\nc3 done (CPU 2, target 1.800s, real 0.851s)\nc4 start (CPU 3) at 4.036s\nc4 done (CPU 3, target 1.600s, real 0.751s)\nProgram total time: 4.788s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4788179359\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 46,
+      "time_s": 5.062,
+      "wall_s": 5.065334502,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #47 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 3) at 0.000s\nf2 start (CPU 0) at 0.000s\nf7 start (CPU 2) at 0.000s\nf11 start (CPU 0) at 0.010s\nf10 start (CPU 1) at 0.010s\nf8 start (CPU 1) at 0.010s\nc0 start (CPU 0) at 0.014s\nf9 start (CPU 1) at 0.010s\nf3 start (CPU 0) at 0.026s\nf5 start (CPU 1) at 0.026s\nf4 start (CPU 0) at 0.030s\nf6 start (CPU 1) at 0.030s\nf1 done (CPU 3, target 0.500s, real 0.262s)\nf7 done (CPU 2, target 0.500s, real 0.262s)\nf8 done (CPU 3, target 0.500s, real 0.455s)\nf11 done (CPU 0, target 0.300s, real 0.563s)\nf4 done (CPU 0, target 0.500s, real 0.649s)\nf10 done (CPU 3, target 0.500s, real 0.689s)\nf2 done (CPU 3, target 0.500s, real 0.747s)\nf3 done (CPU 3, target 0.500s, real 0.755s)\nf5 done (CPU 0, target 0.500s, real 0.772s)\nf6 done (CPU 3, target 0.500s, real 0.830s)\nf0 done (CPU 0, target 0.500s, real 0.871s)\nf9 done (CPU 1, target 0.500s, real 0.864s)\nc0 done (CPU 2, target 2.500s, real 1.544s)\nc1 start (CPU 0) at 1.558s\nc1 done (CPU 2, target 2.200s, real 1.008s)\nc2 start (CPU 0) at 2.566s\nc2 done (CPU 2, target 2.000s, real 0.925s)\nc3 start (CPU 0) at 3.492s\nc3 done (CPU 2, target 1.800s, real 0.835s)\nc4 start (CPU 0) at 4.327s\nc4 done (CPU 2, target 1.600s, real 0.735s)\nProgram total time: 5.062s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5062337729\n"
+    },
+    {
+      "program": "prio",
+      "iter": 46,
+      "time_s": 4.811,
+      "wall_s": 4.814115421,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #47 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf3 start (CPU 2) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf10 start (CPU 2) at 0.000s\nf11 start (CPU 3) at 0.000s\nc0 start (CPU 3) at 0.002s\nf11 done (CPU 0, target 0.300s, real 0.149s)\nf0 done (CPU 1, target 0.500s, real 0.246s)\nf10 done (CPU 2, target 0.500s, real 0.255s)\nf1 done (CPU 0, target 0.500s, real 0.400s)\nf5 start (CPU 0) at 0.400s\nf4 start (CPU 0) at 0.400s\nf2 done (CPU 1, target 0.500s, real 0.497s)\nf3 done (CPU 2, target 0.500s, real 0.506s)\nf7 start (CPU 2) at 0.506s\nf6 start (CPU 2) at 0.506s\nf4 done (CPU 0, target 0.500s, real 0.250s)\nf5 done (CPU 1, target 0.500s, real 0.345s)\nf8 start (CPU 1) at 0.745s\nf6 done (CPU 2, target 0.500s, real 0.250s)\nf9 start (CPU 2) at 0.756s\nf7 done (CPU 0, target 0.500s, real 0.394s)\nf8 done (CPU 1, target 0.500s, real 0.249s)\nf9 done (CPU 2, target 0.500s, real 0.250s)\nc0 done (CPU 3, target 2.500s, real 1.242s)\nc1 start (CPU 2) at 1.244s\nc1 done (CPU 2, target 2.200s, real 1.033s)\nc2 start (CPU 3) at 2.277s\nc2 done (CPU 3, target 2.000s, real 0.933s)\nc3 start (CPU 2) at 3.210s\nc3 done (CPU 2, target 1.800s, real 0.846s)\nc4 start (CPU 3) at 4.056s\nc4 done (CPU 3, target 1.600s, real 0.755s)\nProgram total time: 4.811s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4811046914\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 47,
+      "time_s": 5.184,
+      "wall_s": 5.186969976,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #48 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf4 start (CPU 0) at 0.000s\nf5 start (CPU 3) at 0.001s\nf2 start (CPU 2) at 0.000s\nf6 start (CPU 0) at 0.013s\nf8 start (CPU 1) at 0.017s\nf7 start (CPU 0) at 0.017s\nf11 start (CPU 0) at 0.021s\nf9 start (CPU 1) at 0.021s\nc0 start (CPU 0) at 0.025s\nf10 start (CPU 1) at 0.029s\nf3 start (CPU 2) at 0.000s\nf5 done (CPU 3, target 0.500s, real 0.372s)\nf3 done (CPU 3, target 0.500s, real 0.471s)\nf2 done (CPU 3, target 0.500s, real 0.507s)\nf1 done (CPU 2, target 0.500s, real 0.514s)\nf11 done (CPU 0, target 0.300s, real 0.584s)\nf4 done (CPU 0, target 0.500s, real 0.720s)\nf7 done (CPU 3, target 0.500s, real 0.707s)\nf6 done (CPU 1, target 0.500s, real 0.752s)\nf10 done (CPU 3, target 0.500s, real 0.775s)\nf9 done (CPU 0, target 0.500s, real 0.805s)\nf0 done (CPU 2, target 0.500s, real 0.827s)\nf8 done (CPU 3, target 0.500s, real 0.824s)\nc0 done (CPU 1, target 2.500s, real 1.640s)\nc1 start (CPU 2) at 1.665s\nc1 done (CPU 2, target 2.200s, real 1.010s)\nc2 start (CPU 0) at 2.675s\nc2 done (CPU 2, target 2.000s, real 0.927s)\nc3 start (CPU 0) at 3.602s\nc3 done (CPU 2, target 1.800s, real 0.829s)\nc4 start (CPU 0) at 4.432s\nc4 done (CPU 2, target 1.600s, real 0.751s)\nProgram total time: 5.184s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5183581288\n"
+    },
+    {
+      "program": "prio",
+      "iter": 47,
+      "time_s": 4.837,
+      "wall_s": 4.840237738,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #48 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nc0 start (CPU 1) at 0.001s\nf10 start (CPU 1) at 0.000s\nf11 start (CPU 1) at 0.000s\nf11 done (CPU 3, target 0.300s, real 0.148s)\nf1 start (CPU 2) at 0.000s\nf10 done (CPU 0, target 0.500s, real 0.262s)\nf2 start (CPU 3) at 0.000s\nf0 done (CPU 2, target 0.500s, real 0.272s)\nf3 start (CPU 3) at 0.000s\nf1 done (CPU 3, target 0.500s, real 0.408s)\nf4 start (CPU 1) at 0.000s\nf3 done (CPU 2, target 0.500s, real 0.521s)\nf5 start (CPU 2) at 0.000s\nf2 done (CPU 0, target 0.500s, real 0.522s)\nf6 start (CPU 1) at 0.000s\nf4 done (CPU 3, target 0.500s, real 0.658s)\nf7 start (CPU 3) at 0.000s\nf6 done (CPU 3, target 0.500s, real 0.785s)\nf8 start (CPU 3) at 0.000s\nf5 done (CPU 2, target 0.500s, real 0.790s)\nf9 start (CPU 3) at 0.000s\nf7 done (CPU 0, target 0.500s, real 0.914s)\nf8 done (CPU 3, target 0.500s, real 1.036s)\nf9 done (CPU 2, target 0.500s, real 1.044s)\nc0 done (CPU 1, target 2.500s, real 1.278s)\nc1 start (CPU 0) at 1.278s\nc1 done (CPU 2, target 2.200s, real 1.022s)\nc2 start (CPU 3) at 2.301s\nc2 done (CPU 3, target 2.000s, real 0.941s)\nc3 start (CPU 2) at 3.242s\nc3 done (CPU 2, target 1.800s, real 0.856s)\nc4 start (CPU 3) at 4.098s\nc4 done (CPU 3, target 1.600s, real 0.739s)\nProgram total time: 4.837s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4837175973\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 48,
+      "time_s": 5.203,
+      "wall_s": 5.206323901,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #49 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf3 start (CPU 0) at 0.000s\nf5 start (CPU 3) at 0.000s\nf8 start (CPU 1) at 0.009s\nf6 start (CPU 0) at 0.009s\nf9 start (CPU 1) at 0.013s\nf7 start (CPU 0) at 0.013s\nf2 start (CPU 2) at 0.013s\nf10 start (CPU 1) at 0.017s\nf4 start (CPU 2) at 0.017s\nf11 start (CPU 0) at 0.017s\nc0 start (CPU 0) at 0.021s\nf5 done (CPU 3, target 0.500s, real 0.351s)\nf1 done (CPU 3, target 0.500s, real 0.445s)\nf4 done (CPU 3, target 0.500s, real 0.487s)\nf2 done (CPU 2, target 0.500s, real 0.495s)\nf6 done (CPU 2, target 0.500s, real 0.629s)\nf9 done (CPU 3, target 0.500s, real 0.643s)\nf11 done (CPU 3, target 0.300s, real 0.655s)\nf7 done (CPU 2, target 0.500s, real 0.712s)\nf3 done (CPU 0, target 0.500s, real 0.737s)\nf0 done (CPU 1, target 0.500s, real 0.811s)\nf10 done (CPU 2, target 0.500s, real 0.795s)\nf8 done (CPU 0, target 0.500s, real 0.813s)\nc0 done (CPU 3, target 2.500s, real 1.658s)\nc1 start (CPU 0) at 1.679s\nc1 done (CPU 2, target 2.200s, real 1.019s)\nc2 start (CPU 0) at 2.698s\nc2 done (CPU 2, target 2.000s, real 0.929s)\nc3 start (CPU 0) at 3.627s\nc3 done (CPU 2, target 1.800s, real 0.835s)\nc4 start (CPU 0) at 4.462s\nc4 done (CPU 2, target 1.600s, real 0.741s)\nProgram total time: 5.203s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5202876762\n"
+    },
+    {
+      "program": "prio",
+      "iter": 48,
+      "time_s": 4.82,
+      "wall_s": 4.822357681,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #49 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf4 start (CPU 1) at 0.000s\nf10 start (CPU 3) at 0.000s\nf11 start (CPU 2) at 0.000s\nc0 start (CPU 3) at 0.000s\nf11 done (CPU 2, target 0.300s, real 0.146s)\nf3 start (CPU 2) at 0.147s\nf0 done (CPU 1, target 0.500s, real 0.248s)\nf10 done (CPU 0, target 0.500s, real 0.256s)\nf1 done (CPU 2, target 0.500s, real 0.397s)\nf7 start (CPU 2) at 0.397s\nf2 done (CPU 1, target 0.500s, real 0.499s)\nf6 start (CPU 1) at 0.499s\nf5 start (CPU 1) at 0.499s\nf3 done (CPU 0, target 0.500s, real 0.359s)\nf4 done (CPU 2, target 0.500s, real 0.647s)\nf5 done (CPU 1, target 0.500s, real 0.249s)\nf9 start (CPU 1) at 0.749s\nf8 start (CPU 1) at 0.749s\nf6 done (CPU 0, target 0.500s, real 0.255s)\nf7 done (CPU 2, target 0.500s, real 0.498s)\nf8 done (CPU 1, target 0.500s, real 0.252s)\nf9 done (CPU 0, target 0.500s, real 0.257s)\nc0 done (CPU 3, target 2.500s, real 1.247s)\nc1 start (CPU 2) at 1.247s\nc1 done (CPU 2, target 2.200s, real 1.043s)\nc2 start (CPU 3) at 2.290s\nc2 done (CPU 3, target 2.000s, real 0.933s)\nc3 start (CPU 2) at 3.223s\nc3 done (CPU 2, target 1.800s, real 0.849s)\nc4 start (CPU 3) at 4.072s\nc4 done (CPU 3, target 1.600s, real 0.747s)\nProgram total time: 4.820s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4819632586\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 49,
+      "time_s": 5.238,
+      "wall_s": 5.241118986,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #50 (rc=0) -----\nf0 start (CPU 0) at 0.000s\nf2 start (CPU 2) at 0.000s\nf1 start (CPU 1) at 0.000s\nf8 start (CPU 2) at 0.001s\nf3 start (CPU 3) at 0.000s\nf7 start (CPU 2) at 0.008s\nf10 start (CPU 0) at 0.008s\nf9 start (CPU 0) at 0.008s\nc0 start (CPU 0) at 0.012s\nf11 start (CPU 0) at 0.012s\nf4 start (CPU 1) at 0.032s\nf5 start (CPU 1) at 0.036s\nf6 start (CPU 0) at 0.048s\nf2 done (CPU 3, target 0.500s, real 0.379s)\nf9 done (CPU 3, target 0.500s, real 0.459s)\nf8 done (CPU 3, target 0.500s, real 0.504s)\nf7 done (CPU 2, target 0.500s, real 0.504s)\nf11 done (CPU 3, target 0.300s, real 0.545s)\nf1 done (CPU 3, target 0.500s, real 0.678s)\nf0 done (CPU 2, target 0.500s, real 0.750s)\nf5 done (CPU 3, target 0.500s, real 0.718s)\nf10 done (CPU 3, target 0.500s, real 0.798s)\nf6 done (CPU 2, target 0.500s, real 0.760s)\nf3 done (CPU 1, target 0.500s, real 0.827s)\nf4 done (CPU 3, target 0.500s, real 0.812s)\nc0 done (CPU 2, target 2.500s, real 1.727s)\nc1 start (CPU 0) at 1.739s\nc1 done (CPU 2, target 2.200s, real 1.012s)\nc2 start (CPU 0) at 2.751s\nc2 done (CPU 2, target 2.000s, real 0.920s)\nc3 start (CPU 0) at 3.671s\nc3 done (CPU 2, target 1.800s, real 0.829s)\nc4 start (CPU 0) at 4.501s\nc4 done (CPU 2, target 1.600s, real 0.737s)\nProgram total time: 5.238s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=5238109119\n"
+    },
+    {
+      "program": "prio",
+      "iter": 49,
+      "time_s": 4.794,
+      "wall_s": 4.796413107,
+      "parsed_from_stdout": true,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #50 (rc=0) -----\nf0 start (CPU 1) at 0.000s\nf1 start (CPU 2) at 0.000s\nf2 start (CPU 3) at 0.000s\nf10 start (CPU 3) at 0.000s\nc0 start (CPU 2) at 0.000s\nf11 start (CPU 0) at 0.000s\nf11 done (CPU 0, target 0.300s, real 0.147s)\nf0 done (CPU 1, target 0.500s, real 0.246s)\nf10 done (CPU 3, target 0.500s, real 0.246s)\nf3 start (CPU 3) at 0.247s\nf1 done (CPU 0, target 0.500s, real 0.399s)\nf4 start (CPU 0) at 0.399s\nf3 done (CPU 3, target 0.500s, real 0.250s)\nf5 start (CPU 3) at 0.497s\nf2 done (CPU 1, target 0.500s, real 0.497s)\nf6 start (CPU 1) at 0.498s\nf4 done (CPU 0, target 0.500s, real 0.251s)\nf7 start (CPU 0) at 0.650s\nf5 done (CPU 3, target 0.500s, real 0.249s)\nf8 start (CPU 3) at 0.746s\nf6 done (CPU 1, target 0.500s, real 0.248s)\nf9 start (CPU 1) at 0.746s\nf7 done (CPU 0, target 0.500s, real 0.249s)\nf8 done (CPU 3, target 0.500s, real 0.249s)\nf9 done (CPU 1, target 0.500s, real 0.252s)\nc0 done (CPU 2, target 2.500s, real 1.240s)\nc1 start (CPU 3) at 1.240s\nc1 done (CPU 3, target 2.200s, real 1.038s)\nc2 start (CPU 2) at 2.279s\nc2 done (CPU 2, target 2.000s, real 0.930s)\nc3 start (CPU 3) at 3.209s\nc3 done (CPU 3, target 1.800s, real 0.840s)\nc4 start (CPU 2) at 4.049s\nc4 done (CPU 2, target 1.600s, real 0.744s)\nProgram total time: 4.794s\nall threads done\n\n[stderr]\nPROGRAM_TOTAL_NS=4793618592\n"
+    }
+  ],
+  "delta_mean_s": -0.3967599999999978,
+  "improvement_ratio": 0.07600125659906021
+}

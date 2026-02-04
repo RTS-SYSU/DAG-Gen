@@ -1,0 +1,143 @@
+{
+  "task_id": "experiment2_vs_experiment2_prio_2026-02-02T05-44-42+00-00",
+  "created_at": "2026-02-02T05-44-42+00-00",
+  "cpu_set": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "cores_per_task": 4,
+  "work_scale": 100,
+  "repeats": 3,
+  "affinity_rewritten_in_source": {
+    "baseline": true,
+    "prio": true
+  },
+  "baseline": {
+    "c_file": "/home/firefly/Desktop/ScratchDAG/中间结果/experiment2/level1/experiments/lpf_segment_20260129_013721/experiment2/baseline/project/experiment2/experiment2.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -DWORK_SCALE=100 experiment2.c prog_timer.c wrap_main.c -o /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/experiment2/2026-02-02T05-44-42+00-00_ws100_r3/baseline/app_baseline",
+    "stats": {
+      "n": 3.0,
+      "min_s": 10.001545883,
+      "max_s": 10.48681261,
+      "mean_s": 10.321155452,
+      "median_s": 10.475107863
+    },
+    "times_s": [
+      10.48681261,
+      10.001545883,
+      10.475107863
+    ]
+  },
+  "prio": {
+    "c_file": "/home/firefly/Desktop/ScratchDAG/中间结果/experiment2/level1/experiments/lpf_segment_20260129_013721/experiment2/prio/project/experiment2/experiment2_prio.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -DWORK_SCALE=100 experiment2_prio.c prog_timer.c wrap_main.c -o /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/experiment2/2026-02-02T05-44-42+00-00_ws100_r3/prio/app_prio",
+    "stats": {
+      "n": 3.0,
+      "min_s": 6.219283928,
+      "max_s": 6.265738299,
+      "mean_s": 6.235053235666666,
+      "median_s": 6.22013748
+    },
+    "times_s": [
+      6.265738299,
+      6.219283928,
+      6.22013748
+    ]
+  },
+  "runs": [
+    {
+      "program": "baseline",
+      "iter": 0,
+      "time_s": 10.48681261,
+      "wall_s": 10.48681261,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #1 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=10481421422\n\n[warn] failed to parse internal time; fallback wall_s=10.486813\n"
+    },
+    {
+      "program": "prio",
+      "iter": 0,
+      "time_s": 6.265738299,
+      "wall_s": 6.265738299,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #1 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=6257841919\n\n[warn] failed to parse internal time; fallback wall_s=6.265738\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 1,
+      "time_s": 10.001545883,
+      "wall_s": 10.001545883,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #2 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=9996295754\n\n[warn] failed to parse internal time; fallback wall_s=10.001546\n"
+    },
+    {
+      "program": "prio",
+      "iter": 1,
+      "time_s": 6.219283928,
+      "wall_s": 6.219283928,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #2 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=6206484670\n\n[warn] failed to parse internal time; fallback wall_s=6.219284\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 2,
+      "time_s": 10.475107863,
+      "wall_s": 10.475107863,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #3 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=10466012380\n\n[warn] failed to parse internal time; fallback wall_s=10.475108\n"
+    },
+    {
+      "program": "prio",
+      "iter": 2,
+      "time_s": 6.22013748,
+      "wall_s": 6.22013748,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #3 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=6212867794\n\n[warn] failed to parse internal time; fallback wall_s=6.220137\n"
+    }
+  ],
+  "delta_mean_s": -4.086102216333333,
+  "improvement_ratio": 0.39589581179513594
+}

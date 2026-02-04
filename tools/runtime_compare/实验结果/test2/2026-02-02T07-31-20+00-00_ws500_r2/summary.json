@@ -1,0 +1,111 @@
+{
+  "task_id": "cpu4_thread10_fifo_1_vs_cpu4_thread10_fifo_1_prio_2026-02-02T07-30-23+00-00",
+  "created_at": "2026-02-02T07-31-20+00-00",
+  "cpu_set": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "cores_per_task": 4,
+  "work_scale": 500,
+  "repeats": 2,
+  "affinity_rewritten_in_source": {
+    "baseline": true,
+    "prio": true
+  },
+  "baseline": {
+    "c_file": "/home/firefly/Desktop/ScratchDAG/中间结果/cpu4_thread10_fifo_1/level1/experiments/lpf_segment_20260126_044809/cpu4_thread10_fifo_1/baseline/project/cpu4_thread10_fifo_1/cpu4_thread10_fifo_1.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -DWORK_SCALE=500 cpu4_thread10_fifo_1.c prog_timer.c wrap_main.c -o /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/test2/2026-02-02T07-31-20+00-00_ws500_r2/baseline/app_baseline",
+    "stats": {
+      "n": 2.0,
+      "min_s": 28.10853729,
+      "max_s": 28.18803215,
+      "mean_s": 28.14828472,
+      "median_s": 28.18803215
+    },
+    "times_s": [
+      28.10853729,
+      28.18803215
+    ]
+  },
+  "prio": {
+    "c_file": "/home/firefly/Desktop/ScratchDAG/中间结果/cpu4_thread10_fifo_1/level1/experiments/lpf_segment_20260126_044809/cpu4_thread10_fifo_1/prio/project/cpu4_thread10_fifo_1/cpu4_thread10_fifo_1_prio.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -DWORK_SCALE=500 cpu4_thread10_fifo_1_prio.c prog_timer.c wrap_main.c -o /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/test2/2026-02-02T07-31-20+00-00_ws500_r2/prio/app_prio",
+    "stats": {
+      "n": 2.0,
+      "min_s": 27.877572699,
+      "max_s": 28.664388301,
+      "mean_s": 28.2709805,
+      "median_s": 28.664388301
+    },
+    "times_s": [
+      28.664388301,
+      27.877572699
+    ]
+  },
+  "runs": [
+    {
+      "program": "baseline",
+      "iter": 0,
+      "time_s": 28.10853729,
+      "wall_s": 28.10853729,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #1 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=28092463014\n\n[warn] failed to parse internal time; fallback wall_s=28.108537\n"
+    },
+    {
+      "program": "prio",
+      "iter": 0,
+      "time_s": 28.664388301,
+      "wall_s": 28.664388301,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #1 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=28648653681\n\n[warn] failed to parse internal time; fallback wall_s=28.664388\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 1,
+      "time_s": 28.18803215,
+      "wall_s": 28.18803215,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #2 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=28173324972\n\n[warn] failed to parse internal time; fallback wall_s=28.188032\n"
+    },
+    {
+      "program": "prio",
+      "iter": 1,
+      "time_s": 27.877572699,
+      "wall_s": 27.877572699,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #2 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=27863747013\n\n[warn] failed to parse internal time; fallback wall_s=27.877573\n"
+    }
+  ],
+  "delta_mean_s": 0.12269578000000081,
+  "improvement_ratio": -0.004358907877353629
+}

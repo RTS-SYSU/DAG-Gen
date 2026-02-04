@@ -1,0 +1,44 @@
+digraph G {
+  rankdir=TB;
+  splines=true;
+  nodesep=0.35;
+  ranksep=0.55;
+  node [shape=circle, fontsize=12, width=0.55, fixedsize=true];
+  edge [arrowsize=0.8];
+
+  // Scheme A: split shared node + merge node (join-safe)
+  // Layers: A -> B -> C (with split) -> merge -> D
+
+  { rank=same; A1 [label="A1", style=filled, fillcolor="#f2f2f2"]; }
+  { rank=same; B1 [label="B1", style=filled, fillcolor="#d9edf7"]; B2 [label="B2", style=filled, fillcolor="#d9edf7"]; }
+  { rank=same;
+    C1 [label="C1", style=filled, fillcolor="#dff0d8"];
+    C2a [label="C2a", style=filled, fillcolor="#dff0d8"];
+    C2b [label="C2b", style=filled, fillcolor="#dff0d8"];
+    C3 [label="C3", style=filled, fillcolor="#dff0d8"];
+  }
+  { rank=same; C2m [label="C2m", style=filled, fillcolor="#fcf8e3"]; }
+  { rank=same; D1 [label="D1", style=filled, fillcolor="#f5e79e"]; D2 [label="D2", style=filled, fillcolor="#f5e79e"]; }
+
+  // create edges (topology intent). In code, dependencies are enforced by join in child threads.
+  A1 -> B1;
+  A1 -> B2;
+
+  B1 -> C1;
+  B1 -> C2a;
+  B2 -> C2b;
+  B2 -> C3;
+
+  C2a -> C2m;
+  C2b -> C2m;
+
+  C1 -> D1;
+  C2m -> D1;
+  C2m -> D2;
+  C3 -> D2;
+
+  // title
+  labelloc="t";
+  label="Scheme A (join-safe): split shared node + merge\nC2 split into C2a/C2b, then merged by C2m";
+}
+

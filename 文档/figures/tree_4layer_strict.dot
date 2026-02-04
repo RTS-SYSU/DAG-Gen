@@ -1,0 +1,42 @@
+digraph G {
+  rankdir=TB;
+  splines=true;
+  nodesep=0.35;
+  ranksep=0.55;
+  node [shape=circle, fontsize=12, width=0.55, fixedsize=true];
+  edge [arrowsize=0.75];
+
+  // 4-layer full binary tree (levels 1..4): 1,2,4,8 nodes.
+  // This topology is join-safe under "each thread joined once" (tree fan-in is single-parent).
+
+  { rank=same; A [label="A", style=filled, fillcolor="#f2f2f2"]; }
+  { rank=same; B1 [label="B1", style=filled, fillcolor="#d9edf7"]; B2 [label="B2", style=filled, fillcolor="#d9edf7"]; }
+  { rank=same;
+    C1 [label="C1", style=filled, fillcolor="#dff0d8"];
+    C2 [label="C2", style=filled, fillcolor="#dff0d8"];
+    C3 [label="C3", style=filled, fillcolor="#dff0d8"];
+    C4 [label="C4", style=filled, fillcolor="#dff0d8"];
+  }
+  { rank=same;
+    D1 [label="D1", style=filled, fillcolor="#fcf8e3"];
+    D2 [label="D2", style=filled, fillcolor="#fcf8e3"];
+    D3 [label="D3", style=filled, fillcolor="#fcf8e3"];
+    D4 [label="D4", style=filled, fillcolor="#fcf8e3"];
+    D5 [label="D5", style=filled, fillcolor="#fcf8e3"];
+    D6 [label="D6", style=filled, fillcolor="#fcf8e3"];
+    D7 [label="D7", style=filled, fillcolor="#fcf8e3"];
+    D8 [label="D8", style=filled, fillcolor="#fcf8e3"];
+  }
+
+  A -> B1; A -> B2;
+  B1 -> C1; B1 -> C2;
+  B2 -> C3; B2 -> C4;
+  C1 -> D1; C1 -> D2;
+  C2 -> D3; C2 -> D4;
+  C3 -> D5; C3 -> D6;
+  C4 -> D7; C4 -> D8;
+
+  labelloc="t";
+  label="Strict Tree DAG (4 layers): full binary tree";
+}
+

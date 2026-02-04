@@ -1,0 +1,866 @@
+=== RUN at 2026-02-02T11-00-46+00-00 (WORK_SCALE=100, REPEATS=50) ===
+baseline_bin=/home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/test4/2026-02-02T11-00-46+00-00_ws100_r50/baseline/app_baseline
+prio_bin=/home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/test4/2026-02-02T11-00-46+00-00_ws100_r50/prio/app_prio
+
+=== PAIRED RESULTS (program-reported time, seconds) ===
+run	baseline	prio	delta(prio-baseline)
+1	9.027126	6.963633	-2.063493
+2	8.949432	6.312845	-2.636586
+3	8.938196	6.561214	-2.376982
+4	9.016142	6.494773	-2.521368
+5	8.991220	6.209939	-2.781281
+6	8.961068	6.741940	-2.219128
+7	8.957581	6.209526	-2.748056
+8	8.976280	6.446652	-2.529628
+9	8.972363	6.265714	-2.706649
+10	9.023318	6.210296	-2.813022
+11	8.945899	6.302654	-2.643245
+12	8.993092	6.211827	-2.781265
+13	8.979870	6.211715	-2.768155
+14	8.966408	6.210045	-2.756363
+15	9.000714	6.790274	-2.210439
+16	9.013032	6.207400	-2.805632
+17	8.964318	6.209600	-2.754719
+18	8.950317	6.213115	-2.737203
+19	8.946294	6.295081	-2.651213
+20	9.015317	6.210033	-2.805284
+21	8.992688	6.209774	-2.782914
+22	8.950595	6.523389	-2.427206
+23	8.976356	6.209282	-2.767074
+24	8.900611	6.622306	-2.278305
+25	9.061376	6.966013	-2.095363
+26	8.994657	6.210246	-2.784411
+27	8.969067	6.427742	-2.541325
+28	8.955475	6.329385	-2.626090
+29	9.020835	6.468361	-2.552474
+30	8.967841	7.108292	-1.859549
+31	8.977431	6.725219	-2.252212
+32	8.986825	6.346172	-2.640653
+33	8.964167	6.834111	-2.130056
+34	9.011144	6.209099	-2.802046
+35	8.916442	6.930102	-1.986340
+36	8.947826	6.291689	-2.656137
+37	9.016095	6.889876	-2.126220
+38	8.999970	6.208935	-2.791035
+39	8.977468	6.209780	-2.767688
+40	9.011536	6.447985	-2.563552
+41	9.066309	6.778075	-2.288233
+42	8.988905	6.209346	-2.779559
+43	8.952765	6.801804	-2.150962
+44	8.983166	6.971173	-2.011994
+45	8.999596	6.425257	-2.574340
+46	8.918128	6.886545	-2.031583
+47	8.965214	6.210356	-2.754858
+48	8.939326	6.244050	-2.695276
+49	9.077471	6.229502	-2.847970
+50	8.951482	7.126861	-1.824621
+
+=== BASELINE STATS (program time) ===
+times_s=[9.027126, 8.949432, 8.938196, 9.016142, 8.99122, 8.961068, 8.957581, 8.97628, 8.972363, 9.023318, 8.945899, 8.993092, 8.97987, 8.966408, 9.000714, 9.013032, 8.964318, 8.950317, 8.946294, 9.015317, 8.992688, 8.950595, 8.976356, 8.900611, 9.061376, 8.994657, 8.969067, 8.955475, 9.020835, 8.967841, 8.977431, 8.986825, 8.964167, 9.011144, 8.916442, 8.947826, 9.016095, 8.99997, 8.977468, 9.011536, 9.066309, 8.988905, 8.952765, 8.983166, 8.999596, 8.918128, 8.965214, 8.939326, 9.077471, 8.951482]
+mean=8.980575s min=8.900611s max=9.077471s rcs=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+=== PRIO STATS (program time) ===
+times_s=[6.963633, 6.312845, 6.561214, 6.494773, 6.209939, 6.74194, 6.209526, 6.446652, 6.265714, 6.210296, 6.302654, 6.211827, 6.211715, 6.210045, 6.790274, 6.2074, 6.2096, 6.213115, 6.295081, 6.210033, 6.209774, 6.523389, 6.209282, 6.622306, 6.966013, 6.210246, 6.427742, 6.329385, 6.468361, 7.108292, 6.725219, 6.346172, 6.834111, 6.209099, 6.930102, 6.291689, 6.889876, 6.208935, 6.20978, 6.447985, 6.778075, 6.209346, 6.801804, 6.971173, 6.425257, 6.886545, 6.210356, 6.24405, 6.229502, 7.126861]
+mean=6.466580s min=6.207400s max=7.126861s rcs=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+=== LOGS (raw program output) ===
+
+----- [baseline] run #1 (program=9.027126s, rc=0) -----
+----- [baseline] run #1 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=9012037337
+
+[warn] failed to parse internal time; fallback wall_s=9.027126
+
+----- [prio] run #1 (program=6.963633s, rc=0) -----
+----- [prio] run #1 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6957301462
+
+[warn] failed to parse internal time; fallback wall_s=6.963633
+
+----- [baseline] run #2 (program=8.949432s, rc=0) -----
+----- [baseline] run #2 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8941603129
+
+[warn] failed to parse internal time; fallback wall_s=8.949432
+
+----- [prio] run #2 (program=6.312845s, rc=0) -----
+----- [prio] run #2 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6306553253
+
+[warn] failed to parse internal time; fallback wall_s=6.312845
+
+----- [baseline] run #3 (program=8.938196s, rc=0) -----
+----- [baseline] run #3 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8931682962
+
+[warn] failed to parse internal time; fallback wall_s=8.938196
+
+----- [prio] run #3 (program=6.561214s, rc=0) -----
+----- [prio] run #3 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6554919670
+
+[warn] failed to parse internal time; fallback wall_s=6.561214
+
+----- [baseline] run #4 (program=9.016142s, rc=0) -----
+----- [baseline] run #4 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=9008445212
+
+[warn] failed to parse internal time; fallback wall_s=9.016142
+
+----- [prio] run #4 (program=6.494773s, rc=0) -----
+----- [prio] run #4 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6488409336
+
+[warn] failed to parse internal time; fallback wall_s=6.494773
+
+----- [baseline] run #5 (program=8.991220s, rc=0) -----
+----- [baseline] run #5 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8984906879
+
+[warn] failed to parse internal time; fallback wall_s=8.991220
+
+----- [prio] run #5 (program=6.209939s, rc=0) -----
+----- [prio] run #5 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6203479920
+
+[warn] failed to parse internal time; fallback wall_s=6.209939
+
+----- [baseline] run #6 (program=8.961068s, rc=0) -----
+----- [baseline] run #6 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8954639754
+
+[warn] failed to parse internal time; fallback wall_s=8.961068
+
+----- [prio] run #6 (program=6.741940s, rc=0) -----
+----- [prio] run #6 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6735362462
+
+[warn] failed to parse internal time; fallback wall_s=6.741940
+
+----- [baseline] run #7 (program=8.957581s, rc=0) -----
+----- [baseline] run #7 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8950642463
+
+[warn] failed to parse internal time; fallback wall_s=8.957581
+
+----- [prio] run #7 (program=6.209526s, rc=0) -----
+----- [prio] run #7 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6203117961
+
+[warn] failed to parse internal time; fallback wall_s=6.209526
+
+----- [baseline] run #8 (program=8.976280s, rc=0) -----
+----- [baseline] run #8 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8969875254
+
+[warn] failed to parse internal time; fallback wall_s=8.976280
+
+----- [prio] run #8 (program=6.446652s, rc=0) -----
+----- [prio] run #8 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6440099003
+
+[warn] failed to parse internal time; fallback wall_s=6.446652
+
+----- [baseline] run #9 (program=8.972363s, rc=0) -----
+----- [baseline] run #9 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8965982380
+
+[warn] failed to parse internal time; fallback wall_s=8.972363
+
+----- [prio] run #9 (program=6.265714s, rc=0) -----
+----- [prio] run #9 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6259165795
+
+[warn] failed to parse internal time; fallback wall_s=6.265714
+
+----- [baseline] run #10 (program=9.023318s, rc=0) -----
+----- [baseline] run #10 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=9016209421
+
+[warn] failed to parse internal time; fallback wall_s=9.023318
+
+----- [prio] run #10 (program=6.210296s, rc=0) -----
+----- [prio] run #10 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6203995294
+
+[warn] failed to parse internal time; fallback wall_s=6.210296
+
+----- [baseline] run #11 (program=8.945899s, rc=0) -----
+----- [baseline] run #11 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8939318213
+
+[warn] failed to parse internal time; fallback wall_s=8.945899
+
+----- [prio] run #11 (program=6.302654s, rc=0) -----
+----- [prio] run #11 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6296326212
+
+[warn] failed to parse internal time; fallback wall_s=6.302654
+
+----- [baseline] run #12 (program=8.993092s, rc=0) -----
+----- [baseline] run #12 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8986566754
+
+[warn] failed to parse internal time; fallback wall_s=8.993092
+
+----- [prio] run #12 (program=6.211827s, rc=0) -----
+----- [prio] run #12 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6205349794
+
+[warn] failed to parse internal time; fallback wall_s=6.211827
+
+----- [baseline] run #13 (program=8.979870s, rc=0) -----
+----- [baseline] run #13 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8973402380
+
+[warn] failed to parse internal time; fallback wall_s=8.979870
+
+----- [prio] run #13 (program=6.211715s, rc=0) -----
+----- [prio] run #13 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6205270170
+
+[warn] failed to parse internal time; fallback wall_s=6.211715
+
+----- [baseline] run #14 (program=8.966408s, rc=0) -----
+----- [baseline] run #14 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8958692462
+
+[warn] failed to parse internal time; fallback wall_s=8.966408
+
+----- [prio] run #14 (program=6.210045s, rc=0) -----
+----- [prio] run #14 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6203566544
+
+[warn] failed to parse internal time; fallback wall_s=6.210045
+
+----- [baseline] run #15 (program=9.000714s, rc=0) -----
+----- [baseline] run #15 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8994301296
+
+[warn] failed to parse internal time; fallback wall_s=9.000714
+
+----- [prio] run #15 (program=6.790274s, rc=0) -----
+----- [prio] run #15 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6783793379
+
+[warn] failed to parse internal time; fallback wall_s=6.790274
+
+----- [baseline] run #16 (program=9.013032s, rc=0) -----
+----- [baseline] run #16 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=9005304588
+
+[warn] failed to parse internal time; fallback wall_s=9.013032
+
+----- [prio] run #16 (program=6.207400s, rc=0) -----
+----- [prio] run #16 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6200637045
+
+[warn] failed to parse internal time; fallback wall_s=6.207400
+
+----- [baseline] run #17 (program=8.964318s, rc=0) -----
+----- [baseline] run #17 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8957547713
+
+[warn] failed to parse internal time; fallback wall_s=8.964318
+
+----- [prio] run #17 (program=6.209600s, rc=0) -----
+----- [prio] run #17 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6203058753
+
+[warn] failed to parse internal time; fallback wall_s=6.209600
+
+----- [baseline] run #18 (program=8.950317s, rc=0) -----
+----- [baseline] run #18 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8943912254
+
+[warn] failed to parse internal time; fallback wall_s=8.950317
+
+----- [prio] run #18 (program=6.213115s, rc=0) -----
+----- [prio] run #18 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6206795586
+
+[warn] failed to parse internal time; fallback wall_s=6.213115
+
+----- [baseline] run #19 (program=8.946294s, rc=0) -----
+----- [baseline] run #19 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8939853129
+
+[warn] failed to parse internal time; fallback wall_s=8.946294
+
+----- [prio] run #19 (program=6.295081s, rc=0) -----
+----- [prio] run #19 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6288671795
+
+[warn] failed to parse internal time; fallback wall_s=6.295081
+
+----- [baseline] run #20 (program=9.015317s, rc=0) -----
+----- [baseline] run #20 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=9008192671
+
+[warn] failed to parse internal time; fallback wall_s=9.015317
+
+----- [prio] run #20 (program=6.210033s, rc=0) -----
+----- [prio] run #20 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6203665712
+
+[warn] failed to parse internal time; fallback wall_s=6.210033
+
+----- [baseline] run #21 (program=8.992688s, rc=0) -----
+----- [baseline] run #21 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8986313296
+
+[warn] failed to parse internal time; fallback wall_s=8.992688
+
+----- [prio] run #21 (program=6.209774s, rc=0) -----
+----- [prio] run #21 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6203395336
+
+[warn] failed to parse internal time; fallback wall_s=6.209774
+
+----- [baseline] run #22 (program=8.950595s, rc=0) -----
+----- [baseline] run #22 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8943763796
+
+[warn] failed to parse internal time; fallback wall_s=8.950595
+
+----- [prio] run #22 (program=6.523389s, rc=0) -----
+----- [prio] run #22 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6516893086
+
+[warn] failed to parse internal time; fallback wall_s=6.523389
+
+----- [baseline] run #23 (program=8.976356s, rc=0) -----
+----- [baseline] run #23 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8967957462
+
+[warn] failed to parse internal time; fallback wall_s=8.976356
+
+----- [prio] run #23 (program=6.209282s, rc=0) -----
+----- [prio] run #23 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6202903877
+
+[warn] failed to parse internal time; fallback wall_s=6.209282
+
+----- [baseline] run #24 (program=8.900611s, rc=0) -----
+----- [baseline] run #24 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8894085380
+
+[warn] failed to parse internal time; fallback wall_s=8.900611
+
+----- [prio] run #24 (program=6.622306s, rc=0) -----
+----- [prio] run #24 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6615777795
+
+[warn] failed to parse internal time; fallback wall_s=6.622306
+
+----- [baseline] run #25 (program=9.061376s, rc=0) -----
+----- [baseline] run #25 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=9053412379
+
+[warn] failed to parse internal time; fallback wall_s=9.061376
+
+----- [prio] run #25 (program=6.966013s, rc=0) -----
+----- [prio] run #25 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6959305503
+
+[warn] failed to parse internal time; fallback wall_s=6.966013
+
+----- [baseline] run #26 (program=8.994657s, rc=0) -----
+----- [baseline] run #26 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8987125587
+
+[warn] failed to parse internal time; fallback wall_s=8.994657
+
+----- [prio] run #26 (program=6.210246s, rc=0) -----
+----- [prio] run #26 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6203738337
+
+[warn] failed to parse internal time; fallback wall_s=6.210246
+
+----- [baseline] run #27 (program=8.969067s, rc=0) -----
+----- [baseline] run #27 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8962466338
+
+[warn] failed to parse internal time; fallback wall_s=8.969067
+
+----- [prio] run #27 (program=6.427742s, rc=0) -----
+----- [prio] run #27 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6421214545
+
+[warn] failed to parse internal time; fallback wall_s=6.427742
+
+----- [baseline] run #28 (program=8.955475s, rc=0) -----
+----- [baseline] run #28 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8949140088
+
+[warn] failed to parse internal time; fallback wall_s=8.955475
+
+----- [prio] run #28 (program=6.329385s, rc=0) -----
+----- [prio] run #28 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6322862670
+
+[warn] failed to parse internal time; fallback wall_s=6.329385
+
+----- [baseline] run #29 (program=9.020835s, rc=0) -----
+----- [baseline] run #29 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=9013098212
+
+[warn] failed to parse internal time; fallback wall_s=9.020835
+
+----- [prio] run #29 (program=6.468361s, rc=0) -----
+----- [prio] run #29 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6462088878
+
+[warn] failed to parse internal time; fallback wall_s=6.468361
+
+----- [baseline] run #30 (program=8.967841s, rc=0) -----
+----- [baseline] run #30 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8961298212
+
+[warn] failed to parse internal time; fallback wall_s=8.967841
+
+----- [prio] run #30 (program=7.108292s, rc=0) -----
+----- [prio] run #30 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=7101511795
+
+[warn] failed to parse internal time; fallback wall_s=7.108292
+
+----- [baseline] run #31 (program=8.977431s, rc=0) -----
+----- [baseline] run #31 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8969284629
+
+[warn] failed to parse internal time; fallback wall_s=8.977431
+
+----- [prio] run #31 (program=6.725219s, rc=0) -----
+----- [prio] run #31 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6718027337
+
+[warn] failed to parse internal time; fallback wall_s=6.725219
+
+----- [baseline] run #32 (program=8.986825s, rc=0) -----
+----- [baseline] run #32 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8979984713
+
+[warn] failed to parse internal time; fallback wall_s=8.986825
+
+----- [prio] run #32 (program=6.346172s, rc=0) -----
+----- [prio] run #32 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6339910086
+
+[warn] failed to parse internal time; fallback wall_s=6.346172
+
+----- [baseline] run #33 (program=8.964167s, rc=0) -----
+----- [baseline] run #33 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8957696130
+
+[warn] failed to parse internal time; fallback wall_s=8.964167
+
+----- [prio] run #33 (program=6.834111s, rc=0) -----
+----- [prio] run #33 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6827697836
+
+[warn] failed to parse internal time; fallback wall_s=6.834111
+
+----- [baseline] run #34 (program=9.011144s, rc=0) -----
+----- [baseline] run #34 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=9004830629
+
+[warn] failed to parse internal time; fallback wall_s=9.011144
+
+----- [prio] run #34 (program=6.209099s, rc=0) -----
+----- [prio] run #34 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6202730628
+
+[warn] failed to parse internal time; fallback wall_s=6.209099
+
+----- [baseline] run #35 (program=8.916442s, rc=0) -----
+----- [baseline] run #35 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8910114213
+
+[warn] failed to parse internal time; fallback wall_s=8.916442
+
+----- [prio] run #35 (program=6.930102s, rc=0) -----
+----- [prio] run #35 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6923510045
+
+[warn] failed to parse internal time; fallback wall_s=6.930102
+
+----- [baseline] run #36 (program=8.947826s, rc=0) -----
+----- [baseline] run #36 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8940430421
+
+[warn] failed to parse internal time; fallback wall_s=8.947826
+
+----- [prio] run #36 (program=6.291689s, rc=0) -----
+----- [prio] run #36 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6285532961
+
+[warn] failed to parse internal time; fallback wall_s=6.291689
+
+----- [baseline] run #37 (program=9.016095s, rc=0) -----
+----- [baseline] run #37 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=9009510712
+
+[warn] failed to parse internal time; fallback wall_s=9.016095
+
+----- [prio] run #37 (program=6.889876s, rc=0) -----
+----- [prio] run #37 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6882980462
+
+[warn] failed to parse internal time; fallback wall_s=6.889876
+
+----- [baseline] run #38 (program=8.999970s, rc=0) -----
+----- [baseline] run #38 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8993231921
+
+[warn] failed to parse internal time; fallback wall_s=8.999970
+
+----- [prio] run #38 (program=6.208935s, rc=0) -----
+----- [prio] run #38 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6202666169
+
+[warn] failed to parse internal time; fallback wall_s=6.208935
+
+----- [baseline] run #39 (program=8.977468s, rc=0) -----
+----- [baseline] run #39 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8971075171
+
+[warn] failed to parse internal time; fallback wall_s=8.977468
+
+----- [prio] run #39 (program=6.209780s, rc=0) -----
+----- [prio] run #39 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6203364128
+
+[warn] failed to parse internal time; fallback wall_s=6.209780
+
+----- [baseline] run #40 (program=9.011536s, rc=0) -----
+----- [baseline] run #40 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=9005076921
+
+[warn] failed to parse internal time; fallback wall_s=9.011536
+
+----- [prio] run #40 (program=6.447985s, rc=0) -----
+----- [prio] run #40 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6441512170
+
+[warn] failed to parse internal time; fallback wall_s=6.447985
+
+----- [baseline] run #41 (program=9.066309s, rc=0) -----
+----- [baseline] run #41 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=9059840796
+
+[warn] failed to parse internal time; fallback wall_s=9.066309
+
+----- [prio] run #41 (program=6.778075s, rc=0) -----
+----- [prio] run #41 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6771515086
+
+[warn] failed to parse internal time; fallback wall_s=6.778075
+
+----- [baseline] run #42 (program=8.988905s, rc=0) -----
+----- [baseline] run #42 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8982495671
+
+[warn] failed to parse internal time; fallback wall_s=8.988905
+
+----- [prio] run #42 (program=6.209346s, rc=0) -----
+----- [prio] run #42 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6202889586
+
+[warn] failed to parse internal time; fallback wall_s=6.209346
+
+----- [baseline] run #43 (program=8.952765s, rc=0) -----
+----- [baseline] run #43 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8945555504
+
+[warn] failed to parse internal time; fallback wall_s=8.952765
+
+----- [prio] run #43 (program=6.801804s, rc=0) -----
+----- [prio] run #43 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6795226378
+
+[warn] failed to parse internal time; fallback wall_s=6.801804
+
+----- [baseline] run #44 (program=8.983166s, rc=0) -----
+----- [baseline] run #44 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8975624296
+
+[warn] failed to parse internal time; fallback wall_s=8.983166
+
+----- [prio] run #44 (program=6.971173s, rc=0) -----
+----- [prio] run #44 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6964678962
+
+[warn] failed to parse internal time; fallback wall_s=6.971173
+
+----- [baseline] run #45 (program=8.999596s, rc=0) -----
+----- [baseline] run #45 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8992571296
+
+[warn] failed to parse internal time; fallback wall_s=8.999596
+
+----- [prio] run #45 (program=6.425257s, rc=0) -----
+----- [prio] run #45 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6418797878
+
+[warn] failed to parse internal time; fallback wall_s=6.425257
+
+----- [baseline] run #46 (program=8.918128s, rc=0) -----
+----- [baseline] run #46 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8911820171
+
+[warn] failed to parse internal time; fallback wall_s=8.918128
+
+----- [prio] run #46 (program=6.886545s, rc=0) -----
+----- [prio] run #46 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6879771003
+
+[warn] failed to parse internal time; fallback wall_s=6.886545
+
+----- [baseline] run #47 (program=8.965214s, rc=0) -----
+----- [baseline] run #47 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8957465421
+
+[warn] failed to parse internal time; fallback wall_s=8.965214
+
+----- [prio] run #47 (program=6.210356s, rc=0) -----
+----- [prio] run #47 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6203901086
+
+[warn] failed to parse internal time; fallback wall_s=6.210356
+
+----- [baseline] run #48 (program=8.939326s, rc=0) -----
+----- [baseline] run #48 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8932781088
+
+[warn] failed to parse internal time; fallback wall_s=8.939326
+
+----- [prio] run #48 (program=6.244050s, rc=0) -----
+----- [prio] run #48 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6237695336
+
+[warn] failed to parse internal time; fallback wall_s=6.244050
+
+----- [baseline] run #49 (program=9.077471s, rc=0) -----
+----- [baseline] run #49 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=9070697713
+
+[warn] failed to parse internal time; fallback wall_s=9.077471
+
+----- [prio] run #49 (program=6.229502s, rc=0) -----
+----- [prio] run #49 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=6223210878
+
+[warn] failed to parse internal time; fallback wall_s=6.229502
+
+----- [baseline] run #50 (program=8.951482s, rc=0) -----
+----- [baseline] run #50 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8944912671
+
+[warn] failed to parse internal time; fallback wall_s=8.951482
+
+----- [prio] run #50 (program=7.126861s, rc=0) -----
+----- [prio] run #50 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=7119547879
+
+[warn] failed to parse internal time; fallback wall_s=7.126861

@@ -1,0 +1,68 @@
+digraph G {
+  rankdir=TB;
+  splines=true;
+  nodesep=0.30;
+  ranksep=0.50;
+  node [shape=circle, fontsize=11, width=0.52, fixedsize=true];
+  edge [arrowsize=0.7];
+
+  // 5-layer full binary tree (levels 1..5): 1,2,4,8,16 nodes.
+  // Join-safe under "each thread joined once" because each node has exactly one parent.
+
+  { rank=same; A [label="A", style=filled, fillcolor="#f2f2f2"]; }
+  { rank=same; B1 [label="B1", style=filled, fillcolor="#d9edf7"]; B2 [label="B2", style=filled, fillcolor="#d9edf7"]; }
+  { rank=same;
+    C1 [label="C1", style=filled, fillcolor="#dff0d8"];
+    C2 [label="C2", style=filled, fillcolor="#dff0d8"];
+    C3 [label="C3", style=filled, fillcolor="#dff0d8"];
+    C4 [label="C4", style=filled, fillcolor="#dff0d8"];
+  }
+  { rank=same;
+    D1 [label="D1", style=filled, fillcolor="#fcf8e3"];
+    D2 [label="D2", style=filled, fillcolor="#fcf8e3"];
+    D3 [label="D3", style=filled, fillcolor="#fcf8e3"];
+    D4 [label="D4", style=filled, fillcolor="#fcf8e3"];
+    D5 [label="D5", style=filled, fillcolor="#fcf8e3"];
+    D6 [label="D6", style=filled, fillcolor="#fcf8e3"];
+    D7 [label="D7", style=filled, fillcolor="#fcf8e3"];
+    D8 [label="D8", style=filled, fillcolor="#fcf8e3"];
+  }
+  { rank=same;
+    E1 [label="E1", style=filled, fillcolor="#f5e79e"];
+    E2 [label="E2", style=filled, fillcolor="#f5e79e"];
+    E3 [label="E3", style=filled, fillcolor="#f5e79e"];
+    E4 [label="E4", style=filled, fillcolor="#f5e79e"];
+    E5 [label="E5", style=filled, fillcolor="#f5e79e"];
+    E6 [label="E6", style=filled, fillcolor="#f5e79e"];
+    E7 [label="E7", style=filled, fillcolor="#f5e79e"];
+    E8 [label="E8", style=filled, fillcolor="#f5e79e"];
+    E9 [label="E9", style=filled, fillcolor="#f5e79e"];
+    E10 [label="E10", style=filled, fillcolor="#f5e79e"];
+    E11 [label="E11", style=filled, fillcolor="#f5e79e"];
+    E12 [label="E12", style=filled, fillcolor="#f5e79e"];
+    E13 [label="E13", style=filled, fillcolor="#f5e79e"];
+    E14 [label="E14", style=filled, fillcolor="#f5e79e"];
+    E15 [label="E15", style=filled, fillcolor="#f5e79e"];
+    E16 [label="E16", style=filled, fillcolor="#f5e79e"];
+  }
+
+  A -> B1; A -> B2;
+  B1 -> C1; B1 -> C2;
+  B2 -> C3; B2 -> C4;
+  C1 -> D1; C1 -> D2;
+  C2 -> D3; C2 -> D4;
+  C3 -> D5; C3 -> D6;
+  C4 -> D7; C4 -> D8;
+  D1 -> E1; D1 -> E2;
+  D2 -> E3; D2 -> E4;
+  D3 -> E5; D3 -> E6;
+  D4 -> E7; D4 -> E8;
+  D5 -> E9; D5 -> E10;
+  D6 -> E11; D6 -> E12;
+  D7 -> E13; D7 -> E14;
+  D8 -> E15; D8 -> E16;
+
+  labelloc="t";
+  label="Strict Tree DAG (5 layers): full binary tree";
+}
+
