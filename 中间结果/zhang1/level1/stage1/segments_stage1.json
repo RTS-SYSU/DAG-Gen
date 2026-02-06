@@ -1,0 +1,324 @@
+{
+  "base_name": "zhang1",
+  "source": "/home/chove/Desktop/mydag/mycallyplus_v1/中间结果/zhang1/生成dag图/functions_ranges.json",
+  "ranges": "/home/chove/Desktop/mydag/mycallyplus_v1/中间结果/zhang1/生成dag图/functions_ranges.json",
+  "functions_full": "/home/chove/Desktop/mydag/mycallyplus_v1/中间结果/zhang1/生成dag图/functions_full.json",
+  "mycalls_meta_internal": "/home/chove/Desktop/mydag/mycallyplus_v1/中间结果/zhang1/生成dag图/debug/mycalls_meta_internal.json",
+  "stage": 1,
+  "cut_points": [
+    {
+      "function": "c0_fn",
+      "kind": "create",
+      "node": "c0_fn/pthread_create4",
+      "line": 157,
+      "entry_fn": "c1_fn",
+      "tid_var": null
+    },
+    {
+      "function": "c1_fn",
+      "kind": "create",
+      "node": "c1_fn/pthread_create4",
+      "line": 137,
+      "entry_fn": "c2_fn",
+      "tid_var": null
+    },
+    {
+      "function": "main",
+      "kind": "create",
+      "node": "main/pthread_create17",
+      "line": 202,
+      "entry_fn": "c0_fn",
+      "tid_var": null
+    },
+    {
+      "function": "main",
+      "kind": "join",
+      "node": "main/pthread_join29",
+      "line": 214,
+      "entry_fn": "c0_fn",
+      "tid_var": "tc0"
+    },
+    {
+      "function": "main",
+      "kind": "join",
+      "node": "main/pthread_join33",
+      "line": 218,
+      "entry_fn": "c1_fn",
+      "tid_var": "tc1"
+    },
+    {
+      "function": "main",
+      "kind": "join",
+      "node": "main/pthread_join37",
+      "line": 222,
+      "entry_fn": "c2_fn",
+      "tid_var": "tc2"
+    }
+  ],
+  "segments": [
+    {
+      "seg_id": "THR:init_matrices#001@84-88",
+      "function": "init_matrices",
+      "kind": "compute",
+      "start_line": 84,
+      "end_line": 88,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:busy_wait_seconds#001@95-104",
+      "function": "busy_wait_seconds",
+      "kind": "compute",
+      "start_line": 95,
+      "end_line": 104,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:c2_fn#001@118-129",
+      "function": "c2_fn",
+      "kind": "compute",
+      "start_line": 118,
+      "end_line": 129,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:c1_fn#001@134-136",
+      "function": "c1_fn",
+      "kind": "compute",
+      "start_line": 134,
+      "end_line": 136,
+      "cut_node": null
+    },
+    {
+      "seg_id": "CRT:c1_fn#002@L137",
+      "function": "c1_fn",
+      "kind": "create",
+      "start_line": 137,
+      "end_line": 137,
+      "cut_node": "c1_fn/pthread_create4"
+    },
+    {
+      "seg_id": "THR:c1_fn#003@138-148",
+      "function": "c1_fn",
+      "kind": "compute",
+      "start_line": 138,
+      "end_line": 148,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:c0_fn#001@154-156",
+      "function": "c0_fn",
+      "kind": "compute",
+      "start_line": 154,
+      "end_line": 156,
+      "cut_node": null
+    },
+    {
+      "seg_id": "CRT:c0_fn#002@L157",
+      "function": "c0_fn",
+      "kind": "create",
+      "start_line": 157,
+      "end_line": 157,
+      "cut_node": "c0_fn/pthread_create4"
+    },
+    {
+      "seg_id": "THR:c0_fn#003@158-168",
+      "function": "c0_fn",
+      "kind": "compute",
+      "start_line": 158,
+      "end_line": 168,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:main#001@174-201",
+      "function": "main",
+      "kind": "compute",
+      "start_line": 174,
+      "end_line": 201,
+      "cut_node": null
+    },
+    {
+      "seg_id": "CRT:main#002@L202",
+      "function": "main",
+      "kind": "create",
+      "start_line": 202,
+      "end_line": 202,
+      "cut_node": "main/pthread_create17"
+    },
+    {
+      "seg_id": "THR:main#003@203-213",
+      "function": "main",
+      "kind": "compute",
+      "start_line": 203,
+      "end_line": 213,
+      "cut_node": null
+    },
+    {
+      "seg_id": "JON:main#004@L214",
+      "function": "main",
+      "kind": "join",
+      "start_line": 214,
+      "end_line": 214,
+      "cut_node": "main/pthread_join29"
+    },
+    {
+      "seg_id": "THR:main#005@215-217",
+      "function": "main",
+      "kind": "compute",
+      "start_line": 215,
+      "end_line": 217,
+      "cut_node": null
+    },
+    {
+      "seg_id": "JON:main#006@L218",
+      "function": "main",
+      "kind": "join",
+      "start_line": 218,
+      "end_line": 218,
+      "cut_node": "main/pthread_join33"
+    },
+    {
+      "seg_id": "THR:main#007@219-221",
+      "function": "main",
+      "kind": "compute",
+      "start_line": 219,
+      "end_line": 221,
+      "cut_node": null
+    },
+    {
+      "seg_id": "JON:main#008@L222",
+      "function": "main",
+      "kind": "join",
+      "start_line": 222,
+      "end_line": 222,
+      "cut_node": "main/pthread_join37"
+    },
+    {
+      "seg_id": "THR:main#009@223-232",
+      "function": "main",
+      "kind": "compute",
+      "start_line": 223,
+      "end_line": 232,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:busy_wait_seconds@instance1#001@95-104",
+      "function": "busy_wait_seconds@instance1",
+      "kind": "compute",
+      "start_line": 95,
+      "end_line": 104,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:busy_wait_seconds@instance2#001@95-104",
+      "function": "busy_wait_seconds@instance2",
+      "kind": "compute",
+      "start_line": 95,
+      "end_line": 104,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:busy_wait_seconds@instance3#001@95-104",
+      "function": "busy_wait_seconds@instance3",
+      "kind": "compute",
+      "start_line": 95,
+      "end_line": 104,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:busy_wait_seconds@instance4#001@95-104",
+      "function": "busy_wait_seconds@instance4",
+      "kind": "compute",
+      "start_line": 95,
+      "end_line": 104,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:busy_wait_seconds@instance5#001@95-104",
+      "function": "busy_wait_seconds@instance5",
+      "kind": "compute",
+      "start_line": 95,
+      "end_line": 104,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:busy_wait_seconds@instance6#001@95-104",
+      "function": "busy_wait_seconds@instance6",
+      "kind": "compute",
+      "start_line": 95,
+      "end_line": 104,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:busy_wait_seconds@instance7#001@95-104",
+      "function": "busy_wait_seconds@instance7",
+      "kind": "compute",
+      "start_line": 95,
+      "end_line": 104,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:busy_wait_seconds@instance8#001@95-104",
+      "function": "busy_wait_seconds@instance8",
+      "kind": "compute",
+      "start_line": 95,
+      "end_line": 104,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:busy_wait_seconds@instance9#001@95-104",
+      "function": "busy_wait_seconds@instance9",
+      "kind": "compute",
+      "start_line": 95,
+      "end_line": 104,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:busy_wait_seconds@instance10#001@95-104",
+      "function": "busy_wait_seconds@instance10",
+      "kind": "compute",
+      "start_line": 95,
+      "end_line": 104,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:busy_wait_seconds@instance11#001@95-104",
+      "function": "busy_wait_seconds@instance11",
+      "kind": "compute",
+      "start_line": 95,
+      "end_line": 104,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:busy_wait_seconds@instance12#001@95-104",
+      "function": "busy_wait_seconds@instance12",
+      "kind": "compute",
+      "start_line": 95,
+      "end_line": 104,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:busy_wait_seconds@instance13#001@95-104",
+      "function": "busy_wait_seconds@instance13",
+      "kind": "compute",
+      "start_line": 95,
+      "end_line": 104,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:busy_wait_seconds@instance14#001@95-104",
+      "function": "busy_wait_seconds@instance14",
+      "kind": "compute",
+      "start_line": 95,
+      "end_line": 104,
+      "cut_node": null
+    },
+    {
+      "seg_id": "THR:busy_wait_seconds@instance15#001@95-104",
+      "function": "busy_wait_seconds@instance15",
+      "kind": "compute",
+      "start_line": 95,
+      "end_line": 104,
+      "cut_node": null
+    }
+  ]
+}

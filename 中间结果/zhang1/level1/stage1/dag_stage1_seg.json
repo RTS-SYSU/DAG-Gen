@@ -1,0 +1,131 @@
+{
+  "base_name": "zhang1",
+  "stage": 1,
+  "nodes": [
+    "THR:init_matrices#001@84-88",
+    "THR:busy_wait_seconds#001@95-104",
+    "THR:c2_fn#001@118-129",
+    "THR:c1_fn#001@134-136",
+    "CRT:c1_fn#002@L137",
+    "THR:c1_fn#003@138-148",
+    "THR:c0_fn#001@154-156",
+    "CRT:c0_fn#002@L157",
+    "THR:c0_fn#003@158-168",
+    "THR:main#001@174-201",
+    "CRT:main#002@L202",
+    "THR:main#003@203-213",
+    "JON:main#004@L214",
+    "THR:main#005@215-217",
+    "JON:main#006@L218",
+    "THR:main#007@219-221",
+    "JON:main#008@L222",
+    "THR:main#009@223-232",
+    "THR:busy_wait_seconds@instance1#001@95-104",
+    "THR:busy_wait_seconds@instance2#001@95-104",
+    "THR:busy_wait_seconds@instance3#001@95-104",
+    "THR:busy_wait_seconds@instance4#001@95-104",
+    "THR:busy_wait_seconds@instance5#001@95-104",
+    "THR:busy_wait_seconds@instance6#001@95-104",
+    "THR:busy_wait_seconds@instance7#001@95-104",
+    "THR:busy_wait_seconds@instance8#001@95-104",
+    "THR:busy_wait_seconds@instance9#001@95-104",
+    "THR:busy_wait_seconds@instance10#001@95-104",
+    "THR:busy_wait_seconds@instance11#001@95-104",
+    "THR:busy_wait_seconds@instance12#001@95-104",
+    "THR:busy_wait_seconds@instance13#001@95-104",
+    "THR:busy_wait_seconds@instance14#001@95-104",
+    "THR:busy_wait_seconds@instance15#001@95-104"
+  ],
+  "edges": [
+    {
+      "src": "THR:c1_fn#001@134-136",
+      "dst": "CRT:c1_fn#002@L137",
+      "kind": "intra"
+    },
+    {
+      "src": "CRT:c1_fn#002@L137",
+      "dst": "THR:c1_fn#003@138-148",
+      "kind": "intra"
+    },
+    {
+      "src": "THR:c0_fn#001@154-156",
+      "dst": "CRT:c0_fn#002@L157",
+      "kind": "intra"
+    },
+    {
+      "src": "CRT:c0_fn#002@L157",
+      "dst": "THR:c0_fn#003@158-168",
+      "kind": "intra"
+    },
+    {
+      "src": "THR:main#001@174-201",
+      "dst": "CRT:main#002@L202",
+      "kind": "intra"
+    },
+    {
+      "src": "CRT:main#002@L202",
+      "dst": "THR:main#003@203-213",
+      "kind": "intra"
+    },
+    {
+      "src": "THR:main#003@203-213",
+      "dst": "JON:main#004@L214",
+      "kind": "intra"
+    },
+    {
+      "src": "JON:main#004@L214",
+      "dst": "THR:main#005@215-217",
+      "kind": "intra"
+    },
+    {
+      "src": "THR:main#005@215-217",
+      "dst": "JON:main#006@L218",
+      "kind": "intra"
+    },
+    {
+      "src": "JON:main#006@L218",
+      "dst": "THR:main#007@219-221",
+      "kind": "intra"
+    },
+    {
+      "src": "THR:main#007@219-221",
+      "dst": "JON:main#008@L222",
+      "kind": "intra"
+    },
+    {
+      "src": "JON:main#008@L222",
+      "dst": "THR:main#009@223-232",
+      "kind": "intra"
+    },
+    {
+      "src": "CRT:c0_fn#002@L157",
+      "dst": "THR:c1_fn#001@134-136",
+      "kind": "create"
+    },
+    {
+      "src": "CRT:c1_fn#002@L137",
+      "dst": "THR:c2_fn#001@118-129",
+      "kind": "create"
+    },
+    {
+      "src": "CRT:main#002@L202",
+      "dst": "THR:c0_fn#001@154-156",
+      "kind": "create"
+    },
+    {
+      "src": "THR:c0_fn#003@158-168",
+      "dst": "JON:main#004@L214",
+      "kind": "join"
+    },
+    {
+      "src": "THR:c1_fn#003@138-148",
+      "dst": "JON:main#006@L218",
+      "kind": "join"
+    },
+    {
+      "src": "THR:c2_fn#001@118-129",
+      "dst": "JON:main#008@L222",
+      "kind": "join"
+    }
+  ]
+}

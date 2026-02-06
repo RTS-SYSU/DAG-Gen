@@ -23,6 +23,7 @@ from mycallyplus_v1 import filter_dot, time_analysis, time_charts, scheduler
 from mycallyplus_v1.level1 import time_analysis_level1 as level1_time_analysis
 from mycallyplus_v1.level1 import lpf_thread as level1_lpf_thread
 from mycallyplus_v1.level1 import instrument_prio_level1 as level1_prio_instrument
+from mycallyplus_v1.level2 import segment_dag_level2 as level2_segment_dag
 
 try:
     import networkx as nx
@@ -1503,6 +1504,7 @@ class MycallyplusGUIv3:
             ("选中源代码文件", self._select_ta_source_file),
             ("选中JSON文件", self._select_ta_json_file),
             ("段级时间分析（Level-1）", self._ta_level1_one_click),
+            ("段级时间分析（Level-2）", self._ta_level2_one_click),
             ("线程中任务执行次数图", self._plot_thread_task_frequency),
             ("线程执行时间图", self._plot_thread_total_time),
             ("线程调用图", self._plot_thread_call_gantt),
@@ -1664,6 +1666,113 @@ class MycallyplusGUIv3:
             self._show_message("错误", f"命令执行失败:\n{e}", is_error=True)
         except Exception as e:
             self._show_message("错误", f"段级时间分析（Level-1）失败:\n{e}", is_error=True)
+
+    def _ta_level2_one_click(self):
+        """时间分析子功能：段级时间分析（Level-2）生成分段 DAG。
+
+        当前目标：在复用 Level-1 前置处理（legacy + functions_ranges/meta）的基础上，
+        按 Level-2 分段规则（create/join/post/wait/mutex 边界包含关系）生成 Level-2 段级 DAG dot/png。
+        """
+        if not self.state.expand_file or not self.state.expand_file.exists():
+            self._show_message("错误", "状态区缺少 expand 文件，请先选择 expand 文件。", is_error=True)
+            return
+        if not self.state.source_file or not self.state.source_file.exists():
+            self._show_message("错误", "状态区缺少源 C 文件，请先选择源文件。", is_error=True)
+            return
+
+        base_name = self.state.source_file.stem if self.state.source_file else None
+        if not base_name:
+            base_name = self.state.get_base_name()
+        if not base_name:
+            self._show_message("错误", "无法推导 base_name。", is_error=True)
+            return
+
+        try:
+            # 1) legacy generate + export circle.txt (for validation in existing UI features)
+            config_dir = self._config_dir_for_base(base_name)
+            config_dir.mkdir(parents=True, exist_ok=True)
+            circle_txt = config_dir / "circle.txt"
+            cmd = [
+                sys.executable,
+                "-m",
+                "mycallyplus_v1.generation.legacy",
+                str(self.state.expand_file),
+                "--threads-only",
+                "--source-file",
+                str(self.state.source_file),
+                "--output-base",
+                str(self.base_dir),
+                "--force",
+                "--level1-stage1",
+                "--export-txt",
+                str(circle_txt),
+            ]
+            result = subprocess.run(cmd, cwd=str(self.base_dir.parent), capture_output=True, text=True)
+            if result.returncode != 0:
+                self._show_message("错误", f"Level-2 前置处理失败(legacy/export-txt):\n{result.stderr}", is_error=True)
+                return
+
+            # 1.5) merge post->wait edges into DAG (stage: merge_post_wait)
+            merge_cmd = [
+                sys.executable,
+                "-m",
+                "mycallyplus_v1.level2.merge_post_wait_dag",
+                "--base-dir",
+                str(self.base_dir),
+                "--base-name",
+                base_name,
+            ]
+            merge_res = subprocess.run(merge_cmd, cwd=str(self.base_dir.parent), capture_output=True, text=True)
+            if merge_res.returncode != 0:
+                self._show_message("错误", f"Level-2 merge_post_wait 失败:\n{merge_res.stderr}", is_error=True)
+                return
+
+            # 1.6) archive inputs into level2/merge_post_wait (not a manual copy; triggered by this button)
+            gen_root = self.base_dir / "中间结果" / base_name / "生成dag图"
+            merge_dir = self.base_dir / "中间结果" / base_name / "level2" / "merge_post_wait"
+            merge_dir.mkdir(parents=True, exist_ok=True)
+            try:
+                if (gen_root / "functions_full.json").exists():
+                    shutil.copy2(gen_root / "functions_full.json", merge_dir / "functions_full.json")
+                internal_meta = gen_root / "debug" / "mycalls_meta_internal.json"
+                if internal_meta.exists():
+                    shutil.copy2(internal_meta, merge_dir / "mycalls_meta_internal.json")
+                if circle_txt.exists():
+                    shutil.copy2(circle_txt, merge_dir / "circle.txt")
+            except Exception as e:
+                self._show_message("错误", f"Level-2 存档中间文件失败:\n{e}", is_error=True)
+                return
+
+            # 2) build Level-2 segments + dag (json + dot)
+            level2_segment_dag.main  # ensure import
+            seg_json, dag_json = level2_segment_dag.build_level2_segments_and_dag(
+                base_dir=self.base_dir,
+                base_name=base_name,
+                source_file=self.state.source_file,
+            )
+            out_dir = self.base_dir / "中间结果" / base_name / "level2" / "stage2"
+            out_dir.mkdir(parents=True, exist_ok=True)
+            seg_path = out_dir / "segments_level2.json"
+            dag_path = out_dir / "dag_level2_seg.json"
+            dot_path = out_dir / "dag_level2_seg.dot"
+            png_path = out_dir / "dag_level2_seg.png"
+            seg_path.write_text(json.dumps(seg_json, ensure_ascii=False, indent=2), encoding="utf-8")
+            dag_path.write_text(json.dumps(dag_json, ensure_ascii=False, indent=2), encoding="utf-8")
+            dot_path.write_text(level2_segment_dag._to_dot(seg_json, dag_json), encoding="utf-8")  # type: ignore[attr-defined]
+
+            subprocess.run(["dot", "-Tpng", str(dot_path), "-o", str(png_path)], check=True, capture_output=True)
+            self._display_image(png_path)
+
+            self._show_message(
+                "成功",
+                "段级时间分析（Level-2）已生成分段 DAG：\n"
+                f"- merge_post_wait: {merge_dir}\n"
+                f"- segments: {seg_path}\n"
+                f"- dag: {dag_path}\n"
+                f"- dag_png: {png_path}",
+            )
+        except Exception as e:
+            self._show_message("错误", f"段级时间分析（Level-2）失败:\n{e}", is_error=True)
 
     # ===================== 按钮8: 调度算法 =====================
 

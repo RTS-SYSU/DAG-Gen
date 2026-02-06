@@ -6,6 +6,7 @@ import re
 import shutil
 import subprocess
 import time
+import textwrap
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -85,19 +86,22 @@ def _write_experiment_runner(
 ) -> None:
     """Emit a helper script inside the experiment dir to run baseline/prio repeatedly and log runtimes."""
     script_path = exp_dir / "run_experiments.sh"
-    content = f"""#!/usr/bin/env bash
+    # NOTE: Do NOT use Python f-string for this template, because the script embeds
+    # Python code that itself uses `{...}` formatting and would be accidentally
+    # interpolated by the outer f-string.
+    content = """#!/usr/bin/env bash
 # Auto-generated runner: compile & run baseline/prio in this experiment, log runtimes.
 # Usage:
-#   sudo bash {script_path.name}
-#   sudo WORK_SCALE=50000 bash {script_path.name}
-#   sudo REPEATS=10 bash {script_path.name}
+#   sudo bash __SCRIPT_NAME__
+#   sudo WORK_SCALE=50000 bash __SCRIPT_NAME__
+#   sudo REPEATS=10 bash __SCRIPT_NAME__
 
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$ROOT_DIR"
-BASE_PROJ="$PROJECT_DIR/baseline/project/{project_name}"
-PRIO_PROJ="$PROJECT_DIR/prio/project/{project_name}"
+BASE_PROJ="$PROJECT_DIR/baseline/project/__PROJECT_NAME__"
+PRIO_PROJ="$PROJECT_DIR/prio/project/__PROJECT_NAME__"
 
 if [[ ! -d "$BASE_PROJ" || ! -d "$PRIO_PROJ" ]]; then
   echo "Missing baseline/prio under $PROJECT_DIR" >&2
@@ -109,82 +113,82 @@ OUT_DIR="$PROJECT_DIR/experiment"
 mkdir -p "$BIN_DIR" "$OUT_DIR"
 
 # Editable defaults (can also be overridden via env WORK_SCALE / REPEATS)
-WORK_SCALE_DEFAULT={work_scale_default}
-REPEATS_DEFAULT=1
-
-WS_VALUE="${{WORK_SCALE:-$WORK_SCALE_DEFAULT}}"
-REPEATS="${{REPEATS:-$REPEATS_DEFAULT}}"
-if ! [[ "$REPEATS" =~ ^[0-9]+$ ]] || [[ "$REPEATS" -lt 1 ]]; then
-  echo "Invalid REPEATS=$REPEATS (must be integer >= 1)" >&2
-  exit 1
-fi
-
-TS="$(date -Iseconds)"
-TS_SAFE="${{TS//:/-}}"
-WS_LABEL="${{WS_VALUE:-default}}"
-WS_SAFE="${{WS_LABEL//[^A-Za-z0-9._-]/_}}"
-base_name="run_results_${{TS_SAFE}}_ws${{WS_SAFE}}_r${{REPEATS}}"
-OUT_FILE="$OUT_DIR/${{base_name}}.txt"
-idx=1
-while [[ -e "$OUT_FILE" ]]; do
-  OUT_FILE="$OUT_DIR/${{base_name}}_${{idx}}.txt"
-  idx=$((idx+1))
-done
-
-compile_proj() {{
-  local src_dir="$1"
-  local bin_path="$2"
-  local sources=()
-  while IFS= read -r -d '' f; do
-    case "$(basename "$f")" in
-      wrap_main.c|prog_timer.c) continue ;;
-    esac
-    sources+=("$f")
-  done < <(find "$src_dir" -maxdepth 1 -name '*.c' -print0)
-  if [[ "${{#sources[@]}}" -eq 0 ]]; then
-    echo "No .c files in $src_dir" >&2
-    return 1
-  fi
-  gcc -O2 -g -std=c11 -DWORK_SCALE="$WS_VALUE" -pthread "${{sources[@]}}" -o "$bin_path" -lm
-}}
-
-tmp_dir="$(mktemp -d "/tmp/${{base_name}}_XXXX")"
-cleanup() {{ rm -rf "$tmp_dir"; }}
-trap cleanup EXIT
-
-run_once() {{
-  local label="$1"
-  local iter="$2"
-  local bin="$3"
-  local log_file="$tmp_dir/${{label}}_${{iter}}.log"
-  local start end dur rc
-  start=$(date +%s%N)
-  set +e
-  "$bin" >"$log_file" 2>&1
-  rc=$?
-  set -e
-  end=$(date +%s%N)
-  dur=$((end - start))
-  printf "%s" "$dur" >"$tmp_dir/${{label}}_${{iter}}.ns"
-  printf "%s" "$rc" >"$tmp_dir/${{label}}_${{iter}}.rc"
-}}
-
-emit_summary() {{
-  python3 - <<'PY'
-import os, statistics
-tmp_dir = os.environ["TMP_DIR"]
-repeats = int(os.environ["REPEATS"])
-def load(label):
-    ns=[]
-    rcs=[]
-    for i in range(1, repeats+1):
-        with open(os.path.join(tmp_dir, f"{label}_{i}.ns"), "r") as f:
-            ns.append(int(f.read().strip()))
-        with open(os.path.join(tmp_dir, f"{label}_{i}.rc"), "r") as f:
-            rcs.append(int(f.read().strip()))
-    return ns, rcs
-def stats(ns):
-    s=[x/1e9 for x in ns]
+	WORK_SCALE_DEFAULT=__WORK_SCALE_DEFAULT__
+	REPEATS_DEFAULT=1
+	
+	WS_VALUE="${WORK_SCALE:-$WORK_SCALE_DEFAULT}"
+	REPEATS="${REPEATS:-$REPEATS_DEFAULT}"
+	if ! [[ "$REPEATS" =~ ^[0-9]+$ ]] || [[ "$REPEATS" -lt 1 ]]; then
+	  echo "Invalid REPEATS=$REPEATS (must be integer >= 1)" >&2
+	  exit 1
+	fi
+	
+	TS="$(date -Iseconds)"
+	TS_SAFE="${TS//:/-}"
+	WS_LABEL="${WS_VALUE:-default}"
+	WS_SAFE="${WS_LABEL//[^A-Za-z0-9._-]/_}"
+	base_name="run_results_${TS_SAFE}_ws${WS_SAFE}_r${REPEATS}"
+	OUT_FILE="$OUT_DIR/${base_name}.txt"
+	idx=1
+	while [[ -e "$OUT_FILE" ]]; do
+	  OUT_FILE="$OUT_DIR/${base_name}_${idx}.txt"
+	  idx=$((idx+1))
+	done
+	
+	compile_proj() {
+	  local src_dir="$1"
+	  local bin_path="$2"
+	  local sources=()
+	  while IFS= read -r -d '' f; do
+	    case "$(basename "$f")" in
+	      wrap_main.c|prog_timer.c) continue ;;
+	    esac
+	    sources+=("$f")
+	  done < <(find "$src_dir" -maxdepth 1 -name '*.c' -print0)
+	  if [[ "${#sources[@]}" -eq 0 ]]; then
+	    echo "No .c files in $src_dir" >&2
+	    return 1
+	  fi
+	  gcc -O2 -g -std=c11 -DWORK_SCALE="$WS_VALUE" -pthread "${sources[@]}" -o "$bin_path" -lm
+	}
+	
+	tmp_dir="$(mktemp -d "/tmp/${base_name}_XXXX")"
+	cleanup() { rm -rf "$tmp_dir"; }
+	trap cleanup EXIT
+	
+	run_once() {
+	  local label="$1"
+	  local iter="$2"
+	  local bin="$3"
+	  local log_file="$tmp_dir/${label}_${iter}.log"
+	  local start end dur rc
+	  start=$(date +%s%N)
+	  set +e
+	  "$bin" >"$log_file" 2>&1
+	  rc=$?
+	  set -e
+	  end=$(date +%s%N)
+	  dur=$((end - start))
+	  printf "%s" "$dur" >"$tmp_dir/${label}_${iter}.ns"
+	  printf "%s" "$rc" >"$tmp_dir/${label}_${iter}.rc"
+	}
+	
+	emit_summary() {
+	  python3 - <<'PY'
+	import os, statistics
+	tmp_dir = os.environ["TMP_DIR"]
+	repeats = int(os.environ["REPEATS"])
+	def load(label):
+	    ns=[]
+	    rcs=[]
+	    for i in range(1, repeats+1):
+	        with open(os.path.join(tmp_dir, f"{label}_{i}.ns"), "r") as f:
+	            ns.append(int(f.read().strip()))
+	        with open(os.path.join(tmp_dir, f"{label}_{i}.rc"), "r") as f:
+	            rcs.append(int(f.read().strip()))
+	    return ns, rcs
+	def stats(ns):
+	    s=[x/1e9 for x in ns]
     return {
         "min_s": min(s),
         "max_s": max(s),
@@ -205,62 +209,70 @@ if base['mean_s'] > 1e-12:
     print(f"improvement_ratio (baseline->prio): {improve:.4f}")
 else:
     print("improvement_ratio (baseline->prio): n/a (baseline too small)")
-PY
-}}
-
-emit_details() {{
-  echo
-  echo "=== DETAILS (per-run full output) ==="
-  for i in $(seq 1 "$REPEATS"); do
-    ns="$(cat "$tmp_dir/baseline_${{i}}.ns")"
-    rc="$(cat "$tmp_dir/baseline_${{i}}.rc")"
-    wall_s="$(python3 - <<PY
-ns=int("$ns")
-print(f"{{ns/1e9:.6f}}")
-PY
-)"
-    echo
-    echo "----- [baseline] run #$i (wall=${{wall_s}}s, rc=${{rc}}) -----"
-    cat "$tmp_dir/baseline_${{i}}.log"
-  done
-  for i in $(seq 1 "$REPEATS"); do
-    ns="$(cat "$tmp_dir/prio_${{i}}.ns")"
-    rc="$(cat "$tmp_dir/prio_${{i}}.rc")"
-    wall_s="$(python3 - <<PY
-ns=int("$ns")
-print(f"{{ns/1e9:.6f}}")
-PY
-)"
-    echo
-    echo "----- [prio] run #$i (wall=${{wall_s}}s, rc=${{rc}}) -----"
-    cat "$tmp_dir/prio_${{i}}.log"
-  done
-}}
-
-echo "Running experiment at $ROOT_DIR (WORK_SCALE=${{WS_VALUE}}, REPEATS=${{REPEATS}})"
-compile_proj "$BASE_PROJ" "$BIN_DIR/app_baseline"
-compile_proj "$PRIO_PROJ" "$BIN_DIR/app_prio"
+	PY
+	}
+	
+	emit_details() {
+	  echo
+	  echo "=== DETAILS (per-run full output) ==="
+	  for i in $(seq 1 "$REPEATS"); do
+	    ns="$(cat "$tmp_dir/baseline_${i}.ns")"
+	    rc="$(cat "$tmp_dir/baseline_${i}.rc")"
+	    wall_s="$(python3 - <<PY
+	ns=int("$ns")
+	print(f"{ns/1e9:.6f}")
+	PY
+	)"
+	    echo
+	    echo "----- [baseline] run #$i (wall=${wall_s}s, rc=${rc}) -----"
+	    cat "$tmp_dir/baseline_${i}.log"
+	  done
+	  for i in $(seq 1 "$REPEATS"); do
+	    ns="$(cat "$tmp_dir/prio_${i}.ns")"
+	    rc="$(cat "$tmp_dir/prio_${i}.rc")"
+	    wall_s="$(python3 - <<PY
+	ns=int("$ns")
+	print(f"{ns/1e9:.6f}")
+	PY
+	)"
+	    echo
+	    echo "----- [prio] run #$i (wall=${wall_s}s, rc=${rc}) -----"
+	    cat "$tmp_dir/prio_${i}.log"
+	  done
+	}
+	
+	echo "Running experiment at $ROOT_DIR (WORK_SCALE=${WS_VALUE}, REPEATS=${REPEATS})"
+	compile_proj "$BASE_PROJ" "$BIN_DIR/app_baseline"
+	compile_proj "$PRIO_PROJ" "$BIN_DIR/app_prio"
 
 for i in $(seq 1 "$REPEATS"); do
   run_once "baseline" "$i" "$BIN_DIR/app_baseline"
   run_once "prio" "$i" "$BIN_DIR/app_prio"
 done
 
-{{
-  echo "=== RUN at $TS (WORK_SCALE=${{WS_VALUE}}, REPEATS=${{REPEATS}}) ==="
-  echo "BASE_PROJ=$BASE_PROJ"
-  echo "PRIO_PROJ=$PRIO_PROJ"
+	{
+	  echo "=== RUN at $TS (WORK_SCALE=${WS_VALUE}, REPEATS=${REPEATS}) ==="
+	  echo "BASE_PROJ=$BASE_PROJ"
+	  echo "PRIO_PROJ=$PRIO_PROJ"
   echo "baseline_bin=$BIN_DIR/app_baseline"
   echo "prio_bin=$BIN_DIR/app_prio"
   echo
   export TMP_DIR="$tmp_dir"
   export REPEATS
-  emit_summary
-  emit_details
-}} > "$OUT_FILE"
+	  emit_summary
+	  emit_details
+	} > "$OUT_FILE"
 
 echo "Done. Results saved to $OUT_FILE"
 """
+    content = textwrap.dedent(content).lstrip()
+    # Some template lines may start with literal TABs; strip them so bash heredocs terminate correctly.
+    content = "\n".join(ln.lstrip("\t") for ln in content.splitlines()) + "\n"
+    content = (
+        content.replace("__SCRIPT_NAME__", script_path.name)
+        .replace("__PROJECT_NAME__", str(project_name))
+        .replace("__WORK_SCALE_DEFAULT__", str(int(work_scale_default)))
+    )
     script_path.write_text(content, encoding="utf-8")
     script_path.chmod(script_path.stat().st_mode | 0o111)
 
