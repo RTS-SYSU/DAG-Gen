@@ -33,7 +33,15 @@ def _run_gui() -> int:
     except KeyboardInterrupt:
         return 130
     except Exception as exc:
-        sys.stderr.write(f"ERROR: Failed to launch GUI: {exc}\n")
+        msg = str(exc)
+        sys.stderr.write(f"ERROR: Failed to launch GUI: {msg}\n")
+        if "ImageTk" in msg and "PIL" in msg:
+            sys.stderr.write(
+                "HINT: 当前 Python 环境缺少 Pillow 的 Tk 支持。\n"
+                "1) 优先不要用 sudo，直接运行: python3 -m mycallyplus_v1\n"
+                "2) 安装依赖: python3 -m pip install pillow\n"
+                "3) 若必须 sudo 运行，请在 root 环境也安装 pillow。\n"
+            )
         return 1
 
 
@@ -67,6 +75,18 @@ def _run_describe(argv: List[str]) -> int:
         return 130
     except Exception as exc:
         sys.stderr.write(f"ERROR: Failed to launch viewer: {exc}\n")
+        return 1
+
+
+def _run_pipeline(argv: List[str]) -> int:
+    try:
+        from .pipeline.cli import main as pipeline_main
+
+        return int(pipeline_main(argv))
+    except KeyboardInterrupt:
+        return 130
+    except Exception as exc:
+        sys.stderr.write(f"ERROR: Failed to run pipeline: {exc}\n")
         return 1
 
 
@@ -104,6 +124,10 @@ def main(argv: Optional[List[str]] = None) -> int:
     # 可视化子命令
     if subcmd in ("describe", "view", "viz"):
         return _run_describe(argv[1:])
+
+    # 模块化 pipeline 子命令
+    if subcmd in ("pipeline", "pipe"):
+        return _run_pipeline(argv[1:])
 
     # 未知子命令：视为 generate 参数（向后兼容）
     legacy = _import_legacy_module()

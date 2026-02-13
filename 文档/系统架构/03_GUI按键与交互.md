@@ -29,9 +29,12 @@
 10. **调度算法**  
     - 子功能：“生成最长路径”已实现（dot + time_result）。  
     - 输出 `中间结果/<base>/调度算法/longest_path/`（或更多策略子目录）。
-11. **过滤dot文件**  
+11. **模块化实验（PipeDAG）**
+    - 打开固定流水线子功能栏：`collector -> blocks -> timing -> schedule -> instrument`。  
+    - 产物统一写入 `中间结果/<base>/pipeline/`，与旧流程并存隔离。
+12. **过滤dot文件**  
     - 调用 `filter_dot.py`（手动选择 DOT）。
-12. **选择dot文件 / 选择配置文件**  
+13. **选择dot文件 / 选择配置文件**  
     - 支持直接加载已有 DOT/配置目录。配置目录优先 `中间结果/<base>/配置文件/`，兼容旧 `配置文件/<base>/`。
 
 ## 3.2 状态区
@@ -47,5 +50,61 @@
 - **circle.txt**：由“生成配置文件”或条件节点功能生成 → 互斥锁/信号量按钮依赖。
 - **time_result.json**：时间分析完成后 → 调度算法（Longest Path）使用。
 - **长路径插桩**：调度算法子功能将依赖 longest_path.json + time_result + mycalls_meta_internal。
+
+## 3.5 模块化实验（PipeDAG）
+### 入口与目标
+- 左侧主按钮 `模块化实验` 进入 PipeDAG 子功能栏。
+- 不新开页面，沿用现有单窗口 GUI；旧流程按钮全部保留。
+- 目标是固定执行链路并支持规则/算法可插拔。
+
+### 子功能顺序
+1. `生成分块信息`
+2. `level1 分块`
+3. `level2 分块`
+4. `level3 分块`
+5. `分块测时`
+6. `调度算法`（二级按钮按算法 registry 动态生成）
+7. `优先级插装`
+8. `返回主流程`
+
+### 状态区增强
+- 在原有状态区（源文件/Expand/DOT/配置）基础上新增 PipeDAG 上下文：
+  - `level`
+  - `rule`
+  - `view(single)`
+  - `algo`
+- 新增“最近产物”快捷入口按钮：
+  - `block_info`
+  - `segments`
+  - `timing`
+  - `schedule`
+  - `source_original`
+  - `source_instrumented`
+- 快捷入口仅在目标文件存在时可点击。
+
+### 输入/输出与门禁
+- `生成分块信息`
+  - 输入：当前源文件 + `生成dag图` 相关产物
+  - 输出：`中间结果/<base>/pipeline/block_info.json`
+- `levelX 分块`
+  - 前置：`pipeline/block_info.json`
+  - 输出：`pipeline/blocks/<level>/<rule>/segments.json`、`dag_seg.json`
+- `分块测时`
+  - 前置：存在至少一个可用分块目标（`segments.json` + `dag_seg.json`）
+  - 输出：`pipeline/timing/<level>/<rule>/timing.json`
+- `调度算法`
+  - 前置：存在至少一个可用测时目标（`timing.json` + `dag_seg.json`）
+  - 输出：`pipeline/schedule/<level>/<rule>/<algo>/schedule.json`
+- `优先级插装`
+  - 前置：存在至少一个 `schedule.json`
+  - 输出：`pipeline/instrument/<...>/source_original.c`、`source_instrumented.c`
+- 门禁行为：
+  - 不满足前置时按钮置灰。
+  - 执行前再次检查；若缺失，弹窗显示缺失文件绝对路径。
+
+### 覆盖写入与失败处理
+- PipeDAG 默认覆盖写入，不保留历史版本。
+- 各阶段 `*_meta.json` 在执行中写 `status=running`，成功写 `success`，异常写 `failed` 并记录错误。
+- 失败时允许半成品落盘，便于排障与重跑。
 
 详细参数与目录路径请参阅《04_数据流与存储机制》与 《06_时间分析与调度》。***

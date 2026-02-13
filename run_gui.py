@@ -8,7 +8,7 @@ import sys
 def main() -> int:
     # 确保本目录在 sys.path，便于直接运行此文件
     sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
-    from mycallyplus.cli import main as cli_main
+    from mycallyplus_v1.cli import main as cli_main
     return cli_main(["gui"])
 
 

@@ -50,11 +50,13 @@ from typing import Optional, Tuple
 # 兼容直接运行：尝试相对导入失败时调整 sys.path 后再导入
 try:
     from .thread_map import resolve_join_edges, collect_thread_edges
+    from .source_binder import create_targets_from_source
     from ..core.func_ranges import extract_func_ranges
     from ..level1.segment_dag import build_stage1_segments_and_dag
 except ImportError:
     sys.path.append(str(Path(__file__).resolve().parent.parent))
     from generation.thread_map import resolve_join_edges, collect_thread_edges
+    from generation.source_binder import create_targets_from_source
     from core.func_ranges import extract_func_ranges
     from level1.segment_dag import build_stage1_segments_and_dag
 
@@ -846,6 +848,9 @@ def full_call_graph(functions, **kwargs):
         preswtich = ""
         prenum = 1
         meta_map = functions[func].get("mycalls_meta", {})
+        myinfo = functions[func].get("myinfo", {}) or {}
+        create_targets = list(myinfo.get("__create_queue__", []))
+        create_idx = 0
         printed_functions = 1
         pre = func
         if exclude is None or \
@@ -870,19 +875,32 @@ def full_call_graph(functions, **kwargs):
                     #         print_buf(std_buf, '"{}" -> "{}";'.format(tail, join))
                     if 'pthread_create' in caller:
                         # create 特殊补边：create -> 线程名节点，同时 create -> 调用方下一个节点
-                        next_thread_node = callers[idx + 1] if idx + 1 < len(callers) else None
-                        caller_next = callers[idx + 2] if idx + 2 < len(callers) else None
+                        inline_next = callers[idx + 1] if idx + 1 < len(callers) else None
+                        has_inline_thread = bool(
+                            inline_next and inline_next in functions and "/" not in inline_next
+                        )
+
+                        next_thread_node = inline_next if has_inline_thread else None
+                        if not next_thread_node and create_idx < len(create_targets):
+                            next_thread_node = create_targets[create_idx]
+                        create_idx += 1
+
+                        if has_inline_thread:
+                            caller_next = callers[idx + 2] if idx + 2 < len(callers) else None
+                        else:
+                            caller_next = callers[idx + 1] if idx + 1 < len(callers) else None
+
                         if pre!=caller:
                           print_buf(std_buf, '"{}" -> "{}";'.format(pre, caller))
                         if next_thread_node:
                             print_buf(std_buf, '"{}" -> "{}";'.format(caller, next_thread_node))
-                        if caller_next:
+                        if caller_next and caller_next != next_thread_node:
                             print_buf(std_buf, '"{}" -> "{}";'.format(caller, caller_next))
                             pre = caller_next
-                            idx += 2  # 跳过线程名节点，直接处理 caller_next
+                            idx += 2 if has_inline_thread else 1
                         else:
                             pre = caller
-                            idx += 1
+                            idx += 2 if has_inline_thread else 1
                         printed_functions += 1
                         continue
 
@@ -1180,6 +1198,41 @@ def preparse_pthread_join_bindings(rtl_files, *, max_backtrack_lines: int = 300)
     return join_bindings
 
 
+def _resolve_symbol_from_reg_history(lines: list, reg_num: str, *, max_hops: int = 8, scan_window: int = 8) -> str:
+    """Resolve symbol_ref by backtracking DI register assignments."""
+    current = str(reg_num)
+    rhs_reg_re = re.compile(r"\(reg:DI\s+(?P<reg>\d+)(?:\s+\w+)?\)")
+    rhs_sym_re = re.compile(r'\(symbol_ref:DI\s+\("(?P<target>[^"]+)"\)')
+
+    for _ in range(max_hops):
+        assign_idx = -1
+        assign_re = re.compile(rf"\(set\s+\(reg:DI\s+{re.escape(current)}(?:\s+\w+)?\)")
+        for i in range(len(lines) - 1, -1, -1):
+            if assign_re.search(lines[i]):
+                assign_idx = i
+                break
+        if assign_idx < 0:
+            return ""
+
+        end = min(len(lines), assign_idx + scan_window)
+        window = "\n".join(lines[assign_idx:end])
+        m_sym = rhs_sym_re.search(window)
+        if m_sym:
+            return m_sym.group("target")
+
+        regs = rhs_reg_re.findall(window)
+        next_reg = ""
+        for r in regs:
+            if r != current:
+                next_reg = r
+                break
+        if not next_reg:
+            return ""
+        current = next_reg
+
+    return ""
+
+
 #
 # Main()
 #
@@ -1474,7 +1527,11 @@ def main():
     current_func=""#记录读到当前行，上一个出现的函数调用是什么
     function_source=0#标记，用来记录上一行是不是读到了函数，读到了函数，那么就将记录函数源文件
     create_flag = 0
+    line_history = []
     for line in next_line_gen:
+        line_history.append(line)
+        if len(line_history) > 300:
+            line_history.pop(0)
         #
         # Find function entry point
         #
@@ -1506,6 +1563,7 @@ def main():
                 state_count=0
 
             functions[function_name]["files"].append(fileinput.filename())
+            line_history = [line]
         #
         # find thread
         else:
@@ -1619,6 +1677,10 @@ def main():
             if match_mytaskset is not None:
                 try:
                     next_line = next(next_line_gen)  # 获取下一行
+                    if next_line is not None:
+                        line_history.append(next_line)
+                        if len(line_history) > 300:
+                            line_history.pop(0)
                     match_mytask = re.match(mytask, next_line)
                     if match_mytask is not None:
                         mytarget = match_mytask.group("target")
@@ -1655,13 +1717,43 @@ def main():
                 if origin_target not in functions:
                     target = function_name + "/" + target + str(count)
                 if 'pthread_create' in target:
-                    functions[function_name]["calls"][mytarget] = True
+                    # Backtrack call arguments from RTL:
+                    # reg1(dx) carries start routine, reg5(di) carries thread handle.
+                    reg_task = _resolve_symbol_from_reg_history(line_history, "1")
+                    reg_handle = _resolve_symbol_from_reg_history(line_history, "5")
+                    if reg_handle:
+                        create_num = reg_handle
+                    resolved_target = mytarget
+                    if reg_task:
+                        resolved_target = reg_task
+                    if not resolved_target:
+                        pending = functions[function_name]["myinfo"].get("__source_create_queue__")
+                        if pending is None:
+                            files = functions[function_name].get("files", [])
+                            selected_source = getattr(config, "source_file", None)
+                            source_override = Path(selected_source) if selected_source else None
+                            if files:
+                                pending = create_targets_from_source(
+                                    Path(files[0]),
+                                    function_name,
+                                    source_override=source_override,
+                                )
+                            else:
+                                pending = []
+                            functions[function_name]["myinfo"]["__source_create_queue__"] = pending
+                        if pending:
+                            resolved_target = pending.pop(0)
+
+                    if resolved_target:
+                        functions[function_name]["calls"][resolved_target] = True
                     functions[function_name]["mycalls"].append(target)
-                    functions[function_name]["mycalls"].append(mytarget)
-                    functions[function_name]["myinfo"]["tail"] = mytarget
-                    functions[function_name]["myinfo"][create_num] = mytarget
+                    if resolved_target:
+                        functions[function_name]["mycalls"].append(resolved_target)
+                        functions[function_name]["myinfo"]["tail"] = resolved_target
+                        functions[function_name]["myinfo"][create_num] = resolved_target
                     queue = functions[function_name]["myinfo"].setdefault("__create_queue__", [])
-                    queue.append(mytarget)
+                    if resolved_target:
+                        queue.append(resolved_target)
                     # 添加 mycalls_meta 记录
                     functions[function_name]["mycalls_meta"][target] = {"file": None, "line": None, "col": None, "extern": 0}
                     current_func = target

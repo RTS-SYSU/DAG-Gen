@@ -6,6 +6,8 @@ from typing import Dict, List
 import os
 import json
 import platform
+import subprocess
+import shutil
 
 from ...core.task import Task
 from ...core.cpu_pool import CpuPool
@@ -162,6 +164,170 @@ def register_routes(app):
             logging.warning(f"自动导出配置文件失败: {e}")
         
         return jsonify({'task_id': task_id, 'status': 'queued'}), 201
+
+    @app.route('/api/fs/list', methods=['GET'])
+    def list_filesystem():
+        """列出目录内容（仅允许 BASE_DIR 范围）"""
+        try:
+            base_dir = Path(app.config['BASE_DIR']).resolve()
+            req_path = (request.args.get('path') or "").strip()
+            suffix = (request.args.get('suffix') or ".c").strip()
+
+            if req_path:
+                req = Path(req_path).expanduser()
+                if req.is_absolute():
+                    current = req.resolve()
+                else:
+                    current = (base_dir / req).resolve()
+            else:
+                current = base_dir
+
+            try:
+                current.relative_to(base_dir)
+            except ValueError:
+                return jsonify({'error': '路径超出允许范围'}), 400
+
+            if not current.exists():
+                return jsonify({'error': f'路径不存在: {current}'}), 404
+            if not current.is_dir():
+                if current.is_file():
+                    current = current.parent
+                else:
+                    return jsonify({'error': f'不是目录: {current}'}), 400
+
+            dirs = []
+            files = []
+            for child in sorted(current.iterdir(), key=lambda x: (not x.is_dir(), x.name.lower())):
+                if child.is_dir():
+                    dirs.append({'name': child.name, 'path': str(child)})
+                elif child.is_file():
+                    if not suffix or child.suffix.lower() == suffix.lower():
+                        files.append({'name': child.name, 'path': str(child)})
+
+            parent = None
+            if current != base_dir:
+                parent = str(current.parent)
+
+            return jsonify({
+                'base_dir': str(base_dir),
+                'current': str(current),
+                'parent': parent,
+                'suffix': suffix,
+                'dirs': dirs,
+                'files': files,
+            }), 200
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+
+    @app.route('/api/fs/pick-file', methods=['POST'])
+    def pick_file_with_system_dialog():
+        """调用系统文件管理器/文件选择器，返回选择的文件路径。"""
+        try:
+            base_dir = Path(app.config['BASE_DIR']).resolve()
+            data = request.get_json() or {}
+            suffix = (data.get('suffix') or '.c').strip()
+            title = (data.get('title') or '选择文件').strip()
+
+            # 优先使用系统文件选择器（Linux 常见桌面对话框）
+            candidates = [
+                ["zenity", "--file-selection", "--title", title],
+                ["yad", "--file-selection", "--title", title],
+                ["qarma", "--file-selection", "--title", title],
+            ]
+            if suffix:
+                f = f"*{suffix}"
+                candidates[0].extend(["--file-filter", f])
+                candidates[1].extend(["--file-filter", f])
+                candidates[2].extend(["--file-filter", f])
+
+            picked = None
+            for cmd in candidates:
+                if not shutil.which(cmd[0]):  # type: ignore[name-defined]
+                    continue
+                proc = subprocess.run(cmd, capture_output=True, text=True)
+                if proc.returncode == 0 and proc.stdout.strip():
+                    picked = proc.stdout.strip()
+                    break
+
+            # 回退：tk 文件对话框（仅在有桌面会话时尝试）
+            if not picked and (os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")):
+                try:
+                    import tkinter as tk  # 延迟导入，避免无 GUI 环境报错
+                    from tkinter import filedialog
+
+                    root = tk.Tk()
+                    root.withdraw()
+                    patterns = [(f"*{suffix} 文件", f"*{suffix}")] if suffix else [("所有文件", "*.*")]
+                    picked_tmp = filedialog.askopenfilename(
+                        title=title,
+                        initialdir=str(base_dir),
+                        filetypes=patterns,
+                    )
+                    root.destroy()
+                    if picked_tmp:
+                        picked = picked_tmp
+                except Exception:
+                    picked = None
+
+            if not picked:
+                return jsonify({'error': '未选择文件或系统文件选择器不可用'}), 400
+
+            p = Path(picked).expanduser().resolve()
+            if suffix and p.suffix.lower() != suffix.lower():
+                return jsonify({'error': f'请选择 {suffix} 文件'}), 400
+            return jsonify({'path': str(p)}), 200
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+
+    @app.route('/api/fs/pick-dir', methods=['POST'])
+    def pick_dir_with_system_dialog():
+        """调用系统目录选择器，返回选择的目录路径。"""
+        try:
+            base_dir = Path(app.config['BASE_DIR']).resolve()
+            data = request.get_json() or {}
+            title = (data.get('title') or '选择目录').strip()
+
+            candidates = [
+                ["zenity", "--file-selection", "--directory", "--title", title],
+                ["yad", "--file-selection", "--directory", "--title", title],
+                ["qarma", "--file-selection", "--directory", "--title", title],
+            ]
+
+            picked = None
+            for cmd in candidates:
+                if not shutil.which(cmd[0]):
+                    continue
+                proc = subprocess.run(cmd, capture_output=True, text=True)
+                if proc.returncode == 0 and proc.stdout.strip():
+                    picked = proc.stdout.strip()
+                    break
+
+            if not picked and (os.environ.get("DISPLAY") or os.environ.get("WAYLAND_DISPLAY")):
+                try:
+                    import tkinter as tk
+                    from tkinter import filedialog
+
+                    root = tk.Tk()
+                    root.withdraw()
+                    picked_tmp = filedialog.askdirectory(
+                        title=title,
+                        initialdir=str(base_dir),
+                    )
+                    root.destroy()
+                    if picked_tmp:
+                        picked = picked_tmp
+                except Exception:
+                    picked = None
+
+            if not picked:
+                return jsonify({'error': '未选择目录或系统目录选择器不可用'}), 400
+
+            p = Path(picked).expanduser().resolve()
+            if not p.exists() or not p.is_dir():
+                return jsonify({'error': f'不是有效目录: {p}'}), 400
+            return jsonify({'path': str(p)}), 200
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
     
     @app.route('/api/tasks/<task_id>', methods=['DELETE'])
     def cancel_task(task_id):

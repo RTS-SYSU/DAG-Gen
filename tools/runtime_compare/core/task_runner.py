@@ -112,7 +112,7 @@ class TaskRunner(threading.Thread):
             ensure_writable_dir(exp_root, use_sudo=task.use_sudo)
 
             # 使用配置文件名作为主目录，如果没有则使用默认名称
-            config_name = task.config_name if task.config_name else "experiment"
+            config_name = task.config_name if task.config_name else "web_tasks"
             ts = now_ts_safe()
             
             # 创建配置名称目录
@@ -172,21 +172,71 @@ class TaskRunner(threading.Thread):
             baseline_bin = out_dir / "baseline" / "app_baseline"
             prio_bin = out_dir / "prio" / "app_prio"
 
-            def compile_one(src_dir: Path, out_bin: Path) -> Tuple[int, str, str, str]:
-                c_files = sorted([p.name for p in src_dir.glob("*.c")])
-                cmd_parts = ["gcc", *GCC_FLAGS, f"-DWORK_SCALE={task.work_scale}", *c_files, "-o", str(out_bin)]
-                cmd = cmd_parts
-                proc = subprocess.run(cmd, cwd=str(src_dir), capture_output=True, text=True)
-                return proc.returncode, proc.stdout or "", proc.stderr or "", " ".join(cmd_parts)
+            # Ensure priority runtime header can be resolved for instrumented sources.
+            prio_runtime_src = self._base_dir / "level1" / "prio_runtime.h"
+            if prio_runtime_src.exists():
+                for _dir in (baseline_dir, prio_dir):
+                    dst = _dir / "prio_runtime.h"
+                    if not dst.exists():
+                        try:
+                            shutil.copy2(prio_runtime_src, dst)
+                        except Exception:
+                            pass
 
-            rc, so, se, bcmd = compile_one(baseline_dir, baseline_bin)
+            def compile_one(src_dir: Path, entry_c_name: str, out_bin: Path) -> Tuple[int, str, str, str]:
+                # Compile only the selected entry file to avoid duplicate main
+                # when baseline/prio files are placed in the same directory.
+                c_files = [entry_c_name]
+                include_dirs: List[str] = [str(src_dir)]
+                if prio_runtime_src.exists():
+                    include_dirs.append(str(prio_runtime_src.parent))
+                include_flags: List[str] = []
+                for inc in include_dirs:
+                    include_flags.extend(["-I", inc])
+                cmd_parts = [
+                    "gcc",
+                    *GCC_FLAGS,
+                    *include_flags,
+                    f"-DWORK_SCALE={task.work_scale}",
+                    *c_files,
+                    "-o",
+                    str(out_bin),
+                ]
+                proc = subprocess.run(cmd_parts, cwd=str(src_dir), capture_output=True, text=True)
+                so = proc.stdout or ""
+                se = proc.stderr or ""
+                cmd_txt = " ".join(cmd_parts)
+
+                # Fallback: if main-wrapper symbol is missing, retry without --wrap=main.
+                if proc.returncode != 0 and "__wrap_main" in se:
+                    filtered_flags = [f for f in GCC_FLAGS if f != "-Wl,--wrap=main"]
+                    cmd_parts2 = [
+                        "gcc",
+                        *filtered_flags,
+                        *include_flags,
+                        f"-DWORK_SCALE={task.work_scale}",
+                        *c_files,
+                        "-o",
+                        str(out_bin),
+                    ]
+                    proc2 = subprocess.run(cmd_parts2, cwd=str(src_dir), capture_output=True, text=True)
+                    so2 = proc2.stdout or ""
+                    se2 = proc2.stderr or ""
+                    cmd_txt = cmd_txt + "\nRETRY(no --wrap=main): " + " ".join(cmd_parts2)
+                    so = so + so2
+                    se = se + "\n[retry]\n" + se2
+                    return proc2.returncode, so, se, cmd_txt
+
+                return proc.returncode, so, se, cmd_txt
+
+            rc, so, se, bcmd = compile_one(baseline_dir, task.baseline_c.name, baseline_bin)
             task.progress_i = 1
             self._on_update(task)
             (out_dir / "baseline" / "compile.log").write_text("CMD: " + bcmd + "\n" + so + se, encoding="utf-8")
             if rc != 0:
                 raise RuntimeError(f"baseline 编译失败：{se[-500:]}")
 
-            rc, so, se, pcmd = compile_one(prio_dir, prio_bin)
+            rc, so, se, pcmd = compile_one(prio_dir, task.prio_c.name, prio_bin)
             task.progress_i = 2
             self._on_update(task)
             (out_dir / "prio" / "compile.log").write_text("CMD: " + pcmd + "\n" + so + se, encoding="utf-8")

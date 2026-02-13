@@ -7,7 +7,7 @@ Mycallyplus GUI v3.0 - 状态区驱动设计
 import sys
 import os
 import tkinter as tk
-from tkinter import filedialog, messagebox
+from tkinter import filedialog, messagebox, simpledialog
 from pathlib import Path
 from typing import Optional, Dict, List, Tuple
 from dataclasses import dataclass
@@ -16,7 +16,17 @@ import shutil
 import random
 import re
 import json
-from PIL import Image, ImageTk
+import socket
+import time
+import webbrowser
+
+try:
+    from PIL import Image, ImageTk
+    _PIL_READY = True
+except Exception:
+    Image = None  # type: ignore
+    ImageTk = None  # type: ignore
+    _PIL_READY = False
 
 # 使用包内模块，避免与非 v1 版本混淆
 from mycallyplus_v1 import filter_dot, time_analysis, time_charts, scheduler
@@ -24,6 +34,9 @@ from mycallyplus_v1.level1 import time_analysis_level1 as level1_time_analysis
 from mycallyplus_v1.level1 import lpf_thread as level1_lpf_thread
 from mycallyplus_v1.level1 import instrument_prio_level1 as level1_prio_instrument
 from mycallyplus_v1.level2 import segment_dag_level2 as level2_segment_dag
+from mycallyplus_v1.pipeline import runner as pipeline_runner
+from mycallyplus_v1.pipeline.algo_registry import list_algos as pipeline_list_algos
+from mycallyplus_v1.pipeline.rules_registry import list_rules as pipeline_list_rules
 
 try:
     import networkx as nx
@@ -81,8 +94,8 @@ class FileState:
         if not self.expand_file:
             return None
         name = self.expand_file.stem  # 移除 .expand
-        if name.endswith('.233r'):
-            name = name[:-5]  # 移除 .233r
+        # 兼容 GCC 版本差异：.233r / .245r / 其它 *.Nr
+        name = re.sub(r"\.\d+r$", "", name)
         # 去掉末尾的语言扩展（.c / .cpp / 其他）
         if '.' in name:
             name = name.split('.')[0]
@@ -100,7 +113,7 @@ class FileState:
 class MycallyplusGUIv3:
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.root.title("Mycallyplus v3.0 - 状态区驱动")
+        self.root.title("Mycallyplus v3.0 - 状态区驱动 [PipeDAG]")
         self.root.geometry("1400x900")
         self.root.configure(bg="#ECEFF1")
         
@@ -115,9 +128,10 @@ class MycallyplusGUIv3:
         
         # 当前显示的图片
         self.current_image: Optional[Path] = None
-        self.tk_img: Optional[ImageTk.PhotoImage] = None
-        self.original_image: Optional[Image.Image] = None  # 保存原始PIL图像用于缩放
+        self.tk_img = None
+        self.original_image = None  # 保存原始PIL图像用于缩放
         self.canvas_scale = 1.0  # 当前缩放比例
+        self._pil_warned = False
         
         # 互斥锁分析状态
         self.mutex_prepared = False
@@ -136,6 +150,19 @@ class MycallyplusGUIv3:
         # 时间分析选择状态
         self.ta_source_file: Optional[Path] = None
         self.ta_json_file: Optional[Path] = None
+        # PipeDAG 状态
+        self.pipeline_level = "-"
+        self.pipeline_rule = "-"
+        self.pipeline_view = "-"
+        self.pipeline_algo = "-"
+        self.pipeline_last_outputs: Dict[str, Path] = {}
+        self.pipeline_output_buttons: Dict[str, tk.Button] = {}
+        self.pipeline_status_labels: Dict[str, tk.Label] = {}
+        self.runtime_web_host = "127.0.0.1"
+        self.runtime_web_port = 5000
+        self.runtime_web_proc: Optional[subprocess.Popen] = None
+        self.runtime_web_log = self.base_dir / "中间结果" / "runtime_compare_web.log"
+        self.runtime_web_log_handle = None
 
         # 互斥锁颜色配置
         self.MUTEX_COLORS = [
@@ -150,6 +177,7 @@ class MycallyplusGUIv3:
         ]
         
         # 构建UI
+        self.root.protocol("WM_DELETE_WINDOW", self._on_close)
         self._build_ui()
         self._update_status_display()
 
@@ -183,7 +211,7 @@ class MycallyplusGUIv3:
         main_frame = tk.Frame(self.root, bg="#ECEFF1")
         main_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
         
-        # 左侧按钮区
+        # 左侧按钮区（可滚动）
         left_frame = tk.LabelFrame(
             main_frame, 
             text="操作", 
@@ -193,6 +221,21 @@ class MycallyplusGUIv3:
             pady=10
         )
         left_frame.pack(side=tk.LEFT, fill=tk.Y, padx=8, pady=8)
+        left_canvas = tk.Canvas(left_frame, bg="#CFD8DC", highlightthickness=0, width=220)
+        left_scrollbar = tk.Scrollbar(left_frame, orient=tk.VERTICAL, command=left_canvas.yview)
+        left_canvas.configure(yscrollcommand=left_scrollbar.set)
+        left_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        left_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        left_inner = tk.Frame(left_canvas, bg="#CFD8DC")
+        left_window = left_canvas.create_window((0, 0), window=left_inner, anchor="nw")
+        left_inner.bind(
+            "<Configure>",
+            lambda e: left_canvas.configure(scrollregion=left_canvas.bbox("all")),
+        )
+        left_canvas.bind(
+            "<Configure>",
+            lambda e: left_canvas.itemconfigure(left_window, width=e.width),
+        )
         
         # 功能按钮（仅改名与顺序，不改变回调逻辑）
         buttons = [
@@ -203,17 +246,19 @@ class MycallyplusGUIv3:
             ("过滤dot文件", self.filter_dot_file),
             ("生成expand文件", self.generate_expand_from_source),
             ("生成dag图", self.generate_dag),
+            ("模块化实验", self.pipeline_entry),
             ("查看条件节点", self.view_conditions),
             ("生成源码调用图", self.generate_source_only_dag),
             ("查看互斥锁", self.view_mutex),
             ("生成信号量图", self.generate_semaphore),
+            ("运行时对比(Web)", self.open_runtime_compare_web),
             ("时间分析", self.time_analysis_entry),
             ("调度算法", self.scheduler_entry),
         ]
         
         for text, cmd in buttons:
             tk.Button(
-                left_frame,
+                left_inner,
                 text=text,
                 command=cmd,
                 width=22,
@@ -277,6 +322,66 @@ class MycallyplusGUIv3:
             label.pack(side=tk.LEFT, fill=tk.X, expand=True)
             self.status_labels[key] = label
 
+        pipe_frame = tk.Frame(status_frame, bg="#E3F2FD")
+        pipe_frame.pack(fill=tk.X, pady=2)
+        tk.Label(
+            pipe_frame,
+            text="PipeDAG: ",
+            bg="#E3F2FD",
+            font=("Microsoft YaHei", 9, "bold"),
+            anchor="w",
+            width=12,
+        ).pack(side=tk.LEFT)
+        for key, text in [
+            ("level", "level"),
+            ("rule", "rule"),
+            ("view", "view"),
+            ("algo", "algo"),
+        ]:
+            label = tk.Label(
+                pipe_frame,
+                text=f"{text}=-",
+                bg="#E3F2FD",
+                font=("Consolas", 9),
+                anchor="w",
+                fg="#455A64",
+                padx=4,
+            )
+            label.pack(side=tk.LEFT)
+            self.pipeline_status_labels[key] = label
+
+        outputs_frame = tk.Frame(status_frame, bg="#E3F2FD")
+        outputs_frame.pack(fill=tk.X, pady=2)
+        tk.Label(
+            outputs_frame,
+            text="最近产物: ",
+            bg="#E3F2FD",
+            font=("Microsoft YaHei", 9, "bold"),
+            anchor="w",
+            width=12,
+        ).pack(side=tk.LEFT)
+        for key, text in [
+            ("block_info", "block_info"),
+            ("segments", "segments"),
+            ("segments_png", "segments_png"),
+            ("timing", "timing"),
+            ("schedule", "schedule"),
+            ("source_original", "source_original"),
+            ("source_instrumented", "source_instrumented"),
+        ]:
+            btn = tk.Button(
+                outputs_frame,
+                text=text,
+                width=16,
+                bg="#ECEFF1",
+                activebackground="#CFD8DC",
+                font=("Microsoft YaHei", 8),
+                state=tk.DISABLED,
+                command=lambda k=key: self._pipeline_open_output(k),
+            )
+            btn.pack(side=tk.LEFT, padx=2)
+            self.pipeline_output_buttons[key] = btn
+
         # 源码调用图统计栏（显示 extern 统计）
         self.call_stats_label = tk.Label(
             right_frame,
@@ -311,7 +416,7 @@ class MycallyplusGUIv3:
     
     # ===================== 状态更新 =====================
     
-    def _build_subfunc_toolbar(self, specs: List[Tuple[str, callable]]) -> None:
+    def _build_subfunc_toolbar(self, specs: List[Tuple]) -> None:
         """构建子功能工具栏
         
         Args:
@@ -322,7 +427,14 @@ class MycallyplusGUIv3:
             child.destroy()
         
         # 创建新按钮
-        for text, cmd in specs:
+        for spec in specs:
+            if len(spec) == 2:
+                text, cmd = spec
+                enabled = True
+            elif len(spec) == 3:
+                text, cmd, enabled = spec
+            else:
+                raise ValueError("invalid toolbar spec")
             tk.Button(
                 self.subfunc_frame,
                 text=text,
@@ -330,7 +442,8 @@ class MycallyplusGUIv3:
                 width=18,
                 bg="#ECEFF1",
                 activebackground="#CFD8DC",
-                font=("Microsoft YaHei", 9)
+                font=("Microsoft YaHei", 9),
+                state=(tk.NORMAL if enabled else tk.DISABLED),
             ).pack(side=tk.LEFT, padx=4)
     
     def _toggle_subfunc_toolbar(self, show: bool) -> None:
@@ -342,7 +455,7 @@ class MycallyplusGUIv3:
             self.subfunc_frame.pack_forget()
             self._subfunc_visible = False
     
-    def _set_subfunc_toolbar(self, specs: Optional[List[Tuple[str, callable]]]) -> None:
+    def _set_subfunc_toolbar(self, specs: Optional[List[Tuple]]) -> None:
         """设置子功能工具栏
         
         Args:
@@ -372,6 +485,62 @@ class MycallyplusGUIv3:
             text=self.state.txt_file.name if self.state.txt_file else "<未加载>",
             fg="#000000" if self.state.txt_file else "#666666"
         )
+        self.pipeline_status_labels["level"].config(text=f"level={self.pipeline_level}")
+        self.pipeline_status_labels["rule"].config(text=f"rule={self.pipeline_rule}")
+        self.pipeline_status_labels["view"].config(text=f"view={self.pipeline_view}")
+        self.pipeline_status_labels["algo"].config(text=f"algo={self.pipeline_algo}")
+        for key, btn in self.pipeline_output_buttons.items():
+            p = self.pipeline_last_outputs.get(key)
+            btn.config(state=(tk.NORMAL if p and p.exists() else tk.DISABLED))
+
+    def _pipeline_open_output(self, key: str):
+        output = self.pipeline_last_outputs.get(key)
+        if not output:
+            self._show_message("提示", f"暂无 {key} 产物。", is_error=False)
+            return
+        self._open_file_with_system(output)
+
+    def _pipeline_set_context(
+        self,
+        *,
+        level: Optional[str] = None,
+        rule: Optional[str] = None,
+        view: Optional[str] = None,
+        algo: Optional[str] = None,
+    ):
+        if level is not None:
+            self.pipeline_level = level
+        if rule is not None:
+            self.pipeline_rule = rule
+        if view is not None:
+            self.pipeline_view = view
+        if algo is not None:
+            self.pipeline_algo = algo
+        self._update_status_display()
+
+    def _pipeline_record_outputs(self, mapping: Dict[str, Path]):
+        self.pipeline_last_outputs.update(mapping)
+        self._update_status_display()
+
+    def _pipeline_missing_paths(self, base_name: str, stage: str) -> List[Path]:
+        root = self.base_dir / "中间结果" / base_name / "pipeline"
+        if stage == "collect":
+            return []
+        if stage == "blocks":
+            block_info = root / "block_info.json"
+            return [] if block_info.exists() else [block_info]
+        if stage == "timing":
+            return [] if self._pipeline_list_block_targets(base_name) else [root / "blocks"]
+        if stage == "schedule":
+            return [] if self._pipeline_list_timing_targets(base_name) else [root / "timing"]
+        if stage == "instrument":
+            return [] if self._pipeline_list_schedule_targets(base_name) else [root / "schedule"]
+        return []
+
+    def _pipeline_stage_enabled(self, base_name: Optional[str], stage: str) -> bool:
+        if not base_name:
+            return stage == "collect"
+        return not self._pipeline_missing_paths(base_name, stage)
 
     def _update_call_stats(self, internal: int = 0, external: int = 0, visible: bool = False):
         """更新源码调用统计栏"""
@@ -389,6 +558,10 @@ class MycallyplusGUIv3:
         else:
             messagebox.showinfo(title, message)
 
+    def _pipeline_notice(self, message: str):
+        """模块化实验静默提示：不弹窗，只更新提示栏。"""
+        self.call_stats_label.config(text=message)
+
     def _open_file_with_system(self, path: Path):
         """使用系统默认程序打开文件"""
         if not path.exists():
@@ -403,10 +576,159 @@ class MycallyplusGUIv3:
                 subprocess.run(["xdg-open", str(path)], check=False)
         except Exception as e:
             self._show_message("错误", f"无法打开文件：{e}", is_error=True)
+
+    def _is_tcp_open(self, host: str, port: int) -> bool:
+        try:
+            with socket.create_connection((host, port), timeout=0.5):
+                return True
+        except Exception:
+            return False
+
+    def _runtime_web_url(self) -> str:
+        return f"http://{self.runtime_web_host}:{self.runtime_web_port}"
+
+    def open_runtime_compare_web(self):
+        """启动 runtime_compare 的 Web UI，并自动打开浏览器。"""
+        url = self._runtime_web_url()
+
+        # 如果端口已监听，直接打开浏览器（支持外部已启动的服务）
+        if self._is_tcp_open(self.runtime_web_host, self.runtime_web_port):
+            webbrowser.open(url)
+            self._pipeline_notice(f"Runtime Compare Web 已就绪：{url}")
+            return
+
+        # 如果有记录的子进程但已退出，清理引用
+        if self.runtime_web_proc is not None and self.runtime_web_proc.poll() is not None:
+            self.runtime_web_proc = None
+
+        # 启动 Web 服务
+        if shutil.which(sys.executable) is None:
+            self._show_message("错误", f"Python 解释器不可用：{sys.executable}", is_error=True)
+            return
+
+        try:
+            subprocess.run(
+                [sys.executable, "-c", "import flask"],
+                check=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+        except Exception:
+            self._show_message(
+                "错误",
+                "Runtime Compare Web 依赖缺失：flask。\n"
+                "请先执行：python3 -m pip install flask",
+                is_error=True,
+            )
+            return
+
+        cmd = [
+            sys.executable,
+            "-m",
+            "tools.runtime_compare.main",
+            "--web",
+            "--host",
+            self.runtime_web_host,
+            "--port",
+            str(self.runtime_web_port),
+        ]
+        try:
+            if self.runtime_web_proc is None:
+                self.runtime_web_log.parent.mkdir(parents=True, exist_ok=True)
+                self.runtime_web_log_handle = open(self.runtime_web_log, "w", encoding="utf-8")
+                self.runtime_web_proc = subprocess.Popen(
+                    cmd,
+                    cwd=str(self.base_dir),
+                    stdout=self.runtime_web_log_handle,
+                    stderr=self.runtime_web_log_handle,
+                )
+
+            # 等待最多 15 秒，确认端口打开后再拉起浏览器
+            deadline = time.time() + 15.0
+            while time.time() < deadline:
+                if self.runtime_web_proc is not None and self.runtime_web_proc.poll() is not None:
+                    details = ""
+                    try:
+                        if self.runtime_web_log.exists():
+                            lines = self.runtime_web_log.read_text(encoding="utf-8", errors="replace").splitlines()
+                            details = "\n".join(lines[-12:])
+                    except Exception:
+                        details = ""
+                    msg = f"Runtime Compare Web 启动失败，退出码={self.runtime_web_proc.returncode}"
+                    if details:
+                        msg += f"\n\n最近日志：\n{details}"
+                    self._show_message("错误", msg, is_error=True)
+                    self.runtime_web_proc = None
+                    try:
+                        if self.runtime_web_log_handle is not None:
+                            self.runtime_web_log_handle.close()
+                    except Exception:
+                        pass
+                    self.runtime_web_log_handle = None
+                    return
+                if self._is_tcp_open(self.runtime_web_host, self.runtime_web_port):
+                    webbrowser.open(url)
+                    self._pipeline_notice(f"Runtime Compare Web 已启动：{url}")
+                    return
+                time.sleep(0.2)
+
+            details = ""
+            try:
+                if self.runtime_web_log.exists():
+                    lines = self.runtime_web_log.read_text(encoding="utf-8", errors="replace").splitlines()
+                    details = "\n".join(lines[-12:])
+            except Exception:
+                details = ""
+            msg = f"Runtime Compare Web 启动超时：{url}"
+            if details:
+                msg += f"\n\n最近日志：\n{details}"
+            self._show_message("错误", msg, is_error=True)
+            try:
+                if self.runtime_web_proc is not None and self.runtime_web_proc.poll() is None:
+                    self.runtime_web_proc.terminate()
+            except Exception:
+                pass
+            self.runtime_web_proc = None
+            try:
+                if self.runtime_web_log_handle is not None:
+                    self.runtime_web_log_handle.close()
+            except Exception:
+                pass
+            self.runtime_web_log_handle = None
+        except Exception as e:
+            self._show_message("错误", f"启动 Runtime Compare Web 失败：{e}", is_error=True)
+
+    def _on_close(self):
+        """关闭 GUI 时，回收由本界面启动的 runtime_compare Web 进程。"""
+        try:
+            if self.runtime_web_proc is not None and self.runtime_web_proc.poll() is None:
+                self.runtime_web_proc.terminate()
+                try:
+                    self.runtime_web_proc.wait(timeout=1.0)
+                except Exception:
+                    self.runtime_web_proc.kill()
+        except Exception:
+            pass
+        try:
+            if self.runtime_web_log_handle is not None:
+                self.runtime_web_log_handle.close()
+        except Exception:
+            pass
+        self.runtime_web_log_handle = None
+        self.root.destroy()
     
     def _display_image(self, image_path: Path):
         """在canvas上显示图片（支持缩放和拖动）"""
         try:
+            if not _PIL_READY:
+                if not self._pil_warned:
+                    self._show_message(
+                        "提示",
+                        "当前环境缺少 PIL.ImageTk，已禁用图片预览。\n"
+                        "请安装：python3 -m pip install pillow",
+                    )
+                    self._pil_warned = True
+                return
             if not image_path.exists():
                 return
 
@@ -426,6 +748,8 @@ class MycallyplusGUIv3:
 
     def _refresh_canvas_image(self):
         """刷新canvas上的图像（应用当前缩放）"""
+        if not _PIL_READY:
+            return
         if not self.original_image:
             return
 
@@ -516,6 +840,10 @@ class MycallyplusGUIv3:
 
         source_path = Path(file_path)
         # 仅更新状态，不触发编译或目录创建
+        # 切换源文件后清理旧的 expand/dot 上下文，避免误用历史输入。
+        if self.state.source_file and self.state.source_file != source_path:
+            self.state.expand_file = None
+            self.state.dot_file = None
         self.state.source_file = source_path
         self.state.work_dir = source_path.parent
         self._update_status_display()
@@ -565,6 +893,9 @@ class MycallyplusGUIv3:
                     include_dirs.extend(["-I", resolved_path])
 
         try:
+            # 记录编译前 expand 集合，优先定位“本次新增”文件，避免误拿历史文件
+            before_expand = {p.resolve() for p in src_dir.glob("*.expand")}
+
             # 临时 .o
             import tempfile
             with tempfile.NamedTemporaryFile(dir=src_dir, suffix=".o", delete=False) as tmp:
@@ -590,18 +921,24 @@ class MycallyplusGUIv3:
                 self._show_message("错误", f"生成expand失败:\n{result.stderr}", is_error=True)
                 return
 
-            # 找到最新 expand
-            expand_files = sorted(
-                src_dir.glob(f"{source_file.name}.*.expand"),
+            # 优先找本次新增 expand；若无新增则回退到目录中最新 expand
+            all_expand = sorted(
+                src_dir.glob("*.expand"),
                 key=lambda p: p.stat().st_mtime,
                 reverse=True,
             )
+            new_expand = [p for p in all_expand if p.resolve() not in before_expand]
+            expand_files = new_expand or all_expand
             if not expand_files:
                 self._show_message("错误", "未找到生成的expand文件", is_error=True)
                 return
 
             expand_src = expand_files[0]
-            dst = config_dir / expand_src.name
+            # 统一重命名为 <source>.Nr.expand，确保 base_name 稳定来自源文件名
+            m = re.search(r"\.(\d+r)\.expand$", expand_src.name)
+            rtl_tag = m.group(1) if m else "233r"
+            canonical_name = f"{source_file.name}.{rtl_tag}.expand"
+            dst = config_dir / canonical_name
             if dst.exists():
                 dst.unlink()
             shutil.move(str(expand_src), str(dst))
@@ -669,15 +1006,17 @@ class MycallyplusGUIv3:
         """
         try:
             rtl_dir = self.state.work_dir / "rtl文件"
+            before_expand = {p.resolve() for p in source_file.parent.glob("*.expand")}
             
             # 策略1：检查是否已有expand文件
             # 查找 main.c.233r.expand 格式的文件
-            existing_expand = list(source_file.parent.glob(f"{source_file.name}.*.expand"))
+            existing_expand = list(source_file.parent.glob("*.expand"))
             
             if existing_expand:
                 print(f"✅ 找到已有expand文件: {existing_expand[0].name}")
                 expand_src = existing_expand[0]
-                expand_dest = rtl_dir / expand_src.name
+                canonical_expand_name = f"{source_file.name}.233r.expand"
+                expand_dest = rtl_dir / canonical_expand_name
                 
                 import shutil
                 shutil.copy2(str(expand_src), str(expand_dest))
@@ -749,12 +1088,14 @@ class MycallyplusGUIv3:
                 print(f"       然后将其放在: {source_file.parent}")
                 return None
             
-            # 查找生成的expand文件（按修改时间排序，取最新的）
-            expand_files = sorted(
-                source_file.parent.glob(f"{source_file.name}.*.expand"),
+            # 优先找本次新增的 expand；若无新增则回退到目录中最新的 expand
+            all_expand = sorted(
+                source_file.parent.glob("*.expand"),
                 key=lambda p: p.stat().st_mtime,
                 reverse=True
             )
+            new_expand = [p for p in all_expand if p.resolve() not in before_expand]
+            expand_files = new_expand or all_expand
             
             if not expand_files:
                 print("❌ 未找到生成的expand文件")
@@ -762,7 +1103,8 @@ class MycallyplusGUIv3:
             
             # 移动expand文件到rtl目录
             expand_src = expand_files[0]
-            expand_dest = rtl_dir / expand_src.name
+            canonical_expand_name = f"{source_file.name}.233r.expand"
+            expand_dest = rtl_dir / canonical_expand_name
             
             import shutil
             shutil.move(str(expand_src), str(expand_dest))
@@ -815,8 +1157,11 @@ class MycallyplusGUIv3:
                 "-m", "mycallyplus_v1.generation.legacy",
                 str(self.state.expand_file),
                 "--threads-only",
+                "--source-file", str(self.state.source_file) if self.state.source_file else "",
                 "--output-base", str(self.base_dir)
             ]
+            # 移除空参数，避免未选择源文件时传入空串
+            cmd = [x for x in cmd if x != ""]
             
             result = subprocess.run(
                 cmd,
@@ -843,7 +1188,7 @@ class MycallyplusGUIv3:
             if config_dir is None:
                 self._show_message("错误", f"未找到配置目录\n路径: {self._config_dir_for_base(source_name)}", is_error=True)
                 return
-            
+
             dot_files = list(config_dir.glob("*_threads.dot"))
             
             if not dot_files:
@@ -1773,6 +2118,327 @@ class MycallyplusGUIv3:
             )
         except Exception as e:
             self._show_message("错误", f"段级时间分析（Level-2）失败:\n{e}", is_error=True)
+
+    # ===================== 模块化实验（pipeline） =====================
+
+    def _pipeline_context(self) -> Optional[Tuple[str, Path]]:
+        if not self.state.source_file or not self.state.source_file.exists():
+            self._show_message("错误", "请先在状态区选择源文件（.c）。", is_error=True)
+            return None
+        base_name = self.state.source_file.stem or self.state.get_base_name()
+        if not base_name:
+            self._show_message("错误", "无法推导 base_name。", is_error=True)
+            return None
+        return base_name, self.state.source_file.resolve()
+
+    def _pipeline_pick_option(self, *, title: str, options: List[Tuple], labels: List[str]) -> Optional[Tuple]:
+        if not options:
+            self._show_message("错误", f"{title}：没有可选项。", is_error=True)
+            return None
+        if len(options) == 1:
+            return options[0]
+        lines = [f"{i + 1}. {labels[i]}" for i in range(len(labels))]
+        idx = simpledialog.askinteger(
+            title,
+            "请输入选项编号：\n" + "\n".join(lines),
+            parent=self.root,
+            minvalue=1,
+            maxvalue=len(options),
+        )
+        if idx is None:
+            return None
+        return options[idx - 1]
+
+    def _pipeline_pick_rule(self, level: str) -> Optional[str]:
+        rules = sorted(pipeline_list_rules(level).keys())
+        if not rules:
+            self._show_message("错误", f"{level} 没有已注册规则。", is_error=True)
+            return None
+        if len(rules) == 1:
+            return rules[0]
+        choice = simpledialog.askstring(
+            f"选择{level}规则",
+            f"可选规则: {', '.join(rules)}\n请输入 rule_name:",
+            initialvalue=rules[0],
+            parent=self.root,
+        )
+        if not choice:
+            return None
+        choice = choice.strip()
+        if choice not in rules:
+            self._show_message("错误", f"规则不存在: {choice}", is_error=True)
+            return None
+        return choice
+
+    def _pipeline_list_block_targets(self, base_name: str) -> List[Tuple[str, str]]:
+        out: List[Tuple[str, str]] = []
+        root = self.base_dir / "中间结果" / base_name / "pipeline" / "blocks"
+        for level in ("level1", "level2", "level3"):
+            level_dir = root / level
+            if not level_dir.exists():
+                continue
+            for rule_dir in sorted(level_dir.iterdir()):
+                if not rule_dir.is_dir():
+                    continue
+                seg = rule_dir / "segments.json"
+                dag = rule_dir / "dag_seg.json"
+                if seg.exists() and dag.exists():
+                    out.append((level, rule_dir.name))
+        return out
+
+    def _pipeline_list_schedule_targets(self, base_name: str) -> List[Tuple[str, str, str]]:
+        out: List[Tuple[str, str, str]] = []
+        root = self.base_dir / "中间结果" / base_name / "pipeline" / "schedule"
+        for level in ("level1", "level2", "level3"):
+            level_dir = root / level
+            if not level_dir.exists():
+                continue
+            for rule_dir in sorted(level_dir.iterdir()):
+                if not rule_dir.is_dir():
+                    continue
+                for algo_dir in sorted(rule_dir.iterdir()):
+                    if not algo_dir.is_dir():
+                        continue
+                    if (algo_dir / "schedule.json").exists():
+                        out.append((level, rule_dir.name, algo_dir.name))
+        return out
+
+    def _pipeline_list_timing_targets(self, base_name: str) -> List[Tuple[str, str]]:
+        out: List[Tuple[str, str]] = []
+        root = self.base_dir / "中间结果" / base_name / "pipeline"
+        blocks_root = root / "blocks"
+        timing_root = root / "timing"
+        for level in ("level1", "level2", "level3"):
+            level_dir = timing_root / level
+            if not level_dir.exists():
+                continue
+            for rule_dir in sorted(level_dir.iterdir()):
+                if not rule_dir.is_dir():
+                    continue
+                timing_json = rule_dir / "timing.json"
+                dag_json = blocks_root / level / rule_dir.name / "dag_seg.json"
+                if timing_json.exists() and dag_json.exists():
+                    out.append((level, rule_dir.name))
+        return out
+
+    def pipeline_entry(self):
+        base_name = self.state.source_file.stem if self.state.source_file else self.state.get_base_name()
+        self._set_subfunc_toolbar(
+            [
+                ("生成分块信息", self._pipeline_collect, self._pipeline_stage_enabled(base_name, "collect")),
+                ("level1 分块", lambda: self._pipeline_run_level("level1"), self._pipeline_stage_enabled(base_name, "blocks")),
+                ("level2 分块", lambda: self._pipeline_run_level("level2"), self._pipeline_stage_enabled(base_name, "blocks")),
+                ("level3 分块", lambda: self._pipeline_run_level("level3"), self._pipeline_stage_enabled(base_name, "blocks")),
+                ("分块测时", self._pipeline_timing, self._pipeline_stage_enabled(base_name, "timing")),
+                ("调度算法", self._pipeline_schedule_entry, self._pipeline_stage_enabled(base_name, "schedule")),
+                ("优先级插装", self._pipeline_instrument_entry, self._pipeline_stage_enabled(base_name, "instrument")),
+                ("返回主流程", lambda: self._set_subfunc_toolbar(None), True),
+            ]
+        )
+        self._pipeline_notice("模块化实验：按 collector -> blocks -> timing -> schedule -> instrument 顺序执行。")
+
+    def _pipeline_collect(self):
+        ctx = self._pipeline_context()
+        if not ctx:
+            return
+        base_name, source_file = ctx
+        try:
+            payload = pipeline_runner.run_collector(base_dir=self.base_dir, base_name=base_name, source_file=source_file)
+            self._pipeline_set_context(level="-", rule="-", view="-", algo="-")
+            self._pipeline_record_outputs({"block_info": self.base_dir / "中间结果" / base_name / "pipeline" / "block_info.json"})
+            self._pipeline_notice(
+                "已生成分块信息：\n"
+                f"- block_info: {self.base_dir/'中间结果'/base_name/'pipeline'/'block_info.json'}\n"
+                f"- has_circle_txt: {payload.get('capabilities', {}).get('has_circle_txt', False)}",
+            )
+            self.pipeline_entry()
+        except Exception as e:
+            self._show_message("错误", f"生成分块信息失败:\n{e}", is_error=True)
+
+    def _pipeline_run_level(self, level: str):
+        ctx = self._pipeline_context()
+        if not ctx:
+            return
+        base_name, source_file = ctx
+        missing = self._pipeline_missing_paths(base_name, "blocks")
+        if missing:
+            self._show_message("错误", "缺少前置文件：\n" + "\n".join(str(p.resolve()) for p in missing), is_error=True)
+            return
+        rule_name = self._pipeline_pick_rule(level)
+        if not rule_name:
+            return
+        try:
+            pipeline_runner.run_blocks(
+                base_dir=self.base_dir,
+                base_name=base_name,
+                level=level,
+                rule_name=rule_name,
+                source_file=source_file,
+            )
+            out_dir = self.base_dir / "中间结果" / base_name / "pipeline" / "blocks" / level / rule_name
+            # New pipeline layout stores dag_seg.png at rule root; keep legacy fallback.
+            png = out_dir / "dag_seg.png"
+            if not png.exists():
+                png = out_dir / "sched" / "dag_seg.png"
+            if png.exists():
+                self._display_image(png)
+            self._pipeline_set_context(level=level, rule=rule_name, view="single", algo="-")
+            self._pipeline_record_outputs(
+                {
+                    "segments": out_dir / "segments.json",
+                    "segments_png": png,
+                }
+            )
+            self._pipeline_notice(f"{level} 分块完成：rule={rule_name}，输出目录={out_dir}")
+            self.pipeline_entry()
+        except Exception as e:
+            self._show_message("错误", f"{level} 分块失败:\n{e}", is_error=True)
+
+    def _pipeline_timing(self):
+        ctx = self._pipeline_context()
+        if not ctx:
+            return
+        base_name, _ = ctx
+        missing = self._pipeline_missing_paths(base_name, "timing")
+        if missing:
+            self._show_message("错误", "缺少前置文件：\n" + "\n".join(str(p.resolve()) for p in missing), is_error=True)
+            return
+        options = self._pipeline_list_block_targets(base_name)
+        labels = [f"{lv}/{rn}" for (lv, rn) in options]
+        picked = self._pipeline_pick_option(title="选择分块目标", options=options, labels=labels)
+        if not picked:
+            return
+        level, rule_name = picked
+        try:
+            result = pipeline_runner.run_timing_stage(
+                base_dir=self.base_dir, base_name=base_name, level=level, rule_name=rule_name
+            )
+            self._pipeline_notice(
+                "分块测时完成：\n"
+                f"- target: {level}/{rule_name}\n"
+                f"- weights: {len(result.get('weights', {}))}\n"
+                f"- 文件: {self.base_dir/'中间结果'/base_name/'pipeline'/'timing'/level/rule_name/'timing.json'}",
+            )
+            self._pipeline_set_context(level=level, rule=rule_name, view="single", algo="-")
+            self._pipeline_record_outputs(
+                {"timing": self.base_dir / "中间结果" / base_name / "pipeline" / "timing" / level / rule_name / "timing.json"}
+            )
+            self.pipeline_entry()
+        except Exception as e:
+            self._show_message("错误", f"分块测时失败:\n{e}", is_error=True)
+
+    def _pipeline_schedule_entry(self):
+        ctx = self._pipeline_context()
+        if not ctx:
+            return
+        base_name, _ = ctx
+        missing = self._pipeline_missing_paths(base_name, "schedule")
+        if missing:
+            self._show_message("错误", "缺少前置文件：\n" + "\n".join(str(p.resolve()) for p in missing), is_error=True)
+            return
+        algos = sorted(pipeline_list_algos().keys())
+        if not algos:
+            self._show_message("错误", "当前没有已注册调度算法。", is_error=True)
+            return
+        specs: List[Tuple[str, callable]] = []
+        for algo_name in algos:
+            specs.append((f"算法:{algo_name}", lambda n=algo_name: self._pipeline_schedule_with_algo(n)))
+        specs.append(("返回模块化实验", self.pipeline_entry))
+        self._set_subfunc_toolbar(specs)
+        self._pipeline_notice("请选择调度算法。")
+
+    def _pipeline_schedule_with_algo(self, algo_name: str):
+        ctx = self._pipeline_context()
+        if not ctx:
+            return
+        base_name, _ = ctx
+        options = self._pipeline_list_timing_targets(base_name)
+        labels = [f"{lv}/{rn}" for (lv, rn) in options]
+        picked = self._pipeline_pick_option(title=f"选择调度输入 ({algo_name})", options=options, labels=labels)
+        if not picked:
+            return
+        level, rule_name = picked
+        try:
+            result = pipeline_runner.run_schedule_stage(
+                base_dir=self.base_dir,
+                base_name=base_name,
+                level=level,
+                rule_name=rule_name,
+                algo_name=algo_name,
+            )
+            self._pipeline_notice(
+                "调度计算完成：\n"
+                f"- target: {level}/{rule_name}\n"
+                f"- algo: {algo_name}\n"
+                f"- priorities: {len(result.get('priorities', {}))}",
+            )
+            self._pipeline_set_context(level=level, rule=rule_name, view="single", algo=algo_name)
+            self._pipeline_record_outputs(
+                {"schedule": self.base_dir / "中间结果" / base_name / "pipeline" / "schedule" / level / rule_name / algo_name / "schedule.json"}
+            )
+            self.pipeline_entry()
+        except Exception as e:
+            self._show_message("错误", f"调度计算失败:\n{e}", is_error=True)
+
+    def _pipeline_instrument_entry(self):
+        ctx = self._pipeline_context()
+        if not ctx:
+            return
+        base_name, _ = ctx
+        missing = self._pipeline_missing_paths(base_name, "instrument")
+        if missing:
+            self._show_message("错误", "缺少前置文件：\n" + "\n".join(str(p.resolve()) for p in missing), is_error=True)
+            return
+        self._set_subfunc_toolbar(
+            [
+                ("专用插装", lambda: self._pipeline_instrument("specialized")),
+                ("通用插装", lambda: self._pipeline_instrument("generic")),
+                ("返回模块化实验", self.pipeline_entry),
+            ]
+        )
+        self._pipeline_notice("请选择插装模式：专用插装 或 通用插装。")
+
+    def _pipeline_instrument(self, instrument_mode: str):
+        ctx = self._pipeline_context()
+        if not ctx:
+            return
+        base_name, _ = ctx
+        missing = self._pipeline_missing_paths(base_name, "instrument")
+        if missing:
+            self._show_message("错误", "缺少前置文件：\n" + "\n".join(str(p.resolve()) for p in missing), is_error=True)
+            return
+        options = self._pipeline_list_schedule_targets(base_name)
+        labels = [f"{lv}/{rn}/{an}" for (lv, rn, an) in options]
+        picked = self._pipeline_pick_option(title="选择插装目标", options=options, labels=labels)
+        if not picked:
+            return
+        level, rule_name, algo_name = picked
+        try:
+            result = pipeline_runner.run_instrument_stage(
+                base_dir=self.base_dir,
+                base_name=base_name,
+                level=level,
+                rule_name=rule_name,
+                algo_name=algo_name,
+                instrument_mode=instrument_mode,
+            )
+            self._pipeline_notice(
+                "优先级插装完成：\n"
+                f"- target: {level}/{rule_name}/{algo_name}\n"
+                f"- mode: {instrument_mode}\n"
+                f"- source_original: {result.get('source_original')}\n"
+                f"- source_instrumented: {result.get('source_instrumented')}",
+            )
+            self._pipeline_set_context(level=level, rule=rule_name, view="single", algo=algo_name)
+            self._pipeline_record_outputs(
+                {
+                    "source_original": Path(str(result.get("source_original"))),
+                    "source_instrumented": Path(str(result.get("source_instrumented"))),
+                }
+            )
+            self.pipeline_entry()
+        except Exception as e:
+            self._show_message("错误", f"优先级插装失败:\n{e}", is_error=True)
 
     # ===================== 按钮8: 调度算法 =====================
 

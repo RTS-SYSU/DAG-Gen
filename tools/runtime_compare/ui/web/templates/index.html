@@ -177,6 +177,76 @@
             width: auto;
             margin-right: 20px;
         }
+        .path-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .path-row input {
+            flex: 1;
+            min-width: 0;
+        }
+        .path-row button {
+            white-space: nowrap;
+        }
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.35);
+            display: none;
+        }
+        .modal.show {
+            display: block;
+        }
+        .modal-content {
+            background: #fff;
+            margin: 6% auto;
+            width: 80%;
+            max-width: 900px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        .modal-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-body {
+            padding: 14px 16px;
+            max-height: 60vh;
+            overflow: auto;
+        }
+        .fs-path {
+            font-family: Consolas, monospace;
+            background: #f7f7f7;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .fs-list {
+            border: 1px solid #e6e6e6;
+            border-radius: 4px;
+        }
+        .fs-item {
+            padding: 8px 10px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fs-item:last-child {
+            border-bottom: none;
+        }
+        .fs-item span {
+            font-family: Consolas, monospace;
+        }
     </style>
 </head>
 <body>
@@ -224,11 +294,19 @@
                 </div>
                 <div class="form-group">
                     <label>Baseline C 文件:</label>
-                    <input type="text" id="baseline_c" required placeholder="/path/to/baseline.c">
+                    <div class="path-row">
+                        <input type="text" id="baseline_c" required placeholder="/path/to/baseline.c">
+                        <button type="button" onclick="openFileBrowser('baseline_c')">浏览</button>
+                        <button type="button" class="success" onclick="pickFileWithSystem('baseline_c')">系统选择</button>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Prio C 文件:</label>
-                    <input type="text" id="prio_c" required placeholder="/path/to/prio.c">
+                    <div class="path-row">
+                        <input type="text" id="prio_c" required placeholder="/path/to/prio.c">
+                        <button type="button" onclick="openFileBrowser('prio_c')">浏览</button>
+                        <button type="button" class="success" onclick="pickFileWithSystem('prio_c')">系统选择</button>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>WORK_SCALE:</label>
@@ -289,10 +367,26 @@
             </table>
         </div>
     </div>
+
+    <div id="file-browser-modal" class="modal" onclick="closeFileBrowserOnBackdrop(event)">
+        <div class="modal-content">
+            <div class="modal-header">
+                <strong>选择 C 文件</strong>
+                <button type="button" onclick="pickDirWithSystemForBrowser()">系统选目录</button>
+                <button type="button" class="danger" onclick="closeFileBrowser()">关闭</button>
+            </div>
+            <div class="modal-body">
+                <div class="fs-path" id="fs-current-path">加载中...</div>
+                <div class="fs-list" id="fs-list"></div>
+            </div>
+        </div>
+    </div>
     
     <script>
         let refreshInterval;
         let allTasks = [];  // 存储所有任务用于筛选
+        let fileBrowserTargetInput = null;
+        let fileBrowserCurrentPath = '';
         
         // 显示消息提示
         function showAlert(message, type = 'info') {
@@ -691,6 +785,126 @@
         // 查看日志
         function viewLog(taskId) {
             window.open(`/api/tasks/${taskId}/log`, '_blank');
+        }
+
+        function openFileBrowser(targetInputId) {
+            fileBrowserTargetInput = targetInputId;
+            const currentVal = (document.getElementById(targetInputId).value || '').trim();
+            const startPath = currentVal ? currentVal : '';
+            document.getElementById('file-browser-modal').classList.add('show');
+            loadFileBrowser(startPath);
+        }
+
+        function closeFileBrowser() {
+            document.getElementById('file-browser-modal').classList.remove('show');
+            fileBrowserTargetInput = null;
+        }
+
+        function closeFileBrowserOnBackdrop(event) {
+            if (event.target.id === 'file-browser-modal') {
+                closeFileBrowser();
+            }
+        }
+
+        async function loadFileBrowser(pathValue) {
+            try {
+                const query = new URLSearchParams();
+                if (pathValue) query.set('path', pathValue);
+                query.set('suffix', '.c');
+                const res = await fetch('/api/fs/list?' + query.toString());
+                const data = await res.json();
+                if (!res.ok) {
+                    throw new Error(data.error || '加载目录失败');
+                }
+
+                fileBrowserCurrentPath = data.current;
+                document.getElementById('fs-current-path').textContent = data.current;
+
+                const rows = [];
+                if (data.parent) {
+                    rows.push(
+                        `<div class="fs-item"><span>.. (上级目录)</span><button type="button" onclick="loadFileBrowser('${escapeJs(data.parent)}')">打开</button></div>`
+                    );
+                }
+                for (const d of data.dirs) {
+                    rows.push(
+                        `<div class="fs-item"><span>[DIR] ${escapeHtml(d.name)}</span><button type="button" onclick="loadFileBrowser('${escapeJs(d.path)}')">打开</button></div>`
+                    );
+                }
+                for (const f of data.files) {
+                    rows.push(
+                        `<div class="fs-item"><span>${escapeHtml(f.name)}</span><button type="button" class="success" onclick="selectCFile('${escapeJs(f.path)}')">选择</button></div>`
+                    );
+                }
+                if (rows.length === 0) {
+                    rows.push('<div class="fs-item"><span>当前目录无可选 .c 文件</span></div>');
+                }
+                document.getElementById('fs-list').innerHTML = rows.join('');
+            } catch (e) {
+                showAlert('打开目录失败: ' + e.message, 'error');
+                document.getElementById('fs-list').innerHTML = '<div class="fs-item"><span>加载失败</span></div>';
+            }
+        }
+
+        function selectCFile(filePath) {
+            if (!fileBrowserTargetInput) return;
+            document.getElementById(fileBrowserTargetInput).value = filePath;
+            closeFileBrowser();
+            showAlert('已选择文件: ' + filePath, 'success');
+        }
+
+        async function pickFileWithSystem(targetInputId) {
+            try {
+                const res = await fetch('/api/fs/pick-file', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        suffix: '.c',
+                        title: targetInputId === 'baseline_c' ? '选择 Baseline C 文件' : '选择 Prio C 文件'
+                    }),
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    throw new Error(data.error || '系统选择失败');
+                }
+                document.getElementById(targetInputId).value = data.path || '';
+                showAlert('已选择文件: ' + (data.path || ''), 'success');
+            } catch (e) {
+                showAlert('系统选择失败: ' + e.message, 'error');
+            }
+        }
+
+        async function pickDirWithSystemForBrowser() {
+            try {
+                const res = await fetch('/api/fs/pick-dir', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        title: '选择目录（用于浏览并选择 C 文件）'
+                    }),
+                });
+                const data = await res.json();
+                if (!res.ok) {
+                    throw new Error(data.error || '系统目录选择失败');
+                }
+                fileBrowserCurrentPath = data.path || '';
+                await loadFileBrowser(fileBrowserCurrentPath);
+            } catch (e) {
+                showAlert('系统目录选择失败: ' + e.message, 'error');
+            }
+        }
+
+        function escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function escapeJs(text) {
+            return String(text).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
         }
         
         // 初始化

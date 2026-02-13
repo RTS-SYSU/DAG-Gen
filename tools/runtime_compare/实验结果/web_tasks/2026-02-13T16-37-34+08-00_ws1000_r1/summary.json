@@ -1,0 +1,79 @@
+{
+  "task_id": "source_original_vs_source_instrumented_2026-02-13T16-37-34+08-00",
+  "created_at": "2026-02-13T16-37-34+08-00",
+  "cpu_set": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "cores_per_task": 4,
+  "work_scale": 1000,
+  "repeats": 1,
+  "affinity_rewritten_in_source": {
+    "baseline": true,
+    "prio": true
+  },
+  "baseline": {
+    "c_file": "/home/chove/桌面/mycallyplus_v1/中间结果/zhang1/pipeline/instrument/level2/effective_line_merge/cpf/source_original.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -I /home/chove/桌面/mycallyplus_v1/tools/runtime_compare/实验结果/web_tasks/2026-02-13T16-37-34+08-00_ws1000_r1/baseline/cpf -I /home/chove/桌面/mycallyplus_v1/level1 -DWORK_SCALE=1000 source_original.c -o /home/chove/桌面/mycallyplus_v1/tools/runtime_compare/实验结果/web_tasks/2026-02-13T16-37-34+08-00_ws1000_r1/baseline/app_baseline\nRETRY(no --wrap=main): gcc -O0 -g -std=c11 -pthread -lm -I /home/chove/桌面/mycallyplus_v1/tools/runtime_compare/实验结果/web_tasks/2026-02-13T16-37-34+08-00_ws1000_r1/baseline/cpf -I /home/chove/桌面/mycallyplus_v1/level1 -DWORK_SCALE=1000 source_original.c -o /home/chove/桌面/mycallyplus_v1/tools/runtime_compare/实验结果/web_tasks/2026-02-13T16-37-34+08-00_ws1000_r1/baseline/app_baseline",
+    "stats": {
+      "n": 1.0,
+      "min_s": 16.82682104,
+      "max_s": 16.82682104,
+      "mean_s": 16.82682104,
+      "median_s": 16.82682104
+    },
+    "times_s": [
+      16.82682104
+    ]
+  },
+  "prio": {
+    "c_file": "/home/chove/桌面/mycallyplus_v1/中间结果/zhang1/pipeline/instrument/level2/effective_line_merge/cpf/source_instrumented.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -I /home/chove/桌面/mycallyplus_v1/tools/runtime_compare/实验结果/web_tasks/2026-02-13T16-37-34+08-00_ws1000_r1/prio/cpf -I /home/chove/桌面/mycallyplus_v1/level1 -DWORK_SCALE=1000 source_instrumented.c -o /home/chove/桌面/mycallyplus_v1/tools/runtime_compare/实验结果/web_tasks/2026-02-13T16-37-34+08-00_ws1000_r1/prio/app_prio\nRETRY(no --wrap=main): gcc -O0 -g -std=c11 -pthread -lm -I /home/chove/桌面/mycallyplus_v1/tools/runtime_compare/实验结果/web_tasks/2026-02-13T16-37-34+08-00_ws1000_r1/prio/cpf -I /home/chove/桌面/mycallyplus_v1/level1 -DWORK_SCALE=1000 source_instrumented.c -o /home/chove/桌面/mycallyplus_v1/tools/runtime_compare/实验结果/web_tasks/2026-02-13T16-37-34+08-00_ws1000_r1/prio/app_prio",
+    "stats": {
+      "n": 1.0,
+      "min_s": 16.15178289,
+      "max_s": 16.15178289,
+      "mean_s": 16.15178289,
+      "median_s": 16.15178289
+    },
+    "times_s": [
+      16.15178289
+    ]
+  },
+  "runs": [
+    {
+      "program": "baseline",
+      "iter": 0,
+      "time_s": 16.82682104,
+      "wall_s": 16.82682104,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #1 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=16.826821\n"
+    },
+    {
+      "program": "prio",
+      "iter": 0,
+      "time_s": 16.15178289,
+      "wall_s": 16.15178289,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #1 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=16.151783\n"
+    }
+  ],
+  "delta_mean_s": -0.6750381499999989,
+  "improvement_ratio": 0.04011679617886986
+}
