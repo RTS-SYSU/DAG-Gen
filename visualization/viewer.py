@@ -33,7 +33,14 @@ from tkinter import filedialog, messagebox
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
 import networkx as nx
-from PIL import Image, ImageTk
+try:
+    from PIL import Image, ImageTk  # type: ignore
+
+    _PIL_READY = True
+except Exception:  # pragma: no cover - optional dependency
+    Image = None  # type: ignore
+    ImageTk = None  # type: ignore
+    _PIL_READY = False
 
 try:
     import pydot  # type: ignore
@@ -145,7 +152,8 @@ class TarjanGUI:
         }
 
         self.mode = "tarjan"
-        self.tk_img: Optional[ImageTk.PhotoImage] = None
+        # When Pillow is unavailable, we fall back to tk.PhotoImage (may not support PNG on all Tk builds).
+        self.tk_img: Optional[object] = None
 
         self.THREAD_COLORS = [
             "#90CAF9", "#A5D6A7", "#FFE082", "#F48FB1",
@@ -332,8 +340,19 @@ class TarjanGUI:
             messagebox.showinfo("完成", f"已生成图像：\n{out_png}")
 
     def _show_image(self, path: Path) -> None:
-        img = Image.open(path)
-        self.tk_img = ImageTk.PhotoImage(img)
+        # Prefer Tk native loader; fall back to Pillow if available.
+        try:
+            self.tk_img = tk.PhotoImage(file=str(path))
+        except Exception:
+            if not _PIL_READY:
+                messagebox.showwarning(
+                    "提示",
+                    "当前环境缺少 PIL.ImageTk，且 Tk 不支持加载该图片格式。\n"
+                    "请安装：python3 -m pip install pillow",
+                )
+                return
+            img = Image.open(path)  # type: ignore[union-attr]
+            self.tk_img = ImageTk.PhotoImage(img)  # type: ignore[union-attr]
         self.canvas.delete("all")
         self.canvas.create_image(0, 0, anchor=tk.NW, image=self.tk_img)
         self.canvas.config(scrollregion=self.canvas.bbox(tk.ALL))

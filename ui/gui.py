@@ -19,6 +19,7 @@ import json
 import socket
 import time
 import webbrowser
+import pwd
 
 try:
     from PIL import Image, ImageTk
@@ -120,6 +121,24 @@ class MycallyplusGUIv3:
         # 工作路径 - 修改为 mycallyplus 目录
         self.base_dir = Path(__file__).resolve().parent.parent
         self.base_dir.mkdir(parents=True, exist_ok=True)
+
+        # If launched via `sudo`, prefer running heavy steps (gcc/python pipeline) as the original user.
+        # This avoids root-owned outputs and missing user-site Python deps (e.g. Pillow).
+        self._sudo_user: Optional[str] = None
+        self._sudo_uid: Optional[int] = None
+        self._sudo_gid: Optional[int] = None
+        try:
+            if hasattr(os, "geteuid") and os.geteuid() == 0:
+                cand = os.environ.get("SUDO_USER")
+                if cand:
+                    info = pwd.getpwnam(cand)
+                    self._sudo_user = cand
+                    self._sudo_uid = int(info.pw_uid)
+                    self._sudo_gid = int(info.pw_gid)
+        except Exception:
+            self._sudo_user = None
+            self._sudo_uid = None
+            self._sudo_gid = None
         
         # 文件状态
         self.state = FileState()
@@ -180,6 +199,34 @@ class MycallyplusGUIv3:
         self.root.protocol("WM_DELETE_WINDOW", self._on_close)
         self._build_ui()
         self._update_status_display()
+
+    def _as_original_user_cmd(self, cmd: List[str]) -> List[str]:
+        """When running as root via sudo, re-exec commands as the original user."""
+        if self._sudo_user:
+            return ["sudo", "-u", self._sudo_user, "-H", *cmd]
+        return cmd
+
+    def _run(self, cmd: List[str], *, cwd: Optional[Path] = None, **kwargs) -> subprocess.CompletedProcess:
+        return subprocess.run(self._as_original_user_cmd(cmd), cwd=str(cwd) if cwd else None, **kwargs)
+
+    def _popen(self, cmd: List[str], *, cwd: Optional[Path] = None, **kwargs) -> subprocess.Popen:
+        return subprocess.Popen(self._as_original_user_cmd(cmd), cwd=str(cwd) if cwd else None, **kwargs)
+
+    def _chown_to_original_user(self, path: Path) -> None:
+        if self._sudo_uid is None or self._sudo_gid is None:
+            return
+        try:
+            os.chown(str(path), self._sudo_uid, self._sudo_gid)
+        except Exception:
+            pass
+
+    def _ensure_dir_for_original_user(self, path: Path) -> None:
+        path.mkdir(parents=True, exist_ok=True)
+        self._chown_to_original_user(path)
+        try:
+            path.chmod(0o775)
+        except Exception:
+            pass
 
     # 路径辅助：统一配置目录（新位置）
     def _config_dir_for_base(self, base_name: str) -> Path:
@@ -607,7 +654,7 @@ class MycallyplusGUIv3:
             return
 
         try:
-            subprocess.run(
+            self._run(
                 [sys.executable, "-c", "import flask"],
                 check=True,
                 stdout=subprocess.DEVNULL,
@@ -634,9 +681,10 @@ class MycallyplusGUIv3:
         ]
         try:
             if self.runtime_web_proc is None:
-                self.runtime_web_log.parent.mkdir(parents=True, exist_ok=True)
+                self._ensure_dir_for_original_user(self.runtime_web_log.parent)
                 self.runtime_web_log_handle = open(self.runtime_web_log, "w", encoding="utf-8")
-                self.runtime_web_proc = subprocess.Popen(
+                self._chown_to_original_user(self.runtime_web_log)
+                self.runtime_web_proc = self._popen(
                     cmd,
                     cwd=str(self.base_dir),
                     stdout=self.runtime_web_log_handle,
@@ -873,7 +921,7 @@ class MycallyplusGUIv3:
         src_dir = source_file.parent
         base_name = source_file.stem
         config_dir = self.base_dir / "配置文件" / base_name
-        config_dir.mkdir(parents=True, exist_ok=True)
+        self._ensure_dir_for_original_user(config_dir)
 
         # 智能检测 include 目录
         include_dirs = []
@@ -902,7 +950,7 @@ class MycallyplusGUIv3:
                 obj_name = Path(tmp.name).name
 
             cmd = ["gcc", "-fdump-rtl-expand", *include_dirs, "-c", source_file.name, "-o", obj_name]
-            result = subprocess.run(
+            result = self._run(
                 cmd,
                 cwd=str(src_dir),
                 capture_output=True,
@@ -942,6 +990,7 @@ class MycallyplusGUIv3:
             if dst.exists():
                 dst.unlink()
             shutil.move(str(expand_src), str(dst))
+            self._chown_to_original_user(dst)
 
             # 更新状态
             self.state.expand_file = dst
@@ -1136,9 +1185,9 @@ class MycallyplusGUIv3:
                     self.state.work_dir / "生成dag图"
                     if self.state.work_dir else dot_path.parent
                 )
-                target_dir.mkdir(parents=True, exist_ok=True)
+                self._ensure_dir_for_original_user(target_dir)
                 png_path = target_dir / "dag.png"
-                subprocess.run(
+                self._run(
                     ["dot", "-Tpng", str(dot_path), "-o", str(png_path)],
                     check=True,
                     capture_output=True
@@ -1164,7 +1213,7 @@ class MycallyplusGUIv3:
             cmd = [x for x in cmd if x != ""]
             
             result = subprocess.run(
-                cmd,
+                self._as_original_user_cmd(cmd),
                 cwd=str(self.base_dir.parent),
                 capture_output=True,
                 text=True
@@ -1201,18 +1250,19 @@ class MycallyplusGUIv3:
             base_name = self.state.get_base_name() or source_name
             root_dir = self.base_dir / "中间结果" / base_name
             target_dir = root_dir / "生成dag图"
-            target_dir.mkdir(parents=True, exist_ok=True)
+            self._ensure_dir_for_original_user(target_dir)
             target_dot = target_dir / "dag.dot"
             
             import shutil
             shutil.copy(source_dot, target_dot)
+            self._chown_to_original_user(target_dot)
 
             # 更新工作目录到统一路径，避免后续模块误用配置目录
             self.state.work_dir = root_dir
             self.state.dot_file = target_dot
             # 生成并展示 PNG（需要本机安装 graphviz 的 dot 命令）
             png_path = target_dir / "dag.png"
-            subprocess.run(
+            self._run(
                 ["dot", "-Tpng", str(target_dot), "-o", str(png_path)],
                 check=True,
                 capture_output=True,
@@ -2243,7 +2293,18 @@ class MycallyplusGUIv3:
             return
         base_name, source_file = ctx
         try:
-            payload = pipeline_runner.run_collector(base_dir=self.base_dir, base_name=base_name, source_file=source_file)
+            if self._sudo_user:
+                payload = self._pipeline_cli(
+                    [
+                        "collect",
+                        "--base-name",
+                        base_name,
+                        "--source",
+                        str(source_file),
+                    ]
+                )
+            else:
+                payload = pipeline_runner.run_collector(base_dir=self.base_dir, base_name=base_name, source_file=source_file)
             self._pipeline_set_context(level="-", rule="-", view="-", algo="-")
             self._pipeline_record_outputs({"block_info": self.base_dir / "中间结果" / base_name / "pipeline" / "block_info.json"})
             self._pipeline_notice(
@@ -2268,13 +2329,28 @@ class MycallyplusGUIv3:
         if not rule_name:
             return
         try:
-            pipeline_runner.run_blocks(
-                base_dir=self.base_dir,
-                base_name=base_name,
-                level=level,
-                rule_name=rule_name,
-                source_file=source_file,
-            )
+            if self._sudo_user:
+                self._pipeline_cli(
+                    [
+                        "blocks",
+                        "--base-name",
+                        base_name,
+                        "--level",
+                        level,
+                        "--rule",
+                        rule_name,
+                        "--source",
+                        str(source_file),
+                    ]
+                )
+            else:
+                pipeline_runner.run_blocks(
+                    base_dir=self.base_dir,
+                    base_name=base_name,
+                    level=level,
+                    rule_name=rule_name,
+                    source_file=source_file,
+                )
             out_dir = self.base_dir / "中间结果" / base_name / "pipeline" / "blocks" / level / rule_name
             # New pipeline layout stores dag_seg.png at rule root; keep legacy fallback.
             png = out_dir / "dag_seg.png"
@@ -2310,9 +2386,22 @@ class MycallyplusGUIv3:
             return
         level, rule_name = picked
         try:
-            result = pipeline_runner.run_timing_stage(
-                base_dir=self.base_dir, base_name=base_name, level=level, rule_name=rule_name
-            )
+            if self._sudo_user:
+                result = self._pipeline_cli(
+                    [
+                        "timing",
+                        "--base-name",
+                        base_name,
+                        "--level",
+                        level,
+                        "--rule",
+                        rule_name,
+                    ]
+                )
+            else:
+                result = pipeline_runner.run_timing_stage(
+                    base_dir=self.base_dir, base_name=base_name, level=level, rule_name=rule_name
+                )
             self._pipeline_notice(
                 "分块测时完成：\n"
                 f"- target: {level}/{rule_name}\n"
@@ -2359,13 +2448,28 @@ class MycallyplusGUIv3:
             return
         level, rule_name = picked
         try:
-            result = pipeline_runner.run_schedule_stage(
-                base_dir=self.base_dir,
-                base_name=base_name,
-                level=level,
-                rule_name=rule_name,
-                algo_name=algo_name,
-            )
+            if self._sudo_user:
+                result = self._pipeline_cli(
+                    [
+                        "schedule",
+                        "--base-name",
+                        base_name,
+                        "--level",
+                        level,
+                        "--rule",
+                        rule_name,
+                        "--algo",
+                        algo_name,
+                    ]
+                )
+            else:
+                result = pipeline_runner.run_schedule_stage(
+                    base_dir=self.base_dir,
+                    base_name=base_name,
+                    level=level,
+                    rule_name=rule_name,
+                    algo_name=algo_name,
+                )
             self._pipeline_notice(
                 "调度计算完成：\n"
                 f"- target: {level}/{rule_name}\n"
@@ -2414,14 +2518,31 @@ class MycallyplusGUIv3:
             return
         level, rule_name, algo_name = picked
         try:
-            result = pipeline_runner.run_instrument_stage(
-                base_dir=self.base_dir,
-                base_name=base_name,
-                level=level,
-                rule_name=rule_name,
-                algo_name=algo_name,
-                instrument_mode=instrument_mode,
-            )
+            if self._sudo_user:
+                result = self._pipeline_cli(
+                    [
+                        "instrument",
+                        "--base-name",
+                        base_name,
+                        "--level",
+                        level,
+                        "--rule",
+                        rule_name,
+                        "--algo",
+                        algo_name,
+                        "--mode",
+                        instrument_mode,
+                    ]
+                )
+            else:
+                result = pipeline_runner.run_instrument_stage(
+                    base_dir=self.base_dir,
+                    base_name=base_name,
+                    level=level,
+                    rule_name=rule_name,
+                    algo_name=algo_name,
+                    instrument_mode=instrument_mode,
+                )
             self._pipeline_notice(
                 "优先级插装完成：\n"
                 f"- target: {level}/{rule_name}/{algo_name}\n"
@@ -2439,6 +2560,29 @@ class MycallyplusGUIv3:
             self.pipeline_entry()
         except Exception as e:
             self._show_message("错误", f"优先级插装失败:\n{e}", is_error=True)
+
+    def _pipeline_cli(self, argv: List[str]) -> Dict:
+        """Run pipeline stages via CLI in a child process (helps under sudo-root GUI)."""
+        cmd = [
+            sys.executable,
+            "-m",
+            "mycallyplus_v1.pipeline.cli",
+            "--base-dir",
+            str(self.base_dir),
+            *argv,
+        ]
+        proc = self._run(
+            cmd,
+            cwd=self.base_dir.parent,
+            capture_output=True,
+            text=True,
+        )
+        if proc.returncode != 0:
+            raise RuntimeError(proc.stderr.strip() or f"pipeline CLI failed: rc={proc.returncode}")
+        try:
+            return json.loads(proc.stdout or "{}")
+        except Exception:
+            return {}
 
     # ===================== 按钮8: 调度算法 =====================
 
