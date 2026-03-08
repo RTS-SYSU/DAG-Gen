@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import shutil
 import subprocess
+import os
 from pathlib import Path
 from typing import Dict, List, Set, Tuple
 
@@ -121,6 +122,10 @@ def run_timing(*, base_dir: Path, base_name: str, level: str, rule_name: str) ->
     pipeline_root = base_dir / "中间结果" / base_name / "pipeline"
     out_root = pipeline_root / "timing" / level / rule_name
     meta_path = out_root / "timing_meta.json"
+    # Ensure a clean output dir, then mark running (avoid deleting the meta we just wrote).
+    if out_root.exists():
+        shutil.rmtree(out_root)
+    out_root.mkdir(parents=True, exist_ok=True)
     mark_running(meta_path, step="timing")
 
     try:
@@ -135,9 +140,6 @@ def run_timing(*, base_dir: Path, base_name: str, level: str, rule_name: str) ->
         if not source_file.exists():
             raise StageError(f"missing source file: {source_file}")
 
-        if out_root.exists():
-            shutil.rmtree(out_root)
-        out_root.mkdir(parents=True, exist_ok=True)
         logs_dir = out_root / "logs"
         logs_dir.mkdir(parents=True, exist_ok=True)
 
@@ -173,7 +175,13 @@ def run_timing(*, base_dir: Path, base_name: str, level: str, rule_name: str) ->
 
         trace_dir = project_dir / "trace"
         trace_dir.mkdir(parents=True, exist_ok=True)
-        proc = subprocess.run([str(project_dir / "app")], cwd=str(project_dir), capture_output=True, text=True)
+        env = dict(os.environ)
+        # Optional override to keep timing runs bounded for heavy benchmarks.
+        # The instrumented program may respect WORK_SCALE; leaving it unset preserves original behavior.
+        ws = env.get("MYCALLY_PIPELINE_WORK_SCALE")
+        if ws and ws.strip():
+            env["WORK_SCALE"] = ws.strip()
+        proc = subprocess.run([str(project_dir / "app")], cwd=str(project_dir), capture_output=True, text=True, env=env)
         (logs_dir / "run.stdout.log").write_text(proc.stdout or "", encoding="utf-8")
         (logs_dir / "run.stderr.log").write_text(proc.stderr or "", encoding="utf-8")
         if proc.returncode != 0:

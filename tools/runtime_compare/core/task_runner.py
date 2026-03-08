@@ -8,6 +8,7 @@ import shutil
 import subprocess
 import threading
 import time
+import signal
 from pathlib import Path
 from queue import Queue
 from typing import Dict, List, Optional, Tuple
@@ -21,6 +22,7 @@ from ..utils.file_ops import ensure_writable_dir
 from ..utils.sudo import has_passwordless_sudo
 from ..utils.time_parse import parse_internal_time_seconds
 from ..utils.datetime_utils import now_ts_safe
+from ..utils.resume_state import mark_done, task_payload_for_key
 
 
 class TaskRunner(threading.Thread):
@@ -35,6 +37,7 @@ class TaskRunner(threading.Thread):
         on_update: callable,
         serial_sem: threading.Semaphore,
         queue_mode_fn: callable,
+        results_root_fn: Optional[callable] = None,
     ) -> None:
         """初始化任务执行器
         
@@ -56,6 +59,7 @@ class TaskRunner(threading.Thread):
         self._stop_evt = threading.Event()
         self._serial_sem = serial_sem
         self._queue_mode_fn = queue_mode_fn
+        self._results_root_fn = results_root_fn or (lambda: (self._tool_dir / "实验结果"))
 
     def stop(self) -> None:
         """停止任务执行器"""
@@ -75,17 +79,50 @@ class TaskRunner(threading.Thread):
         """执行单个任务"""
         acquired_serial = False
         try:
+            def cancel_check() -> bool:
+                return (
+                    task.cancel_requested
+                    or task.cancel_evt.is_set()
+                    or task.status in ("cancelling", "cancelled")
+                )
+
+            class _Cancelled(Exception):
+                pass
+
+            def raise_if_cancelled(phase: Optional[str] = None) -> None:
+                if cancel_check():
+                    if phase:
+                        task.phase = phase
+                    raise _Cancelled()
+
+            # If cancelled before start (e.g. user cancelled while queued), short-circuit.
+            if task.status == "cancelled" or task.cancel_evt.is_set() or task.cancel_requested:
+                task.status = "cancelled"
+                task.phase = "cancelled"
+                task.message = task.message or (task.cancel_reason or "用户取消")
+                task.end_ns = time.monotonic_ns()
+                self._on_update(task)
+                return
+
             if self._queue_mode_fn():
                 self._serial_sem.acquire()
                 acquired_serial = True
             
             # Acquire CPU group (优先使用 task.cpu_list 如果指定)
+            raise_if_cancelled("wait_cpu")
             group = self._cpu_pool.try_acquire_group(
                 task.cores_per_task,
                 preferred=task.cpu_list
             )
             if group is None:
                 # Temporary shortage: keep it queued and try again later.
+                if cancel_check():
+                    task.status = "cancelled"
+                    task.phase = "cancelled"
+                    task.message = task.cancel_reason or "用户取消"
+                    task.end_ns = time.monotonic_ns()
+                    self._on_update(task)
+                    return
                 task.status = "queued"
                 task.phase = "wait_cpu"
                 task.message = f"等待 CPU：需要 {task.cores_per_task} 核，当前空闲 {self._cpu_pool.free_count()}"
@@ -108,7 +145,11 @@ class TaskRunner(threading.Thread):
 
             # Prepare output directories
             # 新的目录结构：实验结果/{config_name}/{timestamp}_ws{work_scale}_r{repeats}/
-            exp_root = self._tool_dir / "实验结果"
+            exp_root = Path(self._results_root_fn()).expanduser()
+            if not exp_root.is_absolute():
+                exp_root = (self._tool_dir / exp_root).resolve()
+            else:
+                exp_root = exp_root.resolve()
             ensure_writable_dir(exp_root, use_sudo=task.use_sudo)
 
             # 使用配置文件名作为主目录，如果没有则使用默认名称
@@ -129,6 +170,7 @@ class TaskRunner(threading.Thread):
             task.progress_i = 0
             task.progress_n = 0
             self._on_update(task)
+            raise_if_cancelled("copy")
 
             baseline_src_root = task.baseline_c.parent
             prio_src_root = task.prio_c.parent
@@ -168,6 +210,7 @@ class TaskRunner(threading.Thread):
             task.progress_i = 0
             task.progress_n = 2
             self._on_update(task)
+            raise_if_cancelled("compile")
 
             baseline_bin = out_dir / "baseline" / "app_baseline"
             prio_bin = out_dir / "prio" / "app_prio"
@@ -182,6 +225,49 @@ class TaskRunner(threading.Thread):
                             shutil.copy2(prio_runtime_src, dst)
                         except Exception:
                             pass
+
+            def _run_compile(cmd_parts: List[str], *, cwd: Path) -> Tuple[int, str, str]:
+                # New process group so we can cancel compile too.
+                def preexec() -> None:
+                    os.setsid()
+
+                proc = subprocess.Popen(
+                    cmd_parts,
+                    cwd=str(cwd),
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=True,
+                    preexec_fn=preexec,
+                )
+                try:
+                    while True:
+                        raise_if_cancelled("compile")
+                        try:
+                            out, err = proc.communicate(timeout=0.2)
+                            return int(proc.returncode or 0), out or "", err or ""
+                        except subprocess.TimeoutExpired:
+                            continue
+                except _Cancelled:
+                    try:
+                        os.killpg(proc.pid, signal.SIGTERM)
+                    except Exception:
+                        try:
+                            proc.terminate()
+                        except Exception:
+                            pass
+                    try:
+                        out, err = proc.communicate(timeout=1.0)
+                    except Exception:
+                        try:
+                            os.killpg(proc.pid, signal.SIGKILL)
+                        except Exception:
+                            try:
+                                proc.kill()
+                            except Exception:
+                                pass
+                        out, err = proc.communicate()
+                    # Propagate cancellation to outer handler
+                    raise
 
             def compile_one(src_dir: Path, entry_c_name: str, out_bin: Path) -> Tuple[int, str, str, str]:
                 # Compile only the selected entry file to avoid duplicate main
@@ -202,13 +288,11 @@ class TaskRunner(threading.Thread):
                     "-o",
                     str(out_bin),
                 ]
-                proc = subprocess.run(cmd_parts, cwd=str(src_dir), capture_output=True, text=True)
-                so = proc.stdout or ""
-                se = proc.stderr or ""
+                rc, so, se = _run_compile(cmd_parts, cwd=src_dir)
                 cmd_txt = " ".join(cmd_parts)
 
                 # Fallback: if main-wrapper symbol is missing, retry without --wrap=main.
-                if proc.returncode != 0 and "__wrap_main" in se:
+                if rc != 0 and "__wrap_main" in se:
                     filtered_flags = [f for f in GCC_FLAGS if f != "-Wl,--wrap=main"]
                     cmd_parts2 = [
                         "gcc",
@@ -219,15 +303,13 @@ class TaskRunner(threading.Thread):
                         "-o",
                         str(out_bin),
                     ]
-                    proc2 = subprocess.run(cmd_parts2, cwd=str(src_dir), capture_output=True, text=True)
-                    so2 = proc2.stdout or ""
-                    se2 = proc2.stderr or ""
+                    rc2, so2, se2 = _run_compile(cmd_parts2, cwd=src_dir)
                     cmd_txt = cmd_txt + "\nRETRY(no --wrap=main): " + " ".join(cmd_parts2)
                     so = so + so2
                     se = se + "\n[retry]\n" + se2
-                    return proc2.returncode, so, se, cmd_txt
+                    return rc2, so, se, cmd_txt
 
-                return proc.returncode, so, se, cmd_txt
+                return rc, so, se, cmd_txt
 
             rc, so, se, bcmd = compile_one(baseline_dir, task.baseline_c.name, baseline_bin)
             task.progress_i = 1
@@ -248,6 +330,7 @@ class TaskRunner(threading.Thread):
             task.progress_i = 0
             task.progress_n = task.repeats * 2
             self._on_update(task)
+            raise_if_cancelled("run")
 
             env = dict(os.environ)
             env["WORK_SCALE"] = str(task.work_scale)
@@ -265,7 +348,9 @@ class TaskRunner(threading.Thread):
                     env=env,
                     cpu_set=task.cpu_set,
                     use_sudo=task.use_sudo,
+                    cancel_check=cancel_check,
                 )
+                raise_if_cancelled("run")
                 run_log.append(f"=== {label} run (rc={rc}) ===\n")
                 run_log.append(out)
                 if err:
@@ -301,11 +386,13 @@ class TaskRunner(threading.Thread):
                 return float(t)
 
             for i in range(task.repeats):
+                raise_if_cancelled("run")
                 t = run_prog("baseline", baseline_bin, i)
                 baseline_times.append(t)
                 task.progress_i += 1
                 self._on_update(task)
 
+                raise_if_cancelled("run")
                 t = run_prog("prio", prio_bin, i)
                 prio_times.append(t)
                 task.progress_i += 1
@@ -412,6 +499,35 @@ class TaskRunner(threading.Thread):
             task.status = "done"
             task.phase = "done"
             task.message = f"完成：baseline mean={baseline_stat['mean_s']:.3f}s, prio mean={prio_stat['mean_s']:.3f}s"
+            task.end_ns = time.monotonic_ns()
+            # 断点续跑：记录已完成任务，重启后可跳过
+            try:
+                if task.resume_file and task.task_key and task.out_dir:
+                    payload = task_payload_for_key(
+                        baseline_c=task.baseline_c,
+                        prio_c=task.prio_c,
+                        work_scale=task.work_scale,
+                        repeats=task.repeats,
+                        cores_per_task=task.cores_per_task,
+                        use_sudo=task.use_sudo,
+                        cpu_list=task.cpu_list,
+                    )
+                    mark_done(
+                        resume_file=Path(task.resume_file),
+                        task_key=str(task.task_key),
+                        task_id=task.task_id,
+                        out_dir=task.out_dir,
+                        message=task.message,
+                        done_at=now_ts_safe(),
+                        payload=payload,
+                    )
+            except Exception:
+                pass
+            self._on_update(task)
+        except _Cancelled:
+            task.status = "cancelled"
+            task.phase = "cancelled"
+            task.message = task.cancel_reason or "用户取消"
             task.end_ns = time.monotonic_ns()
             self._on_update(task)
         except Exception as e:

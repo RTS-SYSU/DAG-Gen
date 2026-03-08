@@ -14,24 +14,34 @@ from .core.task_runner import TaskRunner
 from .config.defaults import DEFAULT_MAX_WORKERS
 from .utils.cpu import read_cpu_online
 from .utils.config_manager import load_config, tasks_from_config, save_config
+from .utils.resume_state import apply_resume_to_task, default_resume_file
 from .utils.file_ops import ensure_dir
 
 
 class CLIManager:
     """CLI 模式管理器"""
     
-    def __init__(self, base_dir: Path, queue_mode: bool = False):
+    def __init__(self, base_dir: Path, queue_mode: bool = False, results_root: Optional[Path] = None):
         """初始化 CLI 管理器
         
         Args:
             base_dir: 项目根目录
             queue_mode: 是否启用排队模式
+            results_root: 实验结果根目录（默认: tools/runtime_compare/实验结果）
         """
         self.base_dir = base_dir
         self.queue_mode = queue_mode
         
         # 计算工具目录路径（tools/runtime_compare/）
         self.tool_dir = Path(__file__).parent.resolve()
+
+        # 实验结果根目录
+        rr = Path(results_root).expanduser() if results_root else (self.tool_dir / "实验结果")
+        if not rr.is_absolute():
+            rr = (self.tool_dir / rr).resolve()
+        else:
+            rr = rr.resolve()
+        self.results_root = rr
         
         # 初始化 CPU 池和任务队列
         self.cpu_list = read_cpu_online()
@@ -43,9 +53,13 @@ class CLIManager:
         import threading
         self.serial_sem = threading.Semaphore(1)
         
-        # 日志目录（在工具目录下）
-        self.log_dir = self.tool_dir / "实验结果" / "logs"
-        ensure_dir(self.log_dir)
+        # 日志目录（默认跟随实验结果目录）
+        try:
+            self.log_dir = self.results_root / "logs"
+            ensure_dir(self.log_dir)
+        except Exception:
+            self.log_dir = self.tool_dir / "实验结果" / "logs"
+            ensure_dir(self.log_dir)
         
         # 设置日志
         self._setup_logging()
@@ -61,6 +75,7 @@ class CLIManager:
                 on_update=self._on_task_update,
                 serial_sem=self.serial_sem,
                 queue_mode_fn=lambda: self.queue_mode,
+                results_root_fn=lambda: self.results_root,
             )
             r.start()
             self.runners.append(r)
@@ -88,11 +103,12 @@ class CLIManager:
             if task.out_dir:
                 self.logger.info(f"结果目录: {task.out_dir}")
     
-    def load_from_config(self, config_path: Path) -> int:
+    def load_from_config(self, config_path: Path, *, resume: bool = True) -> int:
         """从配置文件加载任务
         
         Args:
             config_path: 配置文件路径（可以是绝对路径、相对路径或文件名）
+            resume: 是否启用断点续跑（跳过已完成任务）
             
         Returns:
             加载的任务数量
@@ -117,6 +133,11 @@ class CLIManager:
         
         # 提取配置文件名（不含扩展名）
         config_name = config_path.stem
+        resume_file = default_resume_file(config_path, tool_dir=self.tool_dir)
+        if resume:
+            self.logger.info(f"断点续跑: 启用 (state={resume_file})")
+        else:
+            self.logger.info("断点续跑: 禁用")
         
         # 设置排队模式
         if "queue_mode" in config:
@@ -124,14 +145,27 @@ class CLIManager:
             self.logger.info(f"排队模式: {'启用' if self.queue_mode else '禁用'}")
         
         # 创建任务（传递配置文件名）
-        tasks = tasks_from_config(config, config_name=config_name)
+        tasks = tasks_from_config(config, config_name=config_name, config_path=config_path)
         self.logger.info(f"从配置文件加载了 {len(tasks)} 个任务")
         
-        # 添加到队列（串行执行）
+        # 断点续跑：标记已完成任务，不再入队
+        resumed = 0
+        if resume:
+            for t in tasks:
+                ok, _ = apply_resume_to_task(t)
+                if ok:
+                    resumed += 1
+        if resumed:
+            self.logger.info(f"断点续跑：已完成任务跳过 {resumed} 个")
+
+        # 添加到队列（串行执行 / 仅未完成）
         for task in tasks:
             self.tasks.append(task)
-            self.task_q.put(task)
-            self.logger.info(f"已添加任务: {task.task_id}")
+            if task.status != "done":
+                self.task_q.put(task)
+                self.logger.info(f"已添加任务: {task.task_id}")
+            else:
+                self.logger.info(f"已完成任务(跳过): {task.task_id} -> {task.out_dir}")
         
         return len(tasks)
     
@@ -200,7 +234,7 @@ class CLIManager:
             )
     
     def cancel_task(self, task_id: str) -> bool:
-        """取消任务（仅限 queued 状态）
+        """取消任务（queued 或 running）
         
         Args:
             task_id: 任务 ID
@@ -210,13 +244,33 @@ class CLIManager:
         """
         for task in self.tasks:
             if task.task_id == task_id:
+                if task.status in ("done", "error", "cancelled"):
+                    self.logger.warning(f"任务已结束，无法取消: {task.status}")
+                    return False
                 if task.status == "queued":
                     task.status = "cancelled"
+                    task.phase = "cancelled"
+                    task.cancel_requested = True
+                    task.cancel_evt.set()
+                    task.cancel_reason = "用户取消"
                     self.logger.info(f"已取消任务: {task_id}")
                     return True
-                else:
-                    self.logger.warning(f"只能取消等待中的任务，当前状态: {task.status}")
-                    return False
+                if task.status in ("running", "cancelling"):
+                    task.status = "cancelling"
+                    task.cancel_requested = True
+                    task.cancel_evt.set()
+                    task.cancel_reason = "用户取消"
+                    task.message = "用户取消，正在停止..."
+                    self.logger.info(f"已请求中断任务: {task_id}")
+                    return True
+                # 其他状态（如 wait_cpu）
+                task.status = "cancelled"
+                task.phase = "cancelled"
+                task.cancel_requested = True
+                task.cancel_evt.set()
+                task.cancel_reason = "用户取消"
+                self.logger.info(f"已取消任务: {task_id}")
+                return True
         self.logger.error(f"任务不存在: {task_id}")
         return False
     
@@ -266,13 +320,13 @@ def main_cli(args):
         # 自动检测：从 tools/runtime_compare 向上两级
         base_dir = Path(__file__).parent.parent.parent.resolve()
     
-    manager = CLIManager(base_dir, queue_mode=args.queue_mode)
+    manager = CLIManager(base_dir, queue_mode=args.queue_mode, results_root=getattr(args, "results_root", None))
     
     try:
         if args.config:
             # 从配置文件加载（load_from_config 会处理路径查找）
             config_path = Path(args.config)
-            count = manager.load_from_config(config_path)
+            count = manager.load_from_config(config_path, resume=not args.no_resume)
             print(f"已加载 {count} 个任务")
             
             # 等待所有任务完成（串行执行）
@@ -294,16 +348,14 @@ def main_cli(args):
             if len(config["tasks"]) != 1:
                 print(f"错误: 任务配置文件应包含恰好 1 个任务，实际有 {len(config['tasks'])} 个")
                 return 1
-            task_data = config["tasks"][0]
-            manager.add_task(
-                baseline_c=task_data["baseline_c"],
-                prio_c=task_data["prio_c"],
-                work_scale=task_data["work_scale"],
-                repeats=task_data["repeats"],
-                cores_per_task=task_data["cores_per_task"],
-                cpu_list=task_data.get("cpu_list"),
-                use_sudo=task_data.get("use_sudo", False),
-            )
+            # 复用断点续跑逻辑
+            tasks = tasks_from_config(config, config_name=task_config.stem, config_path=task_config)
+            t = tasks[0]
+            if not args.no_resume:
+                apply_resume_to_task(t)
+            manager.tasks.append(t)
+            if t.status != "done":
+                manager.task_q.put(t)
             if args.wait:
                 manager.wait_all()
                 manager.shutdown()
@@ -371,6 +423,7 @@ def create_cli_parser():
     parser.add_argument("--base-dir", type=Path, help="项目根目录（默认: 自动检测）")
     parser.add_argument("--queue-mode", action="store_true", help="启用单并发排队模式")
     parser.add_argument("--wait", action="store_true", help="等待所有任务完成")
+    parser.add_argument("--no-resume", action="store_true", help="禁用断点续跑（默认会跳过已完成任务）")
     
     # 操作选项（互斥）
     group = parser.add_mutually_exclusive_group(required=True)

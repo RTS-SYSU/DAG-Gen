@@ -22,6 +22,8 @@ python3 tools/runtime_compare/main.py --web --host 0.0.0.0 --port 5000
 # 支持任务配置、实时监控、配置文件管理等功能
 ```
 
+可选：用 `--results-root /path/to/dir` 指定实验结果保存目录；也可在 WebUI 的「实验结果目录」区域随时切换（仅影响后续新任务）。
+
 详细说明参见 [Web UI 使用说明](WebUI使用说明.md)
 
 ### CLI 模式（推荐用于离线环境）
@@ -36,6 +38,8 @@ python3 tools/runtime_compare/main.py --cli --list
 # 查看系统状态
 python3 tools/runtime_compare/main.py --cli --status
 ```
+
+可选：用 `--results-root /path/to/dir` 指定实验结果保存目录；用 `--pick-results-root` 启动时交互选择/新建目录。
 
 详细说明参见 [CLI 使用说明](CLI使用说明.md)
 
@@ -69,7 +73,7 @@ python3 tools/runtime_compare/main.py --gui
 
 ## 输出结果
 
-每个任务的结果保存在：
+每个任务的结果默认保存在（可用 `--results-root` 或 WebUI 进行切换）：
 ```
 tools/runtime_compare/实验结果/<config_name>/<timestamp>_ws<work_scale>_r<repeats>/
 ├── summary.json          # 统计结果和元信息

@@ -12,6 +12,7 @@
 4. **生成dag图**  
    - 调用 `legacy --threads-only --output-base <root>`（若已选择 dot 则直接渲染）。  
    - 从 `中间结果/<base>/配置文件/<base>_threads.dot` → `中间结果/<base>/生成dag图/dag.dot` → `dot` 渲染 `dag.png`。
+   - 同步导出 `circle.txt` 到 `中间结果/<base>/配置文件/circle.txt`（供 PipeDAG/互斥锁/信号量使用；失败不阻塞 DAG 生成，但会导致后续步骤缺输入）。
 5. **查看条件节点**  
    - `legacy --conditions-only` + `--output-base`。  
    - `中间结果/<base>/配置文件/<base>_full.dot` → `中间结果/<base>/查看条件节点/conditions.dot/png`。
@@ -47,7 +48,7 @@
 - 某些功能（互斥锁信息）会在新窗口显示文本。
 
 ## 3.4 常见联动
-- **circle.txt**：由“生成配置文件”或条件节点功能生成 → 互斥锁/信号量按钮依赖。
+- **circle.txt**：由“生成dag图”（自动导出）或“查看条件节点”导出 → 互斥锁/信号量按钮依赖；PipeDAG 的 `collector` 也需要它。
 - **time_result.json**：时间分析完成后 → 调度算法（Longest Path）使用。
 - **长路径插桩**：调度算法子功能将依赖 longest_path.json + time_result + mycalls_meta_internal。
 
@@ -66,6 +67,19 @@
 6. `调度算法`（二级按钮按算法 registry 动态生成）
 7. `优先级插装`
 8. `返回主流程`
+
+### 从零开始（手动回归）建议点击顺序
+以 `zhang2.c` 为例，每次想从“空中间结果”验证全链路时：
+1. 手动删除目录：`中间结果/zhang2/`（确保没有旧产物干扰）
+2. `选择源文件` → 选择 `源文件/zhang2/zhang2.c`
+3. `生成expand文件`
+4. `生成dag图`（会生成 `dag.dot/png`，并同步导出 `circle.txt`）
+5. `模块化实验`：
+   - `生成分块信息`
+   - `level2 分块`（推荐 rule: `effective_line_merge`）
+   - `分块测时`
+   - `调度算法`（选择一个算法，例如 `cpf`）
+   - `优先级插装`（选择“通用插装”更适合 level2/3；level1 可用“专用插装”）
 
 ### 状态区增强
 - 在原有状态区（源文件/Expand/DOT/配置）基础上新增 PipeDAG 上下文：
@@ -106,5 +120,6 @@
 - PipeDAG 默认覆盖写入，不保留历史版本。
 - 各阶段 `*_meta.json` 在执行中写 `status=running`，成功写 `success`，异常写 `failed` 并记录错误。
 - 失败时允许半成品落盘，便于排障与重跑。
+- 重新运行成功时会清理旧的 `error` 字段，避免“成功但仍显示旧报错”的困扰（对排障信息请以最新的 `status`/输入文件存在性为准）。
 
 详细参数与目录路径请参阅《04_数据流与存储机制》与 《06_时间分析与调度》。***

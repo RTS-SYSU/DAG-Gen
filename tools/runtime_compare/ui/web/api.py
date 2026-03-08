@@ -16,6 +16,7 @@ from ...config.defaults import DEFAULT_MAX_WORKERS
 from ...utils.cpu import read_cpu_online, get_cpu_info, benchmark_core_speed
 from ...utils.datetime_utils import now_ts_safe
 from ...utils.config_manager import save_config, load_config, tasks_from_config
+from ...utils.resume_state import apply_resume_to_task, default_resume_file
 
 
 # 全局状态（在实际应用中应该使用更好的状态管理）
@@ -26,11 +27,41 @@ _task_manager: Dict = {
     'runners': [],
     'queue_mode': False,
     'serial_sem': None,
+    'results_root': None,
 }
 
 
 def register_routes(app):
     """注册所有路由"""
+
+    def _default_results_root() -> Path:
+        tool_dir = Path(__file__).parent.parent.parent  # web -> ui -> runtime_compare
+        return (tool_dir / "实验结果").resolve()
+
+    def _get_results_root() -> Path:
+        rr = _task_manager.get('results_root')
+        if rr:
+            try:
+                return Path(rr).expanduser().resolve()
+            except Exception:
+                pass
+        return _default_results_root()
+
+    def _set_results_root(path: Path) -> Path:
+        path = Path(path).expanduser()
+        if not path.is_absolute():
+            # 相对路径按工具目录解析，便于输入如：实验结果/xxx
+            tool_dir = Path(__file__).parent.parent.parent
+            path = (tool_dir / path).resolve()
+        else:
+            path = path.resolve()
+        path.mkdir(parents=True, exist_ok=True)
+        if not (path.exists() and path.is_dir()):
+            raise ValueError(f"不是有效目录: {path}")
+        if not os.access(str(path), os.W_OK | os.X_OK):
+            raise PermissionError(f"目录不可写: {path}")
+        _task_manager['results_root'] = path
+        return path
     
     @app.route('/')
     def index():
@@ -58,7 +89,57 @@ def register_routes(app):
             'cpu_info': cpu_info,
             'core_bench': benchmark_core_speed(cpu_list[:min(4, len(cpu_list))]) if cpu_list else {},
             'hostname': platform.node(),
+            'results_root': str(_get_results_root()),
         })
+
+    @app.route('/api/results-root', methods=['GET'])
+    def get_results_root():
+        """获取当前实验结果目录（后续任务生效）"""
+        cur = _get_results_root()
+        return jsonify({
+            'results_root': str(cur),
+            'default_root': str(_default_results_root()),
+        }), 200
+
+    @app.route('/api/results-root', methods=['POST'])
+    def set_results_root():
+        """设置实验结果目录（后续任务生效）"""
+        try:
+            data = request.get_json() or {}
+            p = (data.get('path') or '').strip()
+            if not p:
+                return jsonify({'error': '缺少 path'}), 400
+            new_rr = _set_results_root(Path(p))
+            return jsonify({'results_root': str(new_rr)}), 200
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
+
+    @app.route('/api/results-root/new', methods=['POST'])
+    def create_results_root():
+        """在指定父目录下新建子目录并设为结果目录（后续任务生效）"""
+        try:
+            data = request.get_json() or {}
+            parent = (data.get('parent') or '').strip()
+            name = (data.get('name') or '').strip()
+            if not name:
+                return jsonify({'error': '缺少 name'}), 400
+            if any(sep in name for sep in ('/', '\\')) or name in ('.', '..') or '..' in name:
+                return jsonify({'error': '目录名不合法'}), 400
+
+            parent_path = Path(parent).expanduser() if parent else _get_results_root()
+            if not parent_path.is_absolute():
+                tool_dir = Path(__file__).parent.parent.parent
+                parent_path = (tool_dir / parent_path).resolve()
+            else:
+                parent_path = parent_path.resolve()
+            if not parent_path.exists() or not parent_path.is_dir():
+                return jsonify({'error': f'父目录不存在: {parent_path}'}), 400
+
+            new_dir = parent_path / name
+            new_rr = _set_results_root(new_dir)
+            return jsonify({'results_root': str(new_rr)}), 201
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
 
     @app.route('/api/system/save', methods=['POST'])
     def save_system_info():
@@ -331,15 +412,34 @@ def register_routes(app):
     
     @app.route('/api/tasks/<task_id>', methods=['DELETE'])
     def cancel_task(task_id):
-        """取消任务（仅限 queued 状态）"""
+        """取消任务（queued 或 running）"""
         tasks = _task_manager.get('tasks', [])
         for task in tasks:
             if task.task_id == task_id:
+                if task.status in ('done', 'error', 'cancelled'):
+                    return jsonify({'error': f'任务已结束，无法取消: {task.status}'}), 400
                 if task.status == 'queued':
                     task.status = 'cancelled'
+                    task.phase = 'cancelled'
+                    task.cancel_requested = True
+                    task.cancel_evt.set()
+                    task.cancel_reason = '用户取消'
+                    task.message = '用户取消'
                     return jsonify({'status': 'cancelled'}), 200
-                else:
-                    return jsonify({'error': '只能取消等待中的任务'}), 400
+                if task.status in ('running', 'cancelling'):
+                    task.status = 'cancelling'
+                    task.cancel_requested = True
+                    task.cancel_evt.set()
+                    task.cancel_reason = '用户取消'
+                    task.message = '用户取消，正在停止...'
+                    return jsonify({'status': 'cancelling'}), 200
+                task.status = 'cancelled'
+                task.phase = 'cancelled'
+                task.cancel_requested = True
+                task.cancel_evt.set()
+                task.cancel_reason = '用户取消'
+                task.message = '用户取消'
+                return jsonify({'status': 'cancelled'}), 200
         return jsonify({'error': '任务不存在'}), 404
     
     @app.route('/api/tasks/<task_id>/log', methods=['GET'])
@@ -445,12 +545,16 @@ def register_routes(app):
                     return jsonify({'error': '未选择文件'}), 400
                 if not file.filename.endswith('.json'):
                     return jsonify({'error': '文件必须是 JSON 格式'}), 400
-                
-                # 保存临时文件
-                import tempfile
-                with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as tmp:
-                    file.save(tmp.name)
-                    config_path = Path(tmp.name)
+
+                # 保存到工具配置目录，保证断点续跑状态可持续
+                config_dir = _get_config_dir()
+                config_dir.mkdir(parents=True, exist_ok=True)
+                safe_name = Path(file.filename).name
+                config_path = (config_dir / safe_name).resolve()
+                # 如同名存在，自动加时间戳避免覆盖用户文件
+                if config_path.exists():
+                    config_path = (config_dir / f"{Path(safe_name).stem}_{now_ts_safe()}.json").resolve()
+                file.save(str(config_path))
             elif request.is_json:
                 data = request.get_json()
                 if 'config_path' in data:
@@ -466,9 +570,15 @@ def register_routes(app):
             # 加载配置
             config = load_config(config_path)
             config_name = config_path.stem  # 不含扩展名的文件名
+            resume_file = default_resume_file(config_path)
             
             # 创建任务对象
-            new_tasks = tasks_from_config(config, config_name=config_name)
+            new_tasks = tasks_from_config(config, config_name=config_name, config_path=config_path)
+            resumed = 0
+            for t in new_tasks:
+                ok, _ = apply_resume_to_task(t)
+                if ok:
+                    resumed += 1
             
             # 去重检查：检查是否已存在相同参数的任务
             existing_tasks = _task_manager.get('tasks', [])
@@ -478,25 +588,24 @@ def register_routes(app):
             }
             
             added_count = 0
+            queued_count = 0
             for task in new_tasks:
                 task_key = (task.baseline_c, task.prio_c, task.work_scale, task.repeats, task.cores_per_task)
                 if task_key not in existing_keys:
                     _task_manager['tasks'].append(task)
-                    _task_manager['task_q'].put(task)
+                    if task.status != "done":
+                        _task_manager['task_q'].put(task)
+                        queued_count += 1
                     existing_keys.add(task_key)
                     added_count += 1
-            
-            # 清理临时文件
-            if 'file' in request.files:
-                try:
-                    config_path.unlink()
-                except:
-                    pass
             
             return jsonify({
                 'imported': added_count,
                 'total': len(new_tasks),
-                'message': f'成功导入 {added_count}/{len(new_tasks)} 个任务'
+                'queued': queued_count,
+                'resumed_done': resumed,
+                'resume_file': str(resume_file),
+                'message': f'成功导入 {added_count}/{len(new_tasks)} 个任务（已完成跳过 {resumed}，加入队列 {queued_count}）'
             }), 200
         except Exception as e:
             return jsonify({'error': str(e)}), 500
@@ -527,12 +636,13 @@ def _task_to_dict(task: Task) -> Dict:
     }
 
 
-def init_task_manager(base_dir: Path, queue_mode: bool = False):
+def init_task_manager(base_dir: Path, queue_mode: bool = False, results_root: Path | None = None):
     """初始化任务管理器
     
     Args:
         base_dir: 项目根目录
         queue_mode: 是否启用排队模式
+        results_root: 实验结果根目录（可选）
     """
     import threading
     from queue import Queue
@@ -544,6 +654,14 @@ def init_task_manager(base_dir: Path, queue_mode: bool = False):
     serial_sem = threading.Semaphore(1)
     
     # 先创建 _task_manager，这样 queue_mode_fn 可以访问它
+    tool_dir = Path(__file__).parent.parent.parent  # web -> ui -> runtime_compare
+    rr = Path(results_root).expanduser() if results_root else (tool_dir / "实验结果")
+    if not rr.is_absolute():
+        rr = (tool_dir / rr).resolve()
+    else:
+        rr = rr.resolve()
+    rr.mkdir(parents=True, exist_ok=True)
+
     _task_manager.update({
         'tasks': tasks,
         'task_q': task_q,
@@ -551,11 +669,15 @@ def init_task_manager(base_dir: Path, queue_mode: bool = False):
         'runners': [],
         'queue_mode': queue_mode,
         'serial_sem': serial_sem,
+        'results_root': rr,
     })
     
     def queue_mode_fn():
         # 动态读取当前排队模式设置
         return _task_manager.get('queue_mode', False)
+
+    def results_root_fn():
+        return _task_manager.get('results_root') or rr
     
     def on_update(task: Task):
         # Web 模式下，更新通过 API 查询，这里可以留空或记录日志
@@ -572,6 +694,7 @@ def init_task_manager(base_dir: Path, queue_mode: bool = False):
             on_update=on_update,
             serial_sem=serial_sem,
             queue_mode_fn=queue_mode_fn,
+            results_root_fn=results_root_fn,
         )
         r.start()
         runners.append(r)

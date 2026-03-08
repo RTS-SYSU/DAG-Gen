@@ -34,6 +34,10 @@ def update_meta(meta_path: Path, status: str, *, step: Optional[str] = None, err
         data["step"] = step
     if error is not None:
         data["error"] = error
+    else:
+        # When a step is re-run successfully, clear any stale error left from previous failures.
+        if status in (META_RUNNING, META_SUCCESS) and "error" in data:
+            data.pop("error", None)
     if extra:
         data.update(extra)
     write_json(meta_path, data)
@@ -49,4 +53,3 @@ def mark_success(meta_path: Path, *, step: str, extra: Optional[Dict[str, Any]] 
 
 def mark_failed(meta_path: Path, *, step: str, error: str, extra: Optional[Dict[str, Any]] = None) -> None:
     update_meta(meta_path, META_FAILED, step=step, error=error, extra=extra)
-

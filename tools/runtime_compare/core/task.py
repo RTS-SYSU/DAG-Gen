@@ -3,6 +3,7 @@
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import List, Optional
+import threading
 
 
 @dataclass
@@ -18,8 +19,11 @@ class Task:
     use_sudo: bool
     cpu_list: Optional[List[int]] = None  # 可选：手动指定 CPU 核心列表
     config_name: Optional[str] = None  # 可选：配置文件名（不含扩展名），用于结果目录命名
+    # 断点续跑：稳定 key + resume 状态文件
+    task_key: Optional[str] = None
+    resume_file: Optional[Path] = None
     
-    status: str = "queued"  # queued|running|done|error
+    status: str = "queued"  # queued|running|cancelling|cancelled|done|error
     message: str = ""
     cpu_set: List[int] = field(default_factory=list)
     start_ns: Optional[int] = None
@@ -31,3 +35,8 @@ class Task:
     phase: str = "queued"
     progress_i: int = 0
     progress_n: int = 0
+
+    # Cancellation (shared across threads)
+    cancel_requested: bool = False
+    cancel_reason: str = ""
+    cancel_evt: threading.Event = field(default_factory=threading.Event, repr=False)

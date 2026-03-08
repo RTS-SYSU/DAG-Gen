@@ -267,6 +267,26 @@
                 <button style="margin-left: 10px;" onclick="saveSystemInfo()">保存系统信息</button>
             </div>
         </div>
+
+        <div class="section">
+            <h2>实验结果目录</h2>
+            <div class="form-group">
+                <label>当前目录:</label>
+                <div class="path-row">
+                    <input type="text" id="results_root" readonly placeholder="加载中...">
+                    <button type="button" onclick="pickResultsRootWithSystem()">系统选择</button>
+                    <button type="button" onclick="resetResultsRoot()">恢复默认</button>
+                </div>
+                <small style="color: #666; margin-left: 150px;">只影响后续新任务，运行中的任务不变</small>
+            </div>
+            <div class="form-group">
+                <label>新建子目录:</label>
+                <div class="path-row">
+                    <input type="text" id="results_root_new_name" placeholder="例如: zhang1_2026-02-14">
+                    <button type="button" class="success" onclick="createAndUseResultsSubdir()">新建并使用</button>
+                </div>
+            </div>
+        </div>
         
         <!-- 配置文件管理区域 -->
         <div class="section">
@@ -407,6 +427,84 @@
             const status = document.getElementById('connection-status');
             status.className = `connection-status ${online ? 'online' : 'offline'}`;
             status.title = online ? '在线' : '离线';
+        }
+
+        let defaultResultsRoot = '';
+
+        async function loadResultsRoot() {
+            try {
+                const res = await fetch('/api/results-root');
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || '加载失败');
+                document.getElementById('results_root').value = data.results_root || '';
+                defaultResultsRoot = data.default_root || '';
+            } catch (e) {
+                document.getElementById('results_root').value = '';
+                showAlert('加载实验结果目录失败: ' + e.message, 'error');
+            }
+        }
+
+        async function setResultsRoot(path) {
+            const res = await fetch('/api/results-root', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({path}),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || '设置失败');
+            document.getElementById('results_root').value = data.results_root || path;
+            showAlert('已切换实验结果目录: ' + (data.results_root || path), 'success');
+        }
+
+        async function pickResultsRootWithSystem() {
+            try {
+                const res = await fetch('/api/fs/pick-dir', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({title: '选择实验结果保存目录'}),
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || '系统目录选择失败');
+                if (!data.path) throw new Error('未返回目录路径');
+                await setResultsRoot(data.path);
+            } catch (e) {
+                showAlert('系统选择失败: ' + e.message, 'error');
+            }
+        }
+
+        async function resetResultsRoot() {
+            try {
+                if (!defaultResultsRoot) {
+                    await loadResultsRoot();
+                }
+                if (!defaultResultsRoot) throw new Error('默认目录不可用');
+                await setResultsRoot(defaultResultsRoot);
+            } catch (e) {
+                showAlert('恢复默认失败: ' + e.message, 'error');
+            }
+        }
+
+        async function createAndUseResultsSubdir() {
+            try {
+                const parent = document.getElementById('results_root').value || '';
+                const name = (document.getElementById('results_root_new_name').value || '').trim();
+                if (!name) {
+                    showAlert('请输入子目录名称', 'error');
+                    return;
+                }
+                const res = await fetch('/api/results-root/new', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({parent, name}),
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || '创建失败');
+                document.getElementById('results_root').value = data.results_root || '';
+                document.getElementById('results_root_new_name').value = '';
+                showAlert('已新建并切换: ' + (data.results_root || ''), 'success');
+            } catch (e) {
+                showAlert('新建失败: ' + e.message, 'error');
+            }
         }
         
         // 加载系统信息
@@ -677,8 +775,8 @@
                             <td>${task.elapsed || '-'}</td>
                             <td>${task.message || '-'}</td>
                             <td>
-                                ${task.status === 'queued' ? 
-                                    `<button class="danger" onclick="cancelTask('${task.task_id}')">取消</button>` : 
+                                ${(task.status === 'queued' || task.status === 'running' || task.status === 'cancelling') ? 
+                                    `<button class="danger" onclick="cancelTask('${task.task_id}')">${task.status === 'running' ? '中断' : '取消'}</button>` : 
                                     ''}
                                 ${task.out_dir ? 
                                     `<button onclick="viewLog('${task.task_id}')">查看日志</button>
@@ -909,6 +1007,7 @@
         
         // 初始化
         loadSystemInfo();
+        loadResultsRoot();
         refreshTasks();
         refreshConfigList();
         refreshInterval = setInterval(() => {

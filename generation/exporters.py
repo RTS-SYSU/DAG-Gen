@@ -358,10 +358,13 @@ class CircleTxtExporter:
                             var_match = re.search(r'\(symbol_ref[^"]*"([^"]+)"\)', lines[j])
                             if var_match:
                                 var_candidate = var_match.group(1)
-                                # 过滤掉函数名
-                                if not var_candidate.startswith('pthread_') and \
-                                   not var_candidate.startswith('sem_'):
-                                    return var_candidate
+                                # 过滤掉明显的函数符号名，保留变量名（例如 sem_01 / mutex_01）
+                                if var_candidate.startswith("pthread_"):
+                                    continue
+                                # Some toolchains may emit the callee name as a symbol_ref too.
+                                if var_candidate in {"sem_post", "sem_wait", "sem_init", "sem_destroy"}:
+                                    continue
+                                return var_candidate
                         break
                     api_count += 1
         

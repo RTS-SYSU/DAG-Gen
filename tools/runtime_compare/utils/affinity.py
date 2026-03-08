@@ -4,8 +4,9 @@ import os
 import re
 import subprocess
 import time
+import signal
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Callable, Dict, List, Optional, Tuple
 
 
 def rewrite_sched_setaffinity_cpu_set(source: str, cpu_set: List[int]) -> Tuple[str, bool]:
@@ -69,6 +70,8 @@ def run_with_affinity(
     env: Dict[str, str],
     cpu_set: List[int],
     use_sudo: bool,
+    cancel_check: Optional[Callable[[], bool]] = None,
+    kill_grace_s: float = 1.0,
 ) -> Tuple[int, str, str, int]:
     """在指定的 CPU 核心集合上运行命令
     
@@ -90,15 +93,57 @@ def run_with_affinity(
     def preexec() -> None:
         # Ensure the child (and thus its threads) stay within the CPU set.
         os.sched_setaffinity(0, set(cpu_set))
+        # New session so we can kill the whole process group on cancel.
+        os.setsid()
 
     t0 = time.monotonic_ns()
-    proc = subprocess.run(
+    proc = subprocess.Popen(
         full_cmd,
         cwd=str(cwd),
         env=env,
-        capture_output=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
         text=True,
         preexec_fn=preexec,
     )
-    t1 = time.monotonic_ns()
-    return proc.returncode, proc.stdout or "", proc.stderr or "", (t1 - t0)
+
+    def terminate_group() -> None:
+        try:
+            os.killpg(proc.pid, signal.SIGTERM)
+        except Exception:
+            try:
+                proc.terminate()
+            except Exception:
+                pass
+
+    def kill_group() -> None:
+        try:
+            os.killpg(proc.pid, signal.SIGKILL)
+        except Exception:
+            try:
+                proc.kill()
+            except Exception:
+                pass
+
+    out = ""
+    err = ""
+    try:
+        while True:
+            if cancel_check and cancel_check():
+                terminate_group()
+                try:
+                    out, err = proc.communicate(timeout=max(0.1, kill_grace_s))
+                except subprocess.TimeoutExpired:
+                    kill_group()
+                    out, err = proc.communicate()
+                break
+            try:
+                out, err = proc.communicate(timeout=0.2)
+                break
+            except subprocess.TimeoutExpired:
+                continue
+    finally:
+        t1 = time.monotonic_ns()
+
+    rc = proc.returncode if proc.returncode is not None else -9
+    return int(rc), out or "", err or "", (t1 - t0)

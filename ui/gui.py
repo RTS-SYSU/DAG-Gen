@@ -1260,6 +1260,40 @@ class MycallyplusGUIv3:
             # 更新工作目录到统一路径，避免后续模块误用配置目录
             self.state.work_dir = root_dir
             self.state.dot_file = target_dot
+
+            # 同步生成模块化实验所需的 circle.txt（collector 依赖）
+            # 约定输出：中间结果/<base>/配置文件/circle.txt
+            config_dir2 = self._config_dir_for_base(base_name)
+            self._ensure_dir_for_original_user(config_dir2)
+            circle_txt = config_dir2 / "circle.txt"
+            cmd_txt = [
+                sys.executable,
+                "-m", "mycallyplus_v1.generation.legacy",
+                str(self.state.expand_file),
+                "--export-txt", str(circle_txt),
+                "--output-base", str(self.base_dir),
+            ]
+            if self.state.source_file:
+                cmd_txt.extend(["--source-file", str(self.state.source_file)])
+            # 强制覆盖：每次都重新导出 circle.txt，避免旧文件导致 sem_dep/分块不一致
+            try:
+                circle_txt.unlink(missing_ok=True)
+            except Exception:
+                pass
+            result_txt = subprocess.run(
+                self._as_original_user_cmd(cmd_txt),
+                cwd=str(self.base_dir.parent),
+                capture_output=True,
+                text=True,
+            )
+            if result_txt.returncode != 0:
+                print(f"⚠️  生成circle.txt失败: {result_txt.stderr}")
+            else:
+                self._chown_to_original_user(circle_txt)
+
+            if circle_txt.exists():
+                self.state.txt_file = circle_txt
+
             # 生成并展示 PNG（需要本机安装 graphviz 的 dot 命令）
             png_path = target_dir / "dag.png"
             self._run(
@@ -1430,8 +1464,15 @@ class MycallyplusGUIv3:
                 "-m", "mycallyplus_v1.generation.legacy",
                 str(self.state.expand_file),
                 "--export-txt", str(txt_output_path),
-                "--output-base", str(self.base_dir)
+                "--output-base", str(self.base_dir),
             ]
+            if self.state.source_file:
+                cmd_txt.extend(["--source-file", str(self.state.source_file)])
+            # 强制覆盖，避免旧 circle.txt 残留
+            try:
+                txt_output_path.unlink(missing_ok=True)
+            except Exception:
+                pass
             
             result_txt = subprocess.run(
                 cmd_txt,

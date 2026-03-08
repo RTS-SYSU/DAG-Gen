@@ -1,2 +1,4 @@
 1、模式识别，条件节点
 2、程序总和如何计算，是开头结尾插桩，还是节点总和
+3、【2026-02-14】GUI 跑“生成dag图/模块化实验”后，`中间结果/<base>/配置文件/circle.txt` 未覆盖旧文件：GUI 逻辑在 circle.txt 已存在时跳过 `--export-txt`，导致 circle.txt 的节点编号/互斥量名与最新源码不一致，进而在 Level2 分块时出现 sem_dep 丢失、段划分异常等问题。修复：GUI 强制每次重新生成 circle.txt（并传入 `--source-file`），或先删除旧 circle.txt/中间结果目录再跑。
+4、【2026-02-14】同一 base（如 zhang3）出现“混用不同版本源码”的问题：`源文件/<base>/<base>.c` 被修改后，未重新生成 `中间结果/<base>/生成dag图/`（dag.dot / functions_*.json / debug/mycalls_meta_internal.json），导致 internal_meta 行号与当前源码不一致（常见表现：行号整体偏移、出现单行段如 `SEG:main#001@193-193`、分块/边构造异常）。处理建议：修改源码后必须重新跑生成 dag 图（建议 `generation/legacy.py --clean --force --source-file ...`）；并在 pipeline collector 增加一致性校验（source 比生成产物新则直接报错）与源码快照覆盖到 `中间结果/<base>/配置文件/<base>.c` 便于追溯。

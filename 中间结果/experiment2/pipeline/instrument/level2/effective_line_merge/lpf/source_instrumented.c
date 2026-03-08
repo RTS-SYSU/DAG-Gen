@@ -105,7 +105,7 @@ static void *c3_fn(void *arg)
 static void *c2_fn(void *arg)
 {
 
-    l1_set_thread_prio_fifo(83);
+    l1_set_thread_prio_fifo(82);
     busy_wait_seconds(C2);
     pthread_create(&tc3, NULL, c3_fn, NULL);
     return NULL;
@@ -259,7 +259,7 @@ int main(void)
     pthread_create(&tc0, NULL, c0_fn, NULL);
     l1_set_thread_prio_fifo(85);
     pthread_join(tc0, NULL);
-    l1_set_thread_prio_fifo(82);
+    l1_set_thread_prio_fifo(83);
     pthread_join(tc1, NULL);
     l1_set_thread_prio_fifo(81);
     pthread_join(tc2, NULL);

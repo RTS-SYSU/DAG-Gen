@@ -58,9 +58,24 @@ def _load_functions_ranges(path: Path) -> Dict[str, Dict]:
 
 
 def _load_internal_meta(path: Path) -> Dict[str, Dict[str, Dict]]:
-    data = _load_json(path)
-    if not isinstance(data, dict):
-        raise ValueError("mycalls_meta_internal.json must be a dict")
+    # Prefer internal-only meta, but fall back to full meta if internal is missing/empty.
+    if not path.exists():
+        alt = path.with_name("mycalls_meta.json")
+        data = _load_json(alt)
+        if not isinstance(data, dict):
+            raise ValueError("mycalls_meta.json must be a dict")
+    else:
+        data = _load_json(path)
+        if not isinstance(data, dict):
+            raise ValueError("mycalls_meta_internal.json must be a dict")
+        # Some projects produce an empty internal-meta even though mycalls_meta.json is populated.
+        # In that case, we fall back so segmentation can still build cut points and dependencies.
+        if not any(isinstance(v, dict) and v for v in data.values()):
+            alt = path.with_name("mycalls_meta.json")
+            if alt.exists():
+                data2 = _load_json(alt)
+                if isinstance(data2, dict) and any(isinstance(v, dict) and v for v in data2.values()):
+                    data = data2
     out: Dict[str, Dict[str, Dict]] = {}
     for fn, meta in data.items():
         if isinstance(fn, str) and isinstance(meta, dict):

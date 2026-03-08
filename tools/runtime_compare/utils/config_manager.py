@@ -7,6 +7,7 @@ from typing import Dict, List, Optional, Any
 
 from ..core.task import Task
 from ..utils.datetime_utils import now_ts_safe
+from ..utils.resume_state import compute_task_key, default_resume_file, task_payload_for_key
 
 
 def save_config(
@@ -138,12 +139,17 @@ def validate_config(config: Dict[str, Any]) -> None:
             raise ValueError(f"任务 {i} prio_c 文件不存在: {prio}")
 
 
-def tasks_from_config(config: Dict[str, Any], config_name: Optional[str] = None) -> List[Task]:
+def tasks_from_config(
+    config: Dict[str, Any],
+    config_name: Optional[str] = None,
+    config_path: Optional[Path] = None,
+) -> List[Task]:
     """从配置字典创建 Task 对象列表
     
     Args:
         config: 配置字典
         config_name: 配置文件名（不含扩展名），用于结果目录命名
+        config_path: 配置文件路径，用于断点续跑状态文件定位
         
     Returns:
         Task 对象列表
@@ -151,11 +157,22 @@ def tasks_from_config(config: Dict[str, Any], config_name: Optional[str] = None)
     from ..utils.datetime_utils import now_ts_safe
     
     tasks = []
+    resume_file = default_resume_file(config_path, tool_dir=Path(__file__).parent.parent) if config_path else None
     for task_data in config["tasks"]:
         baseline_c = Path(task_data["baseline_c"]).expanduser().resolve()
         prio_c = Path(task_data["prio_c"]).expanduser().resolve()
         
         task_id = f"{baseline_c.stem}_vs_{prio_c.stem}_{now_ts_safe()}"
+        payload = task_payload_for_key(
+            baseline_c=baseline_c,
+            prio_c=prio_c,
+            work_scale=int(task_data["work_scale"]),
+            repeats=int(task_data["repeats"]),
+            cores_per_task=int(task_data["cores_per_task"]),
+            use_sudo=bool(task_data.get("use_sudo", False)),
+            cpu_list=task_data.get("cpu_list"),
+        )
+        task_key = compute_task_key(payload)
         
         task = Task(
             task_id=task_id,
@@ -167,6 +184,8 @@ def tasks_from_config(config: Dict[str, Any], config_name: Optional[str] = None)
             use_sudo=bool(task_data.get("use_sudo", False)),
             cpu_list=task_data.get("cpu_list"),  # 可选
             config_name=config_name,  # 设置配置文件名
+            task_key=task_key,
+            resume_file=resume_file,
         )
         tasks.append(task)
     

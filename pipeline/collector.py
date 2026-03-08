@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import re
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -95,10 +96,67 @@ def collect_block_info(*, base_dir: Path, base_name: str, source_file: Path) -> 
     internal_meta = gen_root / "debug" / "mycalls_meta_internal.json"
     circle_txt = config_root / "circle.txt"
 
+    # Best-effort: keep a frozen copy of the source under 配置文件 for traceability/debugging.
+    # This does NOT replace the need to regenerate 生成dag图 outputs when the source changes.
+    resolved_source = source_file.resolve()
+    config_root.mkdir(parents=True, exist_ok=True)
+    config_source_guess = config_root / resolved_source.name
+    try:
+        import shutil
+
+        if resolved_source.exists():
+            shutil.copy2(resolved_source, config_source_guess)
+    except Exception:
+        # Non-fatal; collector is primarily a validator/deriver stage.
+        pass
+
     required = [dag_dot, functions_full, functions_ranges, internal_meta, circle_txt]
     missing = [str(p) for p in required if not p.exists()]
     if missing:
         error = f"missing required inputs: {', '.join(missing)}"
+        mark_failed(meta_path, step="collector", error=error)
+        raise StageError(error)
+
+    # Consistency guard: generation artifacts (functions_ranges/internal_meta) must match the source_file
+    # used by later stages. If the user edited the source after running "生成dag图", line numbers in
+    # mycalls_meta_internal.json can drift and cause incorrect segmentation.
+    import json
+
+    ranges_obj = json.loads(functions_ranges.read_text(encoding="utf-8", errors="replace"))
+    ranges_source = ranges_obj.get("source")
+    ranges_source_path: Optional[Path] = None
+    if isinstance(ranges_source, str) and ranges_source.strip():
+        # functions_ranges.json typically records a project-relative path like "mycallyplus_v1/源文件/xxx.c"
+        ranges_source_path = Path(ranges_source)
+        if not ranges_source_path.is_absolute():
+            # If it already includes the base_dir name prefix, resolve from base_dir.parent to avoid
+            # duplicating ".../mycallyplus_v1/mycallyplus_v1/...".
+            parts = ranges_source_path.parts
+            if parts and parts[0] == base_dir.name:
+                ranges_source_path = (base_dir.parent / ranges_source_path).resolve()
+            else:
+                ranges_source_path = (base_dir / ranges_source_path).resolve()
+
+    if ranges_source_path and ranges_source_path != resolved_source:
+        error = (
+            "source mismatch between pipeline input and generation artifacts:\n"
+            f"- collector source_file: {resolved_source}\n"
+            f"- functions_ranges.json source: {ranges_source_path}\n"
+            "Please rerun the DAG generation step with the same source, or pass the correct --source."
+        )
+        mark_failed(meta_path, step="collector", error=error)
+        raise StageError(error)
+
+    # If the source file is newer than generation artifacts, refuse to proceed to avoid mixed-code runs.
+    newest_gen_mtime = max(p.stat().st_mtime for p in (dag_dot, functions_full, functions_ranges, internal_meta))
+    if resolved_source.exists() and resolved_source.stat().st_mtime > newest_gen_mtime:
+        error = (
+            "source file is newer than generation artifacts under 中间结果/<base>/生成dag图.\n"
+            f"- source_file: {resolved_source}\n"
+            f"- generation dir: {gen_root}\n"
+            "Rerun the DAG generation step (生成dag图 / 一键生成配置文件) to regenerate dag.dot, "
+            "functions_*.json, and mycalls_meta_internal.json, then rerun the pipeline."
+        )
         mark_failed(meta_path, step="collector", error=error)
         raise StageError(error)
 
@@ -112,10 +170,25 @@ def collect_block_info(*, base_dir: Path, base_name: str, source_file: Path) -> 
     if mutex_intervals:
         write_json(derived_dir / "mutex_intervals.json", {"intervals": mutex_intervals})
 
+    def _sha256_16(p: Path) -> Optional[str]:
+        if not p.exists() or not p.is_file():
+            return None
+        h = hashlib.sha256()
+        with p.open("rb") as f:
+            for chunk in iter(lambda: f.read(1024 * 1024), b""):
+                h.update(chunk)
+        return h.hexdigest()[:16]
+
     block_info = {
         "schema_version": SCHEMA_VERSION,
         "base_name": base_name,
         "source_file": str(source_file.resolve()),
+        "source_checks": {
+            "functions_ranges_source": str(ranges_source_path) if ranges_source_path else None,
+            "sha256_16": _sha256_16(resolved_source),
+            "config_copy": str(config_source_guess) if config_source_guess.exists() else None,
+            "config_copy_sha256_16": _sha256_16(config_source_guess) if config_source_guess.exists() else None,
+        },
         "inputs": {
             "dag_dot": str(dag_dot),
             "functions_full": str(functions_full),
