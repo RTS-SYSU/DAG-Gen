@@ -377,7 +377,7 @@ def _render_seg_dag_dot(dag_json: Dict) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Generate Level-1(stage1) segments and segment DAG (create/join only).")
-    ap.add_argument("--base-dir", type=Path, default=Path("mycallyplus_v1"), help="Project base dir (contains 中间结果/)")
+    ap.add_argument("--base-dir", type=Path, default=Path(__file__).resolve().parents[1], help="Project base dir (contains 中间结果/)")
     ap.add_argument("--base-name", required=True, help="Base name under 中间结果/, e.g. cpu4_thread10_fifo")
     args = ap.parse_args()
 

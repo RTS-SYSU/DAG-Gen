@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """时间解析工具函数"""
 
 import re

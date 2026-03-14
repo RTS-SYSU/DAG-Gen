@@ -7,8 +7,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Set, Tuple
 
-from mycallyplus_v1.level1.segment_dag import _iter_stage1_cut_points  # type: ignore
-from mycallyplus_v1.level1.segment_dag import _load_functions_full, _load_functions_ranges, _load_internal_meta  # type: ignore
+from ..level1.segment_dag import _iter_stage1_cut_points  # type: ignore
+from ..level1.segment_dag import _load_functions_full, _load_functions_ranges, _load_internal_meta  # type: ignore
 
 
 @dataclass(frozen=True)
@@ -639,7 +639,7 @@ def _to_dot(seg_json: Dict, dag_json: Dict) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Build Level-2 segment DAG (create/join/post/wait/mutex rules).")
-    ap.add_argument("--base-dir", type=Path, default=Path("mycallyplus_v1"))
+    ap.add_argument("--base-dir", type=Path, default=Path(__file__).resolve().parents[1])
     ap.add_argument("--base-name", required=True)
     ap.add_argument("--source-file", type=Path, required=True)
     args = ap.parse_args()

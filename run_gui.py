@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 """启动 mycallyplus GUI 的可执行入口（无需 python -m）。"""
 
+import importlib
 import os
 import sys
+from pathlib import Path
 
 
 def main() -> int:
-    # 确保本目录在 sys.path，便于直接运行此文件
-    sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
-    from mycallyplus_v1.cli import main as cli_main
-    return cli_main(["gui"])
+    repo_root = Path(__file__).resolve().parent
+    sys.path.insert(0, str(repo_root.parent))
+    package = importlib.import_module(repo_root.name)
+    return package.main(["gui"])
 
 
 if __name__ == "__main__":

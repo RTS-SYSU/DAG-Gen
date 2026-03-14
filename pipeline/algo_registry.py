@@ -5,6 +5,8 @@ from typing import Dict
 from .algo import CPFBlockAlgo
 from .algo import HEFTBlockAlgo
 from .algo import LPFBlockAlgo
+from .algo import TLevelBlockAlgo
+from .algo import WCETFirstBlockAlgo
 from .algo import Zhao2020BlockAlgo
 from .algo.base import AlgoPlugin
 
@@ -12,6 +14,8 @@ ALGO_REGISTRY: Dict[str, AlgoPlugin] = {
     "lpf": LPFBlockAlgo(),
     "cpf": CPFBlockAlgo(),
     "heft": HEFTBlockAlgo(),
+    "wcet_first": WCETFirstBlockAlgo(),
+    "t_level": TLevelBlockAlgo(),
     "zhao2020": Zhao2020BlockAlgo(),
 }
 

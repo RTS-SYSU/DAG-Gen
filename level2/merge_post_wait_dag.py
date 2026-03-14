@@ -62,7 +62,7 @@ def _to_dot(nodes: Set[str], edges: List[Tuple[str, str]]) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Merge post->wait edges into existing DAG (Level-2 pre-step).")
-    ap.add_argument("--base-dir", type=Path, default=Path("mycallyplus_v1"))
+    ap.add_argument("--base-dir", type=Path, default=Path(__file__).resolve().parents[1])
     ap.add_argument("--base-name", required=True)
     args = ap.parse_args()
 
@@ -107,4 +107,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

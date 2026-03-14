@@ -85,10 +85,10 @@ def run_blocks(*, base_dir: Path, base_name: str, level: str, rule_name: str, so
     )
 
 
-def run_timing_stage(*, base_dir: Path, base_name: str, level: str, rule_name: str) -> Dict:
+def run_timing_stage(*, base_dir: Path, base_name: str, level: str, rule_name: str, repeats: Optional[int] = None) -> Dict:
     validate_name(level, "level")
     validate_name(rule_name, "rule_name")
-    return run_timing(base_dir=base_dir, base_name=base_name, level=level, rule_name=rule_name)
+    return run_timing(base_dir=base_dir, base_name=base_name, level=level, rule_name=rule_name, repeats=repeats)
 
 
 def run_schedule_stage(*, base_dir: Path, base_name: str, level: str, rule_name: str, algo_name: str) -> Dict:

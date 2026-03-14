@@ -1,0 +1,526 @@
+很好，这是一个**非常关键的工程步骤**。
+你的目标其实有 **两个**：
+
+1️⃣ **为论文生成资料**（第三、四、五章需要的实现细节）
+2️⃣ **为项目生成完整技术文档**（项目长期价值）
+
+而 Codex 最适合做的是：
+
+```text
+阅读整个代码库
+→ 建立代码理解
+→ 生成系统级文档
+→ 提供论文可引用资料
+```
+
+但要做到这一点，你必须给 Codex **结构化任务提示**，否则它只会生成零散解释。
+
+所以我给你设计一份 **Codex Prompt 文档**，目标是让 Codex：
+
+* 系统阅读代码
+* 输出完整项目文档
+* 同时整理论文所需资料
+
+---
+
+# 一、最终生成文档结构（目标）
+
+Codex 最终应该生成 **一个完整项目文档**：
+
+```text
+scratchdag_project_documentation/
+│
+├── 1_project_overview.md
+├── 2_system_architecture.md
+├── 3_pipeline_design.md
+├── 4_module_documentation.md
+├── 5_data_structures.md
+├── 6_algorithm_design.md
+├── 7_dag_construction.md
+├── 8_block_partitioning.md
+├── 9_runtime_instrumentation.md
+├── 10_scheduling_interface.md
+├── 11_experiment_pipeline.md
+├── 12_codebase_map.md
+├── 13_file_reference.md
+├── 14_build_and_usage.md
+└── 15_paper_support_material.md
+```
+
+这个结构有两个目标：
+
+### A 为论文服务
+
+重点文档：
+
+```text
+dag_construction
+block_partitioning
+runtime_instrumentation
+experiment_pipeline
+```
+
+### B 为工程文档服务
+
+重点文档：
+
+```text
+architecture
+modules
+file_reference
+data_structures
+```
+
+---
+
+# 二、Codex Prompt 文档
+
+下面是你可以 **直接喂给 Codex 的 Prompt 文件**。
+
+文件名建议：
+
+```text
+codex_project_documentation_prompt.md
+```
+
+内容如下：
+
+---
+
+# Codex 项目分析与文档生成任务
+
+## 任务目标
+
+你需要对整个 ScratchDAG 项目代码库进行系统分析，并生成一套完整的项目技术文档。
+
+该项目是一个程序分析工具，其目标是：
+
+```text
+从真实程序中构建 DAG
+→ 进行分块
+→ 构建 weighted DAG
+→ 支持调度分析
+```
+
+生成的文档需要同时满足两个目标：
+
+1. **工程文档**
+
+   * 让新开发者可以快速理解整个系统
+
+2. **论文支持材料**
+
+   * 为论文提供准确的实现细节
+
+---
+
+# 第一部分：整体系统理解
+
+首先阅读整个代码库并回答以下问题：
+
+1. 项目的核心目标是什么
+2. 系统整体 pipeline 是什么
+3. 从程序输入到 DAG 输出的完整流程
+4. 系统包含哪些主要模块
+5. 每个模块的职责是什么
+
+生成文档：
+
+```text
+1_project_overview.md
+2_system_architecture.md
+```
+
+---
+
+# 第二部分：系统架构分析
+
+分析项目整体架构，包括：
+
+* 输入
+* 分析阶段
+* DAG 构建
+* 分块
+* cost modeling
+* 调度接口
+
+生成：
+
+```text
+3_pipeline_design.md
+```
+
+需要包含：
+
+```text
+Program
+→ IR / RTL analysis
+→ symbolref detection
+→ invocation instance
+→ execution DAG
+→ level partition
+→ block DAG
+→ runtime instrumentation
+→ weighted DAG
+→ scheduling analysis
+```
+
+并画出流程图。
+
+---
+
+# 第三部分：模块级文档
+
+识别所有核心模块。
+
+对于每个模块，需要生成：
+
+```text
+模块名称
+模块作用
+主要类/函数
+输入输出
+依赖模块
+```
+
+生成：
+
+```text
+4_module_documentation.md
+```
+
+---
+
+# 第四部分：核心数据结构
+
+分析项目中所有核心数据结构，例如：
+
+```text
+DAG node
+edge
+block
+graph
+priority
+```
+
+对于每个数据结构说明：
+
+```text
+字段
+含义
+生命周期
+创建位置
+使用位置
+```
+
+生成：
+
+```text
+5_data_structures.md
+```
+
+---
+
+# 第五部分：算法设计
+
+分析项目实现的核心算法。
+
+需要解释：
+
+1 DAG 构建算法
+2 依赖恢复算法
+3 level-based 分块
+4 cost aggregation
+5 priority computation
+
+生成：
+
+```text
+6_algorithm_design.md
+```
+
+---
+
+# 第六部分：Execution DAG 构建
+
+详细解释：
+
+```text
+symbolref detection
+call-site identification
+invocation instance creation
+dependency recovery
+```
+
+说明：
+
+* 如何构建节点
+* 如何建立边
+
+生成：
+
+```text
+7_dag_construction.md
+```
+
+该文档将直接用于论文第三章。
+
+---
+
+# 第七部分：Block DAG 构建
+
+详细解释：
+
+```text
+level computation
+block partition
+block dependency
+```
+
+生成：
+
+```text
+8_block_partitioning.md
+```
+
+该文档将直接用于论文第四章。
+
+---
+
+# 第八部分：运行时成本建模
+
+分析：
+
+```text
+instrumentation mechanism
+time measurement
+cost aggregation
+```
+
+生成：
+
+```text
+9_runtime_instrumentation.md
+```
+
+---
+
+# 第九部分：调度接口
+
+解释：
+
+```text
+priority computation
+priority mapping
+SCHED_FIFO
+```
+
+生成：
+
+```text
+10_scheduling_interface.md
+```
+
+---
+
+# 第十部分：实验流程
+
+分析：
+
+```text
+benchmark
+execution pipeline
+data collection
+result analysis
+```
+
+生成：
+
+```text
+11_experiment_pipeline.md
+```
+
+该文档用于论文第五章。
+
+---
+
+# 第十一部分：代码结构地图
+
+生成代码库结构说明：
+
+```text
+目录结构
+模块对应关系
+依赖关系
+```
+
+生成：
+
+```text
+12_codebase_map.md
+```
+
+---
+
+# 第十二部分：文件级文档
+
+为每个重要源码文件生成说明：
+
+```text
+文件作用
+主要类
+主要函数
+依赖
+```
+
+生成：
+
+```text
+13_file_reference.md
+```
+
+---
+
+# 第十三部分：使用文档
+
+生成项目使用说明：
+
+```text
+安装
+构建
+运行
+实验复现
+```
+
+生成：
+
+```text
+14_build_and_usage.md
+```
+
+---
+
+# 第十四部分：论文支持材料
+
+提取可用于论文的内容：
+
+* DAG 构建流程
+* 分块算法
+* cost modeling
+* 调度接口
+
+生成：
+
+```text
+15_paper_support_material.md
+```
+
+该文档将用于论文第三、四、五章写作。
+
+---
+
+# 文档生成要求
+
+1 所有文档必须结构清晰
+2 解释必须准确
+3 不要简单复制代码
+4 必须总结逻辑
+5 优先解释算法和流程
+6 使用技术文档风格
+
+---
+
+# 输出格式
+
+生成一个完整文档目录：
+
+```text
+scratchdag_project_documentation/
+```
+
+并生成所有 markdown 文档。
+
+---
+
+# 分析策略
+
+建议按以下顺序分析代码：
+
+1 项目入口
+2 DAG 构建模块
+3 分块模块
+4 instrumentation 模块
+5 调度接口
+6 实验代码
+
+````
+
+---
+
+# 三、为什么这个 Prompt 有效
+
+这个 Prompt 会让 Codex：
+
+```text
+理解整个系统
+→ 生成完整技术文档
+→ 输出论文需要的资料
+````
+
+同时避免 Codex 常见问题：
+
+```text
+只解释单个函数
+不理解整体结构
+```
+
+---
+
+# 四、你喂给 Codex 的流程（强烈建议）
+
+按这个顺序：
+
+### 第一步
+
+发送 prompt 文档。
+
+### 第二步
+
+上传整个代码库。
+
+### 第三步
+
+让 Codex **先生成 pipeline 和 architecture**。
+
+### 第四步
+
+再生成模块文档。
+
+---
+
+# 五、一个非常关键的建议（强烈推荐）
+
+在喂给 Codex 之前，你最好再给它 **一个额外约束**：
+
+```text
+不要逐文件解释
+必须先建立系统级理解
+```
+
+否则它会掉进函数级解释。
+
+---
+
+如果你愿意，我可以再帮你做一件 **极其重要的事情**：
+
+👉 写一个 **超强版 Codex Prompt（架构级）**
+
+它可以让 Codex：
+
+```text
+自动生成系统架构图
+自动生成 DAG 示例图
+自动生成论文算法伪代码
+```
+
+这会直接帮你完成 **论文第三章和第四章的大部分技术说明**。

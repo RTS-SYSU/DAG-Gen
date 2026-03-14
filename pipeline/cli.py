@@ -15,6 +15,7 @@ from .runner import (
     run_timing_stage,
 )
 from .rules_registry import list_rules
+from .timing_config import DEFAULT_TIMING_REPEATS
 
 
 def _print_json(payload) -> None:
@@ -38,7 +39,7 @@ def _resolve_base_name(base_name: Optional[str], source: Optional[Path], expand:
 
 def main(argv: Optional[list[str]] = None) -> int:
     ap = argparse.ArgumentParser(description="Pipeline modular workflow CLI")
-    ap.add_argument("--base-dir", type=Path, default=Path("mycallyplus_v1"))
+    ap.add_argument("--base-dir", type=Path, default=Path(__file__).resolve().parents[1])
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     c_collect = sub.add_parser("collect", help="Generate pipeline block_info")
@@ -55,6 +56,7 @@ def main(argv: Optional[list[str]] = None) -> int:
     c_timing.add_argument("--base-name", required=True)
     c_timing.add_argument("--level", required=True, choices=["level1", "level2", "level3"])
     c_timing.add_argument("--rule", required=True)
+    c_timing.add_argument("--repeats", type=int, default=DEFAULT_TIMING_REPEATS)
 
     c_sched = sub.add_parser("schedule", help="Run schedule stage")
     c_sched.add_argument("--base-name", required=True)
@@ -101,6 +103,7 @@ def main(argv: Optional[list[str]] = None) -> int:
             base_name=args.base_name,
             level=args.level,
             rule_name=args.rule,
+            repeats=args.repeats,
         )
         _print_json(payload)
         return 0

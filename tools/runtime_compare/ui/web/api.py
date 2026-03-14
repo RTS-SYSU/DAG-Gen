@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 """API 路由"""
 
 from flask import jsonify, request, render_template, send_file

@@ -16,6 +16,8 @@ import shlex
 from pathlib import Path
 from typing import List, Optional
 
+from .runtime_env import PACKAGE_NAME
+
 
 def _import_legacy_module():
     """Import legacy generator implemented inside mycallyplus."""
@@ -38,7 +40,7 @@ def _run_gui() -> int:
         if "ImageTk" in msg and "PIL" in msg:
             sys.stderr.write(
                 "HINT: 当前 Python 环境缺少 Pillow 的 Tk 支持。\n"
-                "1) 优先不要用 sudo，直接运行: python3 -m mycallyplus_v1\n"
+                f"1) 优先不要用 sudo，直接运行: python3 -m {PACKAGE_NAME}\n"
                 "2) 安装依赖: python3 -m pip install pillow\n"
                 "3) 若必须 sudo 运行，请在 root 环境也安装 pillow。\n"
             )

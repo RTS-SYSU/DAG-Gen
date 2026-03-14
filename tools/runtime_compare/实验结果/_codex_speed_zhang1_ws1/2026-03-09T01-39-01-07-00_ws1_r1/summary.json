@@ -1,0 +1,79 @@
+{
+  "task_id": "source_original_vs_source_instrumented_2026-03-09T01-39-01-07-00",
+  "created_at": "2026-03-09T01-39-01-07-00",
+  "cpu_set": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "cores_per_task": 4,
+  "work_scale": 1,
+  "repeats": 1,
+  "affinity_rewritten_in_source": {
+    "baseline": true,
+    "prio": true
+  },
+  "baseline": {
+    "c_file": "/home/chove/Desktop/ScratchDAG/中间结果/zhang1/pipeline/instrument/level2/effective_line_merge/cpf/source_original.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -I /home/chove/Desktop/ScratchDAG/tools/runtime_compare/实验结果/_codex_speed_zhang1_ws1/2026-03-09T01-39-01-07-00_ws1_r1/baseline/cpf -I /home/chove/Desktop/ScratchDAG/level1 -DWORK_SCALE=1 source_original.c -o /home/chove/Desktop/ScratchDAG/tools/runtime_compare/实验结果/_codex_speed_zhang1_ws1/2026-03-09T01-39-01-07-00_ws1_r1/baseline/app_baseline\nRETRY(no --wrap=main): gcc -O0 -g -std=c11 -pthread -lm -I /home/chove/Desktop/ScratchDAG/tools/runtime_compare/实验结果/_codex_speed_zhang1_ws1/2026-03-09T01-39-01-07-00_ws1_r1/baseline/cpf -I /home/chove/Desktop/ScratchDAG/level1 -DWORK_SCALE=1 source_original.c -o /home/chove/Desktop/ScratchDAG/tools/runtime_compare/实验结果/_codex_speed_zhang1_ws1/2026-03-09T01-39-01-07-00_ws1_r1/baseline/app_baseline",
+    "stats": {
+      "n": 1.0,
+      "min_s": 0.013526731,
+      "max_s": 0.013526731,
+      "mean_s": 0.013526731,
+      "median_s": 0.013526731
+    },
+    "times_s": [
+      0.013526731
+    ]
+  },
+  "prio": {
+    "c_file": "/home/chove/Desktop/ScratchDAG/中间结果/zhang1/pipeline/instrument/level2/effective_line_merge/cpf/source_instrumented.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -I /home/chove/Desktop/ScratchDAG/tools/runtime_compare/实验结果/_codex_speed_zhang1_ws1/2026-03-09T01-39-01-07-00_ws1_r1/prio/cpf -I /home/chove/Desktop/ScratchDAG/level1 -DWORK_SCALE=1 source_instrumented.c -o /home/chove/Desktop/ScratchDAG/tools/runtime_compare/实验结果/_codex_speed_zhang1_ws1/2026-03-09T01-39-01-07-00_ws1_r1/prio/app_prio\nRETRY(no --wrap=main): gcc -O0 -g -std=c11 -pthread -lm -I /home/chove/Desktop/ScratchDAG/tools/runtime_compare/实验结果/_codex_speed_zhang1_ws1/2026-03-09T01-39-01-07-00_ws1_r1/prio/cpf -I /home/chove/Desktop/ScratchDAG/level1 -DWORK_SCALE=1 source_instrumented.c -o /home/chove/Desktop/ScratchDAG/tools/runtime_compare/实验结果/_codex_speed_zhang1_ws1/2026-03-09T01-39-01-07-00_ws1_r1/prio/app_prio",
+    "stats": {
+      "n": 1.0,
+      "min_s": 0.013559633,
+      "max_s": 0.013559633,
+      "mean_s": 0.013559633,
+      "median_s": 0.013559633
+    },
+    "times_s": [
+      0.013559633
+    ]
+  },
+  "runs": [
+    {
+      "program": "baseline",
+      "iter": 0,
+      "time_s": 0.013526731,
+      "wall_s": 0.013526731,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #1 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=0.013527\n"
+    },
+    {
+      "program": "prio",
+      "iter": 0,
+      "time_s": 0.013559633,
+      "wall_s": 0.013559633,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #1 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=0.013560\n"
+    }
+  ],
+  "delta_mean_s": 3.2901999999999584e-05,
+  "improvement_ratio": -0.0024323689145588526
+}

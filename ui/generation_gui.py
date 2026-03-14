@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import shutil
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 from typing import Optional
@@ -19,28 +20,34 @@ from typing import Optional
 import tkinter as tk
 from tkinter import filedialog, messagebox
 
-# 配置文件目录：mycallyplus/中间结果/<base>/配置文件/
-PROJECT_ROOT = Path(__file__).resolve().parent
+# 配置文件目录：<repo>/中间结果/<base>/配置文件/
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 # 允许包外直接运行（python3 gui.py）时的导入回退
-try:  # 推荐：python3 -m mycallyplus.ui.generation_gui
+try:  # 推荐：python3 -m <package>.ui.generation_gui
     from ..generation.builder import build_callee_info
     from ..generation.model import CallGraph, RenderOptions
     from ..generation.parser import Parser
     from ..generation.renderer import DotRenderer
     from ..generation.threads import infer_thread_edges
+    from ..runtime_env import module_cmd, module_env
 except Exception:  # 绝对导入回退（在项目根目录执行 python3 gui.py）
-    import sys
-    from pathlib import Path
-
     pkg_root = Path(__file__).resolve().parent.parent
-    sys.path.insert(0, str(pkg_root))
+    sys.path.insert(0, str(pkg_root.parent))
     try:
-        from mycallyplus.generation.builder import build_callee_info
-        from mycallyplus.generation.model import CallGraph, RenderOptions
-        from mycallyplus.generation.parser import Parser
-        from mycallyplus.generation.renderer import DotRenderer
-        from mycallyplus.generation.threads import infer_thread_edges
+        import importlib
+
+        pkg = importlib.import_module(pkg_root.name)
+        build_callee_info = importlib.import_module(f"{pkg.__name__}.generation.builder").build_callee_info
+        model_mod = importlib.import_module(f"{pkg.__name__}.generation.model")
+        CallGraph = model_mod.CallGraph
+        RenderOptions = model_mod.RenderOptions
+        Parser = importlib.import_module(f"{pkg.__name__}.generation.parser").Parser
+        DotRenderer = importlib.import_module(f"{pkg.__name__}.generation.renderer").DotRenderer
+        infer_thread_edges = importlib.import_module(f"{pkg.__name__}.generation.threads").infer_thread_edges
+        runtime_mod = importlib.import_module(f"{pkg.__name__}.runtime_env")
+        module_cmd = runtime_mod.module_cmd
+        module_env = runtime_mod.module_env
     except Exception:
         sys.path.insert(0, str(pkg_root / "generation"))
         from builder import build_callee_info  # type: ignore
@@ -48,6 +55,18 @@ except Exception:  # 绝对导入回退（在项目根目录执行 python3 gui.p
         from parser import Parser  # type: ignore
         from renderer import DotRenderer  # type: ignore
         from threads import infer_thread_edges  # type: ignore
+        module_cmd = None  # type: ignore
+        module_env = None  # type: ignore
+
+
+def _module_command(relative_module: str) -> list[str]:
+    if module_cmd is not None:
+        return module_cmd(relative_module, python_executable=sys.executable)
+    return [sys.executable, "-m", f"{PROJECT_ROOT.name}.{relative_module}"]
+
+
+def _module_environment():
+    return module_env() if module_env is not None else None
 
 
 class MyCallyGUI:
@@ -392,9 +411,8 @@ class MyCallyGUI:
         """解析 expand 文件并生成 DAG PNG（使用 legacy 流水线以获得编号与线程语义）。"""
         # 通过运行包模块，直接复用 legacy 的编号与线程补边逻辑
         try:
-            import sys
             import subprocess
-            cmd = [sys.executable, "-m", "mycallyplus_v1.generation.legacy"]
+            cmd = _module_command("generation.legacy")
             if threads_only:
                 cmd.append("--threads-only")
             cmd.append(str(expand_path.resolve()))
@@ -406,6 +424,7 @@ class MyCallyGUI:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 cwd=str(work_dir),
+                env=_module_environment(),
             )
             dot_str = proc.stdout.decode("utf-8", errors="ignore")
         except subprocess.CalledProcessError as exc:
@@ -435,9 +454,8 @@ class MyCallyGUI:
     def _build_conditions_dag(self, expand_path: Path) -> tuple[str, Path]:
         """解析 expand 文件并生成完整视图 DAG PNG（包含线程补边和条件节点）。"""
         try:
-            import sys
             import subprocess
-            cmd = [sys.executable, "-m", "mycallyplus_v1.generation.legacy", str(expand_path.resolve())]
+            cmd = _module_command("generation.legacy") + [str(expand_path.resolve())]
             work_dir = PROJECT_ROOT.parent
             proc = subprocess.run(
                 cmd,
@@ -445,6 +463,7 @@ class MyCallyGUI:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 cwd=str(work_dir),
+                env=_module_environment(),
             )
             dot_str = proc.stdout.decode("utf-8", errors="ignore")
         except subprocess.CalledProcessError as exc:
@@ -473,9 +492,8 @@ class MyCallyGUI:
     def _build_dag_to_config(self, expand_path: Path, config_dir: Path, intermediate_dir: Path, threads_only: bool = False) -> tuple[str, Path]:
         """生成DAG并保存到配置文件目录（扁平结构）和中间结果目录"""
         try:
-            import sys
             import subprocess
-            cmd = [sys.executable, "-m", "mycallyplus_v1.generation.legacy"]
+            cmd = _module_command("generation.legacy")
             if threads_only:
                 cmd.append("--threads-only")
             cmd.append(str(expand_path.resolve()))
@@ -486,6 +504,7 @@ class MyCallyGUI:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 cwd=str(work_dir),
+                env=_module_environment(),
             )
             dot_str = proc.stdout.decode("utf-8", errors="ignore")
         except subprocess.CalledProcessError as exc:
@@ -530,13 +549,12 @@ class MyCallyGUI:
     def _generate_circle_txt(self, expand_path: Path, config_dir: Path) -> Path:
         """生成circle.txt配置文件"""
         try:
-            import sys
             import subprocess
-            
+
             txt_path = config_dir / "circle.txt"
             
             cmd = [
-                sys.executable, "-m", "mycallyplus_v1.generation.legacy",
+                *_module_command("generation.legacy"),
                 str(expand_path.resolve()),
                 "--export-txt", str(txt_path),
                 "--output-base", str(PROJECT_ROOT)
@@ -555,6 +573,7 @@ class MyCallyGUI:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 cwd=str(work_dir),
+                env=_module_environment(),
             )
             
             return txt_path

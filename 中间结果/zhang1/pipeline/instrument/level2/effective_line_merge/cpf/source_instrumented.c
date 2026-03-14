@@ -19,22 +19,22 @@
 // Only allowed knobs: add/remove threads and adjust per-thread work weights.
 // Strategy: increase filler weights so they contend long enough to slow the critical chain in baseline,
 // while keeping the critical chain slightly longer than the filler group under LPF.
-#define C1 24.0
-#define C2 24.0
-#define C3 24.0
-#define C4 27.0
-#define C5 27.0
-#define C6 27.0
-#define C7 30.0
-#define C8 30.0
-#define C9 30.0
-#define C10 30.0
-#define C11 30.0
-#define C12 30.0
-#define C13 30.0
-#define C14 30.0
-#define C15 30.0
-#define C16 30.0
+#define C1 60.0
+#define C2 8.0
+#define C3 30.0
+#define C4 65.0
+#define C5 8.0
+#define C6 35.0
+#define C7 70.0
+#define C8 8.0
+#define C9 40.0
+#define C10 2.0
+#define C11 3.0
+#define C12 3.0
+#define C13 2.0
+#define C14 1.0
+#define C15 1.0
+#define C16 1.0
 #define F_LONG 28.0
 #define F_SHORT 20.0
 
@@ -116,16 +116,16 @@ static struct timespec g_prog_start;
 static void *c2_fn(void *arg)
 {
 
-    l1_set_thread_prio_fifo(87);
+    l1_set_thread_prio_fifo(85);
     pthread_mutex_lock(&mutex1);
     busy_wait_seconds(C1);
     pthread_mutex_unlock(&mutex1);
-    l1_set_thread_prio_fifo(86);
+    l1_set_thread_prio_fifo(90);
     sem_wait(&sem5);
     pthread_mutex_lock(&mutex2);
     busy_wait_seconds(C2);
     pthread_mutex_unlock(&mutex2);
-    l1_set_thread_prio_fifo(85);
+    l1_set_thread_prio_fifo(89);
     sem_wait(&sem6);
     pthread_mutex_lock(&mutex3);
     busy_wait_seconds(C3);
@@ -135,18 +135,18 @@ static void *c2_fn(void *arg)
 
 static void *c1_fn(void *arg)
 {
-    l1_set_thread_prio_fifo(91);
+    l1_set_thread_prio_fifo(92);
     pthread_mutex_lock(&mutex4);
     busy_wait_seconds(C4);
     pthread_mutex_unlock(&mutex4);
     pthread_create(&tc2, NULL, c2_fn, NULL);
-        l1_set_thread_prio_fifo(90);
+        l1_set_thread_prio_fifo(91);
         sem_wait(&sem3);
     pthread_mutex_lock(&mutex5);
     busy_wait_seconds(C5);
     pthread_mutex_unlock(&mutex5);
     sem_post(&sem5);
-    l1_set_thread_prio_fifo(89);
+    l1_set_thread_prio_fifo(84);
     sem_wait(&sem4);
     pthread_mutex_lock(&mutex6);
     busy_wait_seconds(C6);
@@ -163,13 +163,13 @@ static void *c0_fn(void *arg)
     busy_wait_seconds(C7);
     pthread_mutex_unlock(&mutex7);
     pthread_create(&tc1, NULL, c1_fn, NULL);
-    l1_set_thread_prio_fifo(96);
+    l1_set_thread_prio_fifo(97);
     sem_wait(&sem1);
     pthread_mutex_lock(&mutex8);
     busy_wait_seconds(C8);
     pthread_mutex_unlock(&mutex8);
     sem_post(&sem3);
-    l1_set_thread_prio_fifo(94);
+    l1_set_thread_prio_fifo(96);
     sem_wait(&sem2);
     pthread_mutex_lock(&mutex9);
     busy_wait_seconds(C9);
@@ -211,31 +211,31 @@ int main(void)
     busy_wait_seconds(C10);
     pthread_mutex_unlock(&mutex10);
     pthread_create(&tc0, NULL, c0_fn, NULL);
-    l1_set_thread_prio_fifo(97);
+    l1_set_thread_prio_fifo(88);
     pthread_mutex_lock(&mutex11);
     busy_wait_seconds(C11);
     pthread_mutex_unlock(&mutex11);
     sem_post(&sem1);
-    l1_set_thread_prio_fifo(95);
+    l1_set_thread_prio_fifo(87);
     pthread_mutex_lock(&mutex12);
     busy_wait_seconds(C12);
     pthread_mutex_unlock(&mutex12);
     sem_post(&sem2);
-    l1_set_thread_prio_fifo(93);
+    l1_set_thread_prio_fifo(86);
     pthread_mutex_lock(&mutex13);
     busy_wait_seconds(C13);
     pthread_mutex_unlock(&mutex13);
-    l1_set_thread_prio_fifo(92);
+    l1_set_thread_prio_fifo(95);
     pthread_join(tc0, NULL);
     pthread_mutex_lock(&mutex14);
     busy_wait_seconds(C14);
     pthread_mutex_unlock(&mutex14);
-    l1_set_thread_prio_fifo(88);
+    l1_set_thread_prio_fifo(94);
     pthread_join(tc1, NULL);
     pthread_mutex_lock(&mutex15);
     busy_wait_seconds(C15);
     pthread_mutex_unlock(&mutex15);
-    l1_set_thread_prio_fifo(84);
+    l1_set_thread_prio_fifo(93);
     pthread_join(tc2, NULL);
     pthread_mutex_lock(&mutex16);
     busy_wait_seconds(C16);

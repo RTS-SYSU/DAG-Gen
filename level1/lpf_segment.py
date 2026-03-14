@@ -182,7 +182,7 @@ def assign_segment_priorities(
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Compute LPF segment priorities from Level-1 segment DAG and timings.")
-    ap.add_argument("--base-dir", type=Path, default=Path("mycallyplus_v1"))
+    ap.add_argument("--base-dir", type=Path, default=Path(__file__).resolve().parents[1])
     ap.add_argument("--base-name", required=True)
     ap.add_argument("--project", required=True, help="Project name under level1/timing/<project>/")
     ap.add_argument("--prio-max", type=int, default=80)

@@ -29,15 +29,16 @@ except Exception:
     ImageTk = None  # type: ignore
     _PIL_READY = False
 
-# 使用包内模块，避免与非 v1 版本混淆
-from mycallyplus_v1 import filter_dot, time_analysis, time_charts, scheduler
-from mycallyplus_v1.level1 import time_analysis_level1 as level1_time_analysis
-from mycallyplus_v1.level1 import lpf_thread as level1_lpf_thread
-from mycallyplus_v1.level1 import instrument_prio_level1 as level1_prio_instrument
-from mycallyplus_v1.level2 import segment_dag_level2 as level2_segment_dag
-from mycallyplus_v1.pipeline import runner as pipeline_runner
-from mycallyplus_v1.pipeline.algo_registry import list_algos as pipeline_list_algos
-from mycallyplus_v1.pipeline.rules_registry import list_rules as pipeline_list_rules
+# 使用包内模块，避免依赖历史包名
+from .. import filter_dot, scheduler, time_analysis, time_charts
+from ..level1 import instrument_prio_level1 as level1_prio_instrument
+from ..level1 import lpf_thread as level1_lpf_thread
+from ..level1 import time_analysis_level1 as level1_time_analysis
+from ..level2 import segment_dag_level2 as level2_segment_dag
+from ..pipeline import runner as pipeline_runner
+from ..pipeline.algo_registry import list_algos as pipeline_list_algos
+from ..pipeline.rules_registry import list_rules as pipeline_list_rules
+from ..runtime_env import PROJECT_ROOT, module_cmd, module_env, package_module_name
 
 try:
     import networkx as nx
@@ -119,7 +120,7 @@ class MycallyplusGUIv3:
         self.root.configure(bg="#ECEFF1")
         
         # 工作路径 - 修改为 mycallyplus 目录
-        self.base_dir = Path(__file__).resolve().parent.parent
+        self.base_dir = PROJECT_ROOT
         self.base_dir.mkdir(parents=True, exist_ok=True)
 
         # If launched via `sudo`, prefer running heavy steps (gcc/python pipeline) as the original user.
@@ -207,10 +208,15 @@ class MycallyplusGUIv3:
         return cmd
 
     def _run(self, cmd: List[str], *, cwd: Optional[Path] = None, **kwargs) -> subprocess.CompletedProcess:
-        return subprocess.run(self._as_original_user_cmd(cmd), cwd=str(cwd) if cwd else None, **kwargs)
+        env = kwargs.pop("env", None)
+        return subprocess.run(self._as_original_user_cmd(cmd), cwd=str(cwd) if cwd else None, env=module_env(env), **kwargs)
 
     def _popen(self, cmd: List[str], *, cwd: Optional[Path] = None, **kwargs) -> subprocess.Popen:
-        return subprocess.Popen(self._as_original_user_cmd(cmd), cwd=str(cwd) if cwd else None, **kwargs)
+        env = kwargs.pop("env", None)
+        return subprocess.Popen(self._as_original_user_cmd(cmd), cwd=str(cwd) if cwd else None, env=module_env(env), **kwargs)
+
+    def _module_cmd(self, relative_module: str) -> List[str]:
+        return module_cmd(relative_module, python_executable=sys.executable)
 
     def _chown_to_original_user(self, path: Path) -> None:
         if self._sudo_uid is None or self._sudo_gid is None:
@@ -1202,8 +1208,7 @@ class MycallyplusGUIv3:
             
             # 调用legacy生成dag图到配置文件目录
             cmd = [
-                sys.executable,
-                "-m", "mycallyplus_v1.generation.legacy",
+                *self._module_cmd("generation.legacy"),
                 str(self.state.expand_file),
                 "--threads-only",
                 "--source-file", str(self.state.source_file) if self.state.source_file else "",
@@ -1267,8 +1272,7 @@ class MycallyplusGUIv3:
             self._ensure_dir_for_original_user(config_dir2)
             circle_txt = config_dir2 / "circle.txt"
             cmd_txt = [
-                sys.executable,
-                "-m", "mycallyplus_v1.generation.legacy",
+                *self._module_cmd("generation.legacy"),
                 str(self.state.expand_file),
                 "--export-txt", str(circle_txt),
                 "--output-base", str(self.base_dir),
@@ -1328,8 +1332,7 @@ class MycallyplusGUIv3:
             self.state.work_dir = root_dir
 
             cmd = [
-                sys.executable,
-                "-m", "mycallyplus_v1.generation.legacy",
+                *self._module_cmd("generation.legacy"),
                 "--extern-only",
                 "--source-file", str(self.state.source_file),
                 "--output-base", str(self.base_dir),
@@ -1434,8 +1437,7 @@ class MycallyplusGUIv3:
             # 步骤1: 调用 legacy 生成条件视图 DOT（--conditions-only）
             print("⚙️  调用mycallyplus生成条件节点视图（--conditions-only）...")
             cmd = [
-                sys.executable,
-                "-m", "mycallyplus_v1.generation.legacy",
+                *self._module_cmd("generation.legacy"),
                 "--conditions-only",
                 "--output-base", str(self.base_dir),
                 str(self.state.expand_file),
@@ -1460,8 +1462,7 @@ class MycallyplusGUIv3:
             
             txt_output_path = config_dir / "circle.txt"
             cmd_txt = [
-                sys.executable,
-                "-m", "mycallyplus_v1.generation.legacy",
+                *self._module_cmd("generation.legacy"),
                 str(self.state.expand_file),
                 "--export-txt", str(txt_output_path),
                 "--output-base", str(self.base_dir),
@@ -1974,7 +1975,7 @@ class MycallyplusGUIv3:
             cmd = [
                 sys.executable,
                 "-m",
-                "mycallyplus_v1.generation.legacy",
+                package_module_name("generation.legacy"),
                 str(self.state.expand_file),
                 "--threads-only",
                 "--source-file",
@@ -1999,7 +2000,7 @@ class MycallyplusGUIv3:
             ta_cmd = [
                 sys.executable,
                 "-m",
-                "mycallyplus_v1.level1.time_analysis_level1",
+                package_module_name("level1.time_analysis_level1"),
                 "--base-dir",
                 str(self.base_dir),
                 "--base-name",
@@ -2016,7 +2017,7 @@ class MycallyplusGUIv3:
             sched_cmd = [
                 sys.executable,
                 "-m",
-                "mycallyplus_v1.level1.lpf_segment",
+                package_module_name("level1.lpf_segment"),
                 "--base-dir",
                 str(self.base_dir),
                 "--base-name",
@@ -2035,7 +2036,7 @@ class MycallyplusGUIv3:
             prio_cmd = [
                 sys.executable,
                 "-m",
-                "mycallyplus_v1.level1.instrument_prio_level1",
+                package_module_name("level1.instrument_prio_level1"),
                 "--base-dir",
                 str(self.base_dir),
                 "--base-name",
@@ -2131,7 +2132,7 @@ class MycallyplusGUIv3:
             cmd = [
                 sys.executable,
                 "-m",
-                "mycallyplus_v1.generation.legacy",
+                package_module_name("generation.legacy"),
                 str(self.state.expand_file),
                 "--threads-only",
                 "--source-file",
@@ -2152,7 +2153,7 @@ class MycallyplusGUIv3:
             merge_cmd = [
                 sys.executable,
                 "-m",
-                "mycallyplus_v1.level2.merge_post_wait_dag",
+                package_module_name("level2.merge_post_wait_dag"),
                 "--base-dir",
                 str(self.base_dir),
                 "--base-name",
@@ -2607,7 +2608,7 @@ class MycallyplusGUIv3:
         cmd = [
             sys.executable,
             "-m",
-            "mycallyplus_v1.pipeline.cli",
+            package_module_name("pipeline.cli"),
             "--base-dir",
             str(self.base_dir),
             *argv,

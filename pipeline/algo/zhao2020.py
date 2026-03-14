@@ -3,8 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Set, Tuple
 
-from ..constants import SCHEMA_VERSION
-from ..errors import ValidationError
+from .common import build_adj, load_avg_weights, load_edges, load_node_ids, make_schedule, topo_sort, validate_priorities
 
 
 NodeId = str
@@ -38,109 +37,43 @@ class Zhao2020BlockAlgo:
         return "zhao2020"
 
     def compute(self, *, dag_json: Dict, segments_json: Dict, timing_json: Dict) -> Dict:
-        nodes = self._load_nodes(segments_json)
-        edges = self._load_edges(dag_json, valid_nodes=set(nodes))
-        wcet = self._load_wcet(timing_json)
+        nodes = load_node_ids(segments_json)
+        edges = load_edges(dag_json, nodes)
 
         if not nodes:
-            schedule = {
-                "schema_version": SCHEMA_VERSION,
-                "base_name": str(segments_json.get("base_name", "")),
-                "algo_name": self.algo_id(),
-                "priorities": {},
-                "meta": {"critical_path": [], "providers": []},
-            }
+            schedule = make_schedule(
+                algo_name=self.algo_id(),
+                base_name=str(segments_json.get("base_name", "")),
+                priorities={},
+                meta={"critical_path": [], "providers": []},
+            )
             self.validate(schedule)
             return schedule
+        wcet = load_avg_weights(timing_json, nodes)
 
         critical_path = self._critical_path_longest_complete(nodes=nodes, edges=edges, wcet=wcet)
         cpc = self._build_cpc_model(nodes=nodes, edges=edges, critical_path=critical_path)
         priorities = self._ea_priority_assignment(nodes=nodes, edges=edges, wcet=wcet, cpc=cpc, prio_max=99)
 
-        schedule = {
-            "schema_version": SCHEMA_VERSION,
-            "base_name": str(segments_json.get("base_name", "")),
-            "algo_name": self.algo_id(),
-            "priorities": priorities,
-            "meta": self._build_meta(cpc),
-        }
+        schedule = make_schedule(
+            algo_name=self.algo_id(),
+            base_name=str(segments_json.get("base_name", "")),
+            priorities=priorities,
+            meta=self._build_meta(cpc),
+        )
         self.validate(schedule)
         return schedule
 
     def validate(self, schedule_json: Dict) -> None:
-        prios = schedule_json.get("priorities")
-        if not isinstance(prios, dict):
-            raise ValidationError("schedule.priorities must be dict")
-        for seg_id, val in prios.items():
-            if not isinstance(seg_id, str):
-                raise ValidationError("schedule priority key must be string seg_id")
-            iv = int(val)
-            if iv < 1 or iv > 99:
-                raise ValidationError(f"priority for {seg_id} out of range 1..99: {iv}")
-
-    @staticmethod
-    def _load_nodes(segments_json: Dict) -> List[NodeId]:
-        out: List[NodeId] = []
-        for s in segments_json.get("segments", []):
-            if not isinstance(s, dict):
-                continue
-            seg_id = s.get("seg_id")
-            if isinstance(seg_id, str):
-                out.append(seg_id)
-        # Keep stable, deterministic ordering for tie-breaks.
-        out = sorted(set(out))
-        return out
-
-    @staticmethod
-    def _load_edges(dag_json: Dict, valid_nodes: Set[NodeId]) -> List[Edge]:
-        edges: List[Edge] = []
-        for e in dag_json.get("edges", []):
-            if not isinstance(e, dict):
-                continue
-            src = e.get("src")
-            dst = e.get("dst")
-            if isinstance(src, str) and isinstance(dst, str) and src in valid_nodes and dst in valid_nodes:
-                edges.append((src, dst))
-        return edges
-
-    @staticmethod
-    def _load_wcet(timing_json: Dict) -> Dict[NodeId, int]:
-        wcet: Dict[NodeId, int] = {}
-        weights = timing_json.get("weights", {})
-        if isinstance(weights, dict):
-            for seg_id, metric in weights.items():
-                if not isinstance(seg_id, str) or not isinstance(metric, dict):
-                    continue
-                wcet[seg_id] = int(metric.get("total_ns", 0) or 0)
-        return wcet
+        validate_priorities(schedule_json)
 
     @staticmethod
     def _build_adj(nodes: List[NodeId], edges: List[Edge]) -> Tuple[Dict[NodeId, List[NodeId]], Dict[NodeId, List[NodeId]]]:
-        succ: Dict[NodeId, List[NodeId]] = {n: [] for n in nodes}
-        pred: Dict[NodeId, List[NodeId]] = {n: [] for n in nodes}
-        for u, v in edges:
-            succ.setdefault(u, []).append(v)
-            pred.setdefault(v, []).append(u)
-        return succ, pred
+        return build_adj(nodes, edges)
 
     @staticmethod
     def _topo_sort(nodes: List[NodeId], edges: List[Edge]) -> List[NodeId]:
-        succ, pred = Zhao2020BlockAlgo._build_adj(nodes, edges)
-        indeg: Dict[NodeId, int] = {n: len(pred.get(n, [])) for n in nodes}
-        q = sorted([n for n, d in indeg.items() if d == 0])
-        order: List[NodeId] = []
-        i = 0
-        while i < len(q):
-            u = q[i]
-            i += 1
-            order.append(u)
-            for v in succ.get(u, []):
-                indeg[v] -= 1
-                if indeg[v] == 0:
-                    q.append(v)
-        if len(order) != len(indeg):
-            raise ValidationError("segment DAG has a cycle")
-        return order
+        return topo_sort(nodes, edges)
 
     @staticmethod
     def _critical_path_longest_complete(*, nodes: List[NodeId], edges: List[Edge], wcet: Dict[NodeId, int]) -> List[NodeId]:
@@ -416,4 +349,3 @@ class Zhao2020BlockAlgo:
             "critical_path": list(cpc.critical_path),
             "providers": providers_meta,
         }
-

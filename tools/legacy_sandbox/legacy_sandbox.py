@@ -36,6 +36,7 @@
 import argparse
 import copy
 import fileinput
+import importlib
 import json
 import os
 from collections import defaultdict
@@ -54,9 +55,17 @@ except ImportError:
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     from source_binder import create_targets_from_source
 
-from mycallyplus_v1.generation.thread_map import resolve_join_edges, collect_thread_edges
-from mycallyplus_v1.core.func_ranges import extract_func_ranges
-from mycallyplus_v1.level1.segment_dag import build_stage1_segments_and_dag
+repo_root = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(repo_root.parent))
+pkg = importlib.import_module(repo_root.name)
+thread_map_mod = importlib.import_module(f"{pkg.__name__}.generation.thread_map")
+func_ranges_mod = importlib.import_module(f"{pkg.__name__}.core.func_ranges")
+segment_dag_mod = importlib.import_module(f"{pkg.__name__}.level1.segment_dag")
+
+resolve_join_edges = thread_map_mod.resolve_join_edges
+collect_thread_edges = thread_map_mod.collect_thread_edges
+extract_func_ranges = func_ranges_mod.extract_func_ranges
+build_stage1_segments_and_dag = segment_dag_mod.build_stage1_segments_and_dag
 
 #
 # Unit tests for the dump_path() function.

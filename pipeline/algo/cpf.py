@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-from typing import Dict, List, Set, Tuple
+from typing import Dict, List, Optional, Set, Tuple
 
-from ..constants import SCHEMA_VERSION
-from ..errors import ValidationError
+from .common import build_adj, load_avg_weights, load_edges, load_segments, make_schedule, topo_sort, validate_priorities
 
 
 class CPFBlockAlgo:
@@ -11,113 +10,39 @@ class CPFBlockAlgo:
         return "cpf"
 
     def compute(self, *, dag_json: Dict, segments_json: Dict, timing_json: Dict) -> Dict:
-        segments: List[Dict] = []
-        for s in segments_json.get("segments", []):
-            if not isinstance(s, dict):
-                continue
-            try:
-                segments.append(
-                    {
-                        "seg_id": str(s["seg_id"]),
-                        "function": str(s["function"]),
-                        "kind": str(s["kind"]),
-                        "start_line": int(s["start_line"]),
-                        "end_line": int(s["end_line"]),
-                    }
-                )
-            except Exception:
-                continue
+        segments = load_segments(segments_json)
+        ids = [str(seg["seg_id"]) for seg in segments]
+        edges = load_edges(dag_json, ids)
+        avg_weights = load_avg_weights(timing_json, ids)
 
-        edges: List[Tuple[str, str]] = []
-        for e in dag_json.get("edges", []):
-            if not isinstance(e, dict):
-                continue
-            src = e.get("src")
-            dst = e.get("dst")
-            if isinstance(src, str) and isinstance(dst, str):
-                edges.append((src, dst))
-
-        totals: Dict[str, int] = {}
-        weights = timing_json.get("weights", {})
-        if isinstance(weights, dict):
-            for seg_id, metric in weights.items():
-                if isinstance(seg_id, str) and isinstance(metric, dict):
-                    totals[seg_id] = int(metric.get("total_ns", 0) or 0)
-
-        priorities, cp_layers = self._assign_cpf_priorities(segments=segments, edges=edges, totals=totals, prio_max=99)
-        schedule = {
-            "schema_version": SCHEMA_VERSION,
-            "base_name": str(segments_json.get("base_name", "")),
-            "algo_name": self.algo_id(),
-            "priorities": priorities,
-            "meta": {"cp_layers": cp_layers},
-        }
+        priorities, cp_layers = self._assign_cpf_priorities(segments=segments, edges=edges, weights=avg_weights, prio_max=99)
+        schedule = make_schedule(
+            algo_name=self.algo_id(),
+            base_name=str(segments_json.get("base_name", "")),
+            priorities=priorities,
+            meta={"cp_layers": cp_layers},
+        )
         self.validate(schedule)
         return schedule
 
     def validate(self, schedule_json: Dict) -> None:
-        prios = schedule_json.get("priorities")
-        if not isinstance(prios, dict):
-            raise ValidationError("schedule.priorities must be dict")
-        for seg_id, val in prios.items():
-            if not isinstance(seg_id, str):
-                raise ValidationError("schedule priority key must be string seg_id")
-            iv = int(val)
-            if iv < 1 or iv > 99:
-                raise ValidationError(f"priority for {seg_id} out of range 1..99: {iv}")
-
-    @staticmethod
-    def _topo_sort(nodes: List[str], edges: List[Tuple[str, str]]) -> List[str]:
-        out_adj: Dict[str, List[str]] = {n: [] for n in nodes}
-        indeg: Dict[str, int] = {n: 0 for n in nodes}
-        for u, v in edges:
-            if u not in indeg:
-                indeg[u] = 0
-                out_adj[u] = []
-            if v not in indeg:
-                indeg[v] = 0
-                out_adj[v] = []
-            out_adj[u].append(v)
-            indeg[v] += 1
-        q = sorted([n for n, d in indeg.items() if d == 0])
-        order: List[str] = []
-        i = 0
-        while i < len(q):
-            u = q[i]
-            i += 1
-            order.append(u)
-            for v in out_adj.get(u, []):
-                indeg[v] -= 1
-                if indeg[v] == 0:
-                    q.append(v)
-        if len(order) != len(indeg):
-            raise ValidationError("segment DAG has a cycle")
-        return order
-
-    @staticmethod
-    def _build_adj(nodes: List[str], edges: List[Tuple[str, str]]) -> Tuple[Dict[str, List[str]], Dict[str, List[str]]]:
-        succ: Dict[str, List[str]] = {n: [] for n in nodes}
-        pred: Dict[str, List[str]] = {n: [] for n in nodes}
-        for u, v in edges:
-            succ.setdefault(u, []).append(v)
-            pred.setdefault(v, []).append(u)
-        return succ, pred
+        validate_priorities(schedule_json)
 
     @staticmethod
     def _extract_longest_path(
         *,
         active_nodes: Set[str],
         edges: List[Tuple[str, str]],
-        totals: Dict[str, int],
+        weights: Dict[str, int],
     ) -> List[str]:
         sub_edges = [(u, v) for (u, v) in edges if u in active_nodes and v in active_nodes]
-        topo = CPFBlockAlgo._topo_sort(sorted(active_nodes), sub_edges)
-        succ, pred = CPFBlockAlgo._build_adj(topo, sub_edges)
+        topo = topo_sort(sorted(active_nodes), sub_edges)
+        succ, pred = build_adj(topo, sub_edges)
 
         dist: Dict[str, int] = {}
-        best_pred: Dict[str, str | None] = {}
+        best_pred: Dict[str, Optional[str]] = {}
         for n in topo:
-            w = int(totals.get(n, 0) or 0)
+            w = int(weights[n])
             preds = pred.get(n, [])
             if not preds:
                 dist[n] = w
@@ -131,7 +56,7 @@ class CPFBlockAlgo:
         sink = max(sinks, key=lambda n: (int(dist.get(n, 0)), n))
 
         path_rev: List[str] = []
-        cur: str | None = sink
+        cur: Optional[str] = sink
         while cur is not None:
             path_rev.append(cur)
             cur = best_pred.get(cur)
@@ -142,7 +67,7 @@ class CPFBlockAlgo:
         *,
         segments: List[Dict],
         edges: List[Tuple[str, str]],
-        totals: Dict[str, int],
+        weights: Dict[str, int],
         prio_max: int,
     ) -> Tuple[Dict[str, int], List[List[str]]]:
         active: Set[str] = {str(s["seg_id"]) for s in segments}
@@ -150,7 +75,7 @@ class CPFBlockAlgo:
         ordered: List[str] = []
 
         while active:
-            path = self._extract_longest_path(active_nodes=active, edges=edges, totals=totals)
+            path = self._extract_longest_path(active_nodes=active, edges=edges, weights=weights)
             if not path:
                 break
             cp_layers.append(path)

@@ -185,9 +185,9 @@ def write_markdown(path: Path, platform: str, sections: List[Tuple[str, List[Row
 def _locate_repo_root() -> Path:
     p = Path(__file__).resolve()
     for parent in p.parents:
-        if parent.name == "mycallyplus_v1":
+        if (parent / "cli.py").exists() and (parent / "__main__.py").exists():
             return parent
-    raise RuntimeError("Cannot locate mycallyplus_v1 root from script path.")
+    raise RuntimeError("Cannot locate repo root from script path.")
 
 
 def main() -> int:

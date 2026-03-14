@@ -72,10 +72,10 @@ def main() -> int:
     args = ap.parse_args()
 
     repo_root = Path(__file__).resolve()
-    while repo_root.name != "mycallyplus_v1" and repo_root.parent != repo_root:
+    while not ((repo_root / "cli.py").exists() and (repo_root / "__main__.py").exists()) and repo_root.parent != repo_root:
         repo_root = repo_root.parent
-    if repo_root.name != "mycallyplus_v1":
-        raise RuntimeError("Cannot locate mycallyplus_v1 repo root.")
+    if not ((repo_root / "cli.py").exists() and (repo_root / "__main__.py").exists()):
+        raise RuntimeError("Cannot locate repo root.")
 
     root = (repo_root / args.root).resolve()
     suite_dir = root / args.suite
@@ -131,4 +131,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

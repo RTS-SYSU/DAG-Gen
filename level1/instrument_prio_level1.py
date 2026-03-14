@@ -316,7 +316,7 @@ def _run_once(app: Path) -> Tuple[Optional[int], str, str]:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Instrument thread priorities (LPF) and compare runtime once.")
-    ap.add_argument("--base-dir", type=Path, default=Path("mycallyplus_v1"))
+    ap.add_argument("--base-dir", type=Path, default=Path(__file__).resolve().parents[1])
     ap.add_argument("--base-name", required=True)
     ap.add_argument("--source", required=True, type=Path, help="Baseline fifo.c source")
     ap.add_argument("--project-name", default=None, help="Output project name under 时间分析_level1_prio/")

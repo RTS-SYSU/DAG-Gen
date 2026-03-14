@@ -35,6 +35,11 @@ def run_schedule(*, base_dir: Path, base_name: str, level: str, rule_name: str, 
 
         out_root.mkdir(parents=True, exist_ok=True)
         write_json(out_root / "schedule.json", schedule_json)
+        # Remove stale annotated graph outputs from older versions.
+        for stale_name in ("dag_seg_annotated.dot", "dag_seg_annotated.png"):
+            stale_path = out_root / stale_name
+            if stale_path.exists():
+                stale_path.unlink()
         mark_success(
             meta_path,
             step="schedule",

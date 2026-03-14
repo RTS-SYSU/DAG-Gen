@@ -200,7 +200,7 @@ def _summarize(durs: List[Tuple[str, int]]) -> Dict[str, Dict]:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Standalone Level-1 segment time analysis (stage1).")
-    ap.add_argument("--base-dir", type=Path, default=Path("mycallyplus_v1"), help="Project base dir (contains 中间结果/)")
+    ap.add_argument("--base-dir", type=Path, default=Path(__file__).resolve().parents[1], help="Project base dir (contains 中间结果/)")
     ap.add_argument("--base-name", required=True, help="Base name under 中间结果/, e.g. cpu4_thread10_fifo")
     ap.add_argument("--source", required=True, type=Path, help="Path to original .c source file")
     ap.add_argument("--project-name", default=None, help="Output project folder name (default: source stem)")

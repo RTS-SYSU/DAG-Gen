@@ -202,11 +202,11 @@ def main() -> int:
     p = Path(__file__).resolve()
     mycally_root: Optional[Path] = None
     for parent in p.parents:
-        if parent.name == "mycallyplus_v1":
+        if (parent / "cli.py").exists() and (parent / "__main__.py").exists():
             mycally_root = parent
             break
     if mycally_root is None:
-        raise RuntimeError("Cannot locate mycallyplus_v1 root from script path.")
+        raise RuntimeError("Cannot locate repo root from script path.")
     base_dir = mycally_root / "experiment"
 
     vm_root = base_dir / "experiment2虚拟机实验结果汇总"

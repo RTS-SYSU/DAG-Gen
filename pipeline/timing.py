@@ -5,13 +5,14 @@ import shutil
 import subprocess
 import os
 from pathlib import Path
-from typing import Dict, List, Set, Tuple
+from typing import Dict, List, Optional, Set, Tuple
 
-from mycallyplus_v1.level1.time_analysis_level1 import Segment, instrument_source
+from ..level1.time_analysis_level1 import Segment, instrument_source
 
 from .constants import SCHEMA_VERSION
 from .errors import StageError
 from .io_utils import mark_failed, mark_running, mark_success, read_json, write_json
+from .timing_config import normalize_timing_repeats
 
 
 def _load_segments(segments_json_path: Path) -> List[Segment]:
@@ -118,7 +119,7 @@ def _summarize(rows: List[Tuple[str, int]]) -> Dict[str, Dict]:
     return out
 
 
-def run_timing(*, base_dir: Path, base_name: str, level: str, rule_name: str) -> Dict:
+def run_timing(*, base_dir: Path, base_name: str, level: str, rule_name: str, repeats: Optional[int] = None) -> Dict:
     pipeline_root = base_dir / "中间结果" / base_name / "pipeline"
     out_root = pipeline_root / "timing" / level / rule_name
     meta_path = out_root / "timing_meta.json"
@@ -129,6 +130,7 @@ def run_timing(*, base_dir: Path, base_name: str, level: str, rule_name: str) ->
     mark_running(meta_path, step="timing")
 
     try:
+        timing_repeats = normalize_timing_repeats(repeats)
         block_info = read_json(pipeline_root / "block_info.json")
         source_file = Path(str(block_info["source_file"])).resolve()
         segments_json_path = pipeline_root / "blocks" / level / rule_name / "segments.json"
@@ -181,13 +183,20 @@ def run_timing(*, base_dir: Path, base_name: str, level: str, rule_name: str) ->
         ws = env.get("MYCALLY_PIPELINE_WORK_SCALE")
         if ws and ws.strip():
             env["WORK_SCALE"] = ws.strip()
-        proc = subprocess.run([str(project_dir / "app")], cwd=str(project_dir), capture_output=True, text=True, env=env)
-        (logs_dir / "run.stdout.log").write_text(proc.stdout or "", encoding="utf-8")
-        (logs_dir / "run.stderr.log").write_text(proc.stderr or "", encoding="utf-8")
-        if proc.returncode != 0:
-            raise StageError(f"run failed with code {proc.returncode}: see {logs_dir / 'run.stderr.log'}")
+        rows: List[Tuple[str, int]] = []
+        program_totals_ns: List[int] = []
+        for run_idx in range(1, timing_repeats + 1):
+            for old_trace in trace_dir.glob("trace.*.csv"):
+                old_trace.unlink()
+            proc = subprocess.run([str(project_dir / "app")], cwd=str(project_dir), capture_output=True, text=True, env=env)
+            run_suffix = f"{run_idx:02d}"
+            (logs_dir / f"run.{run_suffix}.stdout.log").write_text(proc.stdout or "", encoding="utf-8")
+            (logs_dir / f"run.{run_suffix}.stderr.log").write_text(proc.stderr or "", encoding="utf-8")
+            if proc.returncode != 0:
+                raise StageError(f"run failed with code {proc.returncode}: see {logs_dir / f'run.{run_suffix}.stderr.log'}")
+            rows.extend(_read_trace_csv(trace_dir))
+            program_totals_ns.append(_parse_program_total_ns(proc.stderr or ""))
 
-        rows = _read_trace_csv(trace_dir)
         weights = _summarize(rows)
         timing_json = {
             "schema_version": SCHEMA_VERSION,
@@ -195,6 +204,7 @@ def run_timing(*, base_dir: Path, base_name: str, level: str, rule_name: str) ->
             "level": level,
             "rule_name": rule_name,
             "view": "single",
+            "repeats": timing_repeats,
             "weights": weights,
         }
         write_json(out_root / "timing.json", timing_json)
@@ -202,9 +212,10 @@ def run_timing(*, base_dir: Path, base_name: str, level: str, rule_name: str) ->
             meta_path,
             step="timing",
             extra={
-                "program_total_ns": _parse_program_total_ns(proc.stderr or ""),
+                "program_total_ns_avg": int(sum(program_totals_ns) // max(1, len(program_totals_ns))),
                 "compile_returncode": code,
-                "run_returncode": proc.returncode,
+                "run_returncode": 0,
+                "repeats": timing_repeats,
                 "weights_count": len(weights),
                 "warnings_count": len(warnings),
                 "skipped_count": len(skipped),
