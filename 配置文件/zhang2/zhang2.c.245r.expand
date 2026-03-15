@@ -44,10 +44,10 @@ try_optimize_cfg iteration 2
 (note 2 3 5 2 NOTE_INSN_FUNCTION_BEG)
 (insn 5 2 6 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -8 [0xfffffffffffffff8])) [6 i+0 S4 A64])
-        (const_int 0 [0])) "zhang2.c":71:12 -1
+        (const_int 0 [0])) "zhang2.c":70:12 -1
      (nil))
 (jump_insn 6 5 7 2 (set (pc)
-        (label_ref 62)) "zhang2.c":71:3 -1
+        (label_ref 62)) "zhang2.c":70:3 -1
      (nil)
  -> 62)
 (barrier 7 6 64)
@@ -55,10 +55,10 @@ try_optimize_cfg iteration 2
 (note 8 64 9 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
 (insn 9 8 10 4 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -4 [0xfffffffffffffffc])) [6 j+0 S4 A32])
-        (const_int 0 [0])) "zhang2.c":72:14 -1
+        (const_int 0 [0])) "zhang2.c":71:14 -1
      (nil))
 (jump_insn 10 9 11 4 (set (pc)
-        (label_ref 53)) "zhang2.c":72:5 -1
+        (label_ref 53)) "zhang2.c":71:5 -1
      (nil)
  -> 53)
 (barrier 11 10 55)
@@ -66,18 +66,18 @@ try_optimize_cfg iteration 2
 (note 12 55 13 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
 (insn 13 12 14 5 (set (reg:SI 89)
         (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -8 [0xfffffffffffffff8])) [6 i+0 S4 A64])) "zhang2.c":73:32 -1
+                (const_int -8 [0xfffffffffffffff8])) [6 i+0 S4 A64])) "zhang2.c":72:32 -1
      (nil))
 (insn 14 13 15 5 (set (reg:SI 90)
         (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -4 [0xfffffffffffffffc])) [6 j+0 S4 A32])) "zhang2.c":73:32 -1
+                (const_int -4 [0xfffffffffffffffc])) [6 j+0 S4 A32])) "zhang2.c":72:32 -1
      (nil))
 (insn 15 14 16 5 (parallel [
             (set (reg:SI 82 [ _1 ])
                 (plus:SI (reg:SI 89)
                     (reg:SI 90)))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":73:32 -1
+        ]) "zhang2.c":72:32 -1
      (expr_list:REG_EQUAL (plus:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -8 [0xfffffffffffffff8])) [6 i+0 S4 A64])
             (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
@@ -88,77 +88,77 @@ try_optimize_cfg iteration 2
                 (plus:SI (reg:SI 82 [ _1 ])
                     (const_int 1 [0x1])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":73:36 -1
+        ]) "zhang2.c":72:36 -1
      (nil))
 (insn 17 16 18 5 (set (reg:DF 84 [ _3 ])
-        (float:DF (reg:SI 83 [ _2 ]))) "zhang2.c":73:21 -1
+        (float:DF (reg:SI 83 [ _2 ]))) "zhang2.c":72:21 -1
      (nil))
 (insn 18 17 19 5 (set (reg:SI 92)
         (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -4 [0xfffffffffffffffc])) [6 j+0 S4 A32])) "zhang2.c":73:19 -1
+                (const_int -4 [0xfffffffffffffffc])) [6 j+0 S4 A32])) "zhang2.c":72:19 -1
      (nil))
 (insn 19 18 20 5 (set (reg:DI 91)
-        (sign_extend:DI (reg:SI 92))) "zhang2.c":73:19 -1
+        (sign_extend:DI (reg:SI 92))) "zhang2.c":72:19 -1
      (nil))
 (insn 20 19 21 5 (set (reg:SI 94)
         (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -8 [0xfffffffffffffff8])) [6 i+0 S4 A64])) "zhang2.c":73:19 -1
+                (const_int -8 [0xfffffffffffffff8])) [6 i+0 S4 A64])) "zhang2.c":72:19 -1
      (nil))
 (insn 21 20 22 5 (set (reg:DI 93)
-        (sign_extend:DI (reg:SI 94))) "zhang2.c":73:19 -1
+        (sign_extend:DI (reg:SI 94))) "zhang2.c":72:19 -1
      (nil))
 (insn 22 21 23 5 (parallel [
             (set (reg:DI 95)
                 (ashift:DI (reg:DI 93)
                     (const_int 6 [0x6])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":73:19 -1
+        ]) "zhang2.c":72:19 -1
      (nil))
 (insn 23 22 24 5 (parallel [
             (set (reg:DI 96)
                 (plus:DI (reg:DI 95)
                     (reg:DI 91)))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":73:19 -1
+        ]) "zhang2.c":72:19 -1
      (nil))
 (insn 24 23 25 5 (parallel [
             (set (reg:DI 97)
                 (ashift:DI (reg:DI 96)
                     (const_int 3 [0x3])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":73:19 -1
+        ]) "zhang2.c":72:19 -1
      (nil))
 (insn 25 24 26 5 (set (reg:DI 98)
-        (symbol_ref:DI ("mat_a") [flags 0x2]  <var_decl 0x7f1dd1f9e5a0 mat_a>)) "zhang2.c":73:19 -1
+        (symbol_ref:DI ("mat_a") [flags 0x2]  <var_decl 0x70b50b39e5a0 mat_a>)) "zhang2.c":72:19 -1
      (nil))
 (insn 26 25 27 5 (set (mem:DF (plus:DI (reg:DI 97)
                 (reg:DI 98)) [1 mat_a[i_8][j_9]+0 S8 A64])
-        (reg:DF 84 [ _3 ])) "zhang2.c":73:19 -1
+        (reg:DF 84 [ _3 ])) "zhang2.c":72:19 -1
      (nil))
 (insn 27 26 28 5 (set (reg:SI 99)
         (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -8 [0xfffffffffffffff8])) [6 i+0 S4 A64])) "zhang2.c":74:32 -1
+                (const_int -8 [0xfffffffffffffff8])) [6 i+0 S4 A64])) "zhang2.c":73:32 -1
      (nil))
 (insn 28 27 29 5 (parallel [
             (set (reg:SI 85 [ _4 ])
                 (ashift:SI (reg:SI 99)
                     (const_int 1 [0x1])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":74:32 -1
+        ]) "zhang2.c":73:32 -1
      (expr_list:REG_EQUAL (ashift:SI (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -8 [0xfffffffffffffff8])) [6 i+0 S4 A64])
             (const_int 1 [0x1]))
         (nil)))
 (insn 29 28 30 5 (set (reg:SI 100)
         (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -4 [0xfffffffffffffffc])) [6 j+0 S4 A32])) "zhang2.c":74:36 -1
+                (const_int -4 [0xfffffffffffffffc])) [6 j+0 S4 A32])) "zhang2.c":73:36 -1
      (nil))
 (insn 30 29 31 5 (parallel [
             (set (reg:SI 86 [ _5 ])
                 (plus:SI (reg:SI 85 [ _4 ])
                     (reg:SI 100)))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":74:36 -1
+        ]) "zhang2.c":73:36 -1
      (expr_list:REG_EQUAL (plus:SI (reg:SI 85 [ _4 ])
             (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -4 [0xfffffffffffffffc])) [6 j+0 S4 A32]))
@@ -168,97 +168,97 @@ try_optimize_cfg iteration 2
                 (plus:SI (reg:SI 86 [ _5 ])
                     (const_int 3 [0x3])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":74:40 -1
+        ]) "zhang2.c":73:40 -1
      (nil))
 (insn 32 31 33 5 (set (reg:DF 88 [ _7 ])
-        (float:DF (reg:SI 87 [ _6 ]))) "zhang2.c":74:21 -1
+        (float:DF (reg:SI 87 [ _6 ]))) "zhang2.c":73:21 -1
      (nil))
 (insn 33 32 34 5 (set (reg:SI 102)
         (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -4 [0xfffffffffffffffc])) [6 j+0 S4 A32])) "zhang2.c":74:19 -1
+                (const_int -4 [0xfffffffffffffffc])) [6 j+0 S4 A32])) "zhang2.c":73:19 -1
      (nil))
 (insn 34 33 35 5 (set (reg:DI 101)
-        (sign_extend:DI (reg:SI 102))) "zhang2.c":74:19 -1
+        (sign_extend:DI (reg:SI 102))) "zhang2.c":73:19 -1
      (nil))
 (insn 35 34 36 5 (set (reg:SI 104)
         (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -8 [0xfffffffffffffff8])) [6 i+0 S4 A64])) "zhang2.c":74:19 -1
+                (const_int -8 [0xfffffffffffffff8])) [6 i+0 S4 A64])) "zhang2.c":73:19 -1
      (nil))
 (insn 36 35 37 5 (set (reg:DI 103)
-        (sign_extend:DI (reg:SI 104))) "zhang2.c":74:19 -1
+        (sign_extend:DI (reg:SI 104))) "zhang2.c":73:19 -1
      (nil))
 (insn 37 36 38 5 (parallel [
             (set (reg:DI 105)
                 (ashift:DI (reg:DI 103)
                     (const_int 6 [0x6])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":74:19 -1
+        ]) "zhang2.c":73:19 -1
      (nil))
 (insn 38 37 39 5 (parallel [
             (set (reg:DI 106)
                 (plus:DI (reg:DI 105)
                     (reg:DI 101)))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":74:19 -1
+        ]) "zhang2.c":73:19 -1
      (nil))
 (insn 39 38 40 5 (parallel [
             (set (reg:DI 107)
                 (ashift:DI (reg:DI 106)
                     (const_int 3 [0x3])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":74:19 -1
+        ]) "zhang2.c":73:19 -1
      (nil))
 (insn 40 39 41 5 (set (reg:DI 108)
-        (symbol_ref:DI ("mat_b") [flags 0x2]  <var_decl 0x7f1dd1f9e630 mat_b>)) "zhang2.c":74:19 -1
+        (symbol_ref:DI ("mat_b") [flags 0x2]  <var_decl 0x70b50b39e630 mat_b>)) "zhang2.c":73:19 -1
      (nil))
 (insn 41 40 42 5 (set (mem:DF (plus:DI (reg:DI 107)
                 (reg:DI 108)) [1 mat_b[i_8][j_9]+0 S8 A64])
-        (reg:DF 88 [ _7 ])) "zhang2.c":74:19 -1
+        (reg:DF 88 [ _7 ])) "zhang2.c":73:19 -1
      (nil))
 (insn 42 41 43 5 (set (reg:SI 110)
         (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -4 [0xfffffffffffffffc])) [6 j+0 S4 A32])) "zhang2.c":75:19 -1
+                (const_int -4 [0xfffffffffffffffc])) [6 j+0 S4 A32])) "zhang2.c":74:19 -1
      (nil))
 (insn 43 42 44 5 (set (reg:DI 109)
-        (sign_extend:DI (reg:SI 110))) "zhang2.c":75:19 -1
+        (sign_extend:DI (reg:SI 110))) "zhang2.c":74:19 -1
      (nil))
 (insn 44 43 45 5 (set (reg:SI 112)
         (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -8 [0xfffffffffffffff8])) [6 i+0 S4 A64])) "zhang2.c":75:19 -1
+                (const_int -8 [0xfffffffffffffff8])) [6 i+0 S4 A64])) "zhang2.c":74:19 -1
      (nil))
 (insn 45 44 46 5 (set (reg:DI 111)
-        (sign_extend:DI (reg:SI 112))) "zhang2.c":75:19 -1
+        (sign_extend:DI (reg:SI 112))) "zhang2.c":74:19 -1
      (nil))
 (insn 46 45 47 5 (parallel [
             (set (reg:DI 113)
                 (ashift:DI (reg:DI 111)
                     (const_int 6 [0x6])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":75:19 -1
+        ]) "zhang2.c":74:19 -1
      (nil))
 (insn 47 46 48 5 (parallel [
             (set (reg:DI 114)
                 (plus:DI (reg:DI 113)
                     (reg:DI 109)))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":75:19 -1
+        ]) "zhang2.c":74:19 -1
      (nil))
 (insn 48 47 49 5 (parallel [
             (set (reg:DI 115)
                 (ashift:DI (reg:DI 114)
                     (const_int 3 [0x3])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":75:19 -1
+        ]) "zhang2.c":74:19 -1
      (nil))
 (insn 49 48 50 5 (set (reg:DI 116)
-        (symbol_ref:DI ("mat_c") [flags 0x2]  <var_decl 0x7f1dd1f9e6c0 mat_c>)) "zhang2.c":75:19 -1
+        (symbol_ref:DI ("mat_c") [flags 0x2]  <var_decl 0x70b50b39e6c0 mat_c>)) "zhang2.c":74:19 -1
      (nil))
 (insn 50 49 51 5 (set (reg:DF 117)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC0") [flags 0x2]) [0  S8 A64])) "zhang2.c":75:19 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC0") [flags 0x2]) [0  S8 A64])) "zhang2.c":74:19 -1
      (nil))
 (insn 51 50 52 5 (set (mem:DF (plus:DI (reg:DI 115)
                 (reg:DI 116)) [1 mat_c[i_8][j_9]+0 S8 A64])
-        (reg:DF 117)) "zhang2.c":75:19 -1
+        (reg:DF 117)) "zhang2.c":74:19 -1
      (nil))
 (insn 52 51 53 5 (parallel [
             (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
@@ -267,20 +267,20 @@ try_optimize_cfg iteration 2
                             (const_int -4 [0xfffffffffffffffc])) [6 j+0 S4 A32])
                     (const_int 1 [0x1])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":72:32 -1
+        ]) "zhang2.c":71:32 -1
      (nil))
 (code_label 53 52 54 6 3 (nil) [1 uses])
 (note 54 53 58 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
 (insn 58 54 59 6 (set (reg:CCGC 17 flags)
         (compare:CCGC (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -4 [0xfffffffffffffffc])) [6 j+0 S4 A32])
-            (const_int 63 [0x3f]))) "zhang2.c":72:23 -1
+            (const_int 63 [0x3f]))) "zhang2.c":71:23 -1
      (nil))
 (jump_insn 59 58 60 6 (set (pc)
         (if_then_else (le (reg:CCGC 17 flags)
                 (const_int 0 [0]))
             (label_ref 55)
-            (pc))) "zhang2.c":72:23 -1
+            (pc))) "zhang2.c":71:23 -1
      (nil)
  -> 55)
 (note 60 59 61 7 [bb 7] NOTE_INSN_BASIC_BLOCK)
@@ -291,20 +291,20 @@ try_optimize_cfg iteration 2
                             (const_int -8 [0xfffffffffffffff8])) [6 i+0 S4 A64])
                     (const_int 1 [0x1])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":71:30 -1
+        ]) "zhang2.c":70:30 -1
      (nil))
 (code_label 62 61 63 8 2 (nil) [1 uses])
 (note 63 62 67 8 [bb 8] NOTE_INSN_BASIC_BLOCK)
 (insn 67 63 68 8 (set (reg:CCGC 17 flags)
         (compare:CCGC (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -8 [0xfffffffffffffff8])) [6 i+0 S4 A64])
-            (const_int 63 [0x3f]))) "zhang2.c":71:21 -1
+            (const_int 63 [0x3f]))) "zhang2.c":70:21 -1
      (nil))
 (jump_insn 68 67 69 8 (set (pc)
         (if_then_else (le (reg:CCGC 17 flags)
                 (const_int 0 [0]))
             (label_ref 64)
-            (pc))) "zhang2.c":71:21 -1
+            (pc))) "zhang2.c":70:21 -1
      (nil)
  -> 64)
 (note 69 68 0 9 [bb 9] NOTE_INSN_BASIC_BLOCK)
@@ -377,61 +377,61 @@ try_optimize_cfg iteration 2
 (note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
 (insn 2 4 3 2 (set (mem/c:DF (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -40 [0xffffffffffffffd8])) [1 seconds+0 S8 A64])
-        (reg:DF 20 xmm0 [ seconds ])) "zhang2.c":80:47 -1
+        (reg:DF 20 xmm0 [ seconds ])) "zhang2.c":79:47 -1
      (nil))
 (note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
 (insn 6 3 7 2 (set (reg:DF 87)
         (mem/c:DF (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -40 [0xffffffffffffffd8])) [1 seconds+0 S8 A64])) "zhang2.c":81:36 -1
+                (const_int -40 [0xffffffffffffffd8])) [1 seconds+0 S8 A64])) "zhang2.c":80:36 -1
      (nil))
 (insn 7 6 8 2 (set (reg:DF 88)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC1") [flags 0x2]) [0  S8 A64])) "zhang2.c":81:36 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC1") [flags 0x2]) [0  S8 A64])) "zhang2.c":80:36 -1
      (expr_list:REG_EQUAL (const_double:DF 2.5e+4 [0x0.c35p+15])
         (nil)))
 (insn 8 7 9 2 (set (reg:DF 82 [ _1 ])
         (mult:DF (reg:DF 87)
-            (reg:DF 88))) "zhang2.c":81:36 -1
+            (reg:DF 88))) "zhang2.c":80:36 -1
      (nil))
 (insn 9 8 10 2 (set (reg:DF 89)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC2") [flags 0x2]) [0  S8 A64])) "zhang2.c":81:49 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC2") [flags 0x2]) [0  S8 A64])) "zhang2.c":80:49 -1
      (expr_list:REG_EQUAL (const_double:DF 1.00000000000000005551115123125782702118158340454101562e-1 [0x0.ccccccccccccdp-3])
         (nil)))
 (insn 10 9 11 2 (set (reg:DF 83 [ _2 ])
         (mult:DF (reg:DF 82 [ _1 ])
-            (reg:DF 89))) "zhang2.c":81:49 -1
+            (reg:DF 89))) "zhang2.c":80:49 -1
      (nil))
 (insn 11 10 12 2 (set (reg:SI 90)
-        (fix:SI (reg:DF 83 [ _2 ]))) "zhang2.c":81:7 -1
+        (fix:SI (reg:DF 83 [ _2 ]))) "zhang2.c":80:7 -1
      (nil))
 (insn 12 11 15 2 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -28 [0xffffffffffffffe4])) [6 repeat_count+0 S4 A32])
-        (reg:SI 90)) "zhang2.c":81:7 -1
+        (reg:SI 90)) "zhang2.c":80:7 -1
      (nil))
 (insn 15 12 16 2 (set (reg:CCNO 17 flags)
         (compare:CCNO (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -28 [0xffffffffffffffe4])) [6 repeat_count+0 S4 A32])
-            (const_int 0 [0]))) "zhang2.c":82:6 -1
+            (const_int 0 [0]))) "zhang2.c":81:6 -1
      (nil))
 (jump_insn 16 15 17 2 (set (pc)
         (if_then_else (gt (reg:CCNO 17 flags)
                 (const_int 0 [0]))
             (label_ref 19)
-            (pc))) "zhang2.c":82:6 -1
+            (pc))) "zhang2.c":81:6 -1
      (nil)
  -> 19)
 (note 17 16 18 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
 (insn 18 17 19 4 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -28 [0xffffffffffffffe4])) [6 repeat_count+0 S4 A32])
-        (const_int 1 [0x1])) "zhang2.c":83:18 -1
+        (const_int 1 [0x1])) "zhang2.c":82:18 -1
      (nil))
 (code_label 19 18 20 5 7 (nil) [1 uses])
 (note 20 19 21 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
 (insn 21 20 22 5 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -24 [0xffffffffffffffe8])) [6 r+0 S4 A64])
-        (const_int 0 [0])) "zhang2.c":84:12 -1
+        (const_int 0 [0])) "zhang2.c":83:12 -1
      (nil))
 (jump_insn 22 21 23 5 (set (pc)
-        (label_ref 99)) "zhang2.c":84:3 -1
+        (label_ref 99)) "zhang2.c":83:3 -1
      (nil)
  -> 99)
 (barrier 23 22 101)
@@ -439,10 +439,10 @@ try_optimize_cfg iteration 2
 (note 24 101 25 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
 (insn 25 24 26 6 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -20 [0xffffffffffffffec])) [6 i+0 S4 A32])
-        (const_int 0 [0])) "zhang2.c":85:14 -1
+        (const_int 0 [0])) "zhang2.c":84:14 -1
      (nil))
 (jump_insn 26 25 27 6 (set (pc)
-        (label_ref 90)) "zhang2.c":85:5 -1
+        (label_ref 90)) "zhang2.c":84:5 -1
      (nil)
  -> 90)
 (barrier 27 26 92)
@@ -450,28 +450,28 @@ try_optimize_cfg iteration 2
 (note 28 92 29 7 [bb 7] NOTE_INSN_BASIC_BLOCK)
 (insn 29 28 30 7 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -16 [0xfffffffffffffff0])) [6 j+0 S4 A64])
-        (const_int 0 [0])) "zhang2.c":86:16 -1
+        (const_int 0 [0])) "zhang2.c":85:16 -1
      (nil))
 (jump_insn 30 29 31 7 (set (pc)
-        (label_ref 81)) "zhang2.c":86:7 -1
+        (label_ref 81)) "zhang2.c":85:7 -1
      (nil)
  -> 81)
 (barrier 31 30 83)
 (code_label 83 31 32 8 13 (nil) [1 uses])
 (note 32 83 33 8 [bb 8] NOTE_INSN_BASIC_BLOCK)
 (insn 33 32 34 8 (set (reg:DF 91)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC0") [flags 0x2]) [0  S8 A64])) "zhang2.c":87:16 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC0") [flags 0x2]) [0  S8 A64])) "zhang2.c":86:16 -1
      (nil))
 (insn 34 33 35 8 (set (mem/c:DF (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -8 [0xfffffffffffffff8])) [1 accum+0 S8 A64])
-        (reg:DF 91)) "zhang2.c":87:16 -1
+        (reg:DF 91)) "zhang2.c":86:16 -1
      (nil))
 (insn 35 34 36 8 (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -12 [0xfffffffffffffff4])) [6 k+0 S4 A32])
-        (const_int 0 [0])) "zhang2.c":88:18 -1
+        (const_int 0 [0])) "zhang2.c":87:18 -1
      (nil))
 (jump_insn 36 35 37 8 (set (pc)
-        (label_ref 62)) "zhang2.c":88:9 -1
+        (label_ref 62)) "zhang2.c":87:9 -1
      (nil)
  -> 62)
 (barrier 37 36 64)
@@ -479,103 +479,103 @@ try_optimize_cfg iteration 2
 (note 38 64 39 9 [bb 9] NOTE_INSN_BASIC_BLOCK)
 (insn 39 38 40 9 (set (reg:SI 93)
         (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -12 [0xfffffffffffffff4])) [6 k+0 S4 A32])) "zhang2.c":89:28 -1
+                (const_int -12 [0xfffffffffffffff4])) [6 k+0 S4 A32])) "zhang2.c":88:28 -1
      (nil))
 (insn 40 39 41 9 (set (reg:DI 92)
-        (sign_extend:DI (reg:SI 93))) "zhang2.c":89:28 -1
+        (sign_extend:DI (reg:SI 93))) "zhang2.c":88:28 -1
      (nil))
 (insn 41 40 42 9 (set (reg:SI 95)
         (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -20 [0xffffffffffffffec])) [6 i+0 S4 A32])) "zhang2.c":89:28 -1
+                (const_int -20 [0xffffffffffffffec])) [6 i+0 S4 A32])) "zhang2.c":88:28 -1
      (nil))
 (insn 42 41 43 9 (set (reg:DI 94)
-        (sign_extend:DI (reg:SI 95))) "zhang2.c":89:28 -1
+        (sign_extend:DI (reg:SI 95))) "zhang2.c":88:28 -1
      (nil))
 (insn 43 42 44 9 (parallel [
             (set (reg:DI 96)
                 (ashift:DI (reg:DI 94)
                     (const_int 6 [0x6])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":89:28 -1
+        ]) "zhang2.c":88:28 -1
      (nil))
 (insn 44 43 45 9 (parallel [
             (set (reg:DI 97)
                 (plus:DI (reg:DI 96)
                     (reg:DI 92)))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":89:28 -1
+        ]) "zhang2.c":88:28 -1
      (nil))
 (insn 45 44 46 9 (parallel [
             (set (reg:DI 98)
                 (ashift:DI (reg:DI 97)
                     (const_int 3 [0x3])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":89:28 -1
+        ]) "zhang2.c":88:28 -1
      (nil))
 (insn 46 45 47 9 (set (reg:DI 99)
-        (symbol_ref:DI ("mat_a") [flags 0x2]  <var_decl 0x7f1dd1f9e5a0 mat_a>)) "zhang2.c":89:28 -1
+        (symbol_ref:DI ("mat_a") [flags 0x2]  <var_decl 0x70b50b39e5a0 mat_a>)) "zhang2.c":88:28 -1
      (nil))
 (insn 47 46 48 9 (set (reg:DF 84 [ _3 ])
         (mem:DF (plus:DI (reg:DI 98)
-                (reg:DI 99)) [1 mat_a[i_8][k_11]+0 S8 A64])) "zhang2.c":89:28 -1
+                (reg:DI 99)) [1 mat_a[i_8][k_11]+0 S8 A64])) "zhang2.c":88:28 -1
      (nil))
 (insn 48 47 49 9 (set (reg:SI 101)
         (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -16 [0xfffffffffffffff0])) [6 j+0 S4 A64])) "zhang2.c":89:42 -1
+                (const_int -16 [0xfffffffffffffff0])) [6 j+0 S4 A64])) "zhang2.c":88:42 -1
      (nil))
 (insn 49 48 50 9 (set (reg:DI 100)
-        (sign_extend:DI (reg:SI 101))) "zhang2.c":89:42 -1
+        (sign_extend:DI (reg:SI 101))) "zhang2.c":88:42 -1
      (nil))
 (insn 50 49 51 9 (set (reg:SI 103)
         (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -12 [0xfffffffffffffff4])) [6 k+0 S4 A32])) "zhang2.c":89:42 -1
+                (const_int -12 [0xfffffffffffffff4])) [6 k+0 S4 A32])) "zhang2.c":88:42 -1
      (nil))
 (insn 51 50 52 9 (set (reg:DI 102)
-        (sign_extend:DI (reg:SI 103))) "zhang2.c":89:42 -1
+        (sign_extend:DI (reg:SI 103))) "zhang2.c":88:42 -1
      (nil))
 (insn 52 51 53 9 (parallel [
             (set (reg:DI 104)
                 (ashift:DI (reg:DI 102)
                     (const_int 6 [0x6])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":89:42 -1
+        ]) "zhang2.c":88:42 -1
      (nil))
 (insn 53 52 54 9 (parallel [
             (set (reg:DI 105)
                 (plus:DI (reg:DI 104)
                     (reg:DI 100)))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":89:42 -1
+        ]) "zhang2.c":88:42 -1
      (nil))
 (insn 54 53 55 9 (parallel [
             (set (reg:DI 106)
                 (ashift:DI (reg:DI 105)
                     (const_int 3 [0x3])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":89:42 -1
+        ]) "zhang2.c":88:42 -1
      (nil))
 (insn 55 54 56 9 (set (reg:DI 107)
-        (symbol_ref:DI ("mat_b") [flags 0x2]  <var_decl 0x7f1dd1f9e630 mat_b>)) "zhang2.c":89:42 -1
+        (symbol_ref:DI ("mat_b") [flags 0x2]  <var_decl 0x70b50b39e630 mat_b>)) "zhang2.c":88:42 -1
      (nil))
 (insn 56 55 57 9 (set (reg:DF 85 [ _4 ])
         (mem:DF (plus:DI (reg:DI 106)
-                (reg:DI 107)) [1 mat_b[k_11][j_9]+0 S8 A64])) "zhang2.c":89:42 -1
+                (reg:DI 107)) [1 mat_b[k_11][j_9]+0 S8 A64])) "zhang2.c":88:42 -1
      (nil))
 (insn 57 56 58 9 (set (reg:DF 86 [ _5 ])
         (mult:DF (reg:DF 84 [ _3 ])
-            (reg:DF 85 [ _4 ]))) "zhang2.c":89:32 -1
+            (reg:DF 85 [ _4 ]))) "zhang2.c":88:32 -1
      (nil))
 (insn 58 57 59 9 (set (reg:DF 109)
         (mem/c:DF (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -8 [0xfffffffffffffff8])) [1 accum+0 S8 A64])) "zhang2.c":89:17 -1
+                (const_int -8 [0xfffffffffffffff8])) [1 accum+0 S8 A64])) "zhang2.c":88:17 -1
      (nil))
 (insn 59 58 60 9 (set (reg:DF 108)
         (plus:DF (reg:DF 109)
-            (reg:DF 86 [ _5 ]))) "zhang2.c":89:17 -1
+            (reg:DF 86 [ _5 ]))) "zhang2.c":88:17 -1
      (nil))
 (insn 60 59 61 9 (set (mem/c:DF (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -8 [0xfffffffffffffff8])) [1 accum+0 S8 A64])
-        (reg:DF 108)) "zhang2.c":89:17 -1
+        (reg:DF 108)) "zhang2.c":88:17 -1
      (nil))
 (insn 61 60 62 9 (parallel [
             (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
@@ -584,68 +584,68 @@ try_optimize_cfg iteration 2
                             (const_int -12 [0xfffffffffffffff4])) [6 k+0 S4 A32])
                     (const_int 1 [0x1])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":88:36 -1
+        ]) "zhang2.c":87:36 -1
      (nil))
 (code_label 62 61 63 10 11 (nil) [1 uses])
 (note 63 62 67 10 [bb 10] NOTE_INSN_BASIC_BLOCK)
 (insn 67 63 68 10 (set (reg:CCGC 17 flags)
         (compare:CCGC (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -12 [0xfffffffffffffff4])) [6 k+0 S4 A32])
-            (const_int 63 [0x3f]))) "zhang2.c":88:27 -1
+            (const_int 63 [0x3f]))) "zhang2.c":87:27 -1
      (nil))
 (jump_insn 68 67 69 10 (set (pc)
         (if_then_else (le (reg:CCGC 17 flags)
                 (const_int 0 [0]))
             (label_ref 64)
-            (pc))) "zhang2.c":88:27 -1
+            (pc))) "zhang2.c":87:27 -1
      (nil)
  -> 64)
 (note 69 68 70 11 [bb 11] NOTE_INSN_BASIC_BLOCK)
 (insn 70 69 71 11 (set (reg:SI 111)
         (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -16 [0xfffffffffffffff0])) [6 j+0 S4 A64])) "zhang2.c":91:21 -1
+                (const_int -16 [0xfffffffffffffff0])) [6 j+0 S4 A64])) "zhang2.c":90:21 -1
      (nil))
 (insn 71 70 72 11 (set (reg:DI 110)
-        (sign_extend:DI (reg:SI 111))) "zhang2.c":91:21 -1
+        (sign_extend:DI (reg:SI 111))) "zhang2.c":90:21 -1
      (nil))
 (insn 72 71 73 11 (set (reg:SI 113)
         (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -20 [0xffffffffffffffec])) [6 i+0 S4 A32])) "zhang2.c":91:21 -1
+                (const_int -20 [0xffffffffffffffec])) [6 i+0 S4 A32])) "zhang2.c":90:21 -1
      (nil))
 (insn 73 72 74 11 (set (reg:DI 112)
-        (sign_extend:DI (reg:SI 113))) "zhang2.c":91:21 -1
+        (sign_extend:DI (reg:SI 113))) "zhang2.c":90:21 -1
      (nil))
 (insn 74 73 75 11 (parallel [
             (set (reg:DI 114)
                 (ashift:DI (reg:DI 112)
                     (const_int 6 [0x6])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":91:21 -1
+        ]) "zhang2.c":90:21 -1
      (nil))
 (insn 75 74 76 11 (parallel [
             (set (reg:DI 115)
                 (plus:DI (reg:DI 114)
                     (reg:DI 110)))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":91:21 -1
+        ]) "zhang2.c":90:21 -1
      (nil))
 (insn 76 75 77 11 (parallel [
             (set (reg:DI 116)
                 (ashift:DI (reg:DI 115)
                     (const_int 3 [0x3])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":91:21 -1
+        ]) "zhang2.c":90:21 -1
      (nil))
 (insn 77 76 78 11 (set (reg:DI 117)
-        (symbol_ref:DI ("mat_c") [flags 0x2]  <var_decl 0x7f1dd1f9e6c0 mat_c>)) "zhang2.c":91:21 -1
+        (symbol_ref:DI ("mat_c") [flags 0x2]  <var_decl 0x70b50b39e6c0 mat_c>)) "zhang2.c":90:21 -1
      (nil))
 (insn 78 77 79 11 (set (reg:DF 118)
         (mem/c:DF (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -8 [0xfffffffffffffff8])) [1 accum+0 S8 A64])) "zhang2.c":91:21 -1
+                (const_int -8 [0xfffffffffffffff8])) [1 accum+0 S8 A64])) "zhang2.c":90:21 -1
      (nil))
 (insn 79 78 80 11 (set (mem:DF (plus:DI (reg:DI 116)
                 (reg:DI 117)) [1 mat_c[i_8][j_9]+0 S8 A64])
-        (reg:DF 118)) "zhang2.c":91:21 -1
+        (reg:DF 118)) "zhang2.c":90:21 -1
      (nil))
 (insn 80 79 81 11 (parallel [
             (set (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
@@ -654,20 +654,20 @@ try_optimize_cfg iteration 2
                             (const_int -16 [0xfffffffffffffff0])) [6 j+0 S4 A64])
                     (const_int 1 [0x1])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":86:34 -1
+        ]) "zhang2.c":85:34 -1
      (nil))
 (code_label 81 80 82 12 10 (nil) [1 uses])
 (note 82 81 86 12 [bb 12] NOTE_INSN_BASIC_BLOCK)
 (insn 86 82 87 12 (set (reg:CCGC 17 flags)
         (compare:CCGC (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -16 [0xfffffffffffffff0])) [6 j+0 S4 A64])
-            (const_int 63 [0x3f]))) "zhang2.c":86:25 -1
+            (const_int 63 [0x3f]))) "zhang2.c":85:25 -1
      (nil))
 (jump_insn 87 86 88 12 (set (pc)
         (if_then_else (le (reg:CCGC 17 flags)
                 (const_int 0 [0]))
             (label_ref 83)
-            (pc))) "zhang2.c":86:25 -1
+            (pc))) "zhang2.c":85:25 -1
      (nil)
  -> 83)
 (note 88 87 89 13 [bb 13] NOTE_INSN_BASIC_BLOCK)
@@ -678,20 +678,20 @@ try_optimize_cfg iteration 2
                             (const_int -20 [0xffffffffffffffec])) [6 i+0 S4 A32])
                     (const_int 1 [0x1])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":85:32 -1
+        ]) "zhang2.c":84:32 -1
      (nil))
 (code_label 90 89 91 14 9 (nil) [1 uses])
 (note 91 90 95 14 [bb 14] NOTE_INSN_BASIC_BLOCK)
 (insn 95 91 96 14 (set (reg:CCGC 17 flags)
         (compare:CCGC (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -20 [0xffffffffffffffec])) [6 i+0 S4 A32])
-            (const_int 63 [0x3f]))) "zhang2.c":85:23 -1
+            (const_int 63 [0x3f]))) "zhang2.c":84:23 -1
      (nil))
 (jump_insn 96 95 97 14 (set (pc)
         (if_then_else (le (reg:CCGC 17 flags)
                 (const_int 0 [0]))
             (label_ref 92)
-            (pc))) "zhang2.c":85:23 -1
+            (pc))) "zhang2.c":84:23 -1
      (nil)
  -> 92)
 (note 97 96 98 15 [bb 15] NOTE_INSN_BASIC_BLOCK)
@@ -702,24 +702,24 @@ try_optimize_cfg iteration 2
                             (const_int -24 [0xffffffffffffffe8])) [6 r+0 S4 A64])
                     (const_int 1 [0x1])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":84:37 -1
+        ]) "zhang2.c":83:37 -1
      (nil))
 (code_label 99 98 100 16 8 (nil) [1 uses])
 (note 100 99 102 16 [bb 16] NOTE_INSN_BASIC_BLOCK)
 (insn 102 100 103 16 (set (reg:SI 119)
         (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -24 [0xffffffffffffffe8])) [6 r+0 S4 A64])) "zhang2.c":84:21 -1
+                (const_int -24 [0xffffffffffffffe8])) [6 r+0 S4 A64])) "zhang2.c":83:21 -1
      (nil))
 (insn 103 102 104 16 (set (reg:CCGC 17 flags)
         (compare:CCGC (reg:SI 119)
             (mem/c:SI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                    (const_int -28 [0xffffffffffffffe4])) [6 repeat_count+0 S4 A32]))) "zhang2.c":84:21 -1
+                    (const_int -28 [0xffffffffffffffe4])) [6 repeat_count+0 S4 A32]))) "zhang2.c":83:21 -1
      (nil))
 (jump_insn 104 103 105 16 (set (pc)
         (if_then_else (lt (reg:CCGC 17 flags)
                 (const_int 0 [0]))
             (label_ref 101)
-            (pc))) "zhang2.c":84:21 -1
+            (pc))) "zhang2.c":83:21 -1
      (nil)
  -> 101)
 (note 105 104 0 17 [bb 17] NOTE_INSN_BASIC_BLOCK)
@@ -757,165 +757,165 @@ try_optimize_cfg iteration 2
 (note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
 (insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -8 [0xfffffffffffffff8])) [11 arg+0 S8 A64])
-        (reg:DI 5 di [ arg ])) "zhang2.c":99:35 -1
+        (reg:DI 5 di [ arg ])) "zhang2.c":98:35 -1
      (nil))
 (note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
 (insn 6 3 7 2 (set (reg:DI 84)
-        (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x7f1dd1f9ed80 mutex_01>)) "zhang2.c":101:3 -1
+        (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x70b50b39ed80 mutex_01>)) "zhang2.c":100:3 -1
      (nil))
 (insn 7 6 8 2 (set (reg:DI 5 di)
-        (reg:DI 84)) "zhang2.c":101:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x7f1dd1f9ed80 mutex_01>)
+        (reg:DI 84)) "zhang2.c":100:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x70b50b39ed80 mutex_01>)
         (nil)))
 (call_insn 8 7 9 2 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7f1dd1fd4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":101:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x70b50b3d4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":100:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 9 8 10 2 (set (reg:DF 85)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC3") [flags 0x2]) [0  S8 A64])) "zhang2.c":102:3 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC3") [flags 0x2]) [0  S8 A64])) "zhang2.c":101:3 -1
      (expr_list:REG_EQUAL (const_double:DF 7.0e+1 [0x0.8cp+7])
         (nil)))
 (insn 10 9 11 2 (set (reg:DF 20 xmm0)
-        (reg:DF 85)) "zhang2.c":102:3 -1
+        (reg:DF 85)) "zhang2.c":101:3 -1
      (nil))
-(call_insn 11 10 12 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f1dd1c99500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
-        (const_int 0 [0])) "zhang2.c":102:3 -1
+(call_insn 11 10 12 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x70b50b099500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "zhang2.c":101:3 -1
      (nil)
     (expr_list:DF (use (reg:DF 20 xmm0))
         (nil)))
 (insn 12 11 13 2 (set (reg:DI 86)
-        (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x7f1dd1f9ed80 mutex_01>)) "zhang2.c":103:3 -1
+        (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x70b50b39ed80 mutex_01>)) "zhang2.c":102:3 -1
      (nil))
 (insn 13 12 14 2 (set (reg:DI 5 di)
-        (reg:DI 86)) "zhang2.c":103:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x7f1dd1f9ed80 mutex_01>)
+        (reg:DI 86)) "zhang2.c":102:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x70b50b39ed80 mutex_01>)
         (nil)))
 (call_insn 14 13 15 2 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7f1dd1fd4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":103:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x70b50b3d4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":102:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 15 14 16 2 (set (reg:DI 87)
-        (symbol_ref:DI ("mutex_02") [flags 0x2]  <var_decl 0x7f1dd1f9eea0 mutex_02>)) "zhang2.c":105:3 -1
+        (symbol_ref:DI ("mutex_02") [flags 0x2]  <var_decl 0x70b50b39eea0 mutex_02>)) "zhang2.c":104:3 -1
      (nil))
 (insn 16 15 17 2 (set (reg:DI 5 di)
-        (reg:DI 87)) "zhang2.c":105:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_02") [flags 0x2]  <var_decl 0x7f1dd1f9eea0 mutex_02>)
+        (reg:DI 87)) "zhang2.c":104:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_02") [flags 0x2]  <var_decl 0x70b50b39eea0 mutex_02>)
         (nil)))
 (call_insn 17 16 18 2 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7f1dd1fd4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":105:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x70b50b3d4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":104:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 18 17 19 2 (set (reg:DI 88)
-        (symbol_ref:DI ("sem_02") [flags 0x2]  <var_decl 0x7f1dd1f9eab0 sem_02>)) "zhang2.c":106:3 -1
+        (symbol_ref:DI ("sem_02") [flags 0x2]  <var_decl 0x70b50b39eab0 sem_02>)) "zhang2.c":105:3 -1
      (nil))
 (insn 19 18 20 2 (set (reg:DI 5 di)
-        (reg:DI 88)) "zhang2.c":106:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_02") [flags 0x2]  <var_decl 0x7f1dd1f9eab0 sem_02>)
+        (reg:DI 88)) "zhang2.c":105:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_02") [flags 0x2]  <var_decl 0x70b50b39eab0 sem_02>)
         (nil)))
 (call_insn 20 19 21 2 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("sem_wait") [flags 0x41]  <function_decl 0x7f1dd1c05100 sem_wait>) [0 sem_wait S1 A8])
-            (const_int 0 [0]))) "zhang2.c":106:3 -1
+        (call (mem:QI (symbol_ref:DI ("sem_wait") [flags 0x41]  <function_decl 0x70b50b005100 sem_wait>) [0 sem_wait S1 A8])
+            (const_int 0 [0]))) "zhang2.c":105:3 -1
      (nil)
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 21 20 22 2 (set (reg:DF 89)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC4") [flags 0x2]) [0  S8 A64])) "zhang2.c":107:3 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC4") [flags 0x2]) [0  S8 A64])) "zhang2.c":106:3 -1
      (expr_list:REG_EQUAL (const_double:DF 4.5e+1 [0x0.b4p+6])
         (nil)))
 (insn 22 21 23 2 (set (reg:DF 20 xmm0)
-        (reg:DF 89)) "zhang2.c":107:3 -1
+        (reg:DF 89)) "zhang2.c":106:3 -1
      (nil))
-(call_insn 23 22 24 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f1dd1c99500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
-        (const_int 0 [0])) "zhang2.c":107:3 -1
+(call_insn 23 22 24 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x70b50b099500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "zhang2.c":106:3 -1
      (nil)
     (expr_list:DF (use (reg:DF 20 xmm0))
         (nil)))
 (insn 24 23 25 2 (set (reg:DI 90)
-        (symbol_ref:DI ("mutex_02") [flags 0x2]  <var_decl 0x7f1dd1f9eea0 mutex_02>)) "zhang2.c":108:3 -1
+        (symbol_ref:DI ("mutex_02") [flags 0x2]  <var_decl 0x70b50b39eea0 mutex_02>)) "zhang2.c":107:3 -1
      (nil))
 (insn 25 24 26 2 (set (reg:DI 5 di)
-        (reg:DI 90)) "zhang2.c":108:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_02") [flags 0x2]  <var_decl 0x7f1dd1f9eea0 mutex_02>)
+        (reg:DI 90)) "zhang2.c":107:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_02") [flags 0x2]  <var_decl 0x70b50b39eea0 mutex_02>)
         (nil)))
 (call_insn 26 25 27 2 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7f1dd1fd4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":108:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x70b50b3d4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":107:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 27 26 28 2 (set (reg:DI 91)
-        (symbol_ref:DI ("mutex_03") [flags 0x2]  <var_decl 0x7f1dd1c9d000 mutex_03>)) "zhang2.c":110:3 -1
+        (symbol_ref:DI ("mutex_03") [flags 0x2]  <var_decl 0x70b50b09d000 mutex_03>)) "zhang2.c":109:3 -1
      (nil))
 (insn 28 27 29 2 (set (reg:DI 5 di)
-        (reg:DI 91)) "zhang2.c":110:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_03") [flags 0x2]  <var_decl 0x7f1dd1c9d000 mutex_03>)
+        (reg:DI 91)) "zhang2.c":109:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_03") [flags 0x2]  <var_decl 0x70b50b09d000 mutex_03>)
         (nil)))
 (call_insn 29 28 30 2 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7f1dd1fd4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":110:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x70b50b3d4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":109:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 30 29 31 2 (set (reg:DI 92)
-        (symbol_ref:DI ("sem_03") [flags 0x2]  <var_decl 0x7f1dd1f9eb40 sem_03>)) "zhang2.c":111:3 -1
+        (symbol_ref:DI ("sem_03") [flags 0x2]  <var_decl 0x70b50b39eb40 sem_03>)) "zhang2.c":110:3 -1
      (nil))
 (insn 31 30 32 2 (set (reg:DI 5 di)
-        (reg:DI 92)) "zhang2.c":111:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_03") [flags 0x2]  <var_decl 0x7f1dd1f9eb40 sem_03>)
+        (reg:DI 92)) "zhang2.c":110:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_03") [flags 0x2]  <var_decl 0x70b50b39eb40 sem_03>)
         (nil)))
 (call_insn 32 31 33 2 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("sem_wait") [flags 0x41]  <function_decl 0x7f1dd1c05100 sem_wait>) [0 sem_wait S1 A8])
-            (const_int 0 [0]))) "zhang2.c":111:3 -1
+        (call (mem:QI (symbol_ref:DI ("sem_wait") [flags 0x41]  <function_decl 0x70b50b005100 sem_wait>) [0 sem_wait S1 A8])
+            (const_int 0 [0]))) "zhang2.c":110:3 -1
      (nil)
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 33 32 34 2 (set (reg:DF 93)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC5") [flags 0x2]) [0  S8 A64])) "zhang2.c":112:3 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC5") [flags 0x2]) [0  S8 A64])) "zhang2.c":111:3 -1
      (expr_list:REG_EQUAL (const_double:DF 6.0e+1 [0x0.fp+6])
         (nil)))
 (insn 34 33 35 2 (set (reg:DF 20 xmm0)
-        (reg:DF 93)) "zhang2.c":112:3 -1
+        (reg:DF 93)) "zhang2.c":111:3 -1
      (nil))
-(call_insn 35 34 36 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f1dd1c99500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
-        (const_int 0 [0])) "zhang2.c":112:3 -1
+(call_insn 35 34 36 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x70b50b099500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "zhang2.c":111:3 -1
      (nil)
     (expr_list:DF (use (reg:DF 20 xmm0))
         (nil)))
 (insn 36 35 37 2 (set (reg:DI 94)
-        (symbol_ref:DI ("mutex_03") [flags 0x2]  <var_decl 0x7f1dd1c9d000 mutex_03>)) "zhang2.c":113:3 -1
+        (symbol_ref:DI ("mutex_03") [flags 0x2]  <var_decl 0x70b50b09d000 mutex_03>)) "zhang2.c":112:3 -1
      (nil))
 (insn 37 36 38 2 (set (reg:DI 5 di)
-        (reg:DI 94)) "zhang2.c":113:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_03") [flags 0x2]  <var_decl 0x7f1dd1c9d000 mutex_03>)
+        (reg:DI 94)) "zhang2.c":112:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_03") [flags 0x2]  <var_decl 0x70b50b09d000 mutex_03>)
         (nil)))
 (call_insn 38 37 39 2 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7f1dd1fd4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":113:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x70b50b3d4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":112:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 39 38 42 2 (set (reg/f:DI 82 [ _13 ])
-        (const_int 0 [0])) "zhang2.c":114:10 -1
+        (const_int 0 [0])) "zhang2.c":113:10 -1
      (nil))
 (insn 42 39 46 2 (set (reg/f:DI 83 [ <retval> ])
-        (reg/f:DI 82 [ _13 ])) "zhang2.c":114:10 -1
+        (reg/f:DI 82 [ _13 ])) "zhang2.c":113:10 -1
      (nil))
 (insn 46 42 47 2 (set (reg/i:DI 0 ax)
-        (reg/f:DI 83 [ <retval> ])) "zhang2.c":115:1 -1
+        (reg/f:DI 83 [ <retval> ])) "zhang2.c":114:1 -1
      (nil))
-(insn 47 46 0 2 (use (reg/i:DI 0 ax)) "zhang2.c":115:1 -1
+(insn 47 46 0 2 (use (reg/i:DI 0 ax)) "zhang2.c":114:1 -1
      (nil))
 
 ;; Function worker_c1 (worker_c1, funcdef_no=9, decl_uid=4036, cgraph_uid=10, symbol_order=40)
@@ -951,112 +951,112 @@ try_optimize_cfg iteration 2
 (note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
 (insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -8 [0xfffffffffffffff8])) [11 arg+0 S8 A64])
-        (reg:DI 5 di [ arg ])) "zhang2.c":117:35 -1
+        (reg:DI 5 di [ arg ])) "zhang2.c":116:35 -1
      (nil))
 (note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
 (insn 6 3 7 2 (set (reg:DI 84)
-        (symbol_ref:DI ("mutex_04") [flags 0x2]  <var_decl 0x7f1dd1c9d120 mutex_04>)) "zhang2.c":118:3 -1
+        (symbol_ref:DI ("mutex_04") [flags 0x2]  <var_decl 0x70b50b09d120 mutex_04>)) "zhang2.c":117:3 -1
      (nil))
 (insn 7 6 8 2 (set (reg:DI 5 di)
-        (reg:DI 84)) "zhang2.c":118:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_04") [flags 0x2]  <var_decl 0x7f1dd1c9d120 mutex_04>)
+        (reg:DI 84)) "zhang2.c":117:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_04") [flags 0x2]  <var_decl 0x70b50b09d120 mutex_04>)
         (nil)))
 (call_insn 8 7 9 2 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7f1dd1fd4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":118:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x70b50b3d4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":117:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 9 8 10 2 (set (reg:DF 85)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC6") [flags 0x2]) [0  S8 A64])) "zhang2.c":119:3 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC6") [flags 0x2]) [0  S8 A64])) "zhang2.c":118:3 -1
      (expr_list:REG_EQUAL (const_double:DF 7.5e+1 [0x0.96p+7])
         (nil)))
 (insn 10 9 11 2 (set (reg:DF 20 xmm0)
-        (reg:DF 85)) "zhang2.c":119:3 -1
+        (reg:DF 85)) "zhang2.c":118:3 -1
      (nil))
-(call_insn 11 10 12 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f1dd1c99500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
-        (const_int 0 [0])) "zhang2.c":119:3 -1
+(call_insn 11 10 12 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x70b50b099500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "zhang2.c":118:3 -1
      (nil)
     (expr_list:DF (use (reg:DF 20 xmm0))
         (nil)))
 (insn 12 11 13 2 (set (reg:DI 86)
-        (symbol_ref:DI ("mutex_04") [flags 0x2]  <var_decl 0x7f1dd1c9d120 mutex_04>)) "zhang2.c":120:3 -1
+        (symbol_ref:DI ("mutex_04") [flags 0x2]  <var_decl 0x70b50b09d120 mutex_04>)) "zhang2.c":119:3 -1
      (nil))
 (insn 13 12 14 2 (set (reg:DI 5 di)
-        (reg:DI 86)) "zhang2.c":120:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_04") [flags 0x2]  <var_decl 0x7f1dd1c9d120 mutex_04>)
+        (reg:DI 86)) "zhang2.c":119:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_04") [flags 0x2]  <var_decl 0x70b50b09d120 mutex_04>)
         (nil)))
 (call_insn 14 13 15 2 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7f1dd1fd4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":120:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x70b50b3d4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":119:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 15 14 16 2 (set (reg:DI 87)
-        (symbol_ref:DI ("mutex_05") [flags 0x2]  <var_decl 0x7f1dd1c9d240 mutex_05>)) "zhang2.c":122:3 -1
+        (symbol_ref:DI ("mutex_05") [flags 0x2]  <var_decl 0x70b50b09d240 mutex_05>)) "zhang2.c":121:3 -1
      (nil))
 (insn 16 15 17 2 (set (reg:DI 5 di)
-        (reg:DI 87)) "zhang2.c":122:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_05") [flags 0x2]  <var_decl 0x7f1dd1c9d240 mutex_05>)
+        (reg:DI 87)) "zhang2.c":121:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_05") [flags 0x2]  <var_decl 0x70b50b09d240 mutex_05>)
         (nil)))
 (call_insn 17 16 18 2 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7f1dd1fd4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":122:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x70b50b3d4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":121:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 18 17 19 2 (set (reg:DI 88)
-        (symbol_ref:DI ("sem_01") [flags 0x2]  <var_decl 0x7f1dd1f9ea20 sem_01>)) "zhang2.c":123:3 -1
+        (symbol_ref:DI ("sem_01") [flags 0x2]  <var_decl 0x70b50b39ea20 sem_01>)) "zhang2.c":122:3 -1
      (nil))
 (insn 19 18 20 2 (set (reg:DI 5 di)
-        (reg:DI 88)) "zhang2.c":123:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_01") [flags 0x2]  <var_decl 0x7f1dd1f9ea20 sem_01>)
+        (reg:DI 88)) "zhang2.c":122:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_01") [flags 0x2]  <var_decl 0x70b50b39ea20 sem_01>)
         (nil)))
 (call_insn 20 19 21 2 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("sem_wait") [flags 0x41]  <function_decl 0x7f1dd1c05100 sem_wait>) [0 sem_wait S1 A8])
-            (const_int 0 [0]))) "zhang2.c":123:3 -1
+        (call (mem:QI (symbol_ref:DI ("sem_wait") [flags 0x41]  <function_decl 0x70b50b005100 sem_wait>) [0 sem_wait S1 A8])
+            (const_int 0 [0]))) "zhang2.c":122:3 -1
      (nil)
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 21 20 22 2 (set (reg:DF 89)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC7") [flags 0x2]) [0  S8 A64])) "zhang2.c":124:3 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC7") [flags 0x2]) [0  S8 A64])) "zhang2.c":123:3 -1
      (expr_list:REG_EQUAL (const_double:DF 5.5e+1 [0x0.dcp+6])
         (nil)))
 (insn 22 21 23 2 (set (reg:DF 20 xmm0)
-        (reg:DF 89)) "zhang2.c":124:3 -1
+        (reg:DF 89)) "zhang2.c":123:3 -1
      (nil))
-(call_insn 23 22 24 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f1dd1c99500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
-        (const_int 0 [0])) "zhang2.c":124:3 -1
+(call_insn 23 22 24 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x70b50b099500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "zhang2.c":123:3 -1
      (nil)
     (expr_list:DF (use (reg:DF 20 xmm0))
         (nil)))
 (insn 24 23 25 2 (set (reg:DI 90)
-        (symbol_ref:DI ("mutex_05") [flags 0x2]  <var_decl 0x7f1dd1c9d240 mutex_05>)) "zhang2.c":125:3 -1
+        (symbol_ref:DI ("mutex_05") [flags 0x2]  <var_decl 0x70b50b09d240 mutex_05>)) "zhang2.c":124:3 -1
      (nil))
 (insn 25 24 26 2 (set (reg:DI 5 di)
-        (reg:DI 90)) "zhang2.c":125:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_05") [flags 0x2]  <var_decl 0x7f1dd1c9d240 mutex_05>)
+        (reg:DI 90)) "zhang2.c":124:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_05") [flags 0x2]  <var_decl 0x70b50b09d240 mutex_05>)
         (nil)))
 (call_insn 26 25 27 2 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7f1dd1fd4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":125:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x70b50b3d4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":124:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 27 26 30 2 (set (reg/f:DI 82 [ _9 ])
-        (const_int 0 [0])) "zhang2.c":127:10 -1
+        (const_int 0 [0])) "zhang2.c":126:10 -1
      (nil))
 (insn 30 27 34 2 (set (reg/f:DI 83 [ <retval> ])
-        (reg/f:DI 82 [ _9 ])) "zhang2.c":127:10 -1
+        (reg/f:DI 82 [ _9 ])) "zhang2.c":126:10 -1
      (nil))
 (insn 34 30 35 2 (set (reg/i:DI 0 ax)
-        (reg/f:DI 83 [ <retval> ])) "zhang2.c":128:1 -1
+        (reg/f:DI 83 [ <retval> ])) "zhang2.c":127:1 -1
      (nil))
-(insn 35 34 0 2 (use (reg/i:DI 0 ax)) "zhang2.c":128:1 -1
+(insn 35 34 0 2 (use (reg/i:DI 0 ax)) "zhang2.c":127:1 -1
      (nil))
 
 ;; Function worker_c0 (worker_c0, funcdef_no=10, decl_uid=4034, cgraph_uid=11, symbol_order=41)
@@ -1092,59 +1092,59 @@ try_optimize_cfg iteration 2
 (note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
 (insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -8 [0xfffffffffffffff8])) [11 arg+0 S8 A64])
-        (reg:DI 5 di [ arg ])) "zhang2.c":130:35 -1
+        (reg:DI 5 di [ arg ])) "zhang2.c":129:35 -1
      (nil))
 (note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
 (insn 6 3 7 2 (set (reg:DI 84)
-        (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x7f1dd1c9d480 mutex_07>)) "zhang2.c":132:3 -1
+        (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x70b50b09d480 mutex_07>)) "zhang2.c":131:3 -1
      (nil))
 (insn 7 6 8 2 (set (reg:DI 5 di)
-        (reg:DI 84)) "zhang2.c":132:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x7f1dd1c9d480 mutex_07>)
+        (reg:DI 84)) "zhang2.c":131:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x70b50b09d480 mutex_07>)
         (nil)))
 (call_insn 8 7 9 2 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7f1dd1fd4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":132:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x70b50b3d4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":131:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 9 8 10 2 (set (reg:DF 85)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC8") [flags 0x2]) [0  S8 A64])) "zhang2.c":133:3 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC8") [flags 0x2]) [0  S8 A64])) "zhang2.c":132:3 -1
      (expr_list:REG_EQUAL (const_double:DF 8.0e+1 [0x0.ap+7])
         (nil)))
 (insn 10 9 11 2 (set (reg:DF 20 xmm0)
-        (reg:DF 85)) "zhang2.c":133:3 -1
+        (reg:DF 85)) "zhang2.c":132:3 -1
      (nil))
-(call_insn 11 10 12 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f1dd1c99500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
-        (const_int 0 [0])) "zhang2.c":133:3 -1
+(call_insn 11 10 12 2 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x70b50b099500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "zhang2.c":132:3 -1
      (nil)
     (expr_list:DF (use (reg:DF 20 xmm0))
         (nil)))
 (insn 12 11 13 2 (set (reg:DI 86)
-        (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x7f1dd1c9d480 mutex_07>)) "zhang2.c":134:3 -1
+        (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x70b50b09d480 mutex_07>)) "zhang2.c":133:3 -1
      (nil))
 (insn 13 12 14 2 (set (reg:DI 5 di)
-        (reg:DI 86)) "zhang2.c":134:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x7f1dd1c9d480 mutex_07>)
+        (reg:DI 86)) "zhang2.c":133:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x70b50b09d480 mutex_07>)
         (nil)))
 (call_insn 14 13 15 2 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7f1dd1fd4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":134:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x70b50b3d4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":133:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 15 14 18 2 (set (reg/f:DI 82 [ _5 ])
-        (const_int 0 [0])) "zhang2.c":135:10 -1
+        (const_int 0 [0])) "zhang2.c":134:10 -1
      (nil))
 (insn 18 15 22 2 (set (reg/f:DI 83 [ <retval> ])
-        (reg/f:DI 82 [ _5 ])) "zhang2.c":135:10 -1
+        (reg/f:DI 82 [ _5 ])) "zhang2.c":134:10 -1
      (nil))
 (insn 22 18 23 2 (set (reg/i:DI 0 ax)
-        (reg/f:DI 83 [ <retval> ])) "zhang2.c":136:1 -1
+        (reg/f:DI 83 [ <retval> ])) "zhang2.c":135:1 -1
      (nil))
-(insn 23 22 0 2 (use (reg/i:DI 0 ax)) "zhang2.c":136:1 -1
+(insn 23 22 0 2 (use (reg/i:DI 0 ax)) "zhang2.c":135:1 -1
      (nil))
 
 ;; Function main (main, funcdef_no=11, decl_uid=4120, cgraph_uid=12, symbol_order=42)
@@ -1261,18 +1261,18 @@ try_optimize_cfg iteration 2
             (set (scratch:DI)
                 (const_int 0 [0]))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":138:16 -1
+        ]) "zhang2.c":137:16 -1
      (nil))
 (insn 6 3 7 2 (set (reg:DI 142)
-        (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x7f1dd1f9ed80 mutex_01>)) "zhang2.c":139:3 -1
+        (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x70b50b39ed80 mutex_01>)) "zhang2.c":138:3 -1
      (nil))
 (insn 7 6 8 2 (set (reg:DI 5 di)
-        (reg:DI 142)) "zhang2.c":139:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x7f1dd1f9ed80 mutex_01>)
+        (reg:DI 142)) "zhang2.c":138:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x70b50b39ed80 mutex_01>)
         (nil)))
 (call_insn 8 7 9 2 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7f1dd1fd4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":139:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x70b50b3d4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":138:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
@@ -1282,16 +1282,16 @@ try_optimize_cfg iteration 2
                 (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -144 [0xffffffffffffff70])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":142:3 -1
+        ]) "zhang2.c":141:3 -1
      (nil))
 (insn 10 9 11 2 (set (reg/f:DI 144)
-        (reg:DI 143)) "zhang2.c":142:3 -1
+        (reg:DI 143)) "zhang2.c":141:3 -1
      (nil))
 (insn 11 10 12 2 (set (reg:DI 145)
-        (const_int 0 [0])) "zhang2.c":142:3 -1
+        (const_int 0 [0])) "zhang2.c":141:3 -1
      (nil))
 (insn 12 11 13 2 (set (reg:DI 146)
-        (const_int 16 [0x10])) "zhang2.c":142:3 -1
+        (const_int 16 [0x10])) "zhang2.c":141:3 -1
      (nil))
 (insn 13 12 14 2 (parallel [
             (set (reg:DI 146)
@@ -1304,35 +1304,35 @@ try_optimize_cfg iteration 2
                 (const_int 0 [0]))
             (use (reg:DI 145))
             (use (reg:DI 146))
-        ]) "zhang2.c":142:3 -1
+        ]) "zhang2.c":141:3 -1
      (nil))
 (insn 14 13 17 2 (set (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -192 [0xffffffffffffff40])) [2 __cpu+0 S8 A128])
-        (const_int 0 [0])) "zhang2.c":143:3 -1
+        (const_int 0 [0])) "zhang2.c":142:3 -1
      (nil))
 (insn 17 14 18 2 (set (reg:CC 17 flags)
         (compare:CC (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -192 [0xffffffffffffff40])) [2 __cpu+0 S8 A128])
-            (const_int 1023 [0x3ff]))) "zhang2.c":143:3 -1
+            (const_int 1023 [0x3ff]))) "zhang2.c":142:3 -1
      (nil))
 (jump_insn 18 17 19 2 (set (pc)
         (if_then_else (gtu (reg:CC 17 flags)
                 (const_int 0 [0]))
             (label_ref 39)
-            (pc))) "zhang2.c":143:3 -1
+            (pc))) "zhang2.c":142:3 -1
      (nil)
  -> 39)
 (note 19 18 20 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
 (insn 20 19 21 4 (set (reg:DI 147)
         (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -192 [0xffffffffffffff40])) [2 __cpu+0 S8 A128])) "zhang2.c":143:3 -1
+                (const_int -192 [0xffffffffffffff40])) [2 __cpu+0 S8 A128])) "zhang2.c":142:3 -1
      (nil))
 (insn 21 20 22 4 (parallel [
             (set (reg:DI 137 [ _67 ])
                 (lshiftrt:DI (reg:DI 147)
                     (const_int 6 [0x6])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":143:3 -1
+        ]) "zhang2.c":142:3 -1
      (expr_list:REG_EQUAL (udiv:DI (reg:DI 147)
             (const_int 64 [0x40]))
         (nil)))
@@ -1341,82 +1341,82 @@ try_optimize_cfg iteration 2
                 (ashift:DI (reg:DI 137 [ _67 ])
                     (const_int 3 [0x3])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":143:3 -1
+        ]) "zhang2.c":142:3 -1
      (nil))
 (insn 23 22 24 4 (parallel [
             (set (reg:DI 148)
                 (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -144 [0xffffffffffffff70])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":143:3 -1
+        ]) "zhang2.c":142:3 -1
      (nil))
 (insn 24 23 25 4 (parallel [
             (set (reg/f:DI 83 [ _2 ])
                 (plus:DI (reg:DI 148)
                     (reg:DI 82 [ _1 ])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":143:3 -1
+        ]) "zhang2.c":142:3 -1
      (nil))
 (insn 25 24 26 4 (set (reg:DI 84 [ _3 ])
-        (mem:DI (reg/f:DI 83 [ _2 ]) [2 *_2+0 S8 A64])) "zhang2.c":143:3 -1
+        (mem:DI (reg/f:DI 83 [ _2 ]) [2 *_2+0 S8 A64])) "zhang2.c":142:3 -1
      (nil))
 (insn 26 25 27 4 (set (reg:DI 149)
         (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -192 [0xffffffffffffff40])) [2 __cpu+0 S8 A128])) "zhang2.c":143:3 -1
+                (const_int -192 [0xffffffffffffff40])) [2 __cpu+0 S8 A128])) "zhang2.c":142:3 -1
      (nil))
 (insn 27 26 28 4 (set (reg:SI 85 [ _4 ])
-        (subreg:SI (reg:DI 149) 0)) "zhang2.c":143:3 -1
+        (subreg:SI (reg:DI 149) 0)) "zhang2.c":142:3 -1
      (nil))
 (insn 28 27 29 4 (parallel [
             (set (reg:SI 86 [ _5 ])
                 (and:SI (reg:SI 85 [ _4 ])
                     (const_int 63 [0x3f])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":143:3 -1
+        ]) "zhang2.c":142:3 -1
      (nil))
 (insn 29 28 30 4 (set (reg:DI 150)
-        (const_int 1 [0x1])) "zhang2.c":143:3 -1
+        (const_int 1 [0x1])) "zhang2.c":142:3 -1
      (nil))
 (insn 30 29 31 4 (parallel [
             (set (reg:DI 87 [ _6 ])
                 (ashift:DI (reg:DI 150)
                     (subreg:QI (reg:SI 86 [ _5 ]) 0)))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":143:3 -1
+        ]) "zhang2.c":142:3 -1
      (nil))
 (insn 31 30 32 4 (parallel [
             (set (reg:DI 88 [ _7 ])
                 (ashift:DI (reg:DI 137 [ _67 ])
                     (const_int 3 [0x3])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":143:3 -1
+        ]) "zhang2.c":142:3 -1
      (nil))
 (insn 32 31 33 4 (parallel [
             (set (reg:DI 151)
                 (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -144 [0xffffffffffffff70])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":143:3 -1
+        ]) "zhang2.c":142:3 -1
      (nil))
 (insn 33 32 34 4 (parallel [
             (set (reg/f:DI 89 [ _8 ])
                 (plus:DI (reg:DI 151)
                     (reg:DI 88 [ _7 ])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":143:3 -1
+        ]) "zhang2.c":142:3 -1
      (nil))
 (insn 34 33 35 4 (parallel [
             (set (reg:DI 90 [ _9 ])
                 (ior:DI (reg:DI 84 [ _3 ])
                     (reg:DI 87 [ _6 ])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":143:3 -1
+        ]) "zhang2.c":142:3 -1
      (nil))
 (insn 35 34 36 4 (set (mem:DI (reg/f:DI 89 [ _8 ]) [2 *_8+0 S8 A64])
-        (reg:DI 90 [ _9 ])) "zhang2.c":143:3 -1
+        (reg:DI 90 [ _9 ])) "zhang2.c":142:3 -1
      (nil))
 (insn 36 35 37 4 (set (reg:DI 132 [ iftmp.0_51 ])
-        (mem:DI (reg/f:DI 89 [ _8 ]) [2 *_8+0 S8 A64])) "zhang2.c":143:3 -1
+        (mem:DI (reg/f:DI 89 [ _8 ]) [2 *_8+0 S8 A64])) "zhang2.c":142:3 -1
      (nil))
 (jump_insn 37 36 38 4 (set (pc)
         (label_ref 42)) -1
@@ -1426,37 +1426,37 @@ try_optimize_cfg iteration 2
 (code_label 39 38 40 5 23 (nil) [1 uses])
 (note 40 39 41 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
 (insn 41 40 42 5 (set (reg:DI 132 [ iftmp.0_51 ])
-        (const_int 0 [0])) "zhang2.c":143:3 -1
+        (const_int 0 [0])) "zhang2.c":142:3 -1
      (nil))
 (code_label 42 41 43 6 24 (nil) [1 uses])
 (note 43 42 44 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
 (insn 44 43 47 6 (set (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -184 [0xffffffffffffff48])) [2 __cpu+0 S8 A64])
-        (const_int 1 [0x1])) "zhang2.c":144:3 -1
+        (const_int 1 [0x1])) "zhang2.c":143:3 -1
      (nil))
 (insn 47 44 48 6 (set (reg:CC 17 flags)
         (compare:CC (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -184 [0xffffffffffffff48])) [2 __cpu+0 S8 A64])
-            (const_int 1023 [0x3ff]))) "zhang2.c":144:3 -1
+            (const_int 1023 [0x3ff]))) "zhang2.c":143:3 -1
      (nil))
 (jump_insn 48 47 49 6 (set (pc)
         (if_then_else (gtu (reg:CC 17 flags)
                 (const_int 0 [0]))
             (label_ref 69)
-            (pc))) "zhang2.c":144:3 -1
+            (pc))) "zhang2.c":143:3 -1
      (nil)
  -> 69)
 (note 49 48 50 7 [bb 7] NOTE_INSN_BASIC_BLOCK)
 (insn 50 49 51 7 (set (reg:DI 152)
         (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -184 [0xffffffffffffff48])) [2 __cpu+0 S8 A64])) "zhang2.c":144:3 -1
+                (const_int -184 [0xffffffffffffff48])) [2 __cpu+0 S8 A64])) "zhang2.c":143:3 -1
      (nil))
 (insn 51 50 52 7 (parallel [
             (set (reg:DI 138 [ _73 ])
                 (lshiftrt:DI (reg:DI 152)
                     (const_int 6 [0x6])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":144:3 -1
+        ]) "zhang2.c":143:3 -1
      (expr_list:REG_EQUAL (udiv:DI (reg:DI 152)
             (const_int 64 [0x40]))
         (nil)))
@@ -1465,82 +1465,82 @@ try_optimize_cfg iteration 2
                 (ashift:DI (reg:DI 138 [ _73 ])
                     (const_int 3 [0x3])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":144:3 -1
+        ]) "zhang2.c":143:3 -1
      (nil))
 (insn 53 52 54 7 (parallel [
             (set (reg:DI 153)
                 (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -144 [0xffffffffffffff70])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":144:3 -1
+        ]) "zhang2.c":143:3 -1
      (nil))
 (insn 54 53 55 7 (parallel [
             (set (reg/f:DI 92 [ _11 ])
                 (plus:DI (reg:DI 153)
                     (reg:DI 91 [ _10 ])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":144:3 -1
+        ]) "zhang2.c":143:3 -1
      (nil))
 (insn 55 54 56 7 (set (reg:DI 93 [ _12 ])
-        (mem:DI (reg/f:DI 92 [ _11 ]) [2 *_11+0 S8 A64])) "zhang2.c":144:3 -1
+        (mem:DI (reg/f:DI 92 [ _11 ]) [2 *_11+0 S8 A64])) "zhang2.c":143:3 -1
      (nil))
 (insn 56 55 57 7 (set (reg:DI 154)
         (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -184 [0xffffffffffffff48])) [2 __cpu+0 S8 A64])) "zhang2.c":144:3 -1
+                (const_int -184 [0xffffffffffffff48])) [2 __cpu+0 S8 A64])) "zhang2.c":143:3 -1
      (nil))
 (insn 57 56 58 7 (set (reg:SI 94 [ _13 ])
-        (subreg:SI (reg:DI 154) 0)) "zhang2.c":144:3 -1
+        (subreg:SI (reg:DI 154) 0)) "zhang2.c":143:3 -1
      (nil))
 (insn 58 57 59 7 (parallel [
             (set (reg:SI 95 [ _14 ])
                 (and:SI (reg:SI 94 [ _13 ])
                     (const_int 63 [0x3f])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":144:3 -1
+        ]) "zhang2.c":143:3 -1
      (nil))
 (insn 59 58 60 7 (set (reg:DI 155)
-        (const_int 1 [0x1])) "zhang2.c":144:3 -1
+        (const_int 1 [0x1])) "zhang2.c":143:3 -1
      (nil))
 (insn 60 59 61 7 (parallel [
             (set (reg:DI 96 [ _15 ])
                 (ashift:DI (reg:DI 155)
                     (subreg:QI (reg:SI 95 [ _14 ]) 0)))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":144:3 -1
+        ]) "zhang2.c":143:3 -1
      (nil))
 (insn 61 60 62 7 (parallel [
             (set (reg:DI 97 [ _16 ])
                 (ashift:DI (reg:DI 138 [ _73 ])
                     (const_int 3 [0x3])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":144:3 -1
+        ]) "zhang2.c":143:3 -1
      (nil))
 (insn 62 61 63 7 (parallel [
             (set (reg:DI 156)
                 (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -144 [0xffffffffffffff70])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":144:3 -1
+        ]) "zhang2.c":143:3 -1
      (nil))
 (insn 63 62 64 7 (parallel [
             (set (reg/f:DI 98 [ _17 ])
                 (plus:DI (reg:DI 156)
                     (reg:DI 97 [ _16 ])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":144:3 -1
+        ]) "zhang2.c":143:3 -1
      (nil))
 (insn 64 63 65 7 (parallel [
             (set (reg:DI 99 [ _18 ])
                 (ior:DI (reg:DI 93 [ _12 ])
                     (reg:DI 96 [ _15 ])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":144:3 -1
+        ]) "zhang2.c":143:3 -1
      (nil))
 (insn 65 64 66 7 (set (mem:DI (reg/f:DI 98 [ _17 ]) [2 *_17+0 S8 A64])
-        (reg:DI 99 [ _18 ])) "zhang2.c":144:3 -1
+        (reg:DI 99 [ _18 ])) "zhang2.c":143:3 -1
      (nil))
 (insn 66 65 67 7 (set (reg:DI 133 [ iftmp.1_52 ])
-        (mem:DI (reg/f:DI 98 [ _17 ]) [2 *_17+0 S8 A64])) "zhang2.c":144:3 -1
+        (mem:DI (reg/f:DI 98 [ _17 ]) [2 *_17+0 S8 A64])) "zhang2.c":143:3 -1
      (nil))
 (jump_insn 67 66 68 7 (set (pc)
         (label_ref 72)) -1
@@ -1550,37 +1550,37 @@ try_optimize_cfg iteration 2
 (code_label 69 68 70 8 25 (nil) [1 uses])
 (note 70 69 71 8 [bb 8] NOTE_INSN_BASIC_BLOCK)
 (insn 71 70 72 8 (set (reg:DI 133 [ iftmp.1_52 ])
-        (const_int 0 [0])) "zhang2.c":144:3 -1
+        (const_int 0 [0])) "zhang2.c":143:3 -1
      (nil))
 (code_label 72 71 73 9 26 (nil) [1 uses])
 (note 73 72 74 9 [bb 9] NOTE_INSN_BASIC_BLOCK)
 (insn 74 73 77 9 (set (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -176 [0xffffffffffffff50])) [2 __cpu+0 S8 A128])
-        (const_int 2 [0x2])) "zhang2.c":145:3 -1
+        (const_int 2 [0x2])) "zhang2.c":144:3 -1
      (nil))
 (insn 77 74 78 9 (set (reg:CC 17 flags)
         (compare:CC (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -176 [0xffffffffffffff50])) [2 __cpu+0 S8 A128])
-            (const_int 1023 [0x3ff]))) "zhang2.c":145:3 -1
+            (const_int 1023 [0x3ff]))) "zhang2.c":144:3 -1
      (nil))
 (jump_insn 78 77 79 9 (set (pc)
         (if_then_else (gtu (reg:CC 17 flags)
                 (const_int 0 [0]))
             (label_ref 99)
-            (pc))) "zhang2.c":145:3 -1
+            (pc))) "zhang2.c":144:3 -1
      (nil)
  -> 99)
 (note 79 78 80 10 [bb 10] NOTE_INSN_BASIC_BLOCK)
 (insn 80 79 81 10 (set (reg:DI 157)
         (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -176 [0xffffffffffffff50])) [2 __cpu+0 S8 A128])) "zhang2.c":145:3 -1
+                (const_int -176 [0xffffffffffffff50])) [2 __cpu+0 S8 A128])) "zhang2.c":144:3 -1
      (nil))
 (insn 81 80 82 10 (parallel [
             (set (reg:DI 139 [ _79 ])
                 (lshiftrt:DI (reg:DI 157)
                     (const_int 6 [0x6])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":145:3 -1
+        ]) "zhang2.c":144:3 -1
      (expr_list:REG_EQUAL (udiv:DI (reg:DI 157)
             (const_int 64 [0x40]))
         (nil)))
@@ -1589,82 +1589,82 @@ try_optimize_cfg iteration 2
                 (ashift:DI (reg:DI 139 [ _79 ])
                     (const_int 3 [0x3])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":145:3 -1
+        ]) "zhang2.c":144:3 -1
      (nil))
 (insn 83 82 84 10 (parallel [
             (set (reg:DI 158)
                 (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -144 [0xffffffffffffff70])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":145:3 -1
+        ]) "zhang2.c":144:3 -1
      (nil))
 (insn 84 83 85 10 (parallel [
             (set (reg/f:DI 101 [ _20 ])
                 (plus:DI (reg:DI 158)
                     (reg:DI 100 [ _19 ])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":145:3 -1
+        ]) "zhang2.c":144:3 -1
      (nil))
 (insn 85 84 86 10 (set (reg:DI 102 [ _21 ])
-        (mem:DI (reg/f:DI 101 [ _20 ]) [2 *_20+0 S8 A64])) "zhang2.c":145:3 -1
+        (mem:DI (reg/f:DI 101 [ _20 ]) [2 *_20+0 S8 A64])) "zhang2.c":144:3 -1
      (nil))
 (insn 86 85 87 10 (set (reg:DI 159)
         (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -176 [0xffffffffffffff50])) [2 __cpu+0 S8 A128])) "zhang2.c":145:3 -1
+                (const_int -176 [0xffffffffffffff50])) [2 __cpu+0 S8 A128])) "zhang2.c":144:3 -1
      (nil))
 (insn 87 86 88 10 (set (reg:SI 103 [ _22 ])
-        (subreg:SI (reg:DI 159) 0)) "zhang2.c":145:3 -1
+        (subreg:SI (reg:DI 159) 0)) "zhang2.c":144:3 -1
      (nil))
 (insn 88 87 89 10 (parallel [
             (set (reg:SI 104 [ _23 ])
                 (and:SI (reg:SI 103 [ _22 ])
                     (const_int 63 [0x3f])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":145:3 -1
+        ]) "zhang2.c":144:3 -1
      (nil))
 (insn 89 88 90 10 (set (reg:DI 160)
-        (const_int 1 [0x1])) "zhang2.c":145:3 -1
+        (const_int 1 [0x1])) "zhang2.c":144:3 -1
      (nil))
 (insn 90 89 91 10 (parallel [
             (set (reg:DI 105 [ _24 ])
                 (ashift:DI (reg:DI 160)
                     (subreg:QI (reg:SI 104 [ _23 ]) 0)))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":145:3 -1
+        ]) "zhang2.c":144:3 -1
      (nil))
 (insn 91 90 92 10 (parallel [
             (set (reg:DI 106 [ _25 ])
                 (ashift:DI (reg:DI 139 [ _79 ])
                     (const_int 3 [0x3])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":145:3 -1
+        ]) "zhang2.c":144:3 -1
      (nil))
 (insn 92 91 93 10 (parallel [
             (set (reg:DI 161)
                 (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -144 [0xffffffffffffff70])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":145:3 -1
+        ]) "zhang2.c":144:3 -1
      (nil))
 (insn 93 92 94 10 (parallel [
             (set (reg/f:DI 107 [ _26 ])
                 (plus:DI (reg:DI 161)
                     (reg:DI 106 [ _25 ])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":145:3 -1
+        ]) "zhang2.c":144:3 -1
      (nil))
 (insn 94 93 95 10 (parallel [
             (set (reg:DI 108 [ _27 ])
                 (ior:DI (reg:DI 102 [ _21 ])
                     (reg:DI 105 [ _24 ])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":145:3 -1
+        ]) "zhang2.c":144:3 -1
      (nil))
 (insn 95 94 96 10 (set (mem:DI (reg/f:DI 107 [ _26 ]) [2 *_26+0 S8 A64])
-        (reg:DI 108 [ _27 ])) "zhang2.c":145:3 -1
+        (reg:DI 108 [ _27 ])) "zhang2.c":144:3 -1
      (nil))
 (insn 96 95 97 10 (set (reg:DI 134 [ iftmp.2_53 ])
-        (mem:DI (reg/f:DI 107 [ _26 ]) [2 *_26+0 S8 A64])) "zhang2.c":145:3 -1
+        (mem:DI (reg/f:DI 107 [ _26 ]) [2 *_26+0 S8 A64])) "zhang2.c":144:3 -1
      (nil))
 (jump_insn 97 96 98 10 (set (pc)
         (label_ref 102)) -1
@@ -1674,37 +1674,37 @@ try_optimize_cfg iteration 2
 (code_label 99 98 100 11 27 (nil) [1 uses])
 (note 100 99 101 11 [bb 11] NOTE_INSN_BASIC_BLOCK)
 (insn 101 100 102 11 (set (reg:DI 134 [ iftmp.2_53 ])
-        (const_int 0 [0])) "zhang2.c":145:3 -1
+        (const_int 0 [0])) "zhang2.c":144:3 -1
      (nil))
 (code_label 102 101 103 12 28 (nil) [1 uses])
 (note 103 102 104 12 [bb 12] NOTE_INSN_BASIC_BLOCK)
 (insn 104 103 107 12 (set (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                 (const_int -168 [0xffffffffffffff58])) [2 __cpu+0 S8 A64])
-        (const_int 3 [0x3])) "zhang2.c":146:3 -1
+        (const_int 3 [0x3])) "zhang2.c":145:3 -1
      (nil))
 (insn 107 104 108 12 (set (reg:CC 17 flags)
         (compare:CC (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -168 [0xffffffffffffff58])) [2 __cpu+0 S8 A64])
-            (const_int 1023 [0x3ff]))) "zhang2.c":146:3 -1
+            (const_int 1023 [0x3ff]))) "zhang2.c":145:3 -1
      (nil))
 (jump_insn 108 107 109 12 (set (pc)
         (if_then_else (gtu (reg:CC 17 flags)
                 (const_int 0 [0]))
             (label_ref 129)
-            (pc))) "zhang2.c":146:3 -1
+            (pc))) "zhang2.c":145:3 -1
      (nil)
  -> 129)
 (note 109 108 110 13 [bb 13] NOTE_INSN_BASIC_BLOCK)
 (insn 110 109 111 13 (set (reg:DI 162)
         (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -168 [0xffffffffffffff58])) [2 __cpu+0 S8 A64])) "zhang2.c":146:3 -1
+                (const_int -168 [0xffffffffffffff58])) [2 __cpu+0 S8 A64])) "zhang2.c":145:3 -1
      (nil))
 (insn 111 110 112 13 (parallel [
             (set (reg:DI 140 [ _85 ])
                 (lshiftrt:DI (reg:DI 162)
                     (const_int 6 [0x6])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":146:3 -1
+        ]) "zhang2.c":145:3 -1
      (expr_list:REG_EQUAL (udiv:DI (reg:DI 162)
             (const_int 64 [0x40]))
         (nil)))
@@ -1713,82 +1713,82 @@ try_optimize_cfg iteration 2
                 (ashift:DI (reg:DI 140 [ _85 ])
                     (const_int 3 [0x3])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":146:3 -1
+        ]) "zhang2.c":145:3 -1
      (nil))
 (insn 113 112 114 13 (parallel [
             (set (reg:DI 163)
                 (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -144 [0xffffffffffffff70])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":146:3 -1
+        ]) "zhang2.c":145:3 -1
      (nil))
 (insn 114 113 115 13 (parallel [
             (set (reg/f:DI 110 [ _29 ])
                 (plus:DI (reg:DI 163)
                     (reg:DI 109 [ _28 ])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":146:3 -1
+        ]) "zhang2.c":145:3 -1
      (nil))
 (insn 115 114 116 13 (set (reg:DI 111 [ _30 ])
-        (mem:DI (reg/f:DI 110 [ _29 ]) [2 *_29+0 S8 A64])) "zhang2.c":146:3 -1
+        (mem:DI (reg/f:DI 110 [ _29 ]) [2 *_29+0 S8 A64])) "zhang2.c":145:3 -1
      (nil))
 (insn 116 115 117 13 (set (reg:DI 164)
         (mem/c:DI (plus:DI (reg/f:DI 77 virtual-stack-vars)
-                (const_int -168 [0xffffffffffffff58])) [2 __cpu+0 S8 A64])) "zhang2.c":146:3 -1
+                (const_int -168 [0xffffffffffffff58])) [2 __cpu+0 S8 A64])) "zhang2.c":145:3 -1
      (nil))
 (insn 117 116 118 13 (set (reg:SI 112 [ _31 ])
-        (subreg:SI (reg:DI 164) 0)) "zhang2.c":146:3 -1
+        (subreg:SI (reg:DI 164) 0)) "zhang2.c":145:3 -1
      (nil))
 (insn 118 117 119 13 (parallel [
             (set (reg:SI 113 [ _32 ])
                 (and:SI (reg:SI 112 [ _31 ])
                     (const_int 63 [0x3f])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":146:3 -1
+        ]) "zhang2.c":145:3 -1
      (nil))
 (insn 119 118 120 13 (set (reg:DI 165)
-        (const_int 1 [0x1])) "zhang2.c":146:3 -1
+        (const_int 1 [0x1])) "zhang2.c":145:3 -1
      (nil))
 (insn 120 119 121 13 (parallel [
             (set (reg:DI 114 [ _33 ])
                 (ashift:DI (reg:DI 165)
                     (subreg:QI (reg:SI 113 [ _32 ]) 0)))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":146:3 -1
+        ]) "zhang2.c":145:3 -1
      (nil))
 (insn 121 120 122 13 (parallel [
             (set (reg:DI 115 [ _34 ])
                 (ashift:DI (reg:DI 140 [ _85 ])
                     (const_int 3 [0x3])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":146:3 -1
+        ]) "zhang2.c":145:3 -1
      (nil))
 (insn 122 121 123 13 (parallel [
             (set (reg:DI 166)
                 (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -144 [0xffffffffffffff70])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":146:3 -1
+        ]) "zhang2.c":145:3 -1
      (nil))
 (insn 123 122 124 13 (parallel [
             (set (reg/f:DI 116 [ _35 ])
                 (plus:DI (reg:DI 166)
                     (reg:DI 115 [ _34 ])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":146:3 -1
+        ]) "zhang2.c":145:3 -1
      (nil))
 (insn 124 123 125 13 (parallel [
             (set (reg:DI 117 [ _36 ])
                 (ior:DI (reg:DI 111 [ _30 ])
                     (reg:DI 114 [ _33 ])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":146:3 -1
+        ]) "zhang2.c":145:3 -1
      (nil))
 (insn 125 124 126 13 (set (mem:DI (reg/f:DI 116 [ _35 ]) [2 *_35+0 S8 A64])
-        (reg:DI 117 [ _36 ])) "zhang2.c":146:3 -1
+        (reg:DI 117 [ _36 ])) "zhang2.c":145:3 -1
      (nil))
 (insn 126 125 127 13 (set (reg:DI 135 [ iftmp.3_54 ])
-        (mem:DI (reg/f:DI 116 [ _35 ]) [2 *_35+0 S8 A64])) "zhang2.c":146:3 -1
+        (mem:DI (reg/f:DI 116 [ _35 ]) [2 *_35+0 S8 A64])) "zhang2.c":145:3 -1
      (nil))
 (jump_insn 127 126 128 13 (set (pc)
         (label_ref 132)) -1
@@ -1798,7 +1798,7 @@ try_optimize_cfg iteration 2
 (code_label 129 128 130 14 29 (nil) [1 uses])
 (note 130 129 131 14 [bb 14] NOTE_INSN_BASIC_BLOCK)
 (insn 131 130 132 14 (set (reg:DI 135 [ iftmp.3_54 ])
-        (const_int 0 [0])) "zhang2.c":146:3 -1
+        (const_int 0 [0])) "zhang2.c":145:3 -1
      (nil))
 (code_label 132 131 133 15 30 (nil) [1 uses])
 (note 133 132 134 15 [bb 15] NOTE_INSN_BASIC_BLOCK)
@@ -1807,20 +1807,20 @@ try_optimize_cfg iteration 2
                 (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -144 [0xffffffffffffff70])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":147:7 -1
+        ]) "zhang2.c":146:7 -1
      (nil))
 (insn 135 134 136 15 (set (reg:DI 1 dx)
-        (reg:DI 167)) "zhang2.c":147:7 -1
+        (reg:DI 167)) "zhang2.c":146:7 -1
      (nil))
 (insn 136 135 137 15 (set (reg:DI 4 si)
-        (const_int 128 [0x80])) "zhang2.c":147:7 -1
+        (const_int 128 [0x80])) "zhang2.c":146:7 -1
      (nil))
 (insn 137 136 138 15 (set (reg:SI 5 di)
-        (const_int 0 [0])) "zhang2.c":147:7 -1
+        (const_int 0 [0])) "zhang2.c":146:7 -1
      (nil))
 (call_insn 138 137 139 15 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("sched_setaffinity") [flags 0x41]  <function_decl 0x7f1dd1f8b500 sched_setaffinity>) [0 sched_setaffinity S1 A8])
-            (const_int 0 [0]))) "zhang2.c":147:7 -1
+        (call (mem:QI (symbol_ref:DI ("sched_setaffinity") [flags 0x41]  <function_decl 0x70b50b38b500 sched_setaffinity>) [0 sched_setaffinity S1 A8])
+            (const_int 0 [0]))) "zhang2.c":146:7 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:SI (use (reg:SI 5 di))
@@ -1828,67 +1828,67 @@ try_optimize_cfg iteration 2
             (expr_list:DI (use (reg:DI 1 dx))
                 (nil)))))
 (insn 139 138 140 15 (set (reg:SI 118 [ _37 ])
-        (reg:SI 0 ax)) "zhang2.c":147:7 -1
+        (reg:SI 0 ax)) "zhang2.c":146:7 -1
      (nil))
 (insn 140 139 141 15 (set (reg:CCZ 17 flags)
         (compare:CCZ (reg:SI 118 [ _37 ])
-            (const_int 0 [0]))) "zhang2.c":147:6 -1
+            (const_int 0 [0]))) "zhang2.c":146:6 -1
      (nil))
 (jump_insn 141 140 142 15 (set (pc)
         (if_then_else (eq (reg:CCZ 17 flags)
                 (const_int 0 [0]))
             (label_ref 156)
-            (pc))) "zhang2.c":147:6 -1
+            (pc))) "zhang2.c":146:6 -1
      (nil)
  -> 156)
 (note 142 141 143 16 [bb 16] NOTE_INSN_BASIC_BLOCK)
 (call_insn/u 143 142 144 16 (set (reg:DI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("__errno_location") [flags 0x41]  <function_decl 0x7f1dd1f69800 __errno_location>) [0 __errno_location S1 A8])
-            (const_int 0 [0]))) "zhang2.c":148:64 -1
+        (call (mem:QI (symbol_ref:DI ("__errno_location") [flags 0x41]  <function_decl 0x70b50b369800 __errno_location>) [0 __errno_location S1 A8])
+            (const_int 0 [0]))) "zhang2.c":147:64 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (nil))
 (insn 144 143 145 16 (set (reg/f:DI 119 [ _38 ])
-        (reg:DI 0 ax)) "zhang2.c":148:64 -1
+        (reg:DI 0 ax)) "zhang2.c":147:64 -1
      (nil))
 (insn 145 144 146 16 (set (reg:SI 120 [ _39 ])
-        (mem:SI (reg/f:DI 119 [ _38 ]) [6 *_38+0 S4 A32])) "zhang2.c":148:5 -1
+        (mem:SI (reg/f:DI 119 [ _38 ]) [6 *_38+0 S4 A32])) "zhang2.c":147:5 -1
      (nil))
 (insn 146 145 147 16 (set (reg:SI 5 di)
-        (reg:SI 120 [ _39 ])) "zhang2.c":148:5 -1
+        (reg:SI 120 [ _39 ])) "zhang2.c":147:5 -1
      (nil))
 (call_insn 147 146 148 16 (set (reg:DI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("strerror") [flags 0x41]  <function_decl 0x7f1dd1c85600 strerror>) [0 strerror S1 A8])
-            (const_int 0 [0]))) "zhang2.c":148:5 -1
+        (call (mem:QI (symbol_ref:DI ("strerror") [flags 0x41]  <function_decl 0x70b50b085600 strerror>) [0 strerror S1 A8])
+            (const_int 0 [0]))) "zhang2.c":147:5 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:SI (use (reg:SI 5 di))
         (nil)))
 (insn 148 147 149 16 (set (reg/f:DI 121 [ _40 ])
-        (reg:DI 0 ax)) "zhang2.c":148:5 -1
+        (reg:DI 0 ax)) "zhang2.c":147:5 -1
      (nil))
 (insn 149 148 150 16 (set (reg/f:DI 122 [ stderr.4_41 ])
-        (mem/f/c:DI (symbol_ref:DI ("stderr") [flags 0x40]  <var_decl 0x7f1dd1f9e2d0 stderr>) [13 stderr+0 S8 A64])) "zhang2.c":148:5 -1
+        (mem/f/c:DI (symbol_ref:DI ("stderr") [flags 0x40]  <var_decl 0x70b50b39e2d0 stderr>) [13 stderr+0 S8 A64])) "zhang2.c":147:5 -1
      (nil))
 (insn 150 149 151 16 (set (reg:DI 1 dx)
-        (reg/f:DI 121 [ _40 ])) "zhang2.c":148:5 -1
+        (reg/f:DI 121 [ _40 ])) "zhang2.c":147:5 -1
      (nil))
 (insn 151 150 152 16 (set (reg:DI 168)
-        (symbol_ref/f:DI ("*.LC9") [flags 0x2]  <var_decl 0x7f1dd1ceb510 *.LC9>)) "zhang2.c":148:5 -1
+        (symbol_ref/f:DI ("*.LC9") [flags 0x2]  <var_decl 0x70b50b0eb510 *.LC9>)) "zhang2.c":147:5 -1
      (nil))
 (insn 152 151 153 16 (set (reg:DI 4 si)
-        (reg:DI 168)) "zhang2.c":148:5 -1
-     (expr_list:REG_EQUAL (symbol_ref/f:DI ("*.LC9") [flags 0x2]  <var_decl 0x7f1dd1ceb510 *.LC9>)
+        (reg:DI 168)) "zhang2.c":147:5 -1
+     (expr_list:REG_EQUAL (symbol_ref/f:DI ("*.LC9") [flags 0x2]  <var_decl 0x70b50b0eb510 *.LC9>)
         (nil)))
 (insn 153 152 154 16 (set (reg:DI 5 di)
-        (reg/f:DI 122 [ stderr.4_41 ])) "zhang2.c":148:5 -1
+        (reg/f:DI 122 [ stderr.4_41 ])) "zhang2.c":147:5 -1
      (nil))
 (insn 154 153 155 16 (set (reg:QI 0 ax)
-        (const_int 0 [0])) "zhang2.c":148:5 -1
+        (const_int 0 [0])) "zhang2.c":147:5 -1
      (nil))
 (call_insn 155 154 156 16 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("fprintf") [flags 0x41]  <function_decl 0x7f1dd1ebab00 fprintf>) [0 __builtin_fprintf S1 A8])
-            (const_int 0 [0]))) "zhang2.c":148:5 -1
+        (call (mem:QI (symbol_ref:DI ("fprintf") [flags 0x41]  <function_decl 0x70b50b2bab00 fprintf>) [0 __builtin_fprintf S1 A8])
+            (const_int 0 [0]))) "zhang2.c":147:5 -1
      (nil)
     (expr_list (use (reg:QI 0 ax))
         (expr_list:DI (use (reg:DI 5 di))
@@ -1897,23 +1897,23 @@ try_optimize_cfg iteration 2
                     (nil))))))
 (code_label 156 155 157 17 31 (nil) [1 uses])
 (note 157 156 158 17 [bb 17] NOTE_INSN_BASIC_BLOCK)
-(call_insn 158 157 159 17 (call (mem:QI (symbol_ref:DI ("init_matrices") [flags 0x3]  <function_decl 0x7f1dd1c99300 init_matrices>) [0 init_matrices S1 A8])
-        (const_int 0 [0])) "zhang2.c":151:3 -1
+(call_insn 158 157 159 17 (call (mem:QI (symbol_ref:DI ("init_matrices") [flags 0x3]  <function_decl 0x70b50b099300 init_matrices>) [0 init_matrices S1 A8])
+        (const_int 0 [0])) "zhang2.c":150:3 -1
      (nil)
     (nil))
 (insn 159 158 160 17 (set (reg:DI 169)
-        (symbol_ref:DI ("prog_start_ts") [flags 0x2]  <var_decl 0x7f1dd1c9f510 prog_start_ts>)) "zhang2.c":152:3 -1
+        (symbol_ref:DI ("prog_start_ts") [flags 0x2]  <var_decl 0x70b50b09f510 prog_start_ts>)) "zhang2.c":151:3 -1
      (nil))
 (insn 160 159 161 17 (set (reg:DI 4 si)
-        (reg:DI 169)) "zhang2.c":152:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("prog_start_ts") [flags 0x2]  <var_decl 0x7f1dd1c9f510 prog_start_ts>)
+        (reg:DI 169)) "zhang2.c":151:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("prog_start_ts") [flags 0x2]  <var_decl 0x70b50b09f510 prog_start_ts>)
         (nil)))
 (insn 161 160 162 17 (set (reg:SI 5 di)
-        (const_int 1 [0x1])) "zhang2.c":152:3 -1
+        (const_int 1 [0x1])) "zhang2.c":151:3 -1
      (nil))
 (call_insn 162 161 163 17 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("clock_gettime") [flags 0x41]  <function_decl 0x7f1dd1f9be00 clock_gettime>) [0 clock_gettime S1 A8])
-            (const_int 0 [0]))) "zhang2.c":152:3 -1
+        (call (mem:QI (symbol_ref:DI ("clock_gettime") [flags 0x41]  <function_decl 0x70b50b39be00 clock_gettime>) [0 clock_gettime S1 A8])
+            (const_int 0 [0]))) "zhang2.c":151:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:SI (use (reg:SI 5 di))
@@ -1924,38 +1924,38 @@ try_optimize_cfg iteration 2
                 (plus:DI (reg/f:DI 77 virtual-stack-vars)
                     (const_int -160 [0xffffffffffffff60])))
             (clobber (reg:CC 17 flags))
-        ]) "zhang2.c":153:3 -1
+        ]) "zhang2.c":152:3 -1
      (nil))
 (insn 164 163 165 17 (set (reg:DI 4 si)
-        (reg:DI 170)) "zhang2.c":153:3 -1
+        (reg:DI 170)) "zhang2.c":152:3 -1
      (nil))
 (insn 165 164 166 17 (set (reg:SI 5 di)
-        (const_int 1 [0x1])) "zhang2.c":153:3 -1
+        (const_int 1 [0x1])) "zhang2.c":152:3 -1
      (nil))
 (call_insn 166 165 167 17 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("clock_gettime") [flags 0x41]  <function_decl 0x7f1dd1f9be00 clock_gettime>) [0 clock_gettime S1 A8])
-            (const_int 0 [0]))) "zhang2.c":153:3 -1
+        (call (mem:QI (symbol_ref:DI ("clock_gettime") [flags 0x41]  <function_decl 0x70b50b39be00 clock_gettime>) [0 clock_gettime S1 A8])
+            (const_int 0 [0]))) "zhang2.c":152:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:SI (use (reg:SI 5 di))
         (expr_list:DI (use (reg:DI 4 si))
             (nil))))
 (insn 167 166 168 17 (set (reg:SI 1 dx)
-        (const_int 0 [0])) "zhang2.c":155:7 -1
+        (const_int 0 [0])) "zhang2.c":154:7 -1
      (nil))
 (insn 168 167 169 17 (set (reg:SI 4 si)
-        (const_int 0 [0])) "zhang2.c":155:7 -1
+        (const_int 0 [0])) "zhang2.c":154:7 -1
      (nil))
 (insn 169 168 170 17 (set (reg:DI 171)
-        (symbol_ref:DI ("sem_01") [flags 0x2]  <var_decl 0x7f1dd1f9ea20 sem_01>)) "zhang2.c":155:7 -1
+        (symbol_ref:DI ("sem_01") [flags 0x2]  <var_decl 0x70b50b39ea20 sem_01>)) "zhang2.c":154:7 -1
      (nil))
 (insn 170 169 171 17 (set (reg:DI 5 di)
-        (reg:DI 171)) "zhang2.c":155:7 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_01") [flags 0x2]  <var_decl 0x7f1dd1f9ea20 sem_01>)
+        (reg:DI 171)) "zhang2.c":154:7 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_01") [flags 0x2]  <var_decl 0x70b50b39ea20 sem_01>)
         (nil)))
 (call_insn 171 170 172 17 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("sem_init") [flags 0x41]  <function_decl 0x7f1dd1ffbc00 sem_init>) [0 sem_init S1 A8])
-            (const_int 0 [0]))) "zhang2.c":155:7 -1
+        (call (mem:QI (symbol_ref:DI ("sem_init") [flags 0x41]  <function_decl 0x70b50b3fbc00 sem_init>) [0 sem_init S1 A8])
+            (const_int 0 [0]))) "zhang2.c":154:7 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
@@ -1963,46 +1963,46 @@ try_optimize_cfg iteration 2
             (expr_list:SI (use (reg:SI 1 dx))
                 (nil)))))
 (insn 172 171 173 17 (set (reg:SI 123 [ _42 ])
-        (reg:SI 0 ax)) "zhang2.c":155:7 -1
+        (reg:SI 0 ax)) "zhang2.c":154:7 -1
      (nil))
 (insn 173 172 174 17 (set (reg:CCZ 17 flags)
         (compare:CCZ (reg:SI 123 [ _42 ])
-            (const_int 0 [0]))) "zhang2.c":155:6 -1
+            (const_int 0 [0]))) "zhang2.c":154:6 -1
      (nil))
 (jump_insn 174 173 175 17 (set (pc)
         (if_then_else (eq (reg:CCZ 17 flags)
                 (const_int 0 [0]))
             (label_ref 179)
-            (pc))) "zhang2.c":155:6 -1
+            (pc))) "zhang2.c":154:6 -1
      (nil)
  -> 179)
 (note 175 174 176 18 [bb 18] NOTE_INSN_BASIC_BLOCK)
 (insn 176 175 177 18 (set (reg:SI 136 [ _55 ])
-        (const_int 1 [0x1])) "zhang2.c":156:12 -1
+        (const_int 1 [0x1])) "zhang2.c":155:12 -1
      (nil))
 (jump_insn 177 176 178 18 (set (pc)
-        (label_ref:DI 365)) "zhang2.c":156:12 807 {jump}
+        (label_ref:DI 365)) "zhang2.c":155:12 807 {jump}
      (nil)
  -> 365)
 (barrier 178 177 179)
 (code_label 179 178 180 19 32 (nil) [1 uses])
 (note 180 179 181 19 [bb 19] NOTE_INSN_BASIC_BLOCK)
 (insn 181 180 182 19 (set (reg:SI 1 dx)
-        (const_int 0 [0])) "zhang2.c":157:7 -1
+        (const_int 0 [0])) "zhang2.c":156:7 -1
      (nil))
 (insn 182 181 183 19 (set (reg:SI 4 si)
-        (const_int 0 [0])) "zhang2.c":157:7 -1
+        (const_int 0 [0])) "zhang2.c":156:7 -1
      (nil))
 (insn 183 182 184 19 (set (reg:DI 172)
-        (symbol_ref:DI ("sem_02") [flags 0x2]  <var_decl 0x7f1dd1f9eab0 sem_02>)) "zhang2.c":157:7 -1
+        (symbol_ref:DI ("sem_02") [flags 0x2]  <var_decl 0x70b50b39eab0 sem_02>)) "zhang2.c":156:7 -1
      (nil))
 (insn 184 183 185 19 (set (reg:DI 5 di)
-        (reg:DI 172)) "zhang2.c":157:7 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_02") [flags 0x2]  <var_decl 0x7f1dd1f9eab0 sem_02>)
+        (reg:DI 172)) "zhang2.c":156:7 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_02") [flags 0x2]  <var_decl 0x70b50b39eab0 sem_02>)
         (nil)))
 (call_insn 185 184 186 19 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("sem_init") [flags 0x41]  <function_decl 0x7f1dd1ffbc00 sem_init>) [0 sem_init S1 A8])
-            (const_int 0 [0]))) "zhang2.c":157:7 -1
+        (call (mem:QI (symbol_ref:DI ("sem_init") [flags 0x41]  <function_decl 0x70b50b3fbc00 sem_init>) [0 sem_init S1 A8])
+            (const_int 0 [0]))) "zhang2.c":156:7 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
@@ -2010,46 +2010,46 @@ try_optimize_cfg iteration 2
             (expr_list:SI (use (reg:SI 1 dx))
                 (nil)))))
 (insn 186 185 187 19 (set (reg:SI 124 [ _43 ])
-        (reg:SI 0 ax)) "zhang2.c":157:7 -1
+        (reg:SI 0 ax)) "zhang2.c":156:7 -1
      (nil))
 (insn 187 186 188 19 (set (reg:CCZ 17 flags)
         (compare:CCZ (reg:SI 124 [ _43 ])
-            (const_int 0 [0]))) "zhang2.c":157:6 -1
+            (const_int 0 [0]))) "zhang2.c":156:6 -1
      (nil))
 (jump_insn 188 187 189 19 (set (pc)
         (if_then_else (eq (reg:CCZ 17 flags)
                 (const_int 0 [0]))
             (label_ref 193)
-            (pc))) "zhang2.c":157:6 -1
+            (pc))) "zhang2.c":156:6 -1
      (nil)
  -> 193)
 (note 189 188 190 20 [bb 20] NOTE_INSN_BASIC_BLOCK)
 (insn 190 189 191 20 (set (reg:SI 136 [ _55 ])
-        (const_int 1 [0x1])) "zhang2.c":158:12 -1
+        (const_int 1 [0x1])) "zhang2.c":157:12 -1
      (nil))
 (jump_insn 191 190 192 20 (set (pc)
-        (label_ref:DI 365)) "zhang2.c":158:12 807 {jump}
+        (label_ref:DI 365)) "zhang2.c":157:12 807 {jump}
      (nil)
  -> 365)
 (barrier 192 191 193)
 (code_label 193 192 194 21 34 (nil) [1 uses])
 (note 194 193 195 21 [bb 21] NOTE_INSN_BASIC_BLOCK)
 (insn 195 194 196 21 (set (reg:SI 1 dx)
-        (const_int 0 [0])) "zhang2.c":159:7 -1
+        (const_int 0 [0])) "zhang2.c":158:7 -1
      (nil))
 (insn 196 195 197 21 (set (reg:SI 4 si)
-        (const_int 0 [0])) "zhang2.c":159:7 -1
+        (const_int 0 [0])) "zhang2.c":158:7 -1
      (nil))
 (insn 197 196 198 21 (set (reg:DI 173)
-        (symbol_ref:DI ("sem_03") [flags 0x2]  <var_decl 0x7f1dd1f9eb40 sem_03>)) "zhang2.c":159:7 -1
+        (symbol_ref:DI ("sem_03") [flags 0x2]  <var_decl 0x70b50b39eb40 sem_03>)) "zhang2.c":158:7 -1
      (nil))
 (insn 198 197 199 21 (set (reg:DI 5 di)
-        (reg:DI 173)) "zhang2.c":159:7 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_03") [flags 0x2]  <var_decl 0x7f1dd1f9eb40 sem_03>)
+        (reg:DI 173)) "zhang2.c":158:7 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_03") [flags 0x2]  <var_decl 0x70b50b39eb40 sem_03>)
         (nil)))
 (call_insn 199 198 200 21 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("sem_init") [flags 0x41]  <function_decl 0x7f1dd1ffbc00 sem_init>) [0 sem_init S1 A8])
-            (const_int 0 [0]))) "zhang2.c":159:7 -1
+        (call (mem:QI (symbol_ref:DI ("sem_init") [flags 0x41]  <function_decl 0x70b50b3fbc00 sem_init>) [0 sem_init S1 A8])
+            (const_int 0 [0]))) "zhang2.c":158:7 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
@@ -2057,46 +2057,46 @@ try_optimize_cfg iteration 2
             (expr_list:SI (use (reg:SI 1 dx))
                 (nil)))))
 (insn 200 199 201 21 (set (reg:SI 125 [ _44 ])
-        (reg:SI 0 ax)) "zhang2.c":159:7 -1
+        (reg:SI 0 ax)) "zhang2.c":158:7 -1
      (nil))
 (insn 201 200 202 21 (set (reg:CCZ 17 flags)
         (compare:CCZ (reg:SI 125 [ _44 ])
-            (const_int 0 [0]))) "zhang2.c":159:6 -1
+            (const_int 0 [0]))) "zhang2.c":158:6 -1
      (nil))
 (jump_insn 202 201 203 21 (set (pc)
         (if_then_else (eq (reg:CCZ 17 flags)
                 (const_int 0 [0]))
             (label_ref 207)
-            (pc))) "zhang2.c":159:6 -1
+            (pc))) "zhang2.c":158:6 -1
      (nil)
  -> 207)
 (note 203 202 204 22 [bb 22] NOTE_INSN_BASIC_BLOCK)
 (insn 204 203 205 22 (set (reg:SI 136 [ _55 ])
-        (const_int 1 [0x1])) "zhang2.c":160:12 -1
+        (const_int 1 [0x1])) "zhang2.c":159:12 -1
      (nil))
 (jump_insn 205 204 206 22 (set (pc)
-        (label_ref:DI 365)) "zhang2.c":160:12 807 {jump}
+        (label_ref:DI 365)) "zhang2.c":159:12 807 {jump}
      (nil)
  -> 365)
 (barrier 206 205 207)
 (code_label 207 206 208 23 35 (nil) [1 uses])
 (note 208 207 209 23 [bb 23] NOTE_INSN_BASIC_BLOCK)
 (insn 209 208 210 23 (set (reg:SI 1 dx)
-        (const_int 0 [0])) "zhang2.c":161:7 -1
+        (const_int 0 [0])) "zhang2.c":160:7 -1
      (nil))
 (insn 210 209 211 23 (set (reg:SI 4 si)
-        (const_int 0 [0])) "zhang2.c":161:7 -1
+        (const_int 0 [0])) "zhang2.c":160:7 -1
      (nil))
 (insn 211 210 212 23 (set (reg:DI 174)
-        (symbol_ref:DI ("sem_04") [flags 0x2]  <var_decl 0x7f1dd1f9ebd0 sem_04>)) "zhang2.c":161:7 -1
+        (symbol_ref:DI ("sem_04") [flags 0x2]  <var_decl 0x70b50b39ebd0 sem_04>)) "zhang2.c":160:7 -1
      (nil))
 (insn 212 211 213 23 (set (reg:DI 5 di)
-        (reg:DI 174)) "zhang2.c":161:7 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_04") [flags 0x2]  <var_decl 0x7f1dd1f9ebd0 sem_04>)
+        (reg:DI 174)) "zhang2.c":160:7 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_04") [flags 0x2]  <var_decl 0x70b50b39ebd0 sem_04>)
         (nil)))
 (call_insn 213 212 214 23 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("sem_init") [flags 0x41]  <function_decl 0x7f1dd1ffbc00 sem_init>) [0 sem_init S1 A8])
-            (const_int 0 [0]))) "zhang2.c":161:7 -1
+        (call (mem:QI (symbol_ref:DI ("sem_init") [flags 0x41]  <function_decl 0x70b50b3fbc00 sem_init>) [0 sem_init S1 A8])
+            (const_int 0 [0]))) "zhang2.c":160:7 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
@@ -2104,46 +2104,46 @@ try_optimize_cfg iteration 2
             (expr_list:SI (use (reg:SI 1 dx))
                 (nil)))))
 (insn 214 213 215 23 (set (reg:SI 126 [ _45 ])
-        (reg:SI 0 ax)) "zhang2.c":161:7 -1
+        (reg:SI 0 ax)) "zhang2.c":160:7 -1
      (nil))
 (insn 215 214 216 23 (set (reg:CCZ 17 flags)
         (compare:CCZ (reg:SI 126 [ _45 ])
-            (const_int 0 [0]))) "zhang2.c":161:6 -1
+            (const_int 0 [0]))) "zhang2.c":160:6 -1
      (nil))
 (jump_insn 216 215 217 23 (set (pc)
         (if_then_else (eq (reg:CCZ 17 flags)
                 (const_int 0 [0]))
             (label_ref 221)
-            (pc))) "zhang2.c":161:6 -1
+            (pc))) "zhang2.c":160:6 -1
      (nil)
  -> 221)
 (note 217 216 218 24 [bb 24] NOTE_INSN_BASIC_BLOCK)
 (insn 218 217 219 24 (set (reg:SI 136 [ _55 ])
-        (const_int 1 [0x1])) "zhang2.c":162:12 -1
+        (const_int 1 [0x1])) "zhang2.c":161:12 -1
      (nil))
 (jump_insn 219 218 220 24 (set (pc)
-        (label_ref:DI 365)) "zhang2.c":162:12 807 {jump}
+        (label_ref:DI 365)) "zhang2.c":161:12 807 {jump}
      (nil)
  -> 365)
 (barrier 220 219 221)
 (code_label 221 220 222 25 36 (nil) [1 uses])
 (note 222 221 223 25 [bb 25] NOTE_INSN_BASIC_BLOCK)
 (insn 223 222 224 25 (set (reg:SI 1 dx)
-        (const_int 0 [0])) "zhang2.c":163:7 -1
+        (const_int 0 [0])) "zhang2.c":162:7 -1
      (nil))
 (insn 224 223 225 25 (set (reg:SI 4 si)
-        (const_int 0 [0])) "zhang2.c":163:7 -1
+        (const_int 0 [0])) "zhang2.c":162:7 -1
      (nil))
 (insn 225 224 226 25 (set (reg:DI 175)
-        (symbol_ref:DI ("sem_05") [flags 0x2]  <var_decl 0x7f1dd1f9ec60 sem_05>)) "zhang2.c":163:7 -1
+        (symbol_ref:DI ("sem_05") [flags 0x2]  <var_decl 0x70b50b39ec60 sem_05>)) "zhang2.c":162:7 -1
      (nil))
 (insn 226 225 227 25 (set (reg:DI 5 di)
-        (reg:DI 175)) "zhang2.c":163:7 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_05") [flags 0x2]  <var_decl 0x7f1dd1f9ec60 sem_05>)
+        (reg:DI 175)) "zhang2.c":162:7 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_05") [flags 0x2]  <var_decl 0x70b50b39ec60 sem_05>)
         (nil)))
 (call_insn 227 226 228 25 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("sem_init") [flags 0x41]  <function_decl 0x7f1dd1ffbc00 sem_init>) [0 sem_init S1 A8])
-            (const_int 0 [0]))) "zhang2.c":163:7 -1
+        (call (mem:QI (symbol_ref:DI ("sem_init") [flags 0x41]  <function_decl 0x70b50b3fbc00 sem_init>) [0 sem_init S1 A8])
+            (const_int 0 [0]))) "zhang2.c":162:7 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
@@ -2151,46 +2151,46 @@ try_optimize_cfg iteration 2
             (expr_list:SI (use (reg:SI 1 dx))
                 (nil)))))
 (insn 228 227 229 25 (set (reg:SI 127 [ _46 ])
-        (reg:SI 0 ax)) "zhang2.c":163:7 -1
+        (reg:SI 0 ax)) "zhang2.c":162:7 -1
      (nil))
 (insn 229 228 230 25 (set (reg:CCZ 17 flags)
         (compare:CCZ (reg:SI 127 [ _46 ])
-            (const_int 0 [0]))) "zhang2.c":163:6 -1
+            (const_int 0 [0]))) "zhang2.c":162:6 -1
      (nil))
 (jump_insn 230 229 231 25 (set (pc)
         (if_then_else (eq (reg:CCZ 17 flags)
                 (const_int 0 [0]))
             (label_ref 235)
-            (pc))) "zhang2.c":163:6 -1
+            (pc))) "zhang2.c":162:6 -1
      (nil)
  -> 235)
 (note 231 230 232 26 [bb 26] NOTE_INSN_BASIC_BLOCK)
 (insn 232 231 233 26 (set (reg:SI 136 [ _55 ])
-        (const_int 1 [0x1])) "zhang2.c":164:12 -1
+        (const_int 1 [0x1])) "zhang2.c":163:12 -1
      (nil))
 (jump_insn 233 232 234 26 (set (pc)
-        (label_ref:DI 365)) "zhang2.c":164:12 807 {jump}
+        (label_ref:DI 365)) "zhang2.c":163:12 807 {jump}
      (nil)
  -> 365)
 (barrier 234 233 235)
 (code_label 235 234 236 27 37 (nil) [1 uses])
 (note 236 235 237 27 [bb 27] NOTE_INSN_BASIC_BLOCK)
 (insn 237 236 238 27 (set (reg:SI 1 dx)
-        (const_int 0 [0])) "zhang2.c":165:7 -1
+        (const_int 0 [0])) "zhang2.c":164:7 -1
      (nil))
 (insn 238 237 239 27 (set (reg:SI 4 si)
-        (const_int 0 [0])) "zhang2.c":165:7 -1
+        (const_int 0 [0])) "zhang2.c":164:7 -1
      (nil))
 (insn 239 238 240 27 (set (reg:DI 176)
-        (symbol_ref:DI ("sem_06") [flags 0x2]  <var_decl 0x7f1dd1f9ecf0 sem_06>)) "zhang2.c":165:7 -1
+        (symbol_ref:DI ("sem_06") [flags 0x2]  <var_decl 0x70b50b39ecf0 sem_06>)) "zhang2.c":164:7 -1
      (nil))
 (insn 240 239 241 27 (set (reg:DI 5 di)
-        (reg:DI 176)) "zhang2.c":165:7 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_06") [flags 0x2]  <var_decl 0x7f1dd1f9ecf0 sem_06>)
+        (reg:DI 176)) "zhang2.c":164:7 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_06") [flags 0x2]  <var_decl 0x70b50b39ecf0 sem_06>)
         (nil)))
 (call_insn 241 240 242 27 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("sem_init") [flags 0x41]  <function_decl 0x7f1dd1ffbc00 sem_init>) [0 sem_init S1 A8])
-            (const_int 0 [0]))) "zhang2.c":165:7 -1
+        (call (mem:QI (symbol_ref:DI ("sem_init") [flags 0x41]  <function_decl 0x70b50b3fbc00 sem_init>) [0 sem_init S1 A8])
+            (const_int 0 [0]))) "zhang2.c":164:7 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
@@ -2198,53 +2198,53 @@ try_optimize_cfg iteration 2
             (expr_list:SI (use (reg:SI 1 dx))
                 (nil)))))
 (insn 242 241 243 27 (set (reg:SI 128 [ _47 ])
-        (reg:SI 0 ax)) "zhang2.c":165:7 -1
+        (reg:SI 0 ax)) "zhang2.c":164:7 -1
      (nil))
 (insn 243 242 244 27 (set (reg:CCZ 17 flags)
         (compare:CCZ (reg:SI 128 [ _47 ])
-            (const_int 0 [0]))) "zhang2.c":165:6 -1
+            (const_int 0 [0]))) "zhang2.c":164:6 -1
      (nil))
 (jump_insn 244 243 245 27 (set (pc)
         (if_then_else (eq (reg:CCZ 17 flags)
                 (const_int 0 [0]))
             (label_ref 249)
-            (pc))) "zhang2.c":165:6 -1
+            (pc))) "zhang2.c":164:6 -1
      (nil)
  -> 249)
 (note 245 244 246 28 [bb 28] NOTE_INSN_BASIC_BLOCK)
 (insn 246 245 247 28 (set (reg:SI 136 [ _55 ])
-        (const_int 1 [0x1])) "zhang2.c":166:12 -1
+        (const_int 1 [0x1])) "zhang2.c":165:12 -1
      (nil))
 (jump_insn 247 246 248 28 (set (pc)
-        (label_ref:DI 365)) "zhang2.c":166:12 807 {jump}
+        (label_ref:DI 365)) "zhang2.c":165:12 807 {jump}
      (nil)
  -> 365)
 (barrier 248 247 249)
 (code_label 249 248 250 29 38 (nil) [1 uses])
 (note 250 249 251 29 [bb 29] NOTE_INSN_BASIC_BLOCK)
 (insn 251 250 252 29 (set (reg:DI 2 cx)
-        (const_int 0 [0])) "zhang2.c":171:3 -1
+        (const_int 0 [0])) "zhang2.c":170:3 -1
      (nil))
 (insn 252 251 253 29 (set (reg:DI 177)
-        (symbol_ref:DI ("worker_c0") [flags 0x3]  <function_decl 0x7f1dd1c8f500 worker_c0>)) "zhang2.c":171:3 -1
+        (symbol_ref:DI ("worker_c0") [flags 0x3]  <function_decl 0x70b50b08f500 worker_c0>)) "zhang2.c":170:3 -1
      (nil))
 (insn 253 252 254 29 (set (reg:DI 1 dx)
-        (reg:DI 177)) "zhang2.c":171:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("worker_c0") [flags 0x3]  <function_decl 0x7f1dd1c8f500 worker_c0>)
+        (reg:DI 177)) "zhang2.c":170:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("worker_c0") [flags 0x3]  <function_decl 0x70b50b08f500 worker_c0>)
         (nil)))
 (insn 254 253 255 29 (set (reg:DI 4 si)
-        (const_int 0 [0])) "zhang2.c":171:3 -1
+        (const_int 0 [0])) "zhang2.c":170:3 -1
      (nil))
 (insn 255 254 256 29 (set (reg:DI 178)
-        (symbol_ref:DI ("thread_c0") [flags 0x2]  <var_decl 0x7f1dd1f9e750 thread_c0>)) "zhang2.c":171:3 -1
+        (symbol_ref:DI ("thread_c0") [flags 0x2]  <var_decl 0x70b50b39e750 thread_c0>)) "zhang2.c":170:3 -1
      (nil))
 (insn 256 255 257 29 (set (reg:DI 5 di)
-        (reg:DI 178)) "zhang2.c":171:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("thread_c0") [flags 0x2]  <var_decl 0x7f1dd1f9e750 thread_c0>)
+        (reg:DI 178)) "zhang2.c":170:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("thread_c0") [flags 0x2]  <var_decl 0x70b50b39e750 thread_c0>)
         (nil)))
 (call_insn 257 256 258 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f1dd1fb4300 pthread_create>) [0 pthread_create S1 A8])
-            (const_int 0 [0]))) "zhang2.c":171:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x70b50b3b4300 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "zhang2.c":170:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
@@ -2253,28 +2253,28 @@ try_optimize_cfg iteration 2
                 (expr_list:DI (use (reg:DI 2 cx))
                     (nil))))))
 (insn 258 257 259 29 (set (reg:DI 2 cx)
-        (const_int 0 [0])) "zhang2.c":172:3 -1
+        (const_int 0 [0])) "zhang2.c":171:3 -1
      (nil))
 (insn 259 258 260 29 (set (reg:DI 179)
-        (symbol_ref:DI ("worker_c1") [flags 0x3]  <function_decl 0x7f1dd1c99000 worker_c1>)) "zhang2.c":172:3 -1
+        (symbol_ref:DI ("worker_c1") [flags 0x3]  <function_decl 0x70b50b099000 worker_c1>)) "zhang2.c":171:3 -1
      (nil))
 (insn 260 259 261 29 (set (reg:DI 1 dx)
-        (reg:DI 179)) "zhang2.c":172:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("worker_c1") [flags 0x3]  <function_decl 0x7f1dd1c99000 worker_c1>)
+        (reg:DI 179)) "zhang2.c":171:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("worker_c1") [flags 0x3]  <function_decl 0x70b50b099000 worker_c1>)
         (nil)))
 (insn 261 260 262 29 (set (reg:DI 4 si)
-        (const_int 0 [0])) "zhang2.c":172:3 -1
+        (const_int 0 [0])) "zhang2.c":171:3 -1
      (nil))
 (insn 262 261 263 29 (set (reg:DI 180)
-        (symbol_ref:DI ("thread_c1") [flags 0x2]  <var_decl 0x7f1dd1f9e7e0 thread_c1>)) "zhang2.c":172:3 -1
+        (symbol_ref:DI ("thread_c1") [flags 0x2]  <var_decl 0x70b50b39e7e0 thread_c1>)) "zhang2.c":171:3 -1
      (nil))
 (insn 263 262 264 29 (set (reg:DI 5 di)
-        (reg:DI 180)) "zhang2.c":172:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("thread_c1") [flags 0x2]  <var_decl 0x7f1dd1f9e7e0 thread_c1>)
+        (reg:DI 180)) "zhang2.c":171:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("thread_c1") [flags 0x2]  <var_decl 0x70b50b39e7e0 thread_c1>)
         (nil)))
 (call_insn 264 263 265 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f1dd1fb4300 pthread_create>) [0 pthread_create S1 A8])
-            (const_int 0 [0]))) "zhang2.c":172:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x70b50b3b4300 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "zhang2.c":171:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
@@ -2283,28 +2283,28 @@ try_optimize_cfg iteration 2
                 (expr_list:DI (use (reg:DI 2 cx))
                     (nil))))))
 (insn 265 264 266 29 (set (reg:DI 2 cx)
-        (const_int 0 [0])) "zhang2.c":173:3 -1
+        (const_int 0 [0])) "zhang2.c":172:3 -1
      (nil))
 (insn 266 265 267 29 (set (reg:DI 181)
-        (symbol_ref:DI ("worker_c2") [flags 0x3]  <function_decl 0x7f1dd1c99100 worker_c2>)) "zhang2.c":173:3 -1
+        (symbol_ref:DI ("worker_c2") [flags 0x3]  <function_decl 0x70b50b099100 worker_c2>)) "zhang2.c":172:3 -1
      (nil))
 (insn 267 266 268 29 (set (reg:DI 1 dx)
-        (reg:DI 181)) "zhang2.c":173:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("worker_c2") [flags 0x3]  <function_decl 0x7f1dd1c99100 worker_c2>)
+        (reg:DI 181)) "zhang2.c":172:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("worker_c2") [flags 0x3]  <function_decl 0x70b50b099100 worker_c2>)
         (nil)))
 (insn 268 267 269 29 (set (reg:DI 4 si)
-        (const_int 0 [0])) "zhang2.c":173:3 -1
+        (const_int 0 [0])) "zhang2.c":172:3 -1
      (nil))
 (insn 269 268 270 29 (set (reg:DI 182)
-        (symbol_ref:DI ("thread_c2") [flags 0x2]  <var_decl 0x7f1dd1f9e870 thread_c2>)) "zhang2.c":173:3 -1
+        (symbol_ref:DI ("thread_c2") [flags 0x2]  <var_decl 0x70b50b39e870 thread_c2>)) "zhang2.c":172:3 -1
      (nil))
 (insn 270 269 271 29 (set (reg:DI 5 di)
-        (reg:DI 182)) "zhang2.c":173:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("thread_c2") [flags 0x2]  <var_decl 0x7f1dd1f9e870 thread_c2>)
+        (reg:DI 182)) "zhang2.c":172:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("thread_c2") [flags 0x2]  <var_decl 0x70b50b39e870 thread_c2>)
         (nil)))
 (call_insn 271 270 272 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7f1dd1fb4300 pthread_create>) [0 pthread_create S1 A8])
-            (const_int 0 [0]))) "zhang2.c":173:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x70b50b3b4300 pthread_create>) [0 pthread_create S1 A8])
+            (const_int 0 [0]))) "zhang2.c":172:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
@@ -2313,408 +2313,408 @@ try_optimize_cfg iteration 2
                 (expr_list:DI (use (reg:DI 2 cx))
                     (nil))))))
 (insn 272 271 273 29 (set (reg:DF 183)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC10") [flags 0x2]) [0  S8 A64])) "zhang2.c":174:3 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC10") [flags 0x2]) [0  S8 A64])) "zhang2.c":173:3 -1
      (expr_list:REG_EQUAL (const_double:DF 2.0e+0 [0x0.8p+2])
         (nil)))
 (insn 273 272 274 29 (set (reg:DF 20 xmm0)
-        (reg:DF 183)) "zhang2.c":174:3 -1
+        (reg:DF 183)) "zhang2.c":173:3 -1
      (nil))
-(call_insn 274 273 275 29 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f1dd1c99500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
-        (const_int 0 [0])) "zhang2.c":174:3 -1
+(call_insn 274 273 275 29 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x70b50b099500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "zhang2.c":173:3 -1
      (nil)
     (expr_list:DF (use (reg:DF 20 xmm0))
         (nil)))
 (insn 275 274 276 29 (set (reg:DI 184)
-        (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x7f1dd1f9ed80 mutex_01>)) "zhang2.c":175:3 -1
+        (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x70b50b39ed80 mutex_01>)) "zhang2.c":174:3 -1
      (nil))
 (insn 276 275 277 29 (set (reg:DI 5 di)
-        (reg:DI 184)) "zhang2.c":175:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x7f1dd1f9ed80 mutex_01>)
+        (reg:DI 184)) "zhang2.c":174:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x70b50b39ed80 mutex_01>)
         (nil)))
 (call_insn 277 276 278 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7f1dd1fd4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":175:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x70b50b3d4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":174:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 278 277 279 29 (set (reg:DI 185)
-        (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x7f1dd1c9d480 mutex_07>)) "zhang2.c":176:3 -1
+        (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x70b50b09d480 mutex_07>)) "zhang2.c":175:3 -1
      (nil))
 (insn 279 278 280 29 (set (reg:DI 5 di)
-        (reg:DI 185)) "zhang2.c":176:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x7f1dd1c9d480 mutex_07>)
+        (reg:DI 185)) "zhang2.c":175:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x70b50b09d480 mutex_07>)
         (nil)))
 (call_insn 280 279 281 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7f1dd1fd4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":176:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x70b50b3d4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":175:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 281 280 282 29 (set (reg:DF 186)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC10") [flags 0x2]) [0  S8 A64])) "zhang2.c":177:3 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC10") [flags 0x2]) [0  S8 A64])) "zhang2.c":176:3 -1
      (expr_list:REG_EQUAL (const_double:DF 2.0e+0 [0x0.8p+2])
         (nil)))
 (insn 282 281 283 29 (set (reg:DF 20 xmm0)
-        (reg:DF 186)) "zhang2.c":177:3 -1
+        (reg:DF 186)) "zhang2.c":176:3 -1
      (nil))
-(call_insn 283 282 284 29 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f1dd1c99500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
-        (const_int 0 [0])) "zhang2.c":177:3 -1
+(call_insn 283 282 284 29 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x70b50b099500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "zhang2.c":176:3 -1
      (nil)
     (expr_list:DF (use (reg:DF 20 xmm0))
         (nil)))
 (insn 284 283 285 29 (set (reg:DI 187)
-        (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x7f1dd1c9d480 mutex_07>)) "zhang2.c":178:3 -1
+        (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x70b50b09d480 mutex_07>)) "zhang2.c":177:3 -1
      (nil))
 (insn 285 284 286 29 (set (reg:DI 5 di)
-        (reg:DI 187)) "zhang2.c":178:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x7f1dd1c9d480 mutex_07>)
+        (reg:DI 187)) "zhang2.c":177:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x70b50b09d480 mutex_07>)
         (nil)))
 (call_insn 286 285 287 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7f1dd1fd4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":178:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x70b50b3d4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":177:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 287 286 288 29 (set (reg:DI 188)
-        (symbol_ref:DI ("mutex_08") [flags 0x2]  <var_decl 0x7f1dd1c9d5a0 mutex_08>)) "zhang2.c":179:3 -1
+        (symbol_ref:DI ("mutex_08") [flags 0x2]  <var_decl 0x70b50b09d5a0 mutex_08>)) "zhang2.c":178:3 -1
      (nil))
 (insn 288 287 289 29 (set (reg:DI 5 di)
-        (reg:DI 188)) "zhang2.c":179:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_08") [flags 0x2]  <var_decl 0x7f1dd1c9d5a0 mutex_08>)
+        (reg:DI 188)) "zhang2.c":178:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_08") [flags 0x2]  <var_decl 0x70b50b09d5a0 mutex_08>)
         (nil)))
 (call_insn 289 288 290 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7f1dd1fd4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":179:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x70b50b3d4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":178:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 290 289 291 29 (set (reg:DF 189)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC10") [flags 0x2]) [0  S8 A64])) "zhang2.c":180:3 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC10") [flags 0x2]) [0  S8 A64])) "zhang2.c":179:3 -1
      (expr_list:REG_EQUAL (const_double:DF 2.0e+0 [0x0.8p+2])
         (nil)))
 (insn 291 290 292 29 (set (reg:DF 20 xmm0)
-        (reg:DF 189)) "zhang2.c":180:3 -1
+        (reg:DF 189)) "zhang2.c":179:3 -1
      (nil))
-(call_insn 292 291 293 29 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f1dd1c99500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
-        (const_int 0 [0])) "zhang2.c":180:3 -1
+(call_insn 292 291 293 29 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x70b50b099500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "zhang2.c":179:3 -1
      (nil)
     (expr_list:DF (use (reg:DF 20 xmm0))
         (nil)))
 (insn 293 292 294 29 (set (reg:DI 190)
-        (symbol_ref:DI ("sem_01") [flags 0x2]  <var_decl 0x7f1dd1f9ea20 sem_01>)) "zhang2.c":181:3 -1
+        (symbol_ref:DI ("sem_01") [flags 0x2]  <var_decl 0x70b50b39ea20 sem_01>)) "zhang2.c":180:3 -1
      (nil))
 (insn 294 293 295 29 (set (reg:DI 5 di)
-        (reg:DI 190)) "zhang2.c":181:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_01") [flags 0x2]  <var_decl 0x7f1dd1f9ea20 sem_01>)
+        (reg:DI 190)) "zhang2.c":180:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_01") [flags 0x2]  <var_decl 0x70b50b39ea20 sem_01>)
         (nil)))
 (call_insn 295 294 296 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("sem_post") [flags 0x41]  <function_decl 0x7f1dd1c05500 sem_post>) [0 sem_post S1 A8])
-            (const_int 0 [0]))) "zhang2.c":181:3 -1
+        (call (mem:QI (symbol_ref:DI ("sem_post") [flags 0x41]  <function_decl 0x70b50b005500 sem_post>) [0 sem_post S1 A8])
+            (const_int 0 [0]))) "zhang2.c":180:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 296 295 297 29 (set (reg:DI 191)
-        (symbol_ref:DI ("sem_02") [flags 0x2]  <var_decl 0x7f1dd1f9eab0 sem_02>)) "zhang2.c":182:3 -1
+        (symbol_ref:DI ("sem_02") [flags 0x2]  <var_decl 0x70b50b39eab0 sem_02>)) "zhang2.c":181:3 -1
      (nil))
 (insn 297 296 298 29 (set (reg:DI 5 di)
-        (reg:DI 191)) "zhang2.c":182:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_02") [flags 0x2]  <var_decl 0x7f1dd1f9eab0 sem_02>)
+        (reg:DI 191)) "zhang2.c":181:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_02") [flags 0x2]  <var_decl 0x70b50b39eab0 sem_02>)
         (nil)))
 (call_insn 298 297 299 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("sem_post") [flags 0x41]  <function_decl 0x7f1dd1c05500 sem_post>) [0 sem_post S1 A8])
-            (const_int 0 [0]))) "zhang2.c":182:3 -1
+        (call (mem:QI (symbol_ref:DI ("sem_post") [flags 0x41]  <function_decl 0x70b50b005500 sem_post>) [0 sem_post S1 A8])
+            (const_int 0 [0]))) "zhang2.c":181:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 299 298 300 29 (set (reg:DI 192)
-        (symbol_ref:DI ("mutex_08") [flags 0x2]  <var_decl 0x7f1dd1c9d5a0 mutex_08>)) "zhang2.c":183:3 -1
+        (symbol_ref:DI ("mutex_08") [flags 0x2]  <var_decl 0x70b50b09d5a0 mutex_08>)) "zhang2.c":182:3 -1
      (nil))
 (insn 300 299 301 29 (set (reg:DI 5 di)
-        (reg:DI 192)) "zhang2.c":183:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_08") [flags 0x2]  <var_decl 0x7f1dd1c9d5a0 mutex_08>)
+        (reg:DI 192)) "zhang2.c":182:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_08") [flags 0x2]  <var_decl 0x70b50b09d5a0 mutex_08>)
         (nil)))
 (call_insn 301 300 302 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7f1dd1fd4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":183:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x70b50b3d4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":182:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 302 301 303 29 (set (reg:DI 193)
-        (symbol_ref:DI ("mutex_09") [flags 0x2]  <var_decl 0x7f1dd1c9d6c0 mutex_09>)) "zhang2.c":184:3 -1
+        (symbol_ref:DI ("mutex_09") [flags 0x2]  <var_decl 0x70b50b09d6c0 mutex_09>)) "zhang2.c":183:3 -1
      (nil))
 (insn 303 302 304 29 (set (reg:DI 5 di)
-        (reg:DI 193)) "zhang2.c":184:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_09") [flags 0x2]  <var_decl 0x7f1dd1c9d6c0 mutex_09>)
+        (reg:DI 193)) "zhang2.c":183:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_09") [flags 0x2]  <var_decl 0x70b50b09d6c0 mutex_09>)
         (nil)))
 (call_insn 304 303 305 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7f1dd1fd4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":184:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x70b50b3d4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":183:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 305 304 306 29 (set (reg:DI 129 [ thread_c0.5_48 ])
-        (mem/c:DI (symbol_ref:DI ("thread_c0") [flags 0x2]  <var_decl 0x7f1dd1f9e750 thread_c0>) [2 thread_c0+0 S8 A64])) "zhang2.c":185:3 -1
+        (mem/c:DI (symbol_ref:DI ("thread_c0") [flags 0x2]  <var_decl 0x70b50b39e750 thread_c0>) [2 thread_c0+0 S8 A64])) "zhang2.c":184:3 -1
      (nil))
 (insn 306 305 307 29 (set (reg:DI 4 si)
-        (const_int 0 [0])) "zhang2.c":185:3 -1
+        (const_int 0 [0])) "zhang2.c":184:3 -1
      (nil))
 (insn 307 306 308 29 (set (reg:DI 5 di)
-        (reg:DI 129 [ thread_c0.5_48 ])) "zhang2.c":185:3 -1
+        (reg:DI 129 [ thread_c0.5_48 ])) "zhang2.c":184:3 -1
      (nil))
 (call_insn 308 307 309 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f1dd1fb4500 pthread_join>) [0 pthread_join S1 A8])
-            (const_int 0 [0]))) "zhang2.c":185:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x70b50b3b4500 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "zhang2.c":184:3 -1
      (nil)
     (expr_list:DI (use (reg:DI 5 di))
         (expr_list:DI (use (reg:DI 4 si))
             (nil))))
 (insn 309 308 310 29 (set (reg:DF 194)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC10") [flags 0x2]) [0  S8 A64])) "zhang2.c":186:3 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC10") [flags 0x2]) [0  S8 A64])) "zhang2.c":185:3 -1
      (expr_list:REG_EQUAL (const_double:DF 2.0e+0 [0x0.8p+2])
         (nil)))
 (insn 310 309 311 29 (set (reg:DF 20 xmm0)
-        (reg:DF 194)) "zhang2.c":186:3 -1
+        (reg:DF 194)) "zhang2.c":185:3 -1
      (nil))
-(call_insn 311 310 312 29 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f1dd1c99500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
-        (const_int 0 [0])) "zhang2.c":186:3 -1
+(call_insn 311 310 312 29 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x70b50b099500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "zhang2.c":185:3 -1
      (nil)
     (expr_list:DF (use (reg:DF 20 xmm0))
         (nil)))
 (insn 312 311 313 29 (set (reg:DI 195)
-        (symbol_ref:DI ("mutex_09") [flags 0x2]  <var_decl 0x7f1dd1c9d6c0 mutex_09>)) "zhang2.c":187:3 -1
+        (symbol_ref:DI ("mutex_09") [flags 0x2]  <var_decl 0x70b50b09d6c0 mutex_09>)) "zhang2.c":186:3 -1
      (nil))
 (insn 313 312 314 29 (set (reg:DI 5 di)
-        (reg:DI 195)) "zhang2.c":187:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_09") [flags 0x2]  <var_decl 0x7f1dd1c9d6c0 mutex_09>)
+        (reg:DI 195)) "zhang2.c":186:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_09") [flags 0x2]  <var_decl 0x70b50b09d6c0 mutex_09>)
         (nil)))
 (call_insn 314 313 315 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7f1dd1fd4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":187:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x70b50b3d4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":186:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 315 314 316 29 (set (reg:DI 196)
-        (symbol_ref:DI ("mutex_10") [flags 0x2]  <var_decl 0x7f1dd1c9d7e0 mutex_10>)) "zhang2.c":188:3 -1
+        (symbol_ref:DI ("mutex_10") [flags 0x2]  <var_decl 0x70b50b09d7e0 mutex_10>)) "zhang2.c":187:3 -1
      (nil))
 (insn 316 315 317 29 (set (reg:DI 5 di)
-        (reg:DI 196)) "zhang2.c":188:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_10") [flags 0x2]  <var_decl 0x7f1dd1c9d7e0 mutex_10>)
+        (reg:DI 196)) "zhang2.c":187:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_10") [flags 0x2]  <var_decl 0x70b50b09d7e0 mutex_10>)
         (nil)))
 (call_insn 317 316 318 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7f1dd1fd4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":188:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x70b50b3d4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":187:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 318 317 319 29 (set (reg:DF 197)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC10") [flags 0x2]) [0  S8 A64])) "zhang2.c":189:3 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC10") [flags 0x2]) [0  S8 A64])) "zhang2.c":188:3 -1
      (expr_list:REG_EQUAL (const_double:DF 2.0e+0 [0x0.8p+2])
         (nil)))
 (insn 319 318 320 29 (set (reg:DF 20 xmm0)
-        (reg:DF 197)) "zhang2.c":189:3 -1
+        (reg:DF 197)) "zhang2.c":188:3 -1
      (nil))
-(call_insn 320 319 321 29 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f1dd1c99500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
-        (const_int 0 [0])) "zhang2.c":189:3 -1
+(call_insn 320 319 321 29 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x70b50b099500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "zhang2.c":188:3 -1
      (nil)
     (expr_list:DF (use (reg:DF 20 xmm0))
         (nil)))
 (insn 321 320 322 29 (set (reg:DI 198)
-        (symbol_ref:DI ("sem_03") [flags 0x2]  <var_decl 0x7f1dd1f9eb40 sem_03>)) "zhang2.c":190:3 -1
+        (symbol_ref:DI ("sem_03") [flags 0x2]  <var_decl 0x70b50b39eb40 sem_03>)) "zhang2.c":189:3 -1
      (nil))
 (insn 322 321 323 29 (set (reg:DI 5 di)
-        (reg:DI 198)) "zhang2.c":190:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_03") [flags 0x2]  <var_decl 0x7f1dd1f9eb40 sem_03>)
+        (reg:DI 198)) "zhang2.c":189:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("sem_03") [flags 0x2]  <var_decl 0x70b50b39eb40 sem_03>)
         (nil)))
 (call_insn 323 322 324 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("sem_post") [flags 0x41]  <function_decl 0x7f1dd1c05500 sem_post>) [0 sem_post S1 A8])
-            (const_int 0 [0]))) "zhang2.c":190:3 -1
+        (call (mem:QI (symbol_ref:DI ("sem_post") [flags 0x41]  <function_decl 0x70b50b005500 sem_post>) [0 sem_post S1 A8])
+            (const_int 0 [0]))) "zhang2.c":189:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 324 323 325 29 (set (reg:DI 199)
-        (symbol_ref:DI ("mutex_10") [flags 0x2]  <var_decl 0x7f1dd1c9d7e0 mutex_10>)) "zhang2.c":191:3 -1
+        (symbol_ref:DI ("mutex_10") [flags 0x2]  <var_decl 0x70b50b09d7e0 mutex_10>)) "zhang2.c":190:3 -1
      (nil))
 (insn 325 324 326 29 (set (reg:DI 5 di)
-        (reg:DI 199)) "zhang2.c":191:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_10") [flags 0x2]  <var_decl 0x7f1dd1c9d7e0 mutex_10>)
+        (reg:DI 199)) "zhang2.c":190:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_10") [flags 0x2]  <var_decl 0x70b50b09d7e0 mutex_10>)
         (nil)))
 (call_insn 326 325 327 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7f1dd1fd4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":191:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x70b50b3d4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":190:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 327 326 328 29 (set (reg:DI 200)
-        (symbol_ref:DI ("mutex_11") [flags 0x2]  <var_decl 0x7f1dd1c9d900 mutex_11>)) "zhang2.c":192:3 -1
+        (symbol_ref:DI ("mutex_11") [flags 0x2]  <var_decl 0x70b50b09d900 mutex_11>)) "zhang2.c":191:3 -1
      (nil))
 (insn 328 327 329 29 (set (reg:DI 5 di)
-        (reg:DI 200)) "zhang2.c":192:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_11") [flags 0x2]  <var_decl 0x7f1dd1c9d900 mutex_11>)
+        (reg:DI 200)) "zhang2.c":191:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_11") [flags 0x2]  <var_decl 0x70b50b09d900 mutex_11>)
         (nil)))
 (call_insn 329 328 330 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7f1dd1fd4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":192:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x70b50b3d4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":191:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 330 329 331 29 (set (reg:DI 130 [ thread_c1.6_49 ])
-        (mem/c:DI (symbol_ref:DI ("thread_c1") [flags 0x2]  <var_decl 0x7f1dd1f9e7e0 thread_c1>) [2 thread_c1+0 S8 A64])) "zhang2.c":193:3 -1
+        (mem/c:DI (symbol_ref:DI ("thread_c1") [flags 0x2]  <var_decl 0x70b50b39e7e0 thread_c1>) [2 thread_c1+0 S8 A64])) "zhang2.c":192:3 -1
      (nil))
 (insn 331 330 332 29 (set (reg:DI 4 si)
-        (const_int 0 [0])) "zhang2.c":193:3 -1
+        (const_int 0 [0])) "zhang2.c":192:3 -1
      (nil))
 (insn 332 331 333 29 (set (reg:DI 5 di)
-        (reg:DI 130 [ thread_c1.6_49 ])) "zhang2.c":193:3 -1
+        (reg:DI 130 [ thread_c1.6_49 ])) "zhang2.c":192:3 -1
      (nil))
 (call_insn 333 332 334 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f1dd1fb4500 pthread_join>) [0 pthread_join S1 A8])
-            (const_int 0 [0]))) "zhang2.c":193:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x70b50b3b4500 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "zhang2.c":192:3 -1
      (nil)
     (expr_list:DI (use (reg:DI 5 di))
         (expr_list:DI (use (reg:DI 4 si))
             (nil))))
 (insn 334 333 335 29 (set (reg:DF 201)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC10") [flags 0x2]) [0  S8 A64])) "zhang2.c":194:3 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC10") [flags 0x2]) [0  S8 A64])) "zhang2.c":193:3 -1
      (expr_list:REG_EQUAL (const_double:DF 2.0e+0 [0x0.8p+2])
         (nil)))
 (insn 335 334 336 29 (set (reg:DF 20 xmm0)
-        (reg:DF 201)) "zhang2.c":194:3 -1
+        (reg:DF 201)) "zhang2.c":193:3 -1
      (nil))
-(call_insn 336 335 337 29 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f1dd1c99500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
-        (const_int 0 [0])) "zhang2.c":194:3 -1
+(call_insn 336 335 337 29 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x70b50b099500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "zhang2.c":193:3 -1
      (nil)
     (expr_list:DF (use (reg:DF 20 xmm0))
         (nil)))
 (insn 337 336 338 29 (set (reg:DI 202)
-        (symbol_ref:DI ("mutex_11") [flags 0x2]  <var_decl 0x7f1dd1c9d900 mutex_11>)) "zhang2.c":195:3 -1
+        (symbol_ref:DI ("mutex_11") [flags 0x2]  <var_decl 0x70b50b09d900 mutex_11>)) "zhang2.c":194:3 -1
      (nil))
 (insn 338 337 339 29 (set (reg:DI 5 di)
-        (reg:DI 202)) "zhang2.c":195:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_11") [flags 0x2]  <var_decl 0x7f1dd1c9d900 mutex_11>)
+        (reg:DI 202)) "zhang2.c":194:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_11") [flags 0x2]  <var_decl 0x70b50b09d900 mutex_11>)
         (nil)))
 (call_insn 339 338 340 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7f1dd1fd4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":195:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x70b50b3d4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":194:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 340 339 341 29 (set (reg:DI 203)
-        (symbol_ref:DI ("mutex_12") [flags 0x2]  <var_decl 0x7f1dd1c9da20 mutex_12>)) "zhang2.c":196:3 -1
+        (symbol_ref:DI ("mutex_12") [flags 0x2]  <var_decl 0x70b50b09da20 mutex_12>)) "zhang2.c":195:3 -1
      (nil))
 (insn 341 340 342 29 (set (reg:DI 5 di)
-        (reg:DI 203)) "zhang2.c":196:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_12") [flags 0x2]  <var_decl 0x7f1dd1c9da20 mutex_12>)
+        (reg:DI 203)) "zhang2.c":195:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_12") [flags 0x2]  <var_decl 0x70b50b09da20 mutex_12>)
         (nil)))
 (call_insn 342 341 343 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7f1dd1fd4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":196:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x70b50b3d4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":195:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 343 342 344 29 (set (reg:DF 204)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC10") [flags 0x2]) [0  S8 A64])) "zhang2.c":197:3 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC10") [flags 0x2]) [0  S8 A64])) "zhang2.c":196:3 -1
      (expr_list:REG_EQUAL (const_double:DF 2.0e+0 [0x0.8p+2])
         (nil)))
 (insn 344 343 345 29 (set (reg:DF 20 xmm0)
-        (reg:DF 204)) "zhang2.c":197:3 -1
+        (reg:DF 204)) "zhang2.c":196:3 -1
      (nil))
-(call_insn 345 344 346 29 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f1dd1c99500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
-        (const_int 0 [0])) "zhang2.c":197:3 -1
+(call_insn 345 344 346 29 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x70b50b099500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "zhang2.c":196:3 -1
      (nil)
     (expr_list:DF (use (reg:DF 20 xmm0))
         (nil)))
 (insn 346 345 347 29 (set (reg:DI 205)
-        (symbol_ref:DI ("mutex_12") [flags 0x2]  <var_decl 0x7f1dd1c9da20 mutex_12>)) "zhang2.c":198:3 -1
+        (symbol_ref:DI ("mutex_12") [flags 0x2]  <var_decl 0x70b50b09da20 mutex_12>)) "zhang2.c":197:3 -1
      (nil))
 (insn 347 346 348 29 (set (reg:DI 5 di)
-        (reg:DI 205)) "zhang2.c":198:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_12") [flags 0x2]  <var_decl 0x7f1dd1c9da20 mutex_12>)
+        (reg:DI 205)) "zhang2.c":197:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_12") [flags 0x2]  <var_decl 0x70b50b09da20 mutex_12>)
         (nil)))
 (call_insn 348 347 349 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7f1dd1fd4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":198:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x70b50b3d4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":197:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 349 348 350 29 (set (reg:DI 206)
-        (symbol_ref:DI ("mutex_13") [flags 0x2]  <var_decl 0x7f1dd1c9db40 mutex_13>)) "zhang2.c":199:3 -1
+        (symbol_ref:DI ("mutex_13") [flags 0x2]  <var_decl 0x70b50b09db40 mutex_13>)) "zhang2.c":198:3 -1
      (nil))
 (insn 350 349 351 29 (set (reg:DI 5 di)
-        (reg:DI 206)) "zhang2.c":199:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_13") [flags 0x2]  <var_decl 0x7f1dd1c9db40 mutex_13>)
+        (reg:DI 206)) "zhang2.c":198:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_13") [flags 0x2]  <var_decl 0x70b50b09db40 mutex_13>)
         (nil)))
 (call_insn 351 350 352 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7f1dd1fd4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":199:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x70b50b3d4100 pthread_mutex_lock>) [0 pthread_mutex_lock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":198:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 352 351 353 29 (set (reg:DI 131 [ thread_c2.7_50 ])
-        (mem/c:DI (symbol_ref:DI ("thread_c2") [flags 0x2]  <var_decl 0x7f1dd1f9e870 thread_c2>) [2 thread_c2+0 S8 A64])) "zhang2.c":200:3 -1
+        (mem/c:DI (symbol_ref:DI ("thread_c2") [flags 0x2]  <var_decl 0x70b50b39e870 thread_c2>) [2 thread_c2+0 S8 A64])) "zhang2.c":199:3 -1
      (nil))
 (insn 353 352 354 29 (set (reg:DI 4 si)
-        (const_int 0 [0])) "zhang2.c":200:3 -1
+        (const_int 0 [0])) "zhang2.c":199:3 -1
      (nil))
 (insn 354 353 355 29 (set (reg:DI 5 di)
-        (reg:DI 131 [ thread_c2.7_50 ])) "zhang2.c":200:3 -1
+        (reg:DI 131 [ thread_c2.7_50 ])) "zhang2.c":199:3 -1
      (nil))
 (call_insn 355 354 356 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7f1dd1fb4500 pthread_join>) [0 pthread_join S1 A8])
-            (const_int 0 [0]))) "zhang2.c":200:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x70b50b3b4500 pthread_join>) [0 pthread_join S1 A8])
+            (const_int 0 [0]))) "zhang2.c":199:3 -1
      (nil)
     (expr_list:DI (use (reg:DI 5 di))
         (expr_list:DI (use (reg:DI 4 si))
             (nil))))
 (insn 356 355 357 29 (set (reg:DF 207)
-        (mem/u/c:DF (symbol_ref/u:DI ("*.LC10") [flags 0x2]) [0  S8 A64])) "zhang2.c":201:3 -1
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC10") [flags 0x2]) [0  S8 A64])) "zhang2.c":200:3 -1
      (expr_list:REG_EQUAL (const_double:DF 2.0e+0 [0x0.8p+2])
         (nil)))
 (insn 357 356 358 29 (set (reg:DF 20 xmm0)
-        (reg:DF 207)) "zhang2.c":201:3 -1
+        (reg:DF 207)) "zhang2.c":200:3 -1
      (nil))
-(call_insn 358 357 359 29 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7f1dd1c99500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
-        (const_int 0 [0])) "zhang2.c":201:3 -1
+(call_insn 358 357 359 29 (call (mem:QI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x70b50b099500 busy_wait_seconds>) [0 busy_wait_seconds S1 A8])
+        (const_int 0 [0])) "zhang2.c":200:3 -1
      (nil)
     (expr_list:DF (use (reg:DF 20 xmm0))
         (nil)))
 (insn 359 358 360 29 (set (reg:DI 208)
-        (symbol_ref:DI ("mutex_13") [flags 0x2]  <var_decl 0x7f1dd1c9db40 mutex_13>)) "zhang2.c":202:3 -1
+        (symbol_ref:DI ("mutex_13") [flags 0x2]  <var_decl 0x70b50b09db40 mutex_13>)) "zhang2.c":201:3 -1
      (nil))
 (insn 360 359 361 29 (set (reg:DI 5 di)
-        (reg:DI 208)) "zhang2.c":202:3 -1
-     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_13") [flags 0x2]  <var_decl 0x7f1dd1c9db40 mutex_13>)
+        (reg:DI 208)) "zhang2.c":201:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_13") [flags 0x2]  <var_decl 0x70b50b09db40 mutex_13>)
         (nil)))
 (call_insn 361 360 362 29 (set (reg:SI 0 ax)
-        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7f1dd1fd4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
-            (const_int 0 [0]))) "zhang2.c":202:3 -1
+        (call (mem:QI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x70b50b3d4400 pthread_mutex_unlock>) [0 pthread_mutex_unlock S1 A8])
+            (const_int 0 [0]))) "zhang2.c":201:3 -1
      (expr_list:REG_EH_REGION (const_int 0 [0])
         (nil))
     (expr_list:DI (use (reg:DI 5 di))
         (nil)))
 (insn 362 361 365 29 (set (reg:SI 136 [ _55 ])
-        (const_int 0 [0])) "zhang2.c":203:10 -1
+        (const_int 0 [0])) "zhang2.c":202:10 -1
      (nil))
 (code_label 365 362 366 31 39 (nil) [6 uses])
 (note 366 365 367 31 [bb 31] NOTE_INSN_BASIC_BLOCK)
 (insn 367 366 371 31 (set (reg:SI 141 [ <retval> ])
-        (reg:SI 136 [ _55 ])) "zhang2.c":204:1 -1
+        (reg:SI 136 [ _55 ])) "zhang2.c":203:1 -1
      (nil))
 (insn 371 367 372 31 (parallel [
             (set (reg:CCZ 17 flags)
@@ -2724,18 +2724,18 @@ try_optimize_cfg iteration 2
                         (mem/v/f:DI (const_int 40 [0x28]) [0 MEM[(<address-space-1> long unsigned int *)40B]+0 S8 A64 AS1])
                     ] UNSPEC_SP_TEST))
             (clobber (scratch:DI))
-        ]) "zhang2.c":204:1 -1
+        ]) "zhang2.c":203:1 -1
      (nil))
 (jump_insn 372 371 379 31 (set (pc)
         (if_then_else (eq (reg:CCZ 17 flags)
                 (const_int 0 [0]))
             (label_ref 375)
-            (pc))) "zhang2.c":204:1 -1
+            (pc))) "zhang2.c":203:1 -1
      (nil)
  -> 375)
 (note 379 372 373 33 [bb 33] NOTE_INSN_BASIC_BLOCK)
-(call_insn 373 379 374 33 (call (mem:QI (symbol_ref:DI ("__stack_chk_fail") [flags 0x41]  <function_decl 0x7f1dd1cb9400 __stack_chk_fail>) [0 __stack_chk_fail S1 A8])
-        (const_int 0 [0])) "zhang2.c":204:1 -1
+(call_insn 373 379 374 33 (call (mem:QI (symbol_ref:DI ("__stack_chk_fail") [flags 0x41]  <function_decl 0x70b50b0b9400 __stack_chk_fail>) [0 __stack_chk_fail S1 A8])
+        (const_int 0 [0])) "zhang2.c":203:1 -1
      (expr_list:REG_ARGS_SIZE (const_int 0 [0])
         (expr_list:REG_NORETURN (const_int 0 [0])
             (expr_list:REG_EH_REGION (const_int 0 [0])
@@ -2745,7 +2745,7 @@ try_optimize_cfg iteration 2
 (code_label 375 374 380 34 40 (nil) [1 uses])
 (note 380 375 376 34 [bb 34] NOTE_INSN_BASIC_BLOCK)
 (insn 376 380 377 34 (set (reg/i:SI 0 ax)
-        (reg:SI 141 [ <retval> ])) "zhang2.c":204:1 -1
+        (reg:SI 141 [ <retval> ])) "zhang2.c":203:1 -1
      (nil))
-(insn 377 376 0 34 (use (reg/i:SI 0 ax)) "zhang2.c":204:1 -1
+(insn 377 376 0 34 (use (reg/i:SI 0 ax)) "zhang2.c":203:1 -1
      (nil))

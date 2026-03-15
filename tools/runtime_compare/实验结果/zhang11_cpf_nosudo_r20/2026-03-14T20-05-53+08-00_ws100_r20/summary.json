@@ -1,0 +1,605 @@
+{
+  "task_id": "source_original_vs_source_instrumented_2026-03-14T20-05-53+08-00",
+  "created_at": "2026-03-14T20-05-53+08-00",
+  "cpu_set": [
+    0,
+    1
+  ],
+  "cores_per_task": 2,
+  "work_scale": 100,
+  "repeats": 20,
+  "affinity_rewritten_in_source": {
+    "baseline": true,
+    "prio": true
+  },
+  "baseline": {
+    "c_file": "/home/chove/桌面/mycallyplus_v1/中间结果/zhang11/pipeline/instrument/level2/effective_line_merge/cpf/source_original.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -I /home/chove/桌面/mycallyplus_v1/tools/runtime_compare/实验结果/zhang11_cpf_nosudo_r20/2026-03-14T20-05-53+08-00_ws100_r20/baseline/cpf -I /home/chove/桌面/mycallyplus_v1/level1 -DWORK_SCALE=100 source_original.c -o /home/chove/桌面/mycallyplus_v1/tools/runtime_compare/实验结果/zhang11_cpf_nosudo_r20/2026-03-14T20-05-53+08-00_ws100_r20/baseline/app_baseline\nRETRY(no --wrap=main): gcc -O0 -g -std=c11 -pthread -lm -I /home/chove/桌面/mycallyplus_v1/tools/runtime_compare/实验结果/zhang11_cpf_nosudo_r20/2026-03-14T20-05-53+08-00_ws100_r20/baseline/cpf -I /home/chove/桌面/mycallyplus_v1/level1 -DWORK_SCALE=100 source_original.c -o /home/chove/桌面/mycallyplus_v1/tools/runtime_compare/实验结果/zhang11_cpf_nosudo_r20/2026-03-14T20-05-53+08-00_ws100_r20/baseline/app_baseline",
+    "stats": {
+      "n": 20.0,
+      "min_s": 1.735177044,
+      "max_s": 1.890143311,
+      "mean_s": 1.8140679008000002,
+      "median_s": 1.825138016
+    },
+    "times_s": [
+      1.890143311,
+      1.857001536,
+      1.780010373,
+      1.774050979,
+      1.830796219,
+      1.754681587,
+      1.761949847,
+      1.8462961,
+      1.781621067,
+      1.885876326,
+      1.799336205,
+      1.825138016,
+      1.80703563,
+      1.788643436,
+      1.841300468,
+      1.842590733,
+      1.83636276,
+      1.777734809,
+      1.735177044,
+      1.86561157
+    ]
+  },
+  "prio": {
+    "c_file": "/home/chove/桌面/mycallyplus_v1/中间结果/zhang11/pipeline/instrument/level2/effective_line_merge/cpf/source_instrumented.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -I /home/chove/桌面/mycallyplus_v1/tools/runtime_compare/实验结果/zhang11_cpf_nosudo_r20/2026-03-14T20-05-53+08-00_ws100_r20/prio/cpf -I /home/chove/桌面/mycallyplus_v1/level1 -DWORK_SCALE=100 source_instrumented.c -o /home/chove/桌面/mycallyplus_v1/tools/runtime_compare/实验结果/zhang11_cpf_nosudo_r20/2026-03-14T20-05-53+08-00_ws100_r20/prio/app_prio\nRETRY(no --wrap=main): gcc -O0 -g -std=c11 -pthread -lm -I /home/chove/桌面/mycallyplus_v1/tools/runtime_compare/实验结果/zhang11_cpf_nosudo_r20/2026-03-14T20-05-53+08-00_ws100_r20/prio/cpf -I /home/chove/桌面/mycallyplus_v1/level1 -DWORK_SCALE=100 source_instrumented.c -o /home/chove/桌面/mycallyplus_v1/tools/runtime_compare/实验结果/zhang11_cpf_nosudo_r20/2026-03-14T20-05-53+08-00_ws100_r20/prio/app_prio",
+    "stats": {
+      "n": 20.0,
+      "min_s": 1.755889681,
+      "max_s": 1.86385198,
+      "mean_s": 1.7948106896000002,
+      "median_s": 1.780152136
+    },
+    "times_s": [
+      1.8450565,
+      1.769862531,
+      1.755889681,
+      1.767666014,
+      1.768641955,
+      1.762487243,
+      1.765552969,
+      1.769589004,
+      1.806815828,
+      1.836111627,
+      1.86385198,
+      1.758407094,
+      1.83299385,
+      1.84011173,
+      1.860258741,
+      1.780152136,
+      1.804706362,
+      1.788593825,
+      1.763200887,
+      1.756263835
+    ]
+  },
+  "runs": [
+    {
+      "program": "baseline",
+      "iter": 0,
+      "time_s": 1.890143311,
+      "wall_s": 1.890143311,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #1 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.890143\n"
+    },
+    {
+      "program": "prio",
+      "iter": 0,
+      "time_s": 1.8450565,
+      "wall_s": 1.8450565,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #1 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.845057\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 1,
+      "time_s": 1.857001536,
+      "wall_s": 1.857001536,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #2 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.857002\n"
+    },
+    {
+      "program": "prio",
+      "iter": 1,
+      "time_s": 1.769862531,
+      "wall_s": 1.769862531,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #2 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.769863\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 2,
+      "time_s": 1.780010373,
+      "wall_s": 1.780010373,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #3 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.780010\n"
+    },
+    {
+      "program": "prio",
+      "iter": 2,
+      "time_s": 1.755889681,
+      "wall_s": 1.755889681,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #3 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.755890\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 3,
+      "time_s": 1.774050979,
+      "wall_s": 1.774050979,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #4 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.774051\n"
+    },
+    {
+      "program": "prio",
+      "iter": 3,
+      "time_s": 1.767666014,
+      "wall_s": 1.767666014,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #4 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.767666\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 4,
+      "time_s": 1.830796219,
+      "wall_s": 1.830796219,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #5 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.830796\n"
+    },
+    {
+      "program": "prio",
+      "iter": 4,
+      "time_s": 1.768641955,
+      "wall_s": 1.768641955,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #5 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.768642\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 5,
+      "time_s": 1.754681587,
+      "wall_s": 1.754681587,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #6 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.754682\n"
+    },
+    {
+      "program": "prio",
+      "iter": 5,
+      "time_s": 1.762487243,
+      "wall_s": 1.762487243,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #6 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.762487\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 6,
+      "time_s": 1.761949847,
+      "wall_s": 1.761949847,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #7 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.761950\n"
+    },
+    {
+      "program": "prio",
+      "iter": 6,
+      "time_s": 1.765552969,
+      "wall_s": 1.765552969,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #7 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.765553\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 7,
+      "time_s": 1.8462961,
+      "wall_s": 1.8462961,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #8 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.846296\n"
+    },
+    {
+      "program": "prio",
+      "iter": 7,
+      "time_s": 1.769589004,
+      "wall_s": 1.769589004,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #8 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.769589\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 8,
+      "time_s": 1.781621067,
+      "wall_s": 1.781621067,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #9 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.781621\n"
+    },
+    {
+      "program": "prio",
+      "iter": 8,
+      "time_s": 1.806815828,
+      "wall_s": 1.806815828,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #9 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.806816\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 9,
+      "time_s": 1.885876326,
+      "wall_s": 1.885876326,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #10 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.885876\n"
+    },
+    {
+      "program": "prio",
+      "iter": 9,
+      "time_s": 1.836111627,
+      "wall_s": 1.836111627,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #10 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.836112\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 10,
+      "time_s": 1.799336205,
+      "wall_s": 1.799336205,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #11 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.799336\n"
+    },
+    {
+      "program": "prio",
+      "iter": 10,
+      "time_s": 1.86385198,
+      "wall_s": 1.86385198,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #11 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.863852\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 11,
+      "time_s": 1.825138016,
+      "wall_s": 1.825138016,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #12 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.825138\n"
+    },
+    {
+      "program": "prio",
+      "iter": 11,
+      "time_s": 1.758407094,
+      "wall_s": 1.758407094,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #12 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.758407\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 12,
+      "time_s": 1.80703563,
+      "wall_s": 1.80703563,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #13 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.807036\n"
+    },
+    {
+      "program": "prio",
+      "iter": 12,
+      "time_s": 1.83299385,
+      "wall_s": 1.83299385,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #13 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.832994\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 13,
+      "time_s": 1.788643436,
+      "wall_s": 1.788643436,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #14 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.788643\n"
+    },
+    {
+      "program": "prio",
+      "iter": 13,
+      "time_s": 1.84011173,
+      "wall_s": 1.84011173,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #14 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.840112\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 14,
+      "time_s": 1.841300468,
+      "wall_s": 1.841300468,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #15 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.841300\n"
+    },
+    {
+      "program": "prio",
+      "iter": 14,
+      "time_s": 1.860258741,
+      "wall_s": 1.860258741,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #15 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.860259\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 15,
+      "time_s": 1.842590733,
+      "wall_s": 1.842590733,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #16 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.842591\n"
+    },
+    {
+      "program": "prio",
+      "iter": 15,
+      "time_s": 1.780152136,
+      "wall_s": 1.780152136,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #16 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.780152\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 16,
+      "time_s": 1.83636276,
+      "wall_s": 1.83636276,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #17 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.836363\n"
+    },
+    {
+      "program": "prio",
+      "iter": 16,
+      "time_s": 1.804706362,
+      "wall_s": 1.804706362,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #17 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.804706\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 17,
+      "time_s": 1.777734809,
+      "wall_s": 1.777734809,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #18 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.777735\n"
+    },
+    {
+      "program": "prio",
+      "iter": 17,
+      "time_s": 1.788593825,
+      "wall_s": 1.788593825,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #18 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.788594\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 18,
+      "time_s": 1.735177044,
+      "wall_s": 1.735177044,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #19 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.735177\n"
+    },
+    {
+      "program": "prio",
+      "iter": 18,
+      "time_s": 1.763200887,
+      "wall_s": 1.763200887,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #19 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.763201\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 19,
+      "time_s": 1.86561157,
+      "wall_s": 1.86561157,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #20 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.865612\n"
+    },
+    {
+      "program": "prio",
+      "iter": 19,
+      "time_s": 1.756263835,
+      "wall_s": 1.756263835,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #20 (rc=0) -----\n\n[stderr]\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\nL1_PRIO_SET_FAILED rc=1 errno=1 (Operation not permitted)\n\n[warn] failed to parse internal time; fallback wall_s=1.756264\n"
+    }
+  ],
+  "delta_mean_s": -0.019257211200000013,
+  "improvement_ratio": 0.010615485336302804
+}

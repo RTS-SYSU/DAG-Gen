@@ -8,7 +8,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
 #define C1 70.0
 #define C2 45.0
 #define C3 60.0

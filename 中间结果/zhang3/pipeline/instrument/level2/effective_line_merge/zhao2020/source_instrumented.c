@@ -111,7 +111,7 @@ static void busy_wait_seconds(double seconds) {
 static struct timespec prog_start_ts;
 
 static void *worker_c2(void *arg) {
-  l1_set_thread_prio_fifo(92);
+  l1_set_thread_prio_fifo(90);
   pthread_mutex_lock(&mutex_07);
   busy_wait_seconds(C7);
   sem_post(&sem_16);
@@ -122,13 +122,13 @@ static void *worker_c2(void *arg) {
   busy_wait_seconds(C7);
   sem_post(&sem_17);
   pthread_mutex_unlock(&mutex_08);
-  l1_set_thread_prio_fifo(84);
+  l1_set_thread_prio_fifo(86);
   pthread_mutex_lock(&mutex_09);
   sem_wait(&sem_14);
   busy_wait_seconds(C7);
   sem_post(&sem_18);
   pthread_mutex_unlock(&mutex_09);
-  l1_set_thread_prio_fifo(82);
+  l1_set_thread_prio_fifo(85);
   pthread_mutex_lock(&mutex_10);
   sem_wait(&sem_15);
   busy_wait_seconds(C7);
@@ -137,13 +137,13 @@ static void *worker_c2(void *arg) {
 }
 
 static void *worker_c1(void *arg) {
-  l1_set_thread_prio_fifo(90);
+  l1_set_thread_prio_fifo(98);
   pthread_mutex_lock(&mutex_11);
   busy_wait_seconds(C7);
   sem_post(&sem_10);
   sem_post(&sem_13);
   pthread_mutex_unlock(&mutex_11);
-  l1_set_thread_prio_fifo(91);
+  l1_set_thread_prio_fifo(89);
   pthread_mutex_lock(&mutex_12);
   sem_wait(&sem_07);
   sem_wait(&sem_16);
@@ -151,7 +151,7 @@ static void *worker_c1(void *arg) {
   sem_post(&sem_11);
   sem_post(&sem_14);
   pthread_mutex_unlock(&mutex_12);
-  l1_set_thread_prio_fifo(86);
+  l1_set_thread_prio_fifo(84);
   pthread_mutex_lock(&mutex_13);
   sem_wait(&sem_08);
   sem_wait(&sem_17);
@@ -159,7 +159,7 @@ static void *worker_c1(void *arg) {
   sem_post(&sem_12);
   sem_post(&sem_15);
   pthread_mutex_unlock(&mutex_13);
-  l1_set_thread_prio_fifo(85);
+  l1_set_thread_prio_fifo(82);
   pthread_mutex_lock(&mutex_14);
   sem_wait(&sem_09);
   sem_wait(&sem_18);
@@ -169,13 +169,13 @@ static void *worker_c1(void *arg) {
 }
 
 static void *worker_c0(void *arg) {
-  l1_set_thread_prio_fifo(98);
+  l1_set_thread_prio_fifo(93);
   pthread_mutex_lock(&mutex_15);
   busy_wait_seconds(C7);
   sem_post(&sem_04);
   sem_post(&sem_07);
   pthread_mutex_unlock(&mutex_15);
-  l1_set_thread_prio_fifo(89);
+  l1_set_thread_prio_fifo(97);
   pthread_mutex_lock(&mutex_16);
   sem_wait(&sem_01);
   sem_wait(&sem_10);
@@ -183,7 +183,7 @@ static void *worker_c0(void *arg) {
   sem_post(&sem_05);
   sem_post(&sem_08);
   pthread_mutex_unlock(&mutex_16);
-  l1_set_thread_prio_fifo(96);
+  l1_set_thread_prio_fifo(88);
   pthread_mutex_lock(&mutex_17);
   sem_wait(&sem_02);
   sem_wait(&sem_11);
@@ -262,18 +262,18 @@ int main(void) {
   pthread_create(&thread_c1, NULL, worker_c1, NULL);
   pthread_create(&thread_c2, NULL, worker_c2, NULL);
   pthread_mutex_unlock(&mutex_01);
-  l1_set_thread_prio_fifo(93);
+  l1_set_thread_prio_fifo(92);
   pthread_mutex_lock(&mutex_02);
   busy_wait_seconds(C10);
   sem_post(&sem_01);
   pthread_mutex_unlock(&mutex_02);
-  l1_set_thread_prio_fifo(97);
+  l1_set_thread_prio_fifo(91);
   pthread_mutex_lock(&mutex_03);
   sem_wait(&sem_04);
   busy_wait_seconds(C10);
   sem_post(&sem_02);
   pthread_mutex_unlock(&mutex_03);
-  l1_set_thread_prio_fifo(88);
+  l1_set_thread_prio_fifo(96);
   pthread_mutex_lock(&mutex_04);
   sem_wait(&sem_05);
   busy_wait_seconds(C10);

@@ -8,7 +8,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-
 #define C1 70.0
 #define C2 45.0
 #define C3 60.0
@@ -99,13 +98,13 @@ static struct timespec prog_start_ts;
 
 static void *worker_c2(void *arg) {
 
-  l1_set_thread_prio_fifo(94);
+  l1_set_thread_prio_fifo(88);
   pthread_mutex_lock(&mutex_01);
   busy_wait_seconds(C1);
   pthread_mutex_unlock(&mutex_01);
-l1_set_thread_prio_fifo(92);
+l1_set_thread_prio_fifo(87);
 
-  l1_set_thread_prio_fifo(91);
+  l1_set_thread_prio_fifo(86);
   pthread_mutex_lock(&mutex_02);
   sem_wait(&sem_02);
   busy_wait_seconds(C2);
@@ -125,21 +124,21 @@ static void *worker_c1(void *arg) {
   pthread_mutex_lock(&mutex_04);
   busy_wait_seconds(C4);
   pthread_mutex_unlock(&mutex_04);
-l1_set_thread_prio_fifo(90);
+l1_set_thread_prio_fifo(92);
 
-  l1_set_thread_prio_fifo(89);
+  l1_set_thread_prio_fifo(91);
   pthread_mutex_lock(&mutex_05);
   sem_wait(&sem_01);
   busy_wait_seconds(C5);
   pthread_mutex_unlock(&mutex_05);
-l1_set_thread_prio_fifo(87);
+l1_set_thread_prio_fifo(90);
 
   return NULL;
 }
 
 static void *worker_c0(void *arg) {
 
-  l1_set_thread_prio_fifo(97);
+  l1_set_thread_prio_fifo(96);
   pthread_mutex_lock(&mutex_07);
   busy_wait_seconds(C7);
   pthread_mutex_unlock(&mutex_07);
@@ -189,7 +188,7 @@ int main(void) {
   pthread_mutex_lock(&mutex_07);
   busy_wait_seconds(C10);
   pthread_mutex_unlock(&mutex_07);
-  l1_set_thread_prio_fifo(96);
+  l1_set_thread_prio_fifo(97);
   pthread_mutex_lock(&mutex_08);
   busy_wait_seconds(C10);
   sem_post(&sem_01);
@@ -200,12 +199,12 @@ int main(void) {
   pthread_join(thread_c0, NULL);
   busy_wait_seconds(C10);
   pthread_mutex_unlock(&mutex_09);
-  l1_set_thread_prio_fifo(88);
+  l1_set_thread_prio_fifo(94);
   pthread_mutex_lock(&mutex_10);
   busy_wait_seconds(C10);
   sem_post(&sem_03);
   pthread_mutex_unlock(&mutex_10);
-  l1_set_thread_prio_fifo(86);
+  l1_set_thread_prio_fifo(89);
   pthread_mutex_lock(&mutex_11);
   pthread_join(thread_c1, NULL);
   busy_wait_seconds(C10);

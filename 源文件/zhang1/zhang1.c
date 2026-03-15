@@ -18,22 +18,22 @@
 // Only allowed knobs: add/remove threads and adjust per-thread work weights.
 // Strategy: increase filler weights so they contend long enough to slow the critical chain in baseline,
 // while keeping the critical chain slightly longer than the filler group under LPF.
-#define C1 24.0
-#define C2 24.0
-#define C3 24.0
-#define C4 27.0
-#define C5 27.0
-#define C6 27.0
-#define C7 30.0
-#define C8 30.0
-#define C9 30.0
+#define C1 1600.0
+#define C2 100.0
+#define C3 200.0
+#define C4 40.0
+#define C5 1200.0
+#define C6 320.0
+#define C7 10.0
+#define C8 10.0
+#define C9 10.0
 #define C10 30.0
-#define C11 30.0
-#define C12 30.0
-#define C13 30.0
-#define C14 30.0
-#define C15 30.0
-#define C16 30.0
+#define C11 40.0
+#define C12 20.0
+#define C13 10.0
+#define C14 1800.0
+#define C15 1600.0
+#define C16 400.0
 #define F_LONG 28.0
 #define F_SHORT 20.0
 
