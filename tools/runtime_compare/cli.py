@@ -4,6 +4,7 @@ import argparse
 import logging
 import sys
 import time
+import uuid
 from pathlib import Path
 from queue import Queue
 from typing import List, Optional
@@ -198,7 +199,10 @@ class CLIManager:
         baseline_c = Path(baseline_c).expanduser().resolve()
         prio_c = Path(prio_c).expanduser().resolve()
         
-        task_id = f"{baseline_c.stem}_vs_{prio_c.stem}_{now_ts_safe()}"
+        task_id = (
+            f"{baseline_c.parent.name}_{baseline_c.stem}_vs_{prio_c.stem}_"
+            f"{now_ts_safe()}_{uuid.uuid4().hex[:8]}"
+        )
         task = Task(
             task_id=task_id,
             baseline_c=baseline_c,

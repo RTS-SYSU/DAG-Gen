@@ -8,22 +8,22 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#define C1 70.0
-#define C2 45.0
-#define C3 60.0
-#define C4 75.0
-#define C5 55.0
-#define C6 8.0
-#define C7 160.0
-#define C8 8.0
-#define C9 8.0
-#define C10 0.5
-#define C11 2.0
-#define C12 2.0
-#define C13 2.0
-#define C14 2.0
-#define C15 2.0
-#define C16 2.0
+#define C1 90.0
+#define C2 2.0
+#define C3 2.0
+#define C4 90.0
+#define C5 12.0
+#define C6 100.0
+#define C7 100.0
+#define C8 12.0
+#define C9 12.0
+#define C10 140.0
+#define C11 140.0
+#define C12 12.0
+#define C13 15.0
+#define C14 100.0
+#define C15 100.0
+#define C16 15.0
 #define F_LONG 28.0
 #define F_SHORT 20.0
 

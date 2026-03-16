@@ -13,7 +13,8 @@ import sys
 from pathlib import Path
 
 # 确保可以导入项目模块（从 tools/runtime_compare 向上两级到项目根）
-project_root = Path(__file__).parent.parent.parent
+# 这里必须先 resolve()，否则用相对路径执行 main.py 时会算错项目根目录。
+project_root = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 from tools.runtime_compare.config.defaults import WEB_HOST, WEB_PORT

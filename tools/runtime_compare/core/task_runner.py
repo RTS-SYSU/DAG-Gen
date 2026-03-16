@@ -216,7 +216,37 @@ class TaskRunner(threading.Thread):
             prio_bin = out_dir / "prio" / "app_prio"
 
             # Ensure priority runtime header can be resolved for instrumented sources.
-            prio_runtime_src = self._base_dir / "level1" / "prio_runtime.h"
+            # 首选 base_dir/level1；若 base_dir 配置异常，再回退到仓库根目录推断路径。
+            prio_runtime_candidates = [
+                self._base_dir / "level1" / "prio_runtime.h",
+                self._tool_dir.parent.parent / "level1" / "prio_runtime.h",
+            ]
+            prio_runtime_src = next((p for p in prio_runtime_candidates if p.exists()), prio_runtime_candidates[0])
+            prio_include = '#include "prio_runtime.h"'
+
+            def _requires_prio_runtime(src_path: Path) -> bool:
+                try:
+                    txt = src_path.read_text(encoding="utf-8", errors="replace")
+                except Exception:
+                    return False
+                return prio_include in txt
+
+            baseline_needs_prio = _requires_prio_runtime(baseline_dir / task.baseline_c.name)
+            prio_needs_prio = _requires_prio_runtime(prio_dir / task.prio_c.name)
+            need_runtime_header = baseline_needs_prio or prio_needs_prio
+            if need_runtime_header and not prio_runtime_src.exists():
+                missing_in = []
+                if baseline_needs_prio:
+                    missing_in.append("baseline")
+                if prio_needs_prio:
+                    missing_in.append("prio")
+                raise RuntimeError(
+                    "缺少 prio_runtime.h："
+                    f"已尝试 {', '.join(str(p) for p in prio_runtime_candidates)}。"
+                    f"需要该头文件的源码: {','.join(missing_in)}。"
+                    "请确认 level1/prio_runtime.h 存在，或移除源码中的该 include。"
+                )
+
             if prio_runtime_src.exists():
                 for _dir in (baseline_dir, prio_dir):
                     dst = _dir / "prio_runtime.h"

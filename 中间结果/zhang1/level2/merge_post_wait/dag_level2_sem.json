@@ -51,12 +51,11 @@
     "c2_fn/sem_wait8",
     "init_matrices",
     "main",
+    "main/__errno_location3",
+    "main/__stack_chk_fail47",
     "main/clock_gettime7",
     "main/clock_gettime8",
-    "main/if/__errno_location3",
-    "main/if/__stack_chk_fail47",
-    "main/if/fprintf5",
-    "main/if/strerror4",
+    "main/fprintf5",
     "main/pthread_create17",
     "main/pthread_join29",
     "main/pthread_join33",
@@ -89,7 +88,8 @@
     "main/sem_init14",
     "main/sem_init9",
     "main/sem_post21",
-    "main/sem_post25"
+    "main/sem_post25",
+    "main/strerror4"
   ],
   "edges": [
     {
@@ -119,11 +119,6 @@
     },
     {
       "src": "c0_fn/pthread_create4",
-      "dst": "c0_fn/sem_wait5",
-      "kind": "sem_dep"
-    },
-    {
-      "src": "c0_fn/sem_wait5",
       "dst": "c0_fn/sem_wait5",
       "kind": "sem_dep"
     },
@@ -199,11 +194,6 @@
     },
     {
       "src": "c1_fn/pthread_create4",
-      "dst": "c1_fn/sem_wait5",
-      "kind": "sem_dep"
-    },
-    {
-      "src": "c1_fn/sem_wait5",
       "dst": "c1_fn/sem_wait5",
       "kind": "sem_dep"
     },
@@ -319,26 +309,21 @@
     },
     {
       "src": "main/sched_setaffinity2",
-      "dst": "main/if/__errno_location3",
+      "dst": "main/__errno_location3",
       "kind": "sem_dep"
     },
     {
-      "src": "main/if/__errno_location3",
-      "dst": "main/if/strerror4",
+      "src": "main/__errno_location3",
+      "dst": "main/strerror4",
       "kind": "sem_dep"
     },
     {
-      "src": "main/if/strerror4",
-      "dst": "main/if/fprintf5",
+      "src": "main/strerror4",
+      "dst": "main/fprintf5",
       "kind": "sem_dep"
     },
     {
-      "src": "main/if/fprintf5",
-      "dst": "init_matrices",
-      "kind": "sem_dep"
-    },
-    {
-      "src": "main/sched_setaffinity2",
+      "src": "main/fprintf5",
       "dst": "init_matrices",
       "kind": "sem_dep"
     },
@@ -404,11 +389,6 @@
     },
     {
       "src": "main/pthread_create17",
-      "dst": "main/pthread_mutex_lock18",
-      "kind": "sem_dep"
-    },
-    {
-      "src": "main/pthread_mutex_lock18",
       "dst": "main/pthread_mutex_lock18",
       "kind": "sem_dep"
     },
@@ -554,7 +534,7 @@
     },
     {
       "src": "main/pthread_mutex_unlock46",
-      "dst": "main/if/__stack_chk_fail47",
+      "dst": "main/__stack_chk_fail47",
       "kind": "sem_dep"
     },
     {

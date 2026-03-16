@@ -1,6 +1,7 @@
 """配置文件管理模块"""
 
 import json
+import uuid
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Any
@@ -64,12 +65,28 @@ def save_config(
             existing = load_config(config_path)
             # 合并任务列表（去重）
             existing_task_ids = {
-                (t["baseline_c"], t["prio_c"], t["work_scale"], t["repeats"], t["cores_per_task"])
+                (
+                    t["baseline_c"],
+                    t["prio_c"],
+                    t["work_scale"],
+                    t["repeats"],
+                    t["cores_per_task"],
+                    bool(t.get("use_sudo", False)),
+                    tuple(t.get("cpu_list") or []),
+                )
                 for t in existing.get("tasks", [])
             }
             new_tasks = [
                 t for t in tasks_data
-                if (t["baseline_c"], t["prio_c"], t["work_scale"], t["repeats"], t["cores_per_task"])
+                if (
+                    t["baseline_c"],
+                    t["prio_c"],
+                    t["work_scale"],
+                    t["repeats"],
+                    t["cores_per_task"],
+                    bool(t.get("use_sudo", False)),
+                    tuple(t.get("cpu_list") or []),
+                )
                 not in existing_task_ids
             ]
             config["tasks"] = existing.get("tasks", []) + new_tasks
@@ -162,7 +179,10 @@ def tasks_from_config(
         baseline_c = Path(task_data["baseline_c"]).expanduser().resolve()
         prio_c = Path(task_data["prio_c"]).expanduser().resolve()
         
-        task_id = f"{baseline_c.stem}_vs_{prio_c.stem}_{now_ts_safe()}"
+        task_id = (
+            f"{baseline_c.parent.name}_{baseline_c.stem}_vs_{prio_c.stem}_"
+            f"{now_ts_safe()}_{uuid.uuid4().hex[:8]}"
+        )
         payload = task_payload_for_key(
             baseline_c=baseline_c,
             prio_c=prio_c,

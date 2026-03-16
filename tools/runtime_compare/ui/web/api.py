@@ -10,6 +10,7 @@ import json
 import platform
 import subprocess
 import shutil
+import uuid
 
 from ...core.task import Task
 from ...core.cpu_pool import CpuPool
@@ -207,7 +208,10 @@ def register_routes(app):
         if not prio_c.exists() or prio_c.suffix.lower() != '.c':
             return jsonify({'error': 'prio C 文件无效'}), 400
         
-        task_id = f"{baseline_c.stem}_vs_{prio_c.stem}_{now_ts_safe()}"
+        task_id = (
+            f"{baseline_c.parent.name}_{baseline_c.stem}_vs_{prio_c.stem}_"
+            f"{now_ts_safe()}_{uuid.uuid4().hex[:8]}"
+        )
         cpu_list = data.get('cpu_list')  # 可选：手动指定 CPU 核心
         
         task = Task(
@@ -250,7 +254,7 @@ def register_routes(app):
 
     @app.route('/api/fs/list', methods=['GET'])
     def list_filesystem():
-        """列出目录内容（仅允许 BASE_DIR 范围）"""
+        """列出目录内容（允许浏览任意本机目录）"""
         try:
             base_dir = Path(app.config['BASE_DIR']).resolve()
             req_path = (request.args.get('path') or "").strip()
@@ -264,11 +268,6 @@ def register_routes(app):
                     current = (base_dir / req).resolve()
             else:
                 current = base_dir
-
-            try:
-                current.relative_to(base_dir)
-            except ValueError:
-                return jsonify({'error': '路径超出允许范围'}), 400
 
             if not current.exists():
                 return jsonify({'error': f'路径不存在: {current}'}), 404
@@ -288,7 +287,7 @@ def register_routes(app):
                         files.append({'name': child.name, 'path': str(child)})
 
             parent = None
-            if current != base_dir:
+            if current.parent != current:
                 parent = str(current.parent)
 
             return jsonify({
@@ -353,7 +352,7 @@ def register_routes(app):
                     picked = None
 
             if not picked:
-                return jsonify({'error': '未选择文件或系统文件选择器不可用'}), 400
+                return jsonify({'error': '未选择文件，或系统文件选择器不可用（请改用“浏览”按钮）'}), 400
 
             p = Path(picked).expanduser().resolve()
             if suffix and p.suffix.lower() != suffix.lower():
@@ -403,7 +402,7 @@ def register_routes(app):
                     picked = None
 
             if not picked:
-                return jsonify({'error': '未选择目录或系统目录选择器不可用'}), 400
+                return jsonify({'error': '未选择目录，或系统目录选择器不可用（请在页面内手动浏览）'}), 400
 
             p = Path(picked).expanduser().resolve()
             if not p.exists() or not p.is_dir():
@@ -585,14 +584,30 @@ def register_routes(app):
             # 去重检查：检查是否已存在相同参数的任务
             existing_tasks = _task_manager.get('tasks', [])
             existing_keys = {
-                (t.baseline_c, t.prio_c, t.work_scale, t.repeats, t.cores_per_task)
+                (
+                    t.baseline_c,
+                    t.prio_c,
+                    t.work_scale,
+                    t.repeats,
+                    t.cores_per_task,
+                    bool(t.use_sudo),
+                    tuple(t.cpu_list or []),
+                )
                 for t in existing_tasks
             }
             
             added_count = 0
             queued_count = 0
             for task in new_tasks:
-                task_key = (task.baseline_c, task.prio_c, task.work_scale, task.repeats, task.cores_per_task)
+                task_key = (
+                    task.baseline_c,
+                    task.prio_c,
+                    task.work_scale,
+                    task.repeats,
+                    task.cores_per_task,
+                    bool(task.use_sudo),
+                    tuple(task.cpu_list or []),
+                )
                 if task_key not in existing_keys:
                     _task_manager['tasks'].append(task)
                     if task.status != "done":

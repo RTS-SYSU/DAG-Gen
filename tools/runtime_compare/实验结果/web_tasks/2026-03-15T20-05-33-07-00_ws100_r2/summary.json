@@ -1,0 +1,101 @@
+{
+  "task_id": "cpf_source_original_vs_source_instrumented_2026-03-15T20-05-33-07-00_91acaabb",
+  "created_at": "2026-03-15T20-05-33-07-00",
+  "cpu_set": [
+    1,
+    2
+  ],
+  "cores_per_task": 2,
+  "work_scale": 100,
+  "repeats": 2,
+  "affinity_rewritten_in_source": {
+    "baseline": true,
+    "prio": true
+  },
+  "baseline": {
+    "c_file": "/home/chove/Desktop/ScratchDAG/中间结果/zhang1/pipeline/instrument/level2/effective_line_merge/cpf/source_original.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -I /home/chove/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-15T20-05-33-07-00_ws100_r2/baseline/cpf -I /home/chove/Desktop/ScratchDAG/level1 -DWORK_SCALE=100 source_original.c -o /home/chove/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-15T20-05-33-07-00_ws100_r2/baseline/app_baseline\nRETRY(no --wrap=main): gcc -O0 -g -std=c11 -pthread -lm -I /home/chove/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-15T20-05-33-07-00_ws100_r2/baseline/cpf -I /home/chove/Desktop/ScratchDAG/level1 -DWORK_SCALE=100 source_original.c -o /home/chove/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-15T20-05-33-07-00_ws100_r2/baseline/app_baseline",
+    "stats": {
+      "n": 2.0,
+      "min_s": 2.334521045,
+      "max_s": 2.589659813,
+      "mean_s": 2.462090429,
+      "median_s": 2.589659813
+    },
+    "times_s": [
+      2.334521045,
+      2.589659813
+    ]
+  },
+  "prio": {
+    "c_file": "/home/chove/Desktop/ScratchDAG/中间结果/zhang1/pipeline/instrument/level2/effective_line_merge/cpf/source_instrumented.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -I /home/chove/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-15T20-05-33-07-00_ws100_r2/prio/cpf -I /home/chove/Desktop/ScratchDAG/level1 -DWORK_SCALE=100 source_instrumented.c -o /home/chove/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-15T20-05-33-07-00_ws100_r2/prio/app_prio\nRETRY(no --wrap=main): gcc -O0 -g -std=c11 -pthread -lm -I /home/chove/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-15T20-05-33-07-00_ws100_r2/prio/cpf -I /home/chove/Desktop/ScratchDAG/level1 -DWORK_SCALE=100 source_instrumented.c -o /home/chove/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-15T20-05-33-07-00_ws100_r2/prio/app_prio",
+    "stats": {
+      "n": 2.0,
+      "min_s": 2.652613521,
+      "max_s": 2.687940404,
+      "mean_s": 2.6702769625,
+      "median_s": 2.687940404
+    },
+    "times_s": [
+      2.652613521,
+      2.687940404
+    ]
+  },
+  "runs": [
+    {
+      "program": "baseline",
+      "iter": 0,
+      "time_s": 2.334521045,
+      "wall_s": 2.334521045,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        1,
+        2
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #1 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=2.334521\n"
+    },
+    {
+      "program": "prio",
+      "iter": 0,
+      "time_s": 2.652613521,
+      "wall_s": 2.652613521,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        1,
+        2
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #1 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=2.652614\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 1,
+      "time_s": 2.589659813,
+      "wall_s": 2.589659813,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        1,
+        2
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #2 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=2.589660\n"
+    },
+    {
+      "program": "prio",
+      "iter": 1,
+      "time_s": 2.687940404,
+      "wall_s": 2.687940404,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        1,
+        2
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #2 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=2.687940\n"
+    }
+  ],
+  "delta_mean_s": 0.20818653350000016,
+  "improvement_ratio": -0.08455681848556512
+}
