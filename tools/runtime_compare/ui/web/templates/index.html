@@ -270,16 +270,16 @@
 
         <div class="section">
             <h2>实验结果目录</h2>
-                <div class="form-group">
-                    <label>当前目录:</label>
-                    <div class="path-row">
-                        <input type="text" id="results_root" readonly placeholder="加载中...">
-                        <button type="button" onclick="pickResultsRootWithBrowser()">网页浏览</button>
-                        <button type="button" onclick="pickResultsRootWithSystem()">系统选择</button>
-                        <button type="button" onclick="resetResultsRoot()">恢复默认</button>
-                    </div>
-                    <small style="color: #666; margin-left: 150px;">只影响后续新任务，运行中的任务不变</small>
+            <div class="form-group">
+                <label>当前目录:</label>
+                <div class="path-row">
+                    <input type="text" id="results_root" placeholder="/path/to/results">
+                    <button type="button" onclick="pickResultsRootWithBrowser()">网页浏览</button>
+                    <button type="button" onclick="setResultsRootFromInput()">应用路径</button>
+                    <button type="button" onclick="resetResultsRoot()">恢复默认</button>
                 </div>
+                <small style="color: #666; margin-left: 150px;">支持手动粘贴路径；只影响后续新任务，运行中的任务不变</small>
+            </div>
             <div class="form-group">
                 <label>新建子目录:</label>
                 <div class="path-row">
@@ -315,12 +315,11 @@
                 </div>
                 <div class="form-group">
                     <label>项目目录 (中间结果/&lt;base&gt;):</label>
-                    <div class="path-row">
-                        <input type="text" id="project_root_dir" placeholder="/home/chove/Desktop/ScratchDAG/中间结果/zhang1">
-                        <button type="button" onclick="pickProjectRootWithBrowser()">浏览</button>
-                        <button type="button" class="success" onclick="pickProjectRootWithSystem()">系统选择</button>
-                        <button type="button" onclick="applyProjectRootDir()">定位 instrument 目录</button>
-                    </div>
+                <div class="path-row">
+                    <input type="text" id="project_root_dir" placeholder="/home/chove/Desktop/ScratchDAG/中间结果/zhang1">
+                    <button type="button" onclick="pickProjectRootWithBrowser()">浏览</button>
+                    <button type="button" onclick="applyProjectRootDir()">定位 instrument 目录</button>
+                </div>
                     <small id="project_dir_hint" style="color: #666; display: block; margin-top: 6px;">未设置项目目录（将从项目根开始浏览）</small>
                 </div>
                 <div class="form-group">
@@ -328,7 +327,6 @@
                     <div class="path-row">
                         <input type="text" id="baseline_c" required placeholder="/path/to/baseline.c">
                         <button type="button" onclick="openFileBrowser('baseline_c')">浏览</button>
-                        <button type="button" class="success" onclick="pickFileWithSystem('baseline_c')">系统选择</button>
                     </div>
                 </div>
                 <div class="form-group">
@@ -336,7 +334,6 @@
                     <div class="path-row">
                         <input type="text" id="prio_c" required placeholder="/path/to/prio.c">
                         <button type="button" onclick="openFileBrowser('prio_c')">浏览</button>
-                        <button type="button" class="success" onclick="pickFileWithSystem('prio_c')">系统选择</button>
                     </div>
                 </div>
                 <div class="form-group">
@@ -403,13 +400,15 @@
         <div class="modal-content">
             <div class="modal-header">
                 <strong id="file-browser-title">选择 C 文件</strong>
-                <div>
-                    <button type="button" id="btn-select-current-dir" style="display: none;" onclick="selectCurrentDirFromBrowser()">选择当前目录</button>
-                    <button type="button" onclick="pickDirWithSystemForBrowser()">系统选目录</button>
-                    <button type="button" class="danger" onclick="closeFileBrowser()">关闭</button>
-                </div>
+                <button type="button" id="btn-select-current-dir" style="display: none;" onclick="selectCurrentDirFromBrowser()">选择当前目录</button>
+                <button type="button" class="danger" onclick="closeFileBrowser()">关闭</button>
             </div>
             <div class="modal-body">
+                <div class="path-row" style="margin-bottom: 10px;">
+                    <input type="text" id="fs-path-input" placeholder="/path/to/dir">
+                    <button type="button" onclick="goToPathFromInput()">打开路径</button>
+                    <button type="button" onclick="goToParentPath()">上级</button>
+                </div>
                 <div class="fs-path" id="fs-current-path">加载中...</div>
                 <div class="fs-list" id="fs-list"></div>
             </div>
@@ -422,7 +421,7 @@
         let fileBrowserTargetInput = null;
         let fileBrowserCurrentPath = '';
         let preferredInstrumentDir = '';
-        let fileBrowserMode = 'file';  // file|dir
+        let fileBrowserMode = 'file'; // file|dir
         let fileBrowserDirSelectHandler = null;
         
         // 显示消息提示
@@ -473,20 +472,16 @@
             showAlert('已切换实验结果目录: ' + (data.results_root || path), 'success');
         }
 
-        async function pickResultsRootWithSystem() {
+        async function setResultsRootFromInput() {
+            const raw = (document.getElementById('results_root').value || '').trim();
+            if (!raw) {
+                showAlert('请输入有效目录路径', 'error');
+                return;
+            }
             try {
-                const res = await fetch('/api/fs/pick-dir', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({title: '选择实验结果保存目录'}),
-                });
-                const data = await res.json();
-                if (!res.ok) throw new Error(data.error || '系统目录选择失败');
-                if (!data.path) throw new Error('未返回目录路径');
-                await setResultsRoot(data.path);
+                await setResultsRoot(raw);
             } catch (e) {
-                showAlert('系统目录选择不可用，已切换到网页浏览器', 'info');
-                pickResultsRootWithBrowser();
+                showAlert('应用路径失败: ' + e.message, 'error');
             }
         }
 
@@ -934,6 +929,18 @@
             el.style.color = isError ? '#c62828' : '#666';
         }
 
+        function encodePathForOnclick(path) {
+            return encodeURIComponent(String(path || ''));
+        }
+
+        function decodePathFromOnclick(encoded) {
+            try {
+                return decodeURIComponent(String(encoded || ''));
+            } catch (e) {
+                return String(encoded || '');
+            }
+        }
+
         async function resolveDir(pathValue) {
             const query = new URLSearchParams();
             query.set('path', pathValue);
@@ -970,28 +977,6 @@
             }
         }
 
-        async function pickProjectRootWithSystem() {
-            try {
-                const res = await fetch('/api/fs/pick-dir', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        title: '选择项目目录（例如 中间结果/zhang1）'
-                    }),
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                    throw new Error(data.error || '系统目录选择失败');
-                }
-                document.getElementById('project_root_dir').value = data.path || '';
-                await applyProjectRootDir(false);
-                showAlert('已选择项目目录并完成定位', 'success');
-            } catch (e) {
-                showAlert('系统目录选择不可用，已切换到网页浏览器', 'info');
-                pickProjectRootWithBrowser();
-            }
-        }
-
         function pickProjectRootWithBrowser() {
             const current = (document.getElementById('project_root_dir').value || '').trim();
             openDirBrowser({
@@ -1013,14 +998,14 @@
             btnSelectDir.style.display = fileBrowserMode === 'dir' ? 'inline-block' : 'none';
         }
 
-        function openFileBrowser(targetInputId, startPath = '') {
+        function openFileBrowser(targetInputId) {
             fileBrowserTargetInput = targetInputId;
             fileBrowserDirSelectHandler = null;
             setFileBrowserMode('file', '选择 C 文件');
             const currentVal = (document.getElementById(targetInputId).value || '').trim();
-            const start = startPath || currentVal || preferredInstrumentDir || '';
+            const startPath = currentVal ? currentVal : (preferredInstrumentDir || '');
             document.getElementById('file-browser-modal').classList.add('show');
-            loadFileBrowser(start);
+            loadFileBrowser(startPath);
         }
 
         function openDirBrowser({title = '选择目录', startPath = '', onSelect = null} = {}) {
@@ -1058,25 +1043,29 @@
 
                 fileBrowserCurrentPath = data.current;
                 document.getElementById('fs-current-path').textContent = data.current;
+                document.getElementById('fs-path-input').value = data.current || '';
 
                 const rows = [];
                 if (data.parent) {
+                    const parentEnc = encodePathForOnclick(data.parent);
                     rows.push(
-                        `<div class="fs-item"><span>.. (上级目录)</span><button type="button" onclick="loadFileBrowser('${escapeJs(data.parent)}')">打开</button></div>`
+                        `<div class="fs-item"><span>.. (上级目录)</span><button type="button" data-action="open" data-path="${parentEnc}">打开</button></div>`
                     );
                 }
                 for (const d of data.dirs) {
+                    const dirEnc = encodePathForOnclick(d.path);
                     const dirActions = fileBrowserMode === 'dir'
-                        ? `<div><button type="button" class="success" onclick="chooseDirFromBrowser('${escapeJs(d.path)}')">选择</button><button type="button" onclick="loadFileBrowser('${escapeJs(d.path)}')">打开</button></div>`
-                        : `<button type="button" onclick="loadFileBrowser('${escapeJs(d.path)}')">打开</button>`;
+                        ? `<div><button type="button" class="success" data-action="select-dir" data-path="${dirEnc}">选择</button><button type="button" data-action="open" data-path="${dirEnc}">打开</button></div>`
+                        : `<button type="button" data-action="open" data-path="${dirEnc}">打开</button>`;
                     rows.push(
                         `<div class="fs-item"><span>[DIR] ${escapeHtml(d.name)}</span>${dirActions}</div>`
                     );
                 }
                 for (const f of data.files) {
                     if (fileBrowserMode === 'file') {
+                        const fileEnc = encodePathForOnclick(f.path);
                         rows.push(
-                            `<div class="fs-item"><span>${escapeHtml(f.name)}</span><button type="button" class="success" onclick="selectCFile('${escapeJs(f.path)}')">选择</button></div>`
+                            `<div class="fs-item"><span>${escapeHtml(f.name)}</span><button type="button" class="success" data-action="select-file" data-path="${fileEnc}">选择</button></div>`
                         );
                     } else {
                         rows.push(
@@ -1097,6 +1086,25 @@
                 showAlert('打开目录失败: ' + e.message, 'error');
                 document.getElementById('fs-list').innerHTML = '<div class="fs-item"><span>加载失败</span></div>';
             }
+        }
+
+        function goToPathFromInput() {
+            const p = (document.getElementById('fs-path-input').value || '').trim();
+            loadFileBrowser(p);
+        }
+
+        function goToParentPath() {
+            const cur = (fileBrowserCurrentPath || '').replace(/\/+$/, '');
+            if (!cur) {
+                loadFileBrowser('/');
+                return;
+            }
+            const idx = cur.lastIndexOf('/');
+            if (idx <= 0) {
+                loadFileBrowser('/');
+                return;
+            }
+            loadFileBrowser(cur.slice(0, idx));
         }
 
         function selectCFile(filePath) {
@@ -1127,48 +1135,6 @@
             showAlert('已选择目录: ' + chosen, 'success');
         }
 
-        async function pickFileWithSystem(targetInputId) {
-            try {
-                const res = await fetch('/api/fs/pick-file', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        suffix: '.c',
-                        title: targetInputId === 'baseline_c' ? '选择 Baseline C 文件' : '选择 Prio C 文件'
-                    }),
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                    throw new Error(data.error || '系统选择失败');
-                }
-                document.getElementById(targetInputId).value = data.path || '';
-                showAlert('已选择文件: ' + (data.path || ''), 'success');
-            } catch (e) {
-                showAlert('系统选择不可用，已切换到网页浏览器', 'info');
-                openFileBrowser(targetInputId);
-            }
-        }
-
-        async function pickDirWithSystemForBrowser() {
-            try {
-                const res = await fetch('/api/fs/pick-dir', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        title: '选择目录（用于浏览并选择 C 文件）'
-                    }),
-                });
-                const data = await res.json();
-                if (!res.ok) {
-                    throw new Error(data.error || '系统目录选择失败');
-                }
-                fileBrowserCurrentPath = data.path || '';
-                await loadFileBrowser(fileBrowserCurrentPath);
-            } catch (e) {
-                showAlert('系统目录选择失败: ' + e.message, 'error');
-            }
-        }
-
         function escapeHtml(text) {
             return String(text)
                 .replace(/&/g, '&amp;')
@@ -1178,9 +1144,24 @@
                 .replace(/'/g, '&#39;');
         }
 
-        function escapeJs(text) {
-            return String(text).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-        }
+        document.getElementById('fs-list').addEventListener('click', (evt) => {
+            const btn = evt.target.closest('button[data-action]');
+            if (!btn) return;
+            const action = btn.getAttribute('data-action') || '';
+            const encoded = btn.getAttribute('data-path') || '';
+            const path = decodePathFromOnclick(encoded);
+            if (action === 'open') {
+                loadFileBrowser(path);
+                return;
+            }
+            if (action === 'select-dir') {
+                chooseDirFromBrowser(path);
+                return;
+            }
+            if (action === 'select-file') {
+                selectCFile(path);
+            }
+        });
         
         // 初始化
         loadSystemInfo();
