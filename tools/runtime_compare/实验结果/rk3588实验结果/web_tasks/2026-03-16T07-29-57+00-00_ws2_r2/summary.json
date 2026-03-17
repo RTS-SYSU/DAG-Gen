@@ -1,0 +1,101 @@
+{
+  "task_id": "cpf_source_original_vs_source_instrumented_2026-03-16T07-29-57+00-00_85aaa7d5",
+  "created_at": "2026-03-16T07-29-57+00-00",
+  "cpu_set": [
+    0,
+    1
+  ],
+  "cores_per_task": 2,
+  "work_scale": 2,
+  "repeats": 2,
+  "affinity_rewritten_in_source": {
+    "baseline": true,
+    "prio": true
+  },
+  "baseline": {
+    "c_file": "/home/firefly/Desktop/ScratchDAG/中间结果/zhang1/pipeline/instrument/level2/effective_line_merge/cpf/source_original.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -I /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-16T07-29-57+00-00_ws2_r2/baseline/cpf -I /home/firefly/Desktop/ScratchDAG/level1 -DWORK_SCALE=2 source_original.c -o /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-16T07-29-57+00-00_ws2_r2/baseline/app_baseline\nRETRY(no --wrap=main): gcc -O0 -g -std=c11 -pthread -lm -I /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-16T07-29-57+00-00_ws2_r2/baseline/cpf -I /home/firefly/Desktop/ScratchDAG/level1 -DWORK_SCALE=2 source_original.c -o /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-16T07-29-57+00-00_ws2_r2/baseline/app_baseline",
+    "stats": {
+      "n": 2.0,
+      "min_s": 0.480169228,
+      "max_s": 0.609484109,
+      "mean_s": 0.5448266685,
+      "median_s": 0.609484109
+    },
+    "times_s": [
+      0.609484109,
+      0.480169228
+    ]
+  },
+  "prio": {
+    "c_file": "/home/firefly/Desktop/ScratchDAG/中间结果/zhang1/pipeline/instrument/level2/effective_line_merge/cpf/source_instrumented.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -I /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-16T07-29-57+00-00_ws2_r2/prio/cpf -I /home/firefly/Desktop/ScratchDAG/level1 -DWORK_SCALE=2 source_instrumented.c -o /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-16T07-29-57+00-00_ws2_r2/prio/app_prio\nRETRY(no --wrap=main): gcc -O0 -g -std=c11 -pthread -lm -I /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-16T07-29-57+00-00_ws2_r2/prio/cpf -I /home/firefly/Desktop/ScratchDAG/level1 -DWORK_SCALE=2 source_instrumented.c -o /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-16T07-29-57+00-00_ws2_r2/prio/app_prio",
+    "stats": {
+      "n": 2.0,
+      "min_s": 0.55556109,
+      "max_s": 0.562503214,
+      "mean_s": 0.559032152,
+      "median_s": 0.562503214
+    },
+    "times_s": [
+      0.562503214,
+      0.55556109
+    ]
+  },
+  "runs": [
+    {
+      "program": "baseline",
+      "iter": 0,
+      "time_s": 0.609484109,
+      "wall_s": 0.609484109,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #1 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=0.609484\n"
+    },
+    {
+      "program": "prio",
+      "iter": 0,
+      "time_s": 0.562503214,
+      "wall_s": 0.562503214,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #1 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=0.562503\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 1,
+      "time_s": 0.480169228,
+      "wall_s": 0.480169228,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #2 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=0.480169\n"
+    },
+    {
+      "program": "prio",
+      "iter": 1,
+      "time_s": 0.55556109,
+      "wall_s": 0.55556109,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #2 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=0.555561\n"
+    }
+  ],
+  "delta_mean_s": 0.014205483499999949,
+  "improvement_ratio": -0.02607339970914061
+}

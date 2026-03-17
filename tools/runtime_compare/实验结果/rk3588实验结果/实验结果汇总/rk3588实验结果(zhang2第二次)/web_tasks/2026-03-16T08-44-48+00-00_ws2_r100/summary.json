@@ -1,0 +1,2845 @@
+{
+  "task_id": "wcet_first_source_original_vs_source_instrumented_2026-03-16T08-29-04+00-00_fd8e1e6c",
+  "created_at": "2026-03-16T08-44-48+00-00",
+  "cpu_set": [
+    0,
+    1
+  ],
+  "cores_per_task": 2,
+  "work_scale": 2,
+  "repeats": 100,
+  "affinity_rewritten_in_source": {
+    "baseline": false,
+    "prio": false
+  },
+  "baseline": {
+    "c_file": "/home/firefly/Desktop/ScratchDAG/中间结果/zhang2/pipeline/instrument/level2/effective_line_merge/wcet_first/source_original.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -I /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/rk3588实验结果(zhang2第二次)/web_tasks/2026-03-16T08-44-48+00-00_ws2_r100/baseline/wcet_first -I /home/firefly/Desktop/ScratchDAG/level1 -DWORK_SCALE=2 source_original.c -o /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/rk3588实验结果(zhang2第二次)/web_tasks/2026-03-16T08-44-48+00-00_ws2_r100/baseline/app_baseline\nRETRY(no --wrap=main): gcc -O0 -g -std=c11 -pthread -lm -I /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/rk3588实验结果(zhang2第二次)/web_tasks/2026-03-16T08-44-48+00-00_ws2_r100/baseline/wcet_first -I /home/firefly/Desktop/ScratchDAG/level1 -DWORK_SCALE=2 source_original.c -o /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/rk3588实验结果(zhang2第二次)/web_tasks/2026-03-16T08-44-48+00-00_ws2_r100/baseline/app_baseline",
+    "stats": {
+      "n": 100.0,
+      "min_s": 1.615339262,
+      "max_s": 1.708188679,
+      "mean_s": 1.6429702106299993,
+      "median_s": 1.642414746
+    },
+    "times_s": [
+      1.642524177,
+      1.62648126,
+      1.665100098,
+      1.65981827,
+      1.637442796,
+      1.640359379,
+      1.669497886,
+      1.6315595,
+      1.624908558,
+      1.636525834,
+      1.615339262,
+      1.662242828,
+      1.655025167,
+      1.648949717,
+      1.656686835,
+      1.61967894,
+      1.638418636,
+      1.657590011,
+      1.646059367,
+      1.642414746,
+      1.644578549,
+      1.641619953,
+      1.659722626,
+      1.621731829,
+      1.631196849,
+      1.641933858,
+      1.617253951,
+      1.642309577,
+      1.657623258,
+      1.625874035,
+      1.649200899,
+      1.657776898,
+      1.648481685,
+      1.63617406,
+      1.63937887,
+      1.617799788,
+      1.646578053,
+      1.648604205,
+      1.644792787,
+      1.666220848,
+      1.636786098,
+      1.632779555,
+      1.674956763,
+      1.623699227,
+      1.635572034,
+      1.679707252,
+      1.620778689,
+      1.630627857,
+      1.662736166,
+      1.625178025,
+      1.61980383,
+      1.633673442,
+      1.636730395,
+      1.644907397,
+      1.661792879,
+      1.645412108,
+      1.641693466,
+      1.649098408,
+      1.6155374,
+      1.642062475,
+      1.645358895,
+      1.636713002,
+      1.676698841,
+      1.646408096,
+      1.630715358,
+      1.635518866,
+      1.617748833,
+      1.653836145,
+      1.708188679,
+      1.628350091,
+      1.660675099,
+      1.651810758,
+      1.642741374,
+      1.644534809,
+      1.624146719,
+      1.622591156,
+      1.663003119,
+      1.63976742,
+      1.648860001,
+      1.646009992,
+      1.640506622,
+      1.65523843,
+      1.631705817,
+      1.626000322,
+      1.652747642,
+      1.651932644,
+      1.616476408,
+      1.64458993,
+      1.625443227,
+      1.636728036,
+      1.664628052,
+      1.625855781,
+      1.641136232,
+      1.629552641,
+      1.621118256,
+      1.6495497,
+      1.65980315,
+      1.650256322,
+      1.648894737,
+      1.67217055
+    ]
+  },
+  "prio": {
+    "c_file": "/home/firefly/Desktop/ScratchDAG/中间结果/zhang2/pipeline/instrument/level2/effective_line_merge/wcet_first/source_instrumented.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -I /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/rk3588实验结果(zhang2第二次)/web_tasks/2026-03-16T08-44-48+00-00_ws2_r100/prio/wcet_first -I /home/firefly/Desktop/ScratchDAG/level1 -DWORK_SCALE=2 source_instrumented.c -o /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/rk3588实验结果(zhang2第二次)/web_tasks/2026-03-16T08-44-48+00-00_ws2_r100/prio/app_prio\nRETRY(no --wrap=main): gcc -O0 -g -std=c11 -pthread -lm -I /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/rk3588实验结果(zhang2第二次)/web_tasks/2026-03-16T08-44-48+00-00_ws2_r100/prio/wcet_first -I /home/firefly/Desktop/ScratchDAG/level1 -DWORK_SCALE=2 source_instrumented.c -o /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/rk3588实验结果(zhang2第二次)/web_tasks/2026-03-16T08-44-48+00-00_ws2_r100/prio/app_prio",
+    "stats": {
+      "n": 100.0,
+      "min_s": 1.61030661,
+      "max_s": 1.775400524,
+      "mean_s": 1.6441997544300002,
+      "median_s": 1.634385724
+    },
+    "times_s": [
+      1.632194398,
+      1.625658071,
+      1.631026186,
+      1.642432569,
+      1.675776996,
+      1.673468879,
+      1.655208909,
+      1.632078021,
+      1.635419006,
+      1.659243178,
+      1.620829095,
+      1.634385724,
+      1.654114193,
+      1.642449655,
+      1.631033053,
+      1.633730615,
+      1.635425686,
+      1.632715883,
+      1.627207464,
+      1.688319083,
+      1.62675684,
+      1.631953777,
+      1.626292234,
+      1.624289464,
+      1.629095263,
+      1.61030661,
+      1.627921318,
+      1.689858936,
+      1.632839291,
+      1.691599817,
+      1.626117113,
+      1.641047535,
+      1.635390973,
+      1.62763056,
+      1.649397839,
+      1.634153349,
+      1.636179506,
+      1.62571615,
+      1.630740137,
+      1.775400524,
+      1.638435176,
+      1.626333784,
+      1.63243435,
+      1.625649025,
+      1.63701694,
+      1.642544072,
+      1.632732923,
+      1.672329972,
+      1.641507464,
+      1.629766018,
+      1.637946229,
+      1.626333119,
+      1.629328817,
+      1.62332374,
+      1.637277646,
+      1.676703765,
+      1.648842652,
+      1.628277487,
+      1.627405298,
+      1.658451611,
+      1.693540446,
+      1.679420494,
+      1.631890339,
+      1.709024183,
+      1.63268354,
+      1.653593879,
+      1.76368423,
+      1.634318147,
+      1.635800067,
+      1.627489325,
+      1.63475865,
+      1.631132194,
+      1.631970686,
+      1.636472902,
+      1.631299121,
+      1.630574242,
+      1.647323561,
+      1.631930399,
+      1.660340844,
+      1.638032964,
+      1.627394093,
+      1.647009693,
+      1.673239082,
+      1.629458961,
+      1.621366993,
+      1.651903449,
+      1.629438661,
+      1.63103552,
+      1.628534944,
+      1.637314857,
+      1.647005083,
+      1.632339374,
+      1.626213293,
+      1.657417681,
+      1.626832413,
+      1.651912525,
+      1.710041948,
+      1.641468744,
+      1.667950932,
+      1.638772996
+    ]
+  },
+  "runs": [
+    {
+      "program": "baseline",
+      "iter": 0,
+      "time_s": 1.642524177,
+      "wall_s": 1.642524177,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #1 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.642524\n"
+    },
+    {
+      "program": "prio",
+      "iter": 0,
+      "time_s": 1.632194398,
+      "wall_s": 1.632194398,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #1 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.632194\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 1,
+      "time_s": 1.62648126,
+      "wall_s": 1.62648126,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #2 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.626481\n"
+    },
+    {
+      "program": "prio",
+      "iter": 1,
+      "time_s": 1.625658071,
+      "wall_s": 1.625658071,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #2 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.625658\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 2,
+      "time_s": 1.665100098,
+      "wall_s": 1.665100098,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #3 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.665100\n"
+    },
+    {
+      "program": "prio",
+      "iter": 2,
+      "time_s": 1.631026186,
+      "wall_s": 1.631026186,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #3 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.631026\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 3,
+      "time_s": 1.65981827,
+      "wall_s": 1.65981827,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #4 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.659818\n"
+    },
+    {
+      "program": "prio",
+      "iter": 3,
+      "time_s": 1.642432569,
+      "wall_s": 1.642432569,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #4 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.642433\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 4,
+      "time_s": 1.637442796,
+      "wall_s": 1.637442796,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #5 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.637443\n"
+    },
+    {
+      "program": "prio",
+      "iter": 4,
+      "time_s": 1.675776996,
+      "wall_s": 1.675776996,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #5 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.675777\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 5,
+      "time_s": 1.640359379,
+      "wall_s": 1.640359379,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #6 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.640359\n"
+    },
+    {
+      "program": "prio",
+      "iter": 5,
+      "time_s": 1.673468879,
+      "wall_s": 1.673468879,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #6 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.673469\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 6,
+      "time_s": 1.669497886,
+      "wall_s": 1.669497886,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #7 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.669498\n"
+    },
+    {
+      "program": "prio",
+      "iter": 6,
+      "time_s": 1.655208909,
+      "wall_s": 1.655208909,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #7 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.655209\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 7,
+      "time_s": 1.6315595,
+      "wall_s": 1.6315595,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #8 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.631560\n"
+    },
+    {
+      "program": "prio",
+      "iter": 7,
+      "time_s": 1.632078021,
+      "wall_s": 1.632078021,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #8 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.632078\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 8,
+      "time_s": 1.624908558,
+      "wall_s": 1.624908558,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #9 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.624909\n"
+    },
+    {
+      "program": "prio",
+      "iter": 8,
+      "time_s": 1.635419006,
+      "wall_s": 1.635419006,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #9 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.635419\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 9,
+      "time_s": 1.636525834,
+      "wall_s": 1.636525834,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #10 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.636526\n"
+    },
+    {
+      "program": "prio",
+      "iter": 9,
+      "time_s": 1.659243178,
+      "wall_s": 1.659243178,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #10 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.659243\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 10,
+      "time_s": 1.615339262,
+      "wall_s": 1.615339262,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #11 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.615339\n"
+    },
+    {
+      "program": "prio",
+      "iter": 10,
+      "time_s": 1.620829095,
+      "wall_s": 1.620829095,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #11 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.620829\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 11,
+      "time_s": 1.662242828,
+      "wall_s": 1.662242828,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #12 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.662243\n"
+    },
+    {
+      "program": "prio",
+      "iter": 11,
+      "time_s": 1.634385724,
+      "wall_s": 1.634385724,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #12 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.634386\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 12,
+      "time_s": 1.655025167,
+      "wall_s": 1.655025167,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #13 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.655025\n"
+    },
+    {
+      "program": "prio",
+      "iter": 12,
+      "time_s": 1.654114193,
+      "wall_s": 1.654114193,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #13 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.654114\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 13,
+      "time_s": 1.648949717,
+      "wall_s": 1.648949717,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #14 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.648950\n"
+    },
+    {
+      "program": "prio",
+      "iter": 13,
+      "time_s": 1.642449655,
+      "wall_s": 1.642449655,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #14 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.642450\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 14,
+      "time_s": 1.656686835,
+      "wall_s": 1.656686835,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #15 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.656687\n"
+    },
+    {
+      "program": "prio",
+      "iter": 14,
+      "time_s": 1.631033053,
+      "wall_s": 1.631033053,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #15 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.631033\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 15,
+      "time_s": 1.61967894,
+      "wall_s": 1.61967894,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #16 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.619679\n"
+    },
+    {
+      "program": "prio",
+      "iter": 15,
+      "time_s": 1.633730615,
+      "wall_s": 1.633730615,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #16 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.633731\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 16,
+      "time_s": 1.638418636,
+      "wall_s": 1.638418636,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #17 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.638419\n"
+    },
+    {
+      "program": "prio",
+      "iter": 16,
+      "time_s": 1.635425686,
+      "wall_s": 1.635425686,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #17 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.635426\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 17,
+      "time_s": 1.657590011,
+      "wall_s": 1.657590011,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #18 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.657590\n"
+    },
+    {
+      "program": "prio",
+      "iter": 17,
+      "time_s": 1.632715883,
+      "wall_s": 1.632715883,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #18 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.632716\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 18,
+      "time_s": 1.646059367,
+      "wall_s": 1.646059367,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #19 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.646059\n"
+    },
+    {
+      "program": "prio",
+      "iter": 18,
+      "time_s": 1.627207464,
+      "wall_s": 1.627207464,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #19 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.627207\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 19,
+      "time_s": 1.642414746,
+      "wall_s": 1.642414746,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #20 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.642415\n"
+    },
+    {
+      "program": "prio",
+      "iter": 19,
+      "time_s": 1.688319083,
+      "wall_s": 1.688319083,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #20 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.688319\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 20,
+      "time_s": 1.644578549,
+      "wall_s": 1.644578549,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #21 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.644579\n"
+    },
+    {
+      "program": "prio",
+      "iter": 20,
+      "time_s": 1.62675684,
+      "wall_s": 1.62675684,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #21 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.626757\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 21,
+      "time_s": 1.641619953,
+      "wall_s": 1.641619953,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #22 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.641620\n"
+    },
+    {
+      "program": "prio",
+      "iter": 21,
+      "time_s": 1.631953777,
+      "wall_s": 1.631953777,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #22 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.631954\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 22,
+      "time_s": 1.659722626,
+      "wall_s": 1.659722626,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #23 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.659723\n"
+    },
+    {
+      "program": "prio",
+      "iter": 22,
+      "time_s": 1.626292234,
+      "wall_s": 1.626292234,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #23 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.626292\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 23,
+      "time_s": 1.621731829,
+      "wall_s": 1.621731829,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #24 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.621732\n"
+    },
+    {
+      "program": "prio",
+      "iter": 23,
+      "time_s": 1.624289464,
+      "wall_s": 1.624289464,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #24 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.624289\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 24,
+      "time_s": 1.631196849,
+      "wall_s": 1.631196849,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #25 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.631197\n"
+    },
+    {
+      "program": "prio",
+      "iter": 24,
+      "time_s": 1.629095263,
+      "wall_s": 1.629095263,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #25 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.629095\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 25,
+      "time_s": 1.641933858,
+      "wall_s": 1.641933858,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #26 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.641934\n"
+    },
+    {
+      "program": "prio",
+      "iter": 25,
+      "time_s": 1.61030661,
+      "wall_s": 1.61030661,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #26 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.610307\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 26,
+      "time_s": 1.617253951,
+      "wall_s": 1.617253951,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #27 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.617254\n"
+    },
+    {
+      "program": "prio",
+      "iter": 26,
+      "time_s": 1.627921318,
+      "wall_s": 1.627921318,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #27 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.627921\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 27,
+      "time_s": 1.642309577,
+      "wall_s": 1.642309577,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #28 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.642310\n"
+    },
+    {
+      "program": "prio",
+      "iter": 27,
+      "time_s": 1.689858936,
+      "wall_s": 1.689858936,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #28 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.689859\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 28,
+      "time_s": 1.657623258,
+      "wall_s": 1.657623258,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #29 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.657623\n"
+    },
+    {
+      "program": "prio",
+      "iter": 28,
+      "time_s": 1.632839291,
+      "wall_s": 1.632839291,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #29 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.632839\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 29,
+      "time_s": 1.625874035,
+      "wall_s": 1.625874035,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #30 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.625874\n"
+    },
+    {
+      "program": "prio",
+      "iter": 29,
+      "time_s": 1.691599817,
+      "wall_s": 1.691599817,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #30 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.691600\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 30,
+      "time_s": 1.649200899,
+      "wall_s": 1.649200899,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #31 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.649201\n"
+    },
+    {
+      "program": "prio",
+      "iter": 30,
+      "time_s": 1.626117113,
+      "wall_s": 1.626117113,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #31 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.626117\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 31,
+      "time_s": 1.657776898,
+      "wall_s": 1.657776898,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #32 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.657777\n"
+    },
+    {
+      "program": "prio",
+      "iter": 31,
+      "time_s": 1.641047535,
+      "wall_s": 1.641047535,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #32 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.641048\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 32,
+      "time_s": 1.648481685,
+      "wall_s": 1.648481685,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #33 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.648482\n"
+    },
+    {
+      "program": "prio",
+      "iter": 32,
+      "time_s": 1.635390973,
+      "wall_s": 1.635390973,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #33 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.635391\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 33,
+      "time_s": 1.63617406,
+      "wall_s": 1.63617406,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #34 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.636174\n"
+    },
+    {
+      "program": "prio",
+      "iter": 33,
+      "time_s": 1.62763056,
+      "wall_s": 1.62763056,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #34 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.627631\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 34,
+      "time_s": 1.63937887,
+      "wall_s": 1.63937887,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #35 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.639379\n"
+    },
+    {
+      "program": "prio",
+      "iter": 34,
+      "time_s": 1.649397839,
+      "wall_s": 1.649397839,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #35 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.649398\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 35,
+      "time_s": 1.617799788,
+      "wall_s": 1.617799788,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #36 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.617800\n"
+    },
+    {
+      "program": "prio",
+      "iter": 35,
+      "time_s": 1.634153349,
+      "wall_s": 1.634153349,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #36 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.634153\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 36,
+      "time_s": 1.646578053,
+      "wall_s": 1.646578053,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #37 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.646578\n"
+    },
+    {
+      "program": "prio",
+      "iter": 36,
+      "time_s": 1.636179506,
+      "wall_s": 1.636179506,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #37 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.636180\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 37,
+      "time_s": 1.648604205,
+      "wall_s": 1.648604205,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #38 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.648604\n"
+    },
+    {
+      "program": "prio",
+      "iter": 37,
+      "time_s": 1.62571615,
+      "wall_s": 1.62571615,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #38 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.625716\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 38,
+      "time_s": 1.644792787,
+      "wall_s": 1.644792787,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #39 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.644793\n"
+    },
+    {
+      "program": "prio",
+      "iter": 38,
+      "time_s": 1.630740137,
+      "wall_s": 1.630740137,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #39 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.630740\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 39,
+      "time_s": 1.666220848,
+      "wall_s": 1.666220848,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #40 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.666221\n"
+    },
+    {
+      "program": "prio",
+      "iter": 39,
+      "time_s": 1.775400524,
+      "wall_s": 1.775400524,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #40 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.775401\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 40,
+      "time_s": 1.636786098,
+      "wall_s": 1.636786098,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #41 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.636786\n"
+    },
+    {
+      "program": "prio",
+      "iter": 40,
+      "time_s": 1.638435176,
+      "wall_s": 1.638435176,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #41 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.638435\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 41,
+      "time_s": 1.632779555,
+      "wall_s": 1.632779555,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #42 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.632780\n"
+    },
+    {
+      "program": "prio",
+      "iter": 41,
+      "time_s": 1.626333784,
+      "wall_s": 1.626333784,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #42 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.626334\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 42,
+      "time_s": 1.674956763,
+      "wall_s": 1.674956763,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #43 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.674957\n"
+    },
+    {
+      "program": "prio",
+      "iter": 42,
+      "time_s": 1.63243435,
+      "wall_s": 1.63243435,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #43 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.632434\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 43,
+      "time_s": 1.623699227,
+      "wall_s": 1.623699227,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #44 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.623699\n"
+    },
+    {
+      "program": "prio",
+      "iter": 43,
+      "time_s": 1.625649025,
+      "wall_s": 1.625649025,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #44 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.625649\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 44,
+      "time_s": 1.635572034,
+      "wall_s": 1.635572034,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #45 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.635572\n"
+    },
+    {
+      "program": "prio",
+      "iter": 44,
+      "time_s": 1.63701694,
+      "wall_s": 1.63701694,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #45 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.637017\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 45,
+      "time_s": 1.679707252,
+      "wall_s": 1.679707252,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #46 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.679707\n"
+    },
+    {
+      "program": "prio",
+      "iter": 45,
+      "time_s": 1.642544072,
+      "wall_s": 1.642544072,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #46 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.642544\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 46,
+      "time_s": 1.620778689,
+      "wall_s": 1.620778689,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #47 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.620779\n"
+    },
+    {
+      "program": "prio",
+      "iter": 46,
+      "time_s": 1.632732923,
+      "wall_s": 1.632732923,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #47 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.632733\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 47,
+      "time_s": 1.630627857,
+      "wall_s": 1.630627857,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #48 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.630628\n"
+    },
+    {
+      "program": "prio",
+      "iter": 47,
+      "time_s": 1.672329972,
+      "wall_s": 1.672329972,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #48 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.672330\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 48,
+      "time_s": 1.662736166,
+      "wall_s": 1.662736166,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #49 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.662736\n"
+    },
+    {
+      "program": "prio",
+      "iter": 48,
+      "time_s": 1.641507464,
+      "wall_s": 1.641507464,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #49 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.641507\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 49,
+      "time_s": 1.625178025,
+      "wall_s": 1.625178025,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #50 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.625178\n"
+    },
+    {
+      "program": "prio",
+      "iter": 49,
+      "time_s": 1.629766018,
+      "wall_s": 1.629766018,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #50 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.629766\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 50,
+      "time_s": 1.61980383,
+      "wall_s": 1.61980383,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #51 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.619804\n"
+    },
+    {
+      "program": "prio",
+      "iter": 50,
+      "time_s": 1.637946229,
+      "wall_s": 1.637946229,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #51 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.637946\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 51,
+      "time_s": 1.633673442,
+      "wall_s": 1.633673442,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #52 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.633673\n"
+    },
+    {
+      "program": "prio",
+      "iter": 51,
+      "time_s": 1.626333119,
+      "wall_s": 1.626333119,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #52 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.626333\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 52,
+      "time_s": 1.636730395,
+      "wall_s": 1.636730395,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #53 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.636730\n"
+    },
+    {
+      "program": "prio",
+      "iter": 52,
+      "time_s": 1.629328817,
+      "wall_s": 1.629328817,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #53 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.629329\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 53,
+      "time_s": 1.644907397,
+      "wall_s": 1.644907397,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #54 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.644907\n"
+    },
+    {
+      "program": "prio",
+      "iter": 53,
+      "time_s": 1.62332374,
+      "wall_s": 1.62332374,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #54 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.623324\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 54,
+      "time_s": 1.661792879,
+      "wall_s": 1.661792879,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #55 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.661793\n"
+    },
+    {
+      "program": "prio",
+      "iter": 54,
+      "time_s": 1.637277646,
+      "wall_s": 1.637277646,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #55 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.637278\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 55,
+      "time_s": 1.645412108,
+      "wall_s": 1.645412108,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #56 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.645412\n"
+    },
+    {
+      "program": "prio",
+      "iter": 55,
+      "time_s": 1.676703765,
+      "wall_s": 1.676703765,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #56 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.676704\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 56,
+      "time_s": 1.641693466,
+      "wall_s": 1.641693466,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #57 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.641693\n"
+    },
+    {
+      "program": "prio",
+      "iter": 56,
+      "time_s": 1.648842652,
+      "wall_s": 1.648842652,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #57 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.648843\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 57,
+      "time_s": 1.649098408,
+      "wall_s": 1.649098408,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #58 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.649098\n"
+    },
+    {
+      "program": "prio",
+      "iter": 57,
+      "time_s": 1.628277487,
+      "wall_s": 1.628277487,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #58 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.628277\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 58,
+      "time_s": 1.6155374,
+      "wall_s": 1.6155374,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #59 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.615537\n"
+    },
+    {
+      "program": "prio",
+      "iter": 58,
+      "time_s": 1.627405298,
+      "wall_s": 1.627405298,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #59 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.627405\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 59,
+      "time_s": 1.642062475,
+      "wall_s": 1.642062475,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #60 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.642062\n"
+    },
+    {
+      "program": "prio",
+      "iter": 59,
+      "time_s": 1.658451611,
+      "wall_s": 1.658451611,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #60 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.658452\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 60,
+      "time_s": 1.645358895,
+      "wall_s": 1.645358895,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #61 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.645359\n"
+    },
+    {
+      "program": "prio",
+      "iter": 60,
+      "time_s": 1.693540446,
+      "wall_s": 1.693540446,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #61 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.693540\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 61,
+      "time_s": 1.636713002,
+      "wall_s": 1.636713002,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #62 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.636713\n"
+    },
+    {
+      "program": "prio",
+      "iter": 61,
+      "time_s": 1.679420494,
+      "wall_s": 1.679420494,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #62 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.679420\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 62,
+      "time_s": 1.676698841,
+      "wall_s": 1.676698841,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #63 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.676699\n"
+    },
+    {
+      "program": "prio",
+      "iter": 62,
+      "time_s": 1.631890339,
+      "wall_s": 1.631890339,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #63 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.631890\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 63,
+      "time_s": 1.646408096,
+      "wall_s": 1.646408096,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #64 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.646408\n"
+    },
+    {
+      "program": "prio",
+      "iter": 63,
+      "time_s": 1.709024183,
+      "wall_s": 1.709024183,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #64 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.709024\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 64,
+      "time_s": 1.630715358,
+      "wall_s": 1.630715358,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #65 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.630715\n"
+    },
+    {
+      "program": "prio",
+      "iter": 64,
+      "time_s": 1.63268354,
+      "wall_s": 1.63268354,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #65 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.632684\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 65,
+      "time_s": 1.635518866,
+      "wall_s": 1.635518866,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #66 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.635519\n"
+    },
+    {
+      "program": "prio",
+      "iter": 65,
+      "time_s": 1.653593879,
+      "wall_s": 1.653593879,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #66 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.653594\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 66,
+      "time_s": 1.617748833,
+      "wall_s": 1.617748833,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #67 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.617749\n"
+    },
+    {
+      "program": "prio",
+      "iter": 66,
+      "time_s": 1.76368423,
+      "wall_s": 1.76368423,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #67 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.763684\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 67,
+      "time_s": 1.653836145,
+      "wall_s": 1.653836145,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #68 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.653836\n"
+    },
+    {
+      "program": "prio",
+      "iter": 67,
+      "time_s": 1.634318147,
+      "wall_s": 1.634318147,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #68 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.634318\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 68,
+      "time_s": 1.708188679,
+      "wall_s": 1.708188679,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #69 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.708189\n"
+    },
+    {
+      "program": "prio",
+      "iter": 68,
+      "time_s": 1.635800067,
+      "wall_s": 1.635800067,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #69 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.635800\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 69,
+      "time_s": 1.628350091,
+      "wall_s": 1.628350091,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #70 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.628350\n"
+    },
+    {
+      "program": "prio",
+      "iter": 69,
+      "time_s": 1.627489325,
+      "wall_s": 1.627489325,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #70 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.627489\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 70,
+      "time_s": 1.660675099,
+      "wall_s": 1.660675099,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #71 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.660675\n"
+    },
+    {
+      "program": "prio",
+      "iter": 70,
+      "time_s": 1.63475865,
+      "wall_s": 1.63475865,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #71 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.634759\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 71,
+      "time_s": 1.651810758,
+      "wall_s": 1.651810758,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #72 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.651811\n"
+    },
+    {
+      "program": "prio",
+      "iter": 71,
+      "time_s": 1.631132194,
+      "wall_s": 1.631132194,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #72 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.631132\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 72,
+      "time_s": 1.642741374,
+      "wall_s": 1.642741374,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #73 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.642741\n"
+    },
+    {
+      "program": "prio",
+      "iter": 72,
+      "time_s": 1.631970686,
+      "wall_s": 1.631970686,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #73 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.631971\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 73,
+      "time_s": 1.644534809,
+      "wall_s": 1.644534809,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #74 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.644535\n"
+    },
+    {
+      "program": "prio",
+      "iter": 73,
+      "time_s": 1.636472902,
+      "wall_s": 1.636472902,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #74 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.636473\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 74,
+      "time_s": 1.624146719,
+      "wall_s": 1.624146719,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #75 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.624147\n"
+    },
+    {
+      "program": "prio",
+      "iter": 74,
+      "time_s": 1.631299121,
+      "wall_s": 1.631299121,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #75 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.631299\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 75,
+      "time_s": 1.622591156,
+      "wall_s": 1.622591156,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #76 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.622591\n"
+    },
+    {
+      "program": "prio",
+      "iter": 75,
+      "time_s": 1.630574242,
+      "wall_s": 1.630574242,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #76 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.630574\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 76,
+      "time_s": 1.663003119,
+      "wall_s": 1.663003119,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #77 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.663003\n"
+    },
+    {
+      "program": "prio",
+      "iter": 76,
+      "time_s": 1.647323561,
+      "wall_s": 1.647323561,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #77 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.647324\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 77,
+      "time_s": 1.63976742,
+      "wall_s": 1.63976742,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #78 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.639767\n"
+    },
+    {
+      "program": "prio",
+      "iter": 77,
+      "time_s": 1.631930399,
+      "wall_s": 1.631930399,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #78 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.631930\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 78,
+      "time_s": 1.648860001,
+      "wall_s": 1.648860001,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #79 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.648860\n"
+    },
+    {
+      "program": "prio",
+      "iter": 78,
+      "time_s": 1.660340844,
+      "wall_s": 1.660340844,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #79 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.660341\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 79,
+      "time_s": 1.646009992,
+      "wall_s": 1.646009992,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #80 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.646010\n"
+    },
+    {
+      "program": "prio",
+      "iter": 79,
+      "time_s": 1.638032964,
+      "wall_s": 1.638032964,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #80 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.638033\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 80,
+      "time_s": 1.640506622,
+      "wall_s": 1.640506622,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #81 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.640507\n"
+    },
+    {
+      "program": "prio",
+      "iter": 80,
+      "time_s": 1.627394093,
+      "wall_s": 1.627394093,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #81 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.627394\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 81,
+      "time_s": 1.65523843,
+      "wall_s": 1.65523843,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #82 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.655238\n"
+    },
+    {
+      "program": "prio",
+      "iter": 81,
+      "time_s": 1.647009693,
+      "wall_s": 1.647009693,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #82 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.647010\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 82,
+      "time_s": 1.631705817,
+      "wall_s": 1.631705817,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #83 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.631706\n"
+    },
+    {
+      "program": "prio",
+      "iter": 82,
+      "time_s": 1.673239082,
+      "wall_s": 1.673239082,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #83 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.673239\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 83,
+      "time_s": 1.626000322,
+      "wall_s": 1.626000322,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #84 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.626000\n"
+    },
+    {
+      "program": "prio",
+      "iter": 83,
+      "time_s": 1.629458961,
+      "wall_s": 1.629458961,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #84 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.629459\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 84,
+      "time_s": 1.652747642,
+      "wall_s": 1.652747642,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #85 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.652748\n"
+    },
+    {
+      "program": "prio",
+      "iter": 84,
+      "time_s": 1.621366993,
+      "wall_s": 1.621366993,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #85 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.621367\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 85,
+      "time_s": 1.651932644,
+      "wall_s": 1.651932644,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #86 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.651933\n"
+    },
+    {
+      "program": "prio",
+      "iter": 85,
+      "time_s": 1.651903449,
+      "wall_s": 1.651903449,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #86 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.651903\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 86,
+      "time_s": 1.616476408,
+      "wall_s": 1.616476408,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #87 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.616476\n"
+    },
+    {
+      "program": "prio",
+      "iter": 86,
+      "time_s": 1.629438661,
+      "wall_s": 1.629438661,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #87 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.629439\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 87,
+      "time_s": 1.64458993,
+      "wall_s": 1.64458993,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #88 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.644590\n"
+    },
+    {
+      "program": "prio",
+      "iter": 87,
+      "time_s": 1.63103552,
+      "wall_s": 1.63103552,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #88 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.631036\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 88,
+      "time_s": 1.625443227,
+      "wall_s": 1.625443227,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #89 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.625443\n"
+    },
+    {
+      "program": "prio",
+      "iter": 88,
+      "time_s": 1.628534944,
+      "wall_s": 1.628534944,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #89 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.628535\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 89,
+      "time_s": 1.636728036,
+      "wall_s": 1.636728036,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #90 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.636728\n"
+    },
+    {
+      "program": "prio",
+      "iter": 89,
+      "time_s": 1.637314857,
+      "wall_s": 1.637314857,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #90 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.637315\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 90,
+      "time_s": 1.664628052,
+      "wall_s": 1.664628052,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #91 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.664628\n"
+    },
+    {
+      "program": "prio",
+      "iter": 90,
+      "time_s": 1.647005083,
+      "wall_s": 1.647005083,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #91 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.647005\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 91,
+      "time_s": 1.625855781,
+      "wall_s": 1.625855781,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #92 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.625856\n"
+    },
+    {
+      "program": "prio",
+      "iter": 91,
+      "time_s": 1.632339374,
+      "wall_s": 1.632339374,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #92 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.632339\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 92,
+      "time_s": 1.641136232,
+      "wall_s": 1.641136232,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #93 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.641136\n"
+    },
+    {
+      "program": "prio",
+      "iter": 92,
+      "time_s": 1.626213293,
+      "wall_s": 1.626213293,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #93 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.626213\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 93,
+      "time_s": 1.629552641,
+      "wall_s": 1.629552641,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #94 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.629553\n"
+    },
+    {
+      "program": "prio",
+      "iter": 93,
+      "time_s": 1.657417681,
+      "wall_s": 1.657417681,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #94 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.657418\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 94,
+      "time_s": 1.621118256,
+      "wall_s": 1.621118256,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #95 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.621118\n"
+    },
+    {
+      "program": "prio",
+      "iter": 94,
+      "time_s": 1.626832413,
+      "wall_s": 1.626832413,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #95 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.626832\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 95,
+      "time_s": 1.6495497,
+      "wall_s": 1.6495497,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #96 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.649550\n"
+    },
+    {
+      "program": "prio",
+      "iter": 95,
+      "time_s": 1.651912525,
+      "wall_s": 1.651912525,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #96 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.651913\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 96,
+      "time_s": 1.65980315,
+      "wall_s": 1.65980315,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #97 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.659803\n"
+    },
+    {
+      "program": "prio",
+      "iter": 96,
+      "time_s": 1.710041948,
+      "wall_s": 1.710041948,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #97 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.710042\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 97,
+      "time_s": 1.650256322,
+      "wall_s": 1.650256322,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #98 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.650256\n"
+    },
+    {
+      "program": "prio",
+      "iter": 97,
+      "time_s": 1.641468744,
+      "wall_s": 1.641468744,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #98 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.641469\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 98,
+      "time_s": 1.648894737,
+      "wall_s": 1.648894737,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #99 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.648895\n"
+    },
+    {
+      "program": "prio",
+      "iter": 98,
+      "time_s": 1.667950932,
+      "wall_s": 1.667950932,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #99 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.667951\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 99,
+      "time_s": 1.67217055,
+      "wall_s": 1.67217055,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #100 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.672171\n"
+    },
+    {
+      "program": "prio",
+      "iter": 99,
+      "time_s": 1.638772996,
+      "wall_s": 1.638772996,
+      "parsed_from_stdout": false,
+      "cpu_set": [
+        0,
+        1
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #100 (rc=0) -----\n\n[warn] failed to parse internal time; fallback wall_s=1.638773\n"
+    }
+  ],
+  "delta_mean_s": 0.001229543800000954,
+  "improvement_ratio": -0.0007483664597482164
+}
