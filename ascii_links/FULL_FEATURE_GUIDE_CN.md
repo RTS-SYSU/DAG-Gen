@@ -1,0 +1,1 @@
+/home/chove/Desktop/ScratchDAG/FULL_FEATURE_GUIDE_CN.md

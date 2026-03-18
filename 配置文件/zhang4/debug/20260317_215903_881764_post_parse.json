@@ -1,0 +1,660 @@
+{
+  "rtl_files": [
+    "/home/chove/Desktop/ScratchDAG/配置文件/zhang4/zhang4.c.233r.expand"
+  ],
+  "functions": {
+    "init_matrices": {
+      "files": [
+        "/home/chove/Desktop/ScratchDAG/配置文件/zhang4/zhang4.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "源文件/zhang4/zhang4.c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "pin_cpu_0_1": {
+      "files": [
+        "/home/chove/Desktop/ScratchDAG/配置文件/zhang4/zhang4.c.233r.expand"
+      ],
+      "calls": {
+        "sched_setaffinity": true,
+        "__errno_location": true,
+        "strerror": true,
+        "fprintf": true,
+        "__stack_chk_fail": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "源文件/zhang4/zhang4.c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [
+        "pin_cpu_0_1/sched_setaffinity1",
+        "pin_cpu_0_1/__errno_location2",
+        "pin_cpu_0_1/strerror3",
+        "pin_cpu_0_1/fprintf4",
+        "pin_cpu_0_1/__stack_chk_fail5"
+      ],
+      "myinfo": {
+        "tail": "pin_cpu_0_1/__stack_chk_fail5"
+      },
+      "mycalls_meta": {
+        "pin_cpu_0_1/sched_setaffinity1": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 59,
+          "col": 7,
+          "extern": 0
+        },
+        "pin_cpu_0_1/__errno_location2": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 60,
+          "col": 64,
+          "extern": 0
+        },
+        "pin_cpu_0_1/strerror3": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 60,
+          "col": 5,
+          "extern": 0
+        },
+        "pin_cpu_0_1/fprintf4": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 60,
+          "col": 5,
+          "extern": 0
+        },
+        "pin_cpu_0_1/__stack_chk_fail5": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 62,
+          "col": 1,
+          "extern": 0
+        }
+      }
+    },
+    "busy_wait_seconds": {
+      "files": [
+        "/home/chove/Desktop/ScratchDAG/配置文件/zhang4/zhang4.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "源文件/zhang4/zhang4.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "fill_worker_1": {
+      "files": [
+        "/home/chove/Desktop/ScratchDAG/配置文件/zhang4/zhang4.c.233r.expand"
+      ],
+      "calls": {
+        "pthread_mutex_lock": true,
+        "busy_wait_seconds": true,
+        "pthread_mutex_unlock": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "源文件/zhang4/zhang4.c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [
+        "fill_worker_1/pthread_mutex_lock1",
+        "busy_wait_seconds",
+        "fill_worker_1/pthread_mutex_unlock3"
+      ],
+      "myinfo": {
+        "tail": "fill_worker_1/pthread_mutex_unlock3"
+      },
+      "mycalls_meta": {
+        "fill_worker_1/pthread_mutex_lock1": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 89,
+          "col": 3,
+          "extern": 0
+        },
+        "busy_wait_seconds": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 90,
+          "col": 3,
+          "extern": 0
+        },
+        "fill_worker_1/pthread_mutex_unlock3": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 91,
+          "col": 3,
+          "extern": 0
+        }
+      }
+    },
+    "fill_worker_2": {
+      "files": [
+        "/home/chove/Desktop/ScratchDAG/配置文件/zhang4/zhang4.c.233r.expand"
+      ],
+      "calls": {
+        "pthread_mutex_lock": true,
+        "busy_wait_seconds": true,
+        "pthread_mutex_unlock": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "源文件/zhang4/zhang4.c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [
+        "fill_worker_2/pthread_mutex_lock1",
+        "busy_wait_seconds@instance1",
+        "fill_worker_2/pthread_mutex_unlock3"
+      ],
+      "myinfo": {
+        "tail": "fill_worker_2/pthread_mutex_unlock3"
+      },
+      "mycalls_meta": {
+        "fill_worker_2/pthread_mutex_lock1": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 97,
+          "col": 3,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance1": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 98,
+          "col": 3,
+          "extern": 0
+        },
+        "fill_worker_2/pthread_mutex_unlock3": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 99,
+          "col": 3,
+          "extern": 0
+        }
+      }
+    },
+    "critical_worker_1": {
+      "files": [
+        "/home/chove/Desktop/ScratchDAG/配置文件/zhang4/zhang4.c.233r.expand"
+      ],
+      "calls": {
+        "pthread_mutex_lock": true,
+        "busy_wait_seconds": true,
+        "pthread_mutex_unlock": true,
+        "sem_post": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "源文件/zhang4/zhang4.c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [
+        "critical_worker_1/pthread_mutex_lock1",
+        "busy_wait_seconds@instance2",
+        "critical_worker_1/pthread_mutex_unlock3",
+        "critical_worker_1/sem_post4"
+      ],
+      "myinfo": {
+        "tail": "critical_worker_1/sem_post4"
+      },
+      "mycalls_meta": {
+        "critical_worker_1/pthread_mutex_lock1": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 105,
+          "col": 3,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance2": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 106,
+          "col": 3,
+          "extern": 0
+        },
+        "critical_worker_1/pthread_mutex_unlock3": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 107,
+          "col": 3,
+          "extern": 0
+        },
+        "critical_worker_1/sem_post4": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 108,
+          "col": 3,
+          "extern": 0
+        }
+      }
+    },
+    "critical_worker_2": {
+      "files": [
+        "/home/chove/Desktop/ScratchDAG/配置文件/zhang4/zhang4.c.233r.expand"
+      ],
+      "calls": {
+        "sem_wait": true,
+        "pthread_mutex_lock": true,
+        "busy_wait_seconds": true,
+        "pthread_mutex_unlock": true,
+        "sem_post": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "源文件/zhang4/zhang4.c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [
+        "critical_worker_2/sem_wait1",
+        "critical_worker_2/pthread_mutex_lock2",
+        "busy_wait_seconds@instance3",
+        "critical_worker_2/pthread_mutex_unlock4",
+        "critical_worker_2/sem_post5"
+      ],
+      "myinfo": {
+        "tail": "critical_worker_2/sem_post5"
+      },
+      "mycalls_meta": {
+        "critical_worker_2/sem_wait1": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 114,
+          "col": 3,
+          "extern": 0
+        },
+        "critical_worker_2/pthread_mutex_lock2": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 115,
+          "col": 3,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance3": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 116,
+          "col": 3,
+          "extern": 0
+        },
+        "critical_worker_2/pthread_mutex_unlock4": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 117,
+          "col": 3,
+          "extern": 0
+        },
+        "critical_worker_2/sem_post5": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 118,
+          "col": 3,
+          "extern": 0
+        }
+      }
+    },
+    "critical_worker_3": {
+      "files": [
+        "/home/chove/Desktop/ScratchDAG/配置文件/zhang4/zhang4.c.233r.expand"
+      ],
+      "calls": {
+        "sem_wait": true,
+        "pthread_mutex_lock": true,
+        "busy_wait_seconds": true,
+        "pthread_mutex_unlock": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "源文件/zhang4/zhang4.c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [
+        "critical_worker_3/sem_wait1",
+        "critical_worker_3/pthread_mutex_lock2",
+        "busy_wait_seconds@instance4",
+        "critical_worker_3/pthread_mutex_unlock4"
+      ],
+      "myinfo": {
+        "tail": "critical_worker_3/pthread_mutex_unlock4"
+      },
+      "mycalls_meta": {
+        "critical_worker_3/sem_wait1": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 124,
+          "col": 3,
+          "extern": 0
+        },
+        "critical_worker_3/pthread_mutex_lock2": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 125,
+          "col": 3,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance4": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 126,
+          "col": 3,
+          "extern": 0
+        },
+        "critical_worker_3/pthread_mutex_unlock4": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 127,
+          "col": 3,
+          "extern": 0
+        }
+      }
+    },
+    "main": {
+      "files": [
+        "/home/chove/Desktop/ScratchDAG/配置文件/zhang4/zhang4.c.233r.expand"
+      ],
+      "calls": {
+        "pin_cpu_0_1": true,
+        "init_matrices": true,
+        "sem_init": true,
+        "fill_worker_1": true,
+        "fill_worker_2": true,
+        "critical_worker_1": true,
+        "critical_worker_2": true,
+        "critical_worker_3": true,
+        "pthread_join": true,
+        "pthread_mutex_lock": true,
+        "busy_wait_seconds": true,
+        "pthread_mutex_unlock": true,
+        "sem_destroy": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "源文件/zhang4/zhang4.c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [
+        "pin_cpu_0_1",
+        "init_matrices",
+        "main/sem_init3",
+        "main/sem_init4",
+        "main/pthread_create5",
+        "fill_worker_1",
+        "main/pthread_create6",
+        "fill_worker_2",
+        "main/pthread_create7",
+        "critical_worker_1",
+        "main/pthread_create8",
+        "critical_worker_2",
+        "main/pthread_create9",
+        "critical_worker_3",
+        "main/pthread_join10",
+        "main/pthread_join11",
+        "main/pthread_join12",
+        "main/pthread_join13",
+        "main/pthread_join14",
+        "main/pthread_mutex_lock15",
+        "busy_wait_seconds@instance5",
+        "main/pthread_mutex_unlock17",
+        "main/sem_destroy18",
+        "main/sem_destroy19"
+      ],
+      "myinfo": {
+        "tail": "main/sem_destroy19",
+        "th_fill_1": "fill_worker_1",
+        "__create_queue__": [
+          "fill_worker_1",
+          "fill_worker_2",
+          "critical_worker_1",
+          "critical_worker_2",
+          "critical_worker_3"
+        ],
+        "th_fill_2": "fill_worker_2",
+        "th_crit_1": "critical_worker_1",
+        "th_crit_2": "critical_worker_2",
+        "th_crit_3": "critical_worker_3",
+        "main/pthread_join10": "th_fill_1",
+        "main/pthread_join11": "th_fill_2",
+        "main/pthread_join12": "th_crit_1",
+        "main/pthread_join13": "th_crit_2",
+        "main/pthread_join14": "th_crit_3"
+      },
+      "mycalls_meta": {
+        "pin_cpu_0_1": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 132,
+          "col": 3,
+          "extern": 0
+        },
+        "init_matrices": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 133,
+          "col": 3,
+          "extern": 0
+        },
+        "main/sem_init3": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 135,
+          "col": 7,
+          "extern": 0
+        },
+        "main/sem_init4": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 137,
+          "col": 7,
+          "extern": 0
+        },
+        "main/pthread_create5": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 141,
+          "col": 3,
+          "extern": 0
+        },
+        "main/pthread_create6": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 142,
+          "col": 3,
+          "extern": 0
+        },
+        "main/pthread_create7": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 143,
+          "col": 3,
+          "extern": 0
+        },
+        "main/pthread_create8": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 144,
+          "col": 3,
+          "extern": 0
+        },
+        "main/pthread_create9": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 145,
+          "col": 3,
+          "extern": 0
+        },
+        "main/pthread_join10": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 147,
+          "col": 3,
+          "extern": 0
+        },
+        "main/pthread_join11": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 148,
+          "col": 3,
+          "extern": 0
+        },
+        "main/pthread_join12": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 149,
+          "col": 3,
+          "extern": 0
+        },
+        "main/pthread_join13": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 150,
+          "col": 3,
+          "extern": 0
+        },
+        "main/pthread_join14": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 151,
+          "col": 3,
+          "extern": 0
+        },
+        "main/pthread_mutex_lock15": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 153,
+          "col": 3,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance5": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 154,
+          "col": 3,
+          "extern": 0
+        },
+        "main/pthread_mutex_unlock17": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 155,
+          "col": 3,
+          "extern": 0
+        },
+        "main/sem_destroy18": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 157,
+          "col": 3,
+          "extern": 0
+        },
+        "main/sem_destroy19": {
+          "file": "源文件/zhang4/zhang4.c",
+          "line": 158,
+          "col": 3,
+          "extern": 0
+        }
+      }
+    },
+    "busy_wait_seconds@instance1": {
+      "files": [
+        "/home/chove/Desktop/ScratchDAG/配置文件/zhang4/zhang4.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "源文件/zhang4/zhang4.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds@instance2": {
+      "files": [
+        "/home/chove/Desktop/ScratchDAG/配置文件/zhang4/zhang4.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "源文件/zhang4/zhang4.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds@instance3": {
+      "files": [
+        "/home/chove/Desktop/ScratchDAG/配置文件/zhang4/zhang4.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "源文件/zhang4/zhang4.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds@instance4": {
+      "files": [
+        "/home/chove/Desktop/ScratchDAG/配置文件/zhang4/zhang4.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "源文件/zhang4/zhang4.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds@instance5": {
+      "files": [
+        "/home/chove/Desktop/ScratchDAG/配置文件/zhang4/zhang4.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "源文件/zhang4/zhang4.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    }
+  },
+  "thread_edges_preview": [
+    [
+      "fill_worker_1/pthread_mutex_unlock3",
+      "main/pthread_join10"
+    ],
+    [
+      "fill_worker_2/pthread_mutex_unlock3",
+      "main/pthread_join11"
+    ],
+    [
+      "critical_worker_1/sem_post4",
+      "main/pthread_join12"
+    ],
+    [
+      "critical_worker_2/sem_post5",
+      "main/pthread_join13"
+    ],
+    [
+      "critical_worker_3/pthread_mutex_unlock4",
+      "main/pthread_join14"
+    ]
+  ]
+}

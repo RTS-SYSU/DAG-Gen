@@ -1,0 +1,1 @@
+/home/chove/Desktop/ScratchDAG/tools/run_zhang11_4alg_sudo.sh

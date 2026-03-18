@@ -1,10 +1,14 @@
 strict digraph callgraph {
 "main" -> "main/pthread_mutex_lock1";
 "main/pthread_mutex_lock1" -> "main/sched_setaffinity2";
-"main/sched_setaffinity2" -> "main/__errno_location3";
-"main/__errno_location3" -> "main/strerror4";
-"main/strerror4" -> "main/fprintf5";
-"main/fprintf5" -> "init_matrices";
+"main/sched_setaffinity2" -> "main/if/__errno_location3";
+"main/if/__errno_location3" [style=dashed]
+"main/if/__errno_location3" -> "main/if/strerror4";
+"main/if/strerror4" [style=dashed]
+"main/if/strerror4" -> "main/if/fprintf5";
+"main/if/fprintf5" [style=dashed]
+"main/if/fprintf5" -> "init_matrices";
+"main/sched_setaffinity2" -> "init_matrices";
 "init_matrices" -> "main/clock_gettime7";
 "main/clock_gettime7" -> "main/clock_gettime8";
 "main/clock_gettime8" -> "main/sem_init9";
@@ -20,6 +24,7 @@ strict digraph callgraph {
 "main/pthread_create16" -> "main/pthread_create17";
 "main/pthread_create17" -> "worker_c2";
 "main/pthread_create17" -> "busy_wait_seconds@instance6";
+"busy_wait_seconds@instance6" -> "busy_wait_seconds@instance6";
 "busy_wait_seconds@instance6" -> "main/pthread_mutex_unlock19";
 "main/pthread_mutex_unlock19" -> "main/pthread_mutex_lock20";
 "main/pthread_mutex_lock20" -> "busy_wait_seconds@instance7";
@@ -48,7 +53,8 @@ strict digraph callgraph {
 "main/pthread_mutex_lock43" -> "main/pthread_join44";
 "main/pthread_join44" -> "busy_wait_seconds@instance13";
 "busy_wait_seconds@instance13" -> "main/pthread_mutex_unlock46";
-"main/pthread_mutex_unlock46" -> "main/__stack_chk_fail47";
+"main/pthread_mutex_unlock46" -> "main/if/__stack_chk_fail47";
+"main/if/__stack_chk_fail47" [style=dashed]
 "worker_c0" -> "worker_c0/pthread_mutex_lock1";
 "worker_c0/pthread_mutex_lock1" -> "busy_wait_seconds@instance5";
 "busy_wait_seconds@instance5" -> "worker_c0/pthread_mutex_unlock3";

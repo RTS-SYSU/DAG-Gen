@@ -135,12 +135,12 @@ static void *c2_fn(void *arg)
 
 static void *c1_fn(void *arg)
 {
-    l1_set_thread_prio_fifo(94);
+    l1_set_thread_prio_fifo(96);
     pthread_mutex_lock(&mutex4);
     busy_wait_seconds(C4);
     pthread_mutex_unlock(&mutex4);
     pthread_create(&tc2, NULL, c2_fn, NULL);
-        l1_set_thread_prio_fifo(91);
+        l1_set_thread_prio_fifo(93);
         sem_wait(&sem3);
     pthread_mutex_lock(&mutex5);
     busy_wait_seconds(C5);
@@ -158,12 +158,12 @@ static void *c1_fn(void *arg)
 static void *c0_fn(void *arg)
 {
 
-    l1_set_thread_prio_fifo(95);
+    l1_set_thread_prio_fifo(97);
     pthread_mutex_lock(&mutex7);
     busy_wait_seconds(C7);
     pthread_mutex_unlock(&mutex7);
     pthread_create(&tc1, NULL, c1_fn, NULL);
-    l1_set_thread_prio_fifo(93);
+    l1_set_thread_prio_fifo(94);
     sem_wait(&sem1);
     pthread_mutex_lock(&mutex8);
     busy_wait_seconds(C8);
@@ -230,12 +230,12 @@ int main(void)
     pthread_mutex_lock(&mutex14);
     busy_wait_seconds(C14);
     pthread_mutex_unlock(&mutex14);
-    l1_set_thread_prio_fifo(97);
+    l1_set_thread_prio_fifo(91);
     pthread_join(tc1, NULL);
     pthread_mutex_lock(&mutex15);
     busy_wait_seconds(C15);
     pthread_mutex_unlock(&mutex15);
-    l1_set_thread_prio_fifo(96);
+    l1_set_thread_prio_fifo(95);
     pthread_join(tc2, NULL);
     pthread_mutex_lock(&mutex16);
     busy_wait_seconds(C16);

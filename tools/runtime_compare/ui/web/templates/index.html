@@ -959,21 +959,40 @@
                 return;
             }
 
-            const target = joinPath(projectRoot, 'pipeline', 'instrument', 'level2', 'effective_line_merge');
-            try {
-                preferredInstrumentDir = await resolveDir(target);
-                setProjectDirHint('已定位: ' + preferredInstrumentDir);
-                if (showToast) showAlert('已定位到 instrument 目录', 'success');
-            } catch (e) {
+            const candidates = [];
+            if (/\/pipeline\/instrument\/level2\/effective_line_merge(?:\/[^/]+)?\/?$/.test(projectRoot)) {
+                candidates.push(projectRoot.replace(/\/+$/g, ''));
+                candidates.push(projectRoot.replace(/\/[^/]+\/?$/g, ''));
+            } else if (/\/pipeline\/instrument\/level2\/effective_line_merge\/?$/.test(projectRoot)) {
+                candidates.push(projectRoot.replace(/\/+$/g, ''));
+            } else {
+                candidates.push(joinPath(projectRoot, 'pipeline', 'instrument', 'level2', 'effective_line_merge'));
+                candidates.push(projectRoot);
+            }
+
+            const tried = new Set();
+            for (const candidate of candidates) {
+                const normalized = String(candidate || '').trim().replace(/\/+$/g, '');
+                if (!normalized || tried.has(normalized)) continue;
+                tried.add(normalized);
                 try {
-                    preferredInstrumentDir = await resolveDir(projectRoot);
-                    setProjectDirHint('未找到 instrument 目录，回退到项目目录: ' + preferredInstrumentDir, true);
-                    if (showToast) showAlert('未找到 effective_line_merge，已回退到项目目录', 'error');
-                } catch (e2) {
-                    preferredInstrumentDir = '';
-                    setProjectDirHint('项目目录不可用: ' + e2.message, true);
-                    if (showToast) showAlert('项目目录不可用: ' + e2.message, 'error');
+                    preferredInstrumentDir = await resolveDir(normalized);
+                    setProjectDirHint('已定位: ' + preferredInstrumentDir);
+                    if (showToast) showAlert('已定位到 instrument 目录', 'success');
+                    return;
+                } catch (e) {
+                    // continue trying the next candidate
                 }
+            }
+
+            try {
+                preferredInstrumentDir = await resolveDir(projectRoot);
+                setProjectDirHint('未找到 instrument 目录，回退到项目目录: ' + preferredInstrumentDir, true);
+                if (showToast) showAlert('未找到 effective_line_merge，已回退到项目目录', 'error');
+            } catch (e2) {
+                preferredInstrumentDir = '';
+                setProjectDirHint('项目目录不可用: ' + e2.message, true);
+                if (showToast) showAlert('项目目录不可用: ' + e2.message, 'error');
             }
         }
 

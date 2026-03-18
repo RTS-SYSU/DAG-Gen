@@ -146,28 +146,30 @@ def _ensure_writable_dir(path: Path, *, use_sudo: bool) -> None:
     )
 
 
-def _parse_internal_time_seconds(stdout: str) -> Optional[float]:
+def _parse_internal_time_seconds(stdout: str, stderr: str = "") -> Optional[float]:
     # Prefer PROGRAM_TOTAL_NS=... ; fallback to lines containing "total time".
+    # Scan both stdout/stderr because many runtimes print PROGRAM_TOTAL_NS to stderr.
     ns_candidates: List[int] = []
     time_candidates: List[float] = []
-    for ln in stdout.splitlines():
-        m = re.search(r"PROGRAM_TOTAL_NS=(\d+)", ln)
-        if m:
+    for stream_text in (stdout or "", stderr or ""):
+        for ln in stream_text.splitlines():
+            m = re.search(r"PROGRAM_TOTAL_NS=(\d+)", ln)
+            if m:
+                try:
+                    ns_candidates.append(int(m.group(1)))
+                except Exception:
+                    pass
+                continue
+            low = ln.lower()
+            if "total time" not in low:
+                continue
+            m = re.search(r"([0-9]+(?:\.[0-9]+)?)", ln)
+            if not m:
+                continue
             try:
-                ns_candidates.append(int(m.group(1)))
+                time_candidates.append(float(m.group(1)))
             except Exception:
-                pass
-            continue
-        low = ln.lower()
-        if "total time" not in low:
-            continue
-        m = re.search(r"([0-9]+(?:\.[0-9]+)?)", ln)
-        if not m:
-            continue
-        try:
-            time_candidates.append(float(m.group(1)))
-        except Exception:
-            continue
+                continue
     if ns_candidates:
         return ns_candidates[-1] / 1e9
     if time_candidates:
@@ -491,13 +493,13 @@ class TaskRunner(threading.Thread):
                     block_lines.append(err)
                 block = "".join(block_lines)
                 parsed = True
-                t = _parse_internal_time_seconds(out)
+                t = _parse_internal_time_seconds(out, err)
                 if t is None:
-                    # Fallback: record wall time and mark parsing failure.
                     parsed = False
-                    t = wall_ns / 1e9
-                    run_log.append(f"[warn] failed to parse internal time; fallback wall_s={t:.6f}\n\n")
-                    block += f"\n[warn] failed to parse internal time; fallback wall_s={t:.6f}\n"
+                    msg = "failed to parse internal time: missing PROGRAM_TOTAL_NS in program output"
+                    run_log.append(f"[error] {msg}\n\n")
+                    block += f"\n[error] {msg}\n"
+                    raise RuntimeError(f"{label} 运行失败：{msg}")
                 if rc != 0:
                     raise RuntimeError(f"{label} 运行失败：rc={rc}, stderr_tail={err[-400:]}")
                 runs.append(
@@ -507,6 +509,7 @@ class TaskRunner(threading.Thread):
                         "time_s": float(t),
                         "wall_s": float(wall_ns / 1e9),
                         "parsed_from_stdout": bool(parsed),
+                        "parsed_from_program_output": bool(parsed),
                         "cpu_set": task.cpu_set,
                         "returncode": int(rc),
                         "log_text": block,

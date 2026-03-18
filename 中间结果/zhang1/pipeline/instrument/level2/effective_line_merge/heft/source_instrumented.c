@@ -116,7 +116,7 @@ static struct timespec g_prog_start;
 static void *c2_fn(void *arg)
 {
 
-    l1_set_thread_prio_fifo(87);
+    l1_set_thread_prio_fifo(88);
     pthread_mutex_lock(&mutex1);
     busy_wait_seconds(C1);
     pthread_mutex_unlock(&mutex1);
@@ -230,7 +230,7 @@ int main(void)
     pthread_mutex_lock(&mutex14);
     busy_wait_seconds(C14);
     pthread_mutex_unlock(&mutex14);
-    l1_set_thread_prio_fifo(88);
+    l1_set_thread_prio_fifo(87);
     pthread_join(tc1, NULL);
     pthread_mutex_lock(&mutex15);
     busy_wait_seconds(C15);

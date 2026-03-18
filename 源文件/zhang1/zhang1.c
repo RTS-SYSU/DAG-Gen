@@ -46,7 +46,7 @@ static void *c3_fn(void *arg);
 
 #define MAT_N 64
 #ifndef WORK_SCALE
-#define WORK_SCALE 25000
+#define WORK_SCALE 100
 #endif
 
 static double A[MAT_N][MAT_N];

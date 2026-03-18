@@ -7,22 +7,24 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#define C1 90.0
-#define C2 2.0
-#define C3 2.0
-#define C4 90.0
-#define C5 12.0
+#define C1 100.0
+#define C2 100.0
+#define C3 100.0
+#define C4 100.0
+#define C5 100.0
 #define C6 100.0
 #define C7 100.0
-#define C8 12.0
-#define C9 12.0
-#define C10 140.0
-#define C11 140.0
-#define C12 12.0
-#define C13 15.0
-#define C14 100.0
-#define C15 100.0
-#define C16 15.0
+#define C8 100.0
+#define C9 100.0
+#define C10 100.0
+#define C11 100.0
+#define C12 100.0
+#define C13 140.0
+#define C14 140.0
+#define C15 140.0
+#define C16 140.0
+#define C17 140.0
+#define C18 140.0
 #define F_LONG 28.0
 #define F_SHORT 20.0
 
@@ -33,7 +35,7 @@ static void *worker_c3(void *arg);
 
 #define MAT_N 64
 #ifndef WORK_SCALE
-#define WORK_SCALE 25000
+#define WORK_SCALE 100
 #endif
 
 static double mat_a[MAT_N][MAT_N];
@@ -80,9 +82,12 @@ static pthread_mutex_t mutex_16 = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mutex_17 = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mutex_18 = PTHREAD_MUTEX_INITIALIZER;
 
-static void init_matrices(void) {
-  for (int i = 0; i < MAT_N; ++i) {
-    for (int j = 0; j < MAT_N; ++j) {
+static void init_matrices(void)
+{
+  for (int i = 0; i < MAT_N; ++i)
+  {
+    for (int j = 0; j < MAT_N; ++j)
+    {
       mat_a[i][j] = (double)(i + j + 1);
       mat_b[i][j] = (double)(i * 2 + j + 3);
       mat_c[i][j] = 0.0;
@@ -90,15 +95,20 @@ static void init_matrices(void) {
   }
 }
 
-static void busy_wait_seconds(double seconds) {
+static void busy_wait_seconds(double seconds)
+{
   int repeat_count = (int)(seconds * WORK_SCALE * 0.1);
   if (repeat_count < 1)
     repeat_count = 1;
-  for (int r = 0; r < repeat_count; ++r) {
-    for (int i = 0; i < MAT_N; ++i) {
-      for (int j = 0; j < MAT_N; ++j) {
+  for (int r = 0; r < repeat_count; ++r)
+  {
+    for (int i = 0; i < MAT_N; ++i)
+    {
+      for (int j = 0; j < MAT_N; ++j)
+      {
         double accum = 0.0;
-        for (int k = 0; k < MAT_N; ++k) {
+        for (int k = 0; k < MAT_N; ++k)
+        {
           accum += mat_a[i][k] * mat_b[k][j];
         }
         mat_c[i][j] = accum;
@@ -109,38 +119,40 @@ static void busy_wait_seconds(double seconds) {
 
 static struct timespec prog_start_ts;
 
-static void *worker_c2(void *arg) {
+static void *worker_c2(void *arg)
+{
   pthread_mutex_lock(&mutex_07);
-  busy_wait_seconds(C7);
+  busy_wait_seconds(C1);
   sem_post(&sem_16);
   pthread_mutex_unlock(&mutex_07);
   pthread_mutex_lock(&mutex_08);
   sem_wait(&sem_13);
-  busy_wait_seconds(C7);
+  busy_wait_seconds(C2);
   sem_post(&sem_17);
   pthread_mutex_unlock(&mutex_08);
   pthread_mutex_lock(&mutex_09);
   sem_wait(&sem_14);
-  busy_wait_seconds(C7);
+  busy_wait_seconds(C3);
   sem_post(&sem_18);
   pthread_mutex_unlock(&mutex_09);
   pthread_mutex_lock(&mutex_10);
   sem_wait(&sem_15);
-  busy_wait_seconds(C7);
+  busy_wait_seconds(C4);
   pthread_mutex_unlock(&mutex_10);
   return NULL;
 }
 
-static void *worker_c1(void *arg) {
+static void *worker_c1(void *arg)
+{
   pthread_mutex_lock(&mutex_11);
-  busy_wait_seconds(C7);
+  busy_wait_seconds(C5);
   sem_post(&sem_10);
   sem_post(&sem_13);
   pthread_mutex_unlock(&mutex_11);
   pthread_mutex_lock(&mutex_12);
   sem_wait(&sem_07);
   sem_wait(&sem_16);
-  busy_wait_seconds(C7);
+  busy_wait_seconds(C6);
   sem_post(&sem_11);
   sem_post(&sem_14);
   pthread_mutex_unlock(&mutex_12);
@@ -154,40 +166,42 @@ static void *worker_c1(void *arg) {
   pthread_mutex_lock(&mutex_14);
   sem_wait(&sem_09);
   sem_wait(&sem_18);
-  busy_wait_seconds(C7);
+  busy_wait_seconds(C8);
   pthread_mutex_unlock(&mutex_14);
   return NULL;
 }
 
-static void *worker_c0(void *arg) {
+static void *worker_c0(void *arg)
+{
   pthread_mutex_lock(&mutex_15);
-  busy_wait_seconds(C7);
+  busy_wait_seconds(C9);
   sem_post(&sem_04);
   sem_post(&sem_07);
   pthread_mutex_unlock(&mutex_15);
   pthread_mutex_lock(&mutex_16);
   sem_wait(&sem_01);
   sem_wait(&sem_10);
-  busy_wait_seconds(C7);
+  busy_wait_seconds(C10);
   sem_post(&sem_05);
   sem_post(&sem_08);
   pthread_mutex_unlock(&mutex_16);
   pthread_mutex_lock(&mutex_17);
   sem_wait(&sem_02);
   sem_wait(&sem_11);
-  busy_wait_seconds(C7);
+  busy_wait_seconds(C11);
   sem_post(&sem_06);
   sem_post(&sem_09);
   pthread_mutex_unlock(&mutex_17);
   pthread_mutex_lock(&mutex_18);
   sem_wait(&sem_03);
   sem_wait(&sem_12);
-  busy_wait_seconds(C7);
+  busy_wait_seconds(C12);
   pthread_mutex_unlock(&mutex_18);
   return NULL;
 }
 
-int main(void) {
+int main(void)
+{
   pthread_mutex_lock(&mutex_01);
   struct timespec prog_start_ts_local, prog_end_ts_local;
   cpu_set_t cpu_set;
@@ -196,7 +210,8 @@ int main(void) {
   CPU_SET(1, &cpu_set);
   CPU_SET(2, &cpu_set);
   CPU_SET(3, &cpu_set);
-  if (sched_setaffinity(0, sizeof(cpu_set), &cpu_set) != 0) {
+  if (sched_setaffinity(0, sizeof(cpu_set), &cpu_set) != 0)
+  {
     fprintf(stderr, "sched_setaffinity failed: %s\n", strerror(errno));
   }
 
@@ -243,34 +258,34 @@ int main(void) {
 
   /* 启动关键链入口 + 填充任务 */
   /* 先创建填充任务，再创建关键链入口，便于 FIFO 先跑填充 */
-  busy_wait_seconds(C10);
+  busy_wait_seconds(C13);
   pthread_create(&thread_c0, NULL, worker_c0, NULL);
   pthread_create(&thread_c1, NULL, worker_c1, NULL);
   pthread_create(&thread_c2, NULL, worker_c2, NULL);
   pthread_mutex_unlock(&mutex_01);
   pthread_mutex_lock(&mutex_02);
-  busy_wait_seconds(C10);
+  busy_wait_seconds(C14);
   sem_post(&sem_01);
   pthread_mutex_unlock(&mutex_02);
   pthread_mutex_lock(&mutex_03);
   sem_wait(&sem_04);
-  busy_wait_seconds(C10);
+  busy_wait_seconds(C15);
   sem_post(&sem_02);
   pthread_mutex_unlock(&mutex_03);
   pthread_mutex_lock(&mutex_04);
   sem_wait(&sem_05);
-  busy_wait_seconds(C10);
+  busy_wait_seconds(C16);
   sem_post(&sem_03);
   pthread_mutex_unlock(&mutex_04);
   pthread_mutex_lock(&mutex_05);
   sem_wait(&sem_06);
-  busy_wait_seconds(C10);
+  busy_wait_seconds(C17);
   pthread_mutex_unlock(&mutex_05);
   pthread_mutex_lock(&mutex_06);
   pthread_join(thread_c0, NULL);
   pthread_join(thread_c1, NULL);
   pthread_join(thread_c2, NULL);
-  busy_wait_seconds(C10);
+  busy_wait_seconds(C18);
   pthread_mutex_unlock(&mutex_06);
   return 0;
 }

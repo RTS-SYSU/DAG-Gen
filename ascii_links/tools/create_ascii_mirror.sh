@@ -1,0 +1,1 @@
+/home/chove/Desktop/ScratchDAG/tools/create_ascii_mirror.sh

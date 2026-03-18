@@ -1,0 +1,1 @@
+/home/chove/Desktop/ScratchDAG/experiment/algo5（rk3588统计）/scripts/build_algo5_rk3588_results.py

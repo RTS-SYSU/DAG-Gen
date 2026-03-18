@@ -223,6 +223,7 @@ def register_routes(app):
             cores_per_task=int(data['cores_per_task']),
             use_sudo=bool(data.get('use_sudo', False)),
             cpu_list=cpu_list,
+            config_name=(data.get('config_name') or '').strip() or None,
         )
         
         _task_manager['tasks'].append(task)

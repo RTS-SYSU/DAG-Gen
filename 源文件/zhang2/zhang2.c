@@ -12,17 +12,15 @@
 #define C3 1000.0
 #define C4 20.0
 #define C5 1000.0
-#define C6 20.0
-#define C7 80.0
-#define C8 40.0
-#define C9 80.0
+#define C6 80.0
+#define C7 100.0
+#define C8 100.0
+#define C9 100.0
 #define C10 100.0
-#define C11 2000.0
-#define C12 120.0
-#define C13 1000.0
-#define C14 1000.0
-#define C15 2.0
-#define C16 2.0
+#define C11 100.0
+#define C12 100.0
+#define C13 100.0
+#define C14 100.0
 #define F_LONG 28.0
 #define F_SHORT 20.0
 
@@ -100,12 +98,10 @@ static void *worker_c2(void *arg) {
   pthread_mutex_lock(&mutex_01);
   busy_wait_seconds(C1);
   pthread_mutex_unlock(&mutex_01);
-
   pthread_mutex_lock(&mutex_02);
   sem_wait(&sem_02);
   busy_wait_seconds(C2);
   pthread_mutex_unlock(&mutex_02);
-
   pthread_mutex_lock(&mutex_03);
   sem_wait(&sem_03);
   busy_wait_seconds(C3);
@@ -117,19 +113,16 @@ static void *worker_c1(void *arg) {
   pthread_mutex_lock(&mutex_04);
   busy_wait_seconds(C4);
   pthread_mutex_unlock(&mutex_04);
-
   pthread_mutex_lock(&mutex_05);
   sem_wait(&sem_01);
   busy_wait_seconds(C5);
   pthread_mutex_unlock(&mutex_05);
-
   return NULL;
 }
 
 static void *worker_c0(void *arg) {
-
   pthread_mutex_lock(&mutex_07);
-  busy_wait_seconds(C7);
+  busy_wait_seconds(C6);
   pthread_mutex_unlock(&mutex_07);
   return NULL;
 }
@@ -146,11 +139,9 @@ int main(void) {
   if (sched_setaffinity(0, sizeof(cpu_set), &cpu_set) != 0) {
     fprintf(stderr, "sched_setaffinity failed: %s\n", strerror(errno));
   }
-
   init_matrices();
   clock_gettime(CLOCK_MONOTONIC, &prog_start_ts);
   clock_gettime(CLOCK_MONOTONIC, &prog_start_ts_local);
-
   if (sem_init(&sem_01, 0, 0) != 0)
     return 1;
   if (sem_init(&sem_02, 0, 0) != 0)
@@ -170,13 +161,13 @@ int main(void) {
   pthread_create(&thread_c0, NULL, worker_c0, NULL);
   pthread_create(&thread_c1, NULL, worker_c1, NULL);
   pthread_create(&thread_c2, NULL, worker_c2, NULL);
-  busy_wait_seconds(C10);
+  busy_wait_seconds(C7);
   pthread_mutex_unlock(&mutex_01);
   pthread_mutex_lock(&mutex_07);
-  busy_wait_seconds(C10);
+  busy_wait_seconds(C8);
   pthread_mutex_unlock(&mutex_07);
   pthread_mutex_lock(&mutex_08);
-  busy_wait_seconds(C10);
+  busy_wait_seconds(C9);
   sem_post(&sem_01);
   sem_post(&sem_02);
   pthread_mutex_unlock(&mutex_08);
@@ -185,19 +176,19 @@ int main(void) {
   busy_wait_seconds(C10);
   pthread_mutex_unlock(&mutex_09);
   pthread_mutex_lock(&mutex_10);
-  busy_wait_seconds(C10);
+  busy_wait_seconds(C11);
   sem_post(&sem_03);
   pthread_mutex_unlock(&mutex_10);
   pthread_mutex_lock(&mutex_11);
   pthread_join(thread_c1, NULL);
-  busy_wait_seconds(C10);
+  busy_wait_seconds(C12);
   pthread_mutex_unlock(&mutex_11);
   pthread_mutex_lock(&mutex_12);
-  busy_wait_seconds(C10);
+  busy_wait_seconds(C13);
   pthread_mutex_unlock(&mutex_12);
   pthread_mutex_lock(&mutex_13);
   pthread_join(thread_c2, NULL);
-  busy_wait_seconds(C10);
+  busy_wait_seconds(C14);
   pthread_mutex_unlock(&mutex_13);
   return 0;
 }

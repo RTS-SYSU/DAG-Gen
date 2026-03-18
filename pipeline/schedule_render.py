@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from typing import Dict, List, Tuple
 
 from .errors import ValidationError
@@ -107,7 +108,63 @@ def _load_priorities(schedule_json: Dict, node_ids: List[str]) -> Dict[str, int]
     return out
 
 
-def render_annotated_schedule_dag(*, dag_json: Dict, segments_json: Dict, timing_json: Dict, schedule_json: Dict) -> str:
+def build_const_binding(*, dag_json: Dict, segments_json: Dict, source_text: str) -> Dict[str, Dict]:
+    if not isinstance(source_text, str):
+        raise ValidationError("source_text must be string")
+
+    node_ids = _load_node_ids(dag_json, segments_json)
+    seg_map: Dict[str, Dict] = {}
+    for item in segments_json.get("segments", []):
+        if isinstance(item, dict) and isinstance(item.get("seg_id"), str):
+            seg_map[item["seg_id"]] = item
+
+    lines = source_text.splitlines()
+    pattern = re.compile(r"busy_wait_seconds\s*\(\s*(C\d+)\s*\)")
+    binding: Dict[str, Dict] = {}
+
+    for seg_id in node_ids:
+        seg = seg_map.get(seg_id)
+        if not isinstance(seg, dict):
+            raise ValidationError(f"missing segment definition for: {seg_id}")
+        try:
+            start_line = int(seg["start_line"])
+            end_line = int(seg["end_line"])
+        except Exception as exc:
+            raise ValidationError(f"segment {seg_id} has invalid line range") from exc
+        if start_line < 1 or end_line < start_line:
+            raise ValidationError(f"segment {seg_id} has invalid line range: {start_line}-{end_line}")
+
+        matches: List[Tuple[str, int]] = []
+        if start_line <= len(lines):
+            safe_end = min(end_line, len(lines))
+            for ln in range(start_line, safe_end + 1):
+                for m in pattern.finditer(lines[ln - 1]):
+                    matches.append((m.group(1), ln))
+
+        uniq = sorted({name for name, _ in matches})
+        if not uniq:
+            binding[seg_id] = {"const_name": "NA", "line": None, "const_names": []}
+        elif len(uniq) == 1:
+            const_name = uniq[0]
+            line = next(ln for name, ln in matches if name == const_name)
+            binding[seg_id] = {"const_name": const_name, "line": line, "const_names": [const_name]}
+        else:
+            binding[seg_id] = {
+                "const_name": "|".join(uniq),
+                "line": min(ln for _, ln in matches),
+                "const_names": uniq,
+            }
+    return binding
+
+
+def render_annotated_schedule_dag(
+    *,
+    dag_json: Dict,
+    segments_json: Dict,
+    timing_json: Dict,
+    schedule_json: Dict,
+    const_binding: Dict[str, Dict] | None = None,
+) -> str:
     node_ids = _load_node_ids(dag_json, segments_json)
     node_set = set(node_ids)
     edges = _load_edges(dag_json, node_set)
@@ -121,7 +178,16 @@ def render_annotated_schedule_dag(*, dag_json: Dict, segments_json: Dict, timing
     lines.append('  edge [color="#475569"];')
 
     for seg_id in node_ids:
-        label = f"{seg_id}\navg_ns={avg_ns[seg_id]}\nprio={priorities[seg_id]}"
+        if const_binding is None:
+            label = f"{seg_id}\navg_ns={avg_ns[seg_id]}\nprio={priorities[seg_id]}"
+        else:
+            item = const_binding.get(seg_id)
+            if not isinstance(item, dict):
+                raise ValidationError(f"const binding for {seg_id} must be dict")
+            const_name = item.get("const_name")
+            if not isinstance(const_name, str) or not const_name:
+                raise ValidationError(f"const binding for {seg_id} missing const_name")
+            label = f"{seg_id}\nconst={const_name}\navg_ns={avg_ns[seg_id]}\nprio={priorities[seg_id]}"
         lines.append(f'  "{_dot_escape_id(seg_id)}" [label="{_dot_escape_label(label)}"];')
 
     for src, dst in edges:

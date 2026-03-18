@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0",
+  "base_name": "zhang22",
+  "algo_name": "zhao2020",
+  "priorities": {
+    "MU:main#001@132-168": 99,
+    "MU:main#002@169-171": 98,
+    "MU:main#003@172-176": 97,
+    "MU:main#004@177-180": 96,
+    "MU:main#005@181-184": 95,
+    "MU:main#006@185-188": 94,
+    "MU:main#007@189-191": 93,
+    "MU:main#008@192-195": 92,
+    "MU:worker_c0#001@125-127": 91,
+    "MU:worker_c1#001@113-115": 90,
+    "MU:worker_c1#002@116-119": 89,
+    "MU:worker_c2#001@98-100": 88,
+    "MU:worker_c2#002@101-104": 87,
+    "MU:worker_c2#003@105-108": 86
+  },
+  "meta": {
+    "critical_path": [
+      "MU:main#001@132-168",
+      "MU:main#002@169-171",
+      "MU:main#003@172-176",
+      "MU:main#004@177-180",
+      "MU:main#005@181-184",
+      "MU:main#006@185-188",
+      "MU:main#007@189-191",
+      "MU:main#008@192-195"
+    ],
+    "providers": [
+      {
+        "idx": 1,
+        "nodes": [
+          "MU:main#001@132-168",
+          "MU:main#002@169-171",
+          "MU:main#003@172-176"
+        ],
+        "F_size": 1,
+        "G_size": 5,
+        "F": [
+          "MU:worker_c0#001@125-127"
+        ],
+        "G": [
+          "MU:worker_c1#001@113-115",
+          "MU:worker_c1#002@116-119",
+          "MU:worker_c2#001@98-100",
+          "MU:worker_c2#002@101-104",
+          "MU:worker_c2#003@105-108"
+        ]
+      },
+      {
+        "idx": 2,
+        "nodes": [
+          "MU:main#004@177-180",
+          "MU:main#005@181-184"
+        ],
+        "F_size": 2,
+        "G_size": 3,
+        "F": [
+          "MU:worker_c1#001@113-115",
+          "MU:worker_c1#002@116-119"
+        ],
+        "G": [
+          "MU:worker_c2#001@98-100",
+          "MU:worker_c2#002@101-104",
+          "MU:worker_c2#003@105-108"
+        ]
+      },
+      {
+        "idx": 3,
+        "nodes": [
+          "MU:main#006@185-188",
+          "MU:main#007@189-191"
+        ],
+        "F_size": 3,
+        "G_size": 0,
+        "F": [
+          "MU:worker_c2#001@98-100",
+          "MU:worker_c2#002@101-104",
+          "MU:worker_c2#003@105-108"
+        ],
+        "G": []
+      },
+      {
+        "idx": 4,
+        "nodes": [
+          "MU:main#008@192-195"
+        ],
+        "F_size": 0,
+        "G_size": 0,
+        "F": [],
+        "G": []
+      }
+    ]
+  }
+}

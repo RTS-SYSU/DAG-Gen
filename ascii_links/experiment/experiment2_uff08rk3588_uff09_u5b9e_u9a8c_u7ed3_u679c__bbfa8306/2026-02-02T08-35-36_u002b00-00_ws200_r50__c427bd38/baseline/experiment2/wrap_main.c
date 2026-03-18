@@ -1,0 +1,1 @@
+/home/chove/Desktop/ScratchDAG/experiment/experiment2（rk3588）实验结果/2026-02-02T08-35-36+00-00_ws200_r50/baseline/experiment2/wrap_main.c

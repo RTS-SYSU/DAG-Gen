@@ -129,14 +129,14 @@ static void *c0_fn(void *arg)
 
 static void *f0_fn(void *arg)
 {
-    l1_set_thread_prio_fifo(62);
+    l1_set_thread_prio_fifo(64);
     busy_wait_seconds(F_LONG);
     return NULL;
 }
 
 static void *f1_fn(void *arg)
 {
-    l1_set_thread_prio_fifo(60);
+    l1_set_thread_prio_fifo(63);
     busy_wait_seconds(F_LONG);
     return NULL;
 }
@@ -144,63 +144,63 @@ static void *f1_fn(void *arg)
 static void *f2_fn(void *arg)
 {
 
-    l1_set_thread_prio_fifo(63);
+    l1_set_thread_prio_fifo(61);
     busy_wait_seconds(F_LONG);
     return NULL;
 }
 
 static void *f3_fn(void *arg)
 {
-    l1_set_thread_prio_fifo(53);
+    l1_set_thread_prio_fifo(62);
     busy_wait_seconds(F_LONG);
     return NULL;
 }
 
 static void *f4_fn(void *arg)
 {
-    l1_set_thread_prio_fifo(56);
+    l1_set_thread_prio_fifo(58);
     busy_wait_seconds(F_LONG);
     return NULL;
 }
 
 static void *f5_fn(void *arg)
 {
-    l1_set_thread_prio_fifo(57);
+    l1_set_thread_prio_fifo(59);
     busy_wait_seconds(F_LONG);
     return NULL;
 }
 
 static void *f6_fn(void *arg)
 {
-    l1_set_thread_prio_fifo(54);
+    l1_set_thread_prio_fifo(57);
     busy_wait_seconds(F_LONG);
     return NULL;
 }
 
 static void *f7_fn(void *arg)
 {
-    l1_set_thread_prio_fifo(61);
+    l1_set_thread_prio_fifo(56);
     busy_wait_seconds(F_LONG);
     return NULL;
 }
 
 static void *f8_fn(void *arg)
 {
-    l1_set_thread_prio_fifo(59);
+    l1_set_thread_prio_fifo(53);
     busy_wait_seconds(F_LONG);
     return NULL;
 }
 
 static void *f9_fn(void *arg)
 {
-    l1_set_thread_prio_fifo(58);
+    l1_set_thread_prio_fifo(60);
     busy_wait_seconds(F_LONG);
     return NULL;
 }
 
 static void *f10_fn(void *arg)
 {
-    l1_set_thread_prio_fifo(64);
+    l1_set_thread_prio_fifo(54);
     busy_wait_seconds(F_LONG);
     return NULL;
 }

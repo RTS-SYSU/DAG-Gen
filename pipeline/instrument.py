@@ -9,7 +9,7 @@ from ..level1.instrument_prio_level1 import instrument_prio_program_timing_and_s
 from .errors import StageError
 from .instrument_levelx import instrument_prio_all_segments_by_start_line
 from .io_utils import mark_failed, mark_running, mark_success, read_json, write_json
-from .schedule_render import render_annotated_schedule_dag
+from .schedule_render import build_const_binding, render_annotated_schedule_dag
 
 
 def _render_dot(dot_text: str, dot_path: Path, png_path: Path) -> None:
@@ -110,11 +110,18 @@ def run_instrument(
 
             dag_json = read_json(dag_json_path)
             timing_json = read_json(timing_json_path)
+            source_text = source_file.read_text(encoding="utf-8", errors="replace")
+            const_binding = build_const_binding(
+                dag_json=dag_json,
+                segments_json=seg_json,
+                source_text=source_text,
+            )
             annotated_dot = render_annotated_schedule_dag(
                 dag_json=dag_json,
                 segments_json=seg_json,
                 timing_json=timing_json,
                 schedule_json=schedule_json,
+                const_binding=const_binding,
             )
             validation_root = pipeline_root / "validation" / level / rule_name / algo_name
             _render_dot(
@@ -122,6 +129,7 @@ def run_instrument(
                 validation_root / "dag_seg_annotated.dot",
                 validation_root / "dag_seg_annotated.png",
             )
+            write_json(validation_root / "const_binding.json", const_binding)
 
         payload = {
             "status": "success",

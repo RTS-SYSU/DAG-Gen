@@ -53,6 +53,7 @@ class TaskRunner(threading.Thread):
         self._base_dir = base_dir
         # 计算工具目录路径（tools/runtime_compare/）
         self._tool_dir = Path(__file__).parent.parent.resolve()
+        self._repo_root = self._tool_dir.parent.parent
         self._cpu_pool = cpu_pool
         self._task_q = task_q
         self._on_update = on_update
@@ -184,6 +185,24 @@ class TaskRunner(threading.Thread):
             shutil.copytree(baseline_src_root, baseline_dir)
             shutil.copytree(prio_src_root, prio_dir)
 
+            # Ensure total-time helpers exist even for plain instrument output directories
+            # such as .../effective_line_merge/<algo>/ that only contain source files.
+            timer_helper_roots = [
+                self._base_dir / "level1",
+                self._repo_root / "level1",
+            ]
+            helper_map = {}
+            for helper_name in ("prog_timer.c", "prog_timer.h", "wrap_main.c"):
+                helper_src = next((root / helper_name for root in timer_helper_roots if (root / helper_name).exists()), None)
+                if helper_src is not None:
+                    helper_map[helper_name] = helper_src
+
+            for helper_name, helper_src in helper_map.items():
+                for dst_dir in (baseline_dir, prio_dir):
+                    dst = dst_dir / helper_name
+                    if not dst.exists():
+                        shutil.copy2(helper_src, dst)
+
             # Enforce CPU isolation inside the program too, if it sets affinity on its own.
             patched_affinity = {"baseline": False, "prio": False}
             patch_error: Optional[str] = None
@@ -300,9 +319,14 @@ class TaskRunner(threading.Thread):
                     raise
 
             def compile_one(src_dir: Path, entry_c_name: str, out_bin: Path) -> Tuple[int, str, str, str]:
-                # Compile only the selected entry file to avoid duplicate main
-                # when baseline/prio files are placed in the same directory.
+                # Compile the selected entry file plus known timing helpers when present.
+                # Avoid globbing all .c files here because some experiment directories
+                # also contain standalone test programs with their own main().
                 c_files = [entry_c_name]
+                for helper_name in ("wrap_main.c", "prog_timer.c"):
+                    helper_path = src_dir / helper_name
+                    if helper_path.exists():
+                        c_files.append(helper_name)
                 include_dirs: List[str] = [str(src_dir)]
                 if prio_runtime_src.exists():
                     include_dirs.append(str(prio_runtime_src.parent))
@@ -393,12 +417,13 @@ class TaskRunner(threading.Thread):
                     block_lines.append(err)
                 block = "".join(block_lines)
                 parsed = True
-                t = parse_internal_time_seconds(out)
+                t = parse_internal_time_seconds(out, err)
                 if t is None:
                     parsed = False
-                    t = wall_ns / 1e9
-                    run_log.append(f"[warn] failed to parse internal time; fallback wall_s={t:.6f}\n\n")
-                    block += f"\n[warn] failed to parse internal time; fallback wall_s={t:.6f}\n"
+                    msg = "failed to parse internal time: missing PROGRAM_TOTAL_NS in program output"
+                    run_log.append(f"[error] {msg}\n\n")
+                    block += f"\n[error] {msg}\n"
+                    raise RuntimeError(f"{label} 运行失败：{msg}")
                 if rc != 0:
                     raise RuntimeError(f"{label} 运行失败：rc={rc}, stderr_tail={err[-400:]}")
                 runs.append(
@@ -408,6 +433,7 @@ class TaskRunner(threading.Thread):
                         "time_s": float(t),
                         "wall_s": float(wall_ns / 1e9),
                         "parsed_from_stdout": bool(parsed),
+                        "parsed_from_program_output": bool(parsed),
                         "cpu_set": task.cpu_set,
                         "returncode": int(rc),
                         "log_text": block,

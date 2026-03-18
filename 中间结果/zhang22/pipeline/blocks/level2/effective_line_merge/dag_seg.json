@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0",
+  "base_name": "zhang22",
+  "nodes": [
+    "MU:main#001@139-175",
+    "MU:main#002@176-178",
+    "MU:main#003@179-183",
+    "MU:main#004@184-187",
+    "MU:main#005@188-191",
+    "MU:main#006@192-195",
+    "MU:main#007@196-198",
+    "MU:main#008@199-202",
+    "MU:worker_c0#001@132-134",
+    "MU:worker_c1#001@120-122",
+    "MU:worker_c1#002@123-126",
+    "MU:worker_c2#001@105-107",
+    "MU:worker_c2#002@108-111",
+    "MU:worker_c2#003@112-115"
+  ],
+  "edges": [
+    {
+      "src": "MU:worker_c2#001@105-107",
+      "dst": "MU:worker_c2#002@108-111",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:worker_c2#002@108-111",
+      "dst": "MU:worker_c2#003@112-115",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:worker_c1#001@120-122",
+      "dst": "MU:worker_c1#002@123-126",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#001@139-175",
+      "dst": "MU:main#002@176-178",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#002@176-178",
+      "dst": "MU:main#003@179-183",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#003@179-183",
+      "dst": "MU:main#004@184-187",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#004@184-187",
+      "dst": "MU:main#005@188-191",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#005@188-191",
+      "dst": "MU:main#006@192-195",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#006@192-195",
+      "dst": "MU:main#007@196-198",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#007@196-198",
+      "dst": "MU:main#008@199-202",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#001@139-175",
+      "dst": "MU:worker_c0#001@132-134",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@139-175",
+      "dst": "MU:worker_c1#001@120-122",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@139-175",
+      "dst": "MU:worker_c2#001@105-107",
+      "kind": "create"
+    },
+    {
+      "src": "MU:worker_c0#001@132-134",
+      "dst": "MU:main#004@184-187",
+      "kind": "join"
+    },
+    {
+      "src": "MU:worker_c1#002@123-126",
+      "dst": "MU:main#006@192-195",
+      "kind": "join"
+    },
+    {
+      "src": "MU:worker_c2#003@112-115",
+      "dst": "MU:main#008@199-202",
+      "kind": "join"
+    },
+    {
+      "src": "MU:main#003@179-183",
+      "dst": "MU:worker_c2#002@108-111",
+      "kind": "sem_dep"
+    }
+  ]
+}

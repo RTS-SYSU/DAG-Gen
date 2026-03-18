@@ -3,7 +3,7 @@ from __future__ import annotations
 import unittest
 
 from pipeline.errors import ValidationError
-from pipeline.schedule_render import render_annotated_schedule_dag
+from pipeline.schedule_render import build_const_binding, render_annotated_schedule_dag
 
 
 def _sample_segments_json():
@@ -69,6 +69,23 @@ class ScheduleRenderTest(unittest.TestCase):
                 timing_json=_sample_timing_json(),
                 schedule_json=bad_schedule,
             )
+
+    def test_render_with_const_binding(self) -> None:
+        source = "busy_wait_seconds(C1);\nbusy_wait_seconds(C2);\n"
+        binding = build_const_binding(
+            dag_json=_sample_dag_json(),
+            segments_json=_sample_segments_json(),
+            source_text=source,
+        )
+        dot = render_annotated_schedule_dag(
+            dag_json=_sample_dag_json(),
+            segments_json=_sample_segments_json(),
+            timing_json=_sample_timing_json(),
+            schedule_json=_sample_schedule_json(),
+            const_binding=binding,
+        )
+        self.assertIn('"A" [label="A\\nconst=C1\\navg_ns=100\\nprio=99"];', dot)
+        self.assertIn('"B" [label="B\\nconst=C2\\navg_ns=200\\nprio=98"];', dot)
 
 
 if __name__ == "__main__":
