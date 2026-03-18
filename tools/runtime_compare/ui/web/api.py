@@ -16,7 +16,7 @@ from ...core.task import Task
 from ...core.cpu_pool import CpuPool
 from ...core.task_runner import TaskRunner
 from ...config.defaults import DEFAULT_MAX_WORKERS
-from ...utils.cpu import read_cpu_online, get_cpu_info, benchmark_core_speed
+from ...utils.cpu import read_cpu_online, get_cpu_info, benchmark_core_speed, recommend_test_params
 from ...utils.datetime_utils import now_ts_safe
 from ...utils.config_manager import save_config, load_config, tasks_from_config
 from ...utils.resume_state import apply_resume_to_task, default_resume_file
@@ -93,6 +93,7 @@ def register_routes(app):
             'core_bench': benchmark_core_speed(cpu_list[:min(4, len(cpu_list))]) if cpu_list else {},
             'hostname': platform.node(),
             'results_root': str(_get_results_root()),
+            'recommend': recommend_test_params(cpu_info),
         })
 
     @app.route('/api/results-root', methods=['GET'])

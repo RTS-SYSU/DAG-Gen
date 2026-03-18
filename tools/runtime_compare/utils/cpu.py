@@ -168,6 +168,67 @@ def get_cpu_info() -> Dict:
     return result
 
 
+def recommend_test_params(cpu_info: Dict) -> Dict:
+    """根据平台硬件自动推荐测试参数
+
+    Returns:
+        {
+            'platform': 'rk3588' | 'vm',
+            'platform_label': str,
+            'cores_per_task': int,
+            'cpu_list': List[int],
+            'reason': str,
+        }
+    """
+    clusters = cpu_info.get('clusters')
+    cpu_list_all = cpu_info.get('cpu_list', [])
+    total = len(cpu_list_all)
+
+    if clusters and cpu_info.get('has_big_little'):
+        little = clusters.get('little', {})
+        big = clusters.get('big', {})
+        little_cpus = little.get('cpus', [])
+        big_cpus = big.get('cpus', [])
+
+        if len(little_cpus) >= 2:
+            pick = little_cpus[:2]
+            label = f"big.LITTLE (LITTLE 核 x{len(little_cpus)} + big 核 x{len(big_cpus)})"
+            reason = f"检测到异构 CPU，选择 LITTLE 核 {pick} 制造竞争（线程数>核数）"
+        elif len(big_cpus) >= 2:
+            pick = big_cpus[:2]
+            label = f"big.LITTLE (big 核 x{len(big_cpus)} + LITTLE 核 x{len(little_cpus)})"
+            reason = f"检测到异构 CPU，选择 big 核 {pick} 制造竞争"
+        else:
+            pick = cpu_list_all[:2] if total >= 2 else cpu_list_all[:1]
+            label = "big.LITTLE (核数不足，退化)"
+            reason = "异构核每组不足 2 个，取前 2 核"
+
+        return {
+            'platform': 'rk3588',
+            'platform_label': label,
+            'cores_per_task': len(pick),
+            'cpu_list': pick,
+            'reason': reason,
+        }
+
+    # Homogeneous (VM / desktop)
+    if total >= 4:
+        pick_n = total // 2
+        pick = cpu_list_all[:pick_n]
+    elif total >= 2:
+        pick = cpu_list_all[:2]
+    else:
+        pick = cpu_list_all[:1]
+
+    return {
+        'platform': 'vm',
+        'platform_label': f"同构 CPU ({total} 核)",
+        'cores_per_task': len(pick),
+        'cpu_list': pick,
+        'reason': f"同构架构，使用 {len(pick)}/{total} 核制造线程竞争",
+    }
+
+
 def _bench_loop(iterations: int = 1_000_000) -> int:
     """简单双循环用于基准测试，返回迭代次数"""
     s = 0

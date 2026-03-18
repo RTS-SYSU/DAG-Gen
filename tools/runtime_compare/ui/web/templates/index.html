@@ -247,6 +247,32 @@
         .fs-item span {
             font-family: Consolas, monospace;
         }
+        .fs-item-clickable {
+            cursor: pointer;
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .fs-item-clickable:hover {
+            color: #007bff;
+            text-decoration: underline;
+        }
+        .recent-files {
+            margin-top: 4px;
+            font-size: 12px;
+        }
+        .recent-files a {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 8px;
+            word-break: break-all;
+        }
+        .recent-files a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -305,6 +331,13 @@
             </div>
         </div>
         
+        <div class="section" id="recommend-section" style="display:none; background:#e8f5e9; border-color:#a5d6a7;">
+            <h2 style="margin-top:0;">平台检测 & 推荐配置</h2>
+            <div id="recommend-info" style="margin-bottom:10px;"></div>
+            <button class="success" onclick="applyRecommend()">应用推荐配置</button>
+            <small style="color:#555; margin-left:10px;">自动设置核数和 CPU 列表，确保 prio 测试有效</small>
+        </div>
+
         <div class="section">
             <h2>添加新任务</h2>
             <form id="task-form">
@@ -328,6 +361,7 @@
                         <input type="text" id="baseline_c" required placeholder="/path/to/baseline.c">
                         <button type="button" onclick="openFileBrowser('baseline_c')">浏览</button>
                     </div>
+                    <div class="recent-files" id="recent-baseline"></div>
                 </div>
                 <div class="form-group">
                     <label>Prio C 文件:</label>
@@ -335,6 +369,7 @@
                         <input type="text" id="prio_c" required placeholder="/path/to/prio.c">
                         <button type="button" onclick="openFileBrowser('prio_c')">浏览</button>
                     </div>
+                    <div class="recent-files" id="recent-prio"></div>
                 </div>
                 <div class="form-group">
                     <label>WORK_SCALE:</label>
@@ -417,12 +452,69 @@
     
     <script>
         let refreshInterval;
-        let allTasks = [];  // 存储所有任务用于筛选
+        let allTasks = [];
+        let currentRecommend = null;
+        let recommendApplied = false;
         let fileBrowserTargetInput = null;
         let fileBrowserCurrentPath = '';
         let preferredInstrumentDir = '';
-        let fileBrowserMode = 'file'; // file|dir
+        let fileBrowserMode = 'file';
         let fileBrowserDirSelectHandler = null;
+
+        // ---- localStorage 记忆 ----
+        const STORAGE_KEY = 'runtime_compare_memory';
+        function loadMemory() {
+            try {
+                return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+            } catch(e) { return {}; }
+        }
+        function saveMemory(patch) {
+            try {
+                const mem = Object.assign(loadMemory(), patch);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(mem));
+            } catch(e) {}
+        }
+        function addRecentFile(field, filePath) {
+            const mem = loadMemory();
+            const key = 'recent_' + field;
+            let arr = mem[key] || [];
+            arr = arr.filter(function(p){ return p !== filePath; });
+            arr.unshift(filePath);
+            if (arr.length > 8) arr = arr.slice(0, 8);
+            mem[key] = arr;
+            mem['last_' + field] = filePath;
+            const dir = filePath.replace(/\/[^/]+$/, '');
+            if (dir) mem['last_browse_dir'] = dir;
+            saveMemory(mem);
+        }
+        function renderRecentFiles(field, containerId) {
+            var mem = loadMemory();
+            var arr = mem['recent_' + field] || [];
+            var el = document.getElementById(containerId);
+            if (!el) return;
+            if (arr.length === 0) { el.innerHTML = ''; return; }
+            var html = '<span style="color:#888;">最近: </span>';
+            arr.forEach(function(p) {
+                var short = p.length > 60 ? '...' + p.slice(-55) : p;
+                html += '<a onclick="fillFromRecent(\'' + field + '\',\'' + escapeJsStr(p) + '\')" title="' + escapeHtml(p) + '">' + escapeHtml(short) + '</a> ';
+            });
+            el.innerHTML = html;
+        }
+        function fillFromRecent(field, path) {
+            document.getElementById(field).value = path;
+            showAlert('已填入: ' + path, 'success');
+        }
+        function escapeJsStr(s) {
+            return String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        }
+        function restoreFromMemory() {
+            var mem = loadMemory();
+            if (mem.last_baseline_c) document.getElementById('baseline_c').value = mem.last_baseline_c;
+            if (mem.last_prio_c) document.getElementById('prio_c').value = mem.last_prio_c;
+            if (mem.last_project_root) document.getElementById('project_root_dir').value = mem.last_project_root;
+            renderRecentFiles('baseline_c', 'recent-baseline');
+            renderRecentFiles('prio_c', 'recent-prio');
+        }
         
         // 显示消息提示
         function showAlert(message, type = 'info') {
@@ -596,9 +688,39 @@
                 infoHtml += `<p><strong>主机名:</strong> ${data.hostname || '-'}</p>`;
                 
                 document.getElementById('system-info').innerHTML = infoHtml;
+
+                // 平台推荐
+                if (data.recommend) {
+                    currentRecommend = data.recommend;
+                    const rec = data.recommend;
+                    const recSection = document.getElementById('recommend-section');
+                    recSection.style.display = '';
+                    const platformIcon = rec.platform === 'rk3588' ? '🔧' : '🖥️';
+                    let recHtml = `<p><strong>${platformIcon} 平台:</strong> ${escapeHtml(rec.platform_label)}</p>`;
+                    recHtml += `<p><strong>推荐核数:</strong> ${rec.cores_per_task}</p>`;
+                    recHtml += `<p><strong>推荐 CPU 列表:</strong> ${rec.cpu_list.join(', ')}</p>`;
+                    recHtml += `<p style="color:#2e7d32;"><strong>原因:</strong> ${escapeHtml(rec.reason)}</p>`;
+                    document.getElementById('recommend-info').innerHTML = recHtml;
+
+                    if (!recommendApplied) {
+                        recommendApplied = true;
+                        applyRecommend(true);
+                    }
+                }
             } catch (e) {
                 updateConnectionStatus(false);
                 console.error('加载系统信息失败:', e);
+            }
+        }
+
+        // 应用推荐配置到表单
+        function applyRecommend(silent = false) {
+            if (!currentRecommend) return;
+            document.getElementById('cores_per_task').value = currentRecommend.cores_per_task;
+            document.getElementById('cpu_list').value = currentRecommend.cpu_list.join(',');
+            document.getElementById('use_sudo').checked = true;
+            if (!silent) {
+                showAlert(`已应用推荐配置: ${currentRecommend.cores_per_task} 核, CPU [${currentRecommend.cpu_list.join(',')}], sudo`, 'success');
             }
         }
 
@@ -873,7 +995,10 @@
                 
                 if (res.ok) {
                     showAlert('任务已添加，配置文件已自动导出', 'success');
-                    // 只清空配置名称，保留其他字段
+                    addRecentFile('baseline_c', formData.baseline_c);
+                    addRecentFile('prio_c', formData.prio_c);
+                    renderRecentFiles('baseline_c', 'recent-baseline');
+                    renderRecentFiles('prio_c', 'recent-prio');
                     document.getElementById('config_name').value = '';
                     refreshTasks();
                     refreshConfigList();
@@ -951,8 +1076,10 @@
             return data.current || pathValue;
         }
 
-        async function applyProjectRootDir(showToast = true) {
-            const projectRoot = (document.getElementById('project_root_dir').value || '').trim();
+        async function applyProjectRootDir(showToast) {
+            if (showToast === undefined) showToast = true;
+            var projectRoot = (document.getElementById('project_root_dir').value || '').trim();
+            if (projectRoot) saveMemory({last_project_root: projectRoot});
             if (!projectRoot) {
                 preferredInstrumentDir = '';
                 setProjectDirHint('未设置项目目录（将从项目根开始浏览）');
@@ -1021,8 +1148,9 @@
             fileBrowserTargetInput = targetInputId;
             fileBrowserDirSelectHandler = null;
             setFileBrowserMode('file', '选择 C 文件');
-            const currentVal = (document.getElementById(targetInputId).value || '').trim();
-            const startPath = currentVal ? currentVal : (preferredInstrumentDir || '');
+            var currentVal = (document.getElementById(targetInputId).value || '').trim();
+            var mem = loadMemory();
+            var startPath = currentVal || (mem.last_browse_dir || '') || (preferredInstrumentDir || '');
             document.getElementById('file-browser-modal').classList.add('show');
             loadFileBrowser(startPath);
         }
@@ -1049,13 +1177,25 @@
             }
         }
 
-        async function loadFileBrowser(pathValue, allowFallback = true) {
+        // 文件浏览器全局操作函数（供 onclick 直接调用）
+        function fbOpen(encodedPath) {
+            loadFileBrowser(decodePathFromOnclick(encodedPath));
+        }
+        function fbSelectFile(encodedPath) {
+            selectCFile(decodePathFromOnclick(encodedPath));
+        }
+        function fbSelectDir(encodedPath) {
+            chooseDirFromBrowser(decodePathFromOnclick(encodedPath));
+        }
+
+        async function loadFileBrowser(pathValue, allowFallback) {
+            if (allowFallback === undefined) allowFallback = true;
             try {
-                const query = new URLSearchParams();
+                var query = new URLSearchParams();
                 if (pathValue) query.set('path', pathValue);
                 query.set('suffix', fileBrowserMode === 'file' ? '.c' : '');
-                const res = await fetch('/api/fs/list?' + query.toString());
-                const data = await res.json();
+                var res = await fetch('/api/fs/list?' + query.toString());
+                var data = await res.json();
                 if (!res.ok) {
                     throw new Error(data.error || '加载目录失败');
                 }
@@ -1063,37 +1203,58 @@
                 fileBrowserCurrentPath = data.current;
                 document.getElementById('fs-current-path').textContent = data.current;
                 document.getElementById('fs-path-input').value = data.current || '';
+                saveMemory({last_browse_dir: data.current});
 
-                const rows = [];
+                var rows = [];
                 if (data.parent) {
-                    const parentEnc = encodePathForOnclick(data.parent);
+                    var parentEnc = encodePathForOnclick(data.parent);
                     rows.push(
-                        `<div class="fs-item"><span>.. (上级目录)</span><button type="button" data-action="open" data-path="${parentEnc}">打开</button></div>`
+                        '<div class="fs-item">'
+                        + '<span class="fs-item-clickable" onclick="fbOpen(\'' + escapeJsStr(parentEnc) + '\')">..\u00a0(上级目录)</span>'
+                        + '<button type="button" onclick="fbOpen(\'' + escapeJsStr(parentEnc) + '\')">上级</button>'
+                        + '</div>'
                     );
                 }
-                for (const d of data.dirs) {
-                    const dirEnc = encodePathForOnclick(d.path);
-                    const dirActions = fileBrowserMode === 'dir'
-                        ? `<div><button type="button" class="success" data-action="select-dir" data-path="${dirEnc}">选择</button><button type="button" data-action="open" data-path="${dirEnc}">打开</button></div>`
-                        : `<button type="button" data-action="open" data-path="${dirEnc}">打开</button>`;
+                for (var i = 0; i < data.dirs.length; i++) {
+                    var d = data.dirs[i];
+                    var dirEnc = encodePathForOnclick(d.path);
+                    var dirBtns;
+                    if (fileBrowserMode === 'dir') {
+                        dirBtns = '<div>'
+                            + '<button type="button" class="success" onclick="fbSelectDir(\'' + escapeJsStr(dirEnc) + '\')">选择</button>'
+                            + '<button type="button" onclick="fbOpen(\'' + escapeJsStr(dirEnc) + '\')">打开</button>'
+                            + '</div>';
+                    } else {
+                        dirBtns = '<button type="button" onclick="fbOpen(\'' + escapeJsStr(dirEnc) + '\')">打开</button>';
+                    }
                     rows.push(
-                        `<div class="fs-item"><span>[DIR] ${escapeHtml(d.name)}</span>${dirActions}</div>`
+                        '<div class="fs-item">'
+                        + '<span class="fs-item-clickable" onclick="fbOpen(\'' + escapeJsStr(dirEnc) + '\')">[DIR]\u00a0' + escapeHtml(d.name) + '</span>'
+                        + dirBtns
+                        + '</div>'
                     );
                 }
-                for (const f of data.files) {
+                for (var j = 0; j < data.files.length; j++) {
+                    var f = data.files[j];
                     if (fileBrowserMode === 'file') {
-                        const fileEnc = encodePathForOnclick(f.path);
+                        var fileEnc = encodePathForOnclick(f.path);
                         rows.push(
-                            `<div class="fs-item"><span>${escapeHtml(f.name)}</span><button type="button" class="success" data-action="select-file" data-path="${fileEnc}">选择</button></div>`
+                            '<div class="fs-item">'
+                            + '<span class="fs-item-clickable" onclick="fbSelectFile(\'' + escapeJsStr(fileEnc) + '\')">' + escapeHtml(f.name) + '</span>'
+                            + '<button type="button" class="success" onclick="fbSelectFile(\'' + escapeJsStr(fileEnc) + '\')">选择</button>'
+                            + '</div>'
                         );
                     } else {
                         rows.push(
-                            `<div class="fs-item"><span>${escapeHtml(f.name)}</span><span style="color:#999;">文件</span></div>`
+                            '<div class="fs-item">'
+                            + '<span>' + escapeHtml(f.name) + '</span>'
+                            + '<span style="color:#999;">文件</span>'
+                            + '</div>'
                         );
                     }
                 }
                 if (rows.length === 0) {
-                    rows.push(`<div class="fs-item"><span>${fileBrowserMode === 'file' ? '当前目录无可选 .c 文件' : '当前目录为空'}</span></div>`);
+                    rows.push('<div class="fs-item"><span>' + (fileBrowserMode === 'file' ? '当前目录无可选 .c 文件' : '当前目录为空') + '</span></div>');
                 }
                 document.getElementById('fs-list').innerHTML = rows.join('');
             } catch (e) {
@@ -1128,7 +1289,11 @@
 
         function selectCFile(filePath) {
             if (!fileBrowserTargetInput) return;
-            document.getElementById(fileBrowserTargetInput).value = filePath;
+            var field = fileBrowserTargetInput;
+            document.getElementById(field).value = filePath;
+            addRecentFile(field, filePath);
+            renderRecentFiles('baseline_c', 'recent-baseline');
+            renderRecentFiles('prio_c', 'recent-prio');
             closeFileBrowser();
             showAlert('已选择文件: ' + filePath, 'success');
         }
@@ -1163,35 +1328,19 @@
                 .replace(/'/g, '&#39;');
         }
 
-        document.getElementById('fs-list').addEventListener('click', (evt) => {
-            const btn = evt.target.closest('button[data-action]');
-            if (!btn) return;
-            const action = btn.getAttribute('data-action') || '';
-            const encoded = btn.getAttribute('data-path') || '';
-            const path = decodePathFromOnclick(encoded);
-            if (action === 'open') {
-                loadFileBrowser(path);
-                return;
-            }
-            if (action === 'select-dir') {
-                chooseDirFromBrowser(path);
-                return;
-            }
-            if (action === 'select-file') {
-                selectCFile(path);
-            }
-        });
+        // 按钮操作现在直接通过 onclick 调用 fbOpen/fbSelectFile/fbSelectDir
         
         // 初始化
+        restoreFromMemory();
         loadSystemInfo();
         loadResultsRoot();
         refreshTasks();
         refreshConfigList();
         applyProjectRootDir(false);
-        refreshInterval = setInterval(() => {
+        refreshInterval = setInterval(function() {
             loadSystemInfo();
             refreshTasks();
-        }, 2000);  // 每2秒刷新一次
+        }, 2000);
     </script>
 </body>
 </html>

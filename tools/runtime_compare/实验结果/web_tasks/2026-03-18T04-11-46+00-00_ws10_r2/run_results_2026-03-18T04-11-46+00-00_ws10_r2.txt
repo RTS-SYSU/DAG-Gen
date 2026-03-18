@@ -1,0 +1,44 @@
+=== RUN at 2026-03-18T04-11-46+00-00 (WORK_SCALE=10, REPEATS=2) ===
+baseline_bin=/home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-18T04-11-46+00-00_ws10_r2/baseline/app_baseline
+prio_bin=/home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/web_tasks/2026-03-18T04-11-46+00-00_ws10_r2/prio/app_prio
+
+=== PAIRED RESULTS (program-reported time, seconds) ===
+run	baseline	prio	delta(prio-baseline)
+1	7.956122	8.208763	+0.252641
+2	8.063349	8.161380	+0.098031
+
+=== BASELINE STATS (program time) ===
+times_s=[7.956122, 8.063349]
+mean=8.009736s min=7.956122s max=8.063349s rcs=[0, 0]
+
+=== PRIO STATS (program time) ===
+times_s=[8.208763, 8.16138]
+mean=8.185071s min=8.161380s max=8.208763s rcs=[0, 0]
+
+[warn] affinity rewrite not applied (no sched_setaffinity pattern found)
+
+=== LOGS (raw program output) ===
+
+----- [baseline] run #1 (program=7.956122s, rc=0) -----
+----- [baseline] run #1 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=7956122129
+
+----- [prio] run #1 (program=8.208763s, rc=0) -----
+----- [prio] run #1 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8208762629
+
+----- [baseline] run #2 (program=8.063349s, rc=0) -----
+----- [baseline] run #2 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8063349337
+
+----- [prio] run #2 (program=8.161380s, rc=0) -----
+----- [prio] run #2 (rc=0) -----
+
+[stderr]
+PROGRAM_TOTAL_NS=8161380213

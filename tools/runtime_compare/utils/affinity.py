@@ -21,8 +21,14 @@ def rewrite_sched_setaffinity_cpu_set(source: str, cpu_set: List[int]) -> Tuple[
     Returns:
         (修改后的源码, 是否发生了修改)
     """
-    if "sched_setaffinity" not in source or "CPU_ZERO(&set)" not in source:
+    if "sched_setaffinity" not in source:
         return source, False
+
+    # Detect the variable name used with CPU_ZERO (e.g. &set, &cpu_set, &cpuset)
+    m_zero = re.search(r"CPU_ZERO\s*\(\s*&(\w+)\s*\)", source)
+    if not m_zero:
+        return source, False
+    var_name = m_zero.group(1)
 
     lines = source.splitlines(keepends=True)
     out: List[str] = []
@@ -30,18 +36,21 @@ def rewrite_sched_setaffinity_cpu_set(source: str, cpu_set: List[int]) -> Tuple[
     inserted = False
     changed = False
 
-    cpu_set_lines = [f"    CPU_SET({c}, &set);\n" for c in cpu_set]
+    cpu_set_lines = [f"    CPU_SET({c}, &{var_name});\n" for c in cpu_set]
+    zero_pattern = f"CPU_ZERO(&{var_name})"
+    set_pattern = re.compile(
+        r"^\s*CPU_SET\(\s*\d+\s*,\s*&" + re.escape(var_name) + r"\s*\)\s*;\s*$"
+    )
 
     for ln in lines:
-        if "CPU_ZERO(&set)" in ln:
+        if zero_pattern in ln:
             in_block = True
             inserted = False
             out.append(ln)
             continue
 
         if in_block:
-            if re.match(r"^\s*CPU_SET\(\s*\d+\s*,\s*&set\s*\)\s*;\s*$", ln):
-                # Drop original CPU_SET lines; we'll insert our own once.
+            if set_pattern.match(ln):
                 changed = True
                 continue
 
@@ -50,7 +59,6 @@ def rewrite_sched_setaffinity_cpu_set(source: str, cpu_set: List[int]) -> Tuple[
                 inserted = True
                 if cpu_set_lines:
                     changed = True
-                # Continue to keep the sched_setaffinity line
                 out.append(ln)
                 in_block = False
                 continue
