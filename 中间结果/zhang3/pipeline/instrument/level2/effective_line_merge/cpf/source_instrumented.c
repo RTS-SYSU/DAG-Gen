@@ -36,12 +36,13 @@ static void *worker_c3(void *arg);
 
 #define MAT_N 64
 #ifndef WORK_SCALE
-#define WORK_SCALE 25000
+#define WORK_SCALE 100
 #endif
 
 static double mat_a[MAT_N][MAT_N];
 static double mat_b[MAT_N][MAT_N];
 static double mat_c[MAT_N][MAT_N];
+static volatile double g_busy_sink = 0.0;
 
 static pthread_t thread_c0, thread_c1, thread_c2, thread_c3, thread_c4;
 
@@ -98,48 +99,52 @@ static void init_matrices(void)
 
 static void busy_wait_seconds(double seconds)
 {
-  int repeat_count = (int)(seconds * WORK_SCALE * 0.1);
-  if (repeat_count < 1)
-    repeat_count = 1;
-  for (int r = 0; r < repeat_count; ++r)
+  int units = (int)(seconds * WORK_SCALE + 0.5);
+  if (units < 1)
+    units = 1;
+
+  double x = 1.000001;
+  double y = 0.999999;
+  double z = 1.0000003;
+  double acc = 0.0;
+
+  for (int r = 0; r < units; ++r)
   {
-    for (int i = 0; i < MAT_N; ++i)
+    for (int i = 0; i < 512; ++i)
     {
-      for (int j = 0; j < MAT_N; ++j)
-      {
-        double accum = 0.0;
-        for (int k = 0; k < MAT_N; ++k)
-        {
-          accum += mat_a[i][k] * mat_b[k][j];
-        }
-        mat_c[i][j] = accum;
-      }
+      x = x * 1.0000001 + y * 0.9999999 + z * 0.0000001;
+      y = y * 1.0000002 + z * 0.9999998 + x * 0.0000002;
+      z = z * 1.0000003 + x * 0.9999997 + y * 0.0000003;
+      acc += x * y + z;
     }
   }
+
+  g_busy_sink += acc;
+  mat_c[0][0] = g_busy_sink;
 }
 
 static struct timespec prog_start_ts;
 
 static void *worker_c2(void *arg)
 {
-  l1_set_thread_prio_fifo(83);
+  l1_set_thread_prio_fifo(89);
   pthread_mutex_lock(&mutex_07);
   busy_wait_seconds(C1);
   sem_post(&sem_16);
   pthread_mutex_unlock(&mutex_07);
-  l1_set_thread_prio_fifo(86);
+  l1_set_thread_prio_fifo(84);
   pthread_mutex_lock(&mutex_08);
   sem_wait(&sem_13);
   busy_wait_seconds(C2);
   sem_post(&sem_17);
   pthread_mutex_unlock(&mutex_08);
-  l1_set_thread_prio_fifo(85);
+  l1_set_thread_prio_fifo(83);
   pthread_mutex_lock(&mutex_09);
   sem_wait(&sem_14);
   busy_wait_seconds(C3);
   sem_post(&sem_18);
   pthread_mutex_unlock(&mutex_09);
-  l1_set_thread_prio_fifo(90);
+  l1_set_thread_prio_fifo(82);
   pthread_mutex_lock(&mutex_10);
   sem_wait(&sem_15);
   busy_wait_seconds(C4);
@@ -149,13 +154,13 @@ static void *worker_c2(void *arg)
 
 static void *worker_c1(void *arg)
 {
-  l1_set_thread_prio_fifo(87);
+  l1_set_thread_prio_fifo(85);
   pthread_mutex_lock(&mutex_11);
   busy_wait_seconds(C5);
   sem_post(&sem_10);
   sem_post(&sem_13);
   pthread_mutex_unlock(&mutex_11);
-  l1_set_thread_prio_fifo(84);
+  l1_set_thread_prio_fifo(88);
   pthread_mutex_lock(&mutex_12);
   sem_wait(&sem_07);
   sem_wait(&sem_16);
@@ -163,7 +168,7 @@ static void *worker_c1(void *arg)
   sem_post(&sem_11);
   sem_post(&sem_14);
   pthread_mutex_unlock(&mutex_12);
-  l1_set_thread_prio_fifo(91);
+  l1_set_thread_prio_fifo(87);
   pthread_mutex_lock(&mutex_13);
   sem_wait(&sem_08);
   sem_wait(&sem_17);
@@ -171,7 +176,7 @@ static void *worker_c1(void *arg)
   sem_post(&sem_12);
   sem_post(&sem_15);
   pthread_mutex_unlock(&mutex_13);
-  l1_set_thread_prio_fifo(82);
+  l1_set_thread_prio_fifo(86);
   pthread_mutex_lock(&mutex_14);
   sem_wait(&sem_09);
   sem_wait(&sem_18);
@@ -188,7 +193,7 @@ static void *worker_c0(void *arg)
   sem_post(&sem_04);
   sem_post(&sem_07);
   pthread_mutex_unlock(&mutex_15);
-  l1_set_thread_prio_fifo(92);
+  l1_set_thread_prio_fifo(97);
   pthread_mutex_lock(&mutex_16);
   sem_wait(&sem_01);
   sem_wait(&sem_10);
@@ -196,7 +201,7 @@ static void *worker_c0(void *arg)
   sem_post(&sem_05);
   sem_post(&sem_08);
   pthread_mutex_unlock(&mutex_16);
-  l1_set_thread_prio_fifo(89);
+  l1_set_thread_prio_fifo(96);
   pthread_mutex_lock(&mutex_17);
   sem_wait(&sem_02);
   sem_wait(&sem_11);
@@ -204,7 +209,7 @@ static void *worker_c0(void *arg)
   sem_post(&sem_06);
   sem_post(&sem_09);
   pthread_mutex_unlock(&mutex_17);
-  l1_set_thread_prio_fifo(88);
+  l1_set_thread_prio_fifo(90);
   pthread_mutex_lock(&mutex_18);
   sem_wait(&sem_03);
   sem_wait(&sem_12);
@@ -282,13 +287,13 @@ int main(void)
   busy_wait_seconds(C14);
   sem_post(&sem_01);
   pthread_mutex_unlock(&mutex_02);
-  l1_set_thread_prio_fifo(97);
+  l1_set_thread_prio_fifo(92);
   pthread_mutex_lock(&mutex_03);
   sem_wait(&sem_04);
   busy_wait_seconds(C15);
   sem_post(&sem_02);
   pthread_mutex_unlock(&mutex_03);
-  l1_set_thread_prio_fifo(96);
+  l1_set_thread_prio_fifo(91);
   pthread_mutex_lock(&mutex_04);
   sem_wait(&sem_05);
   busy_wait_seconds(C16);

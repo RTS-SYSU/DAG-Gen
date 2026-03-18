@@ -2068,9 +2068,13 @@ def main():
             time.time() - start_time))
 
     # ========================================================================
-    # 导出circle.txt配置文件（如果指定）
+    # 导出 circle.txt 配置文件。
+    #
+    # 约定：当 generate 使用 output_base 进入规范输出目录时，circle.txt 应始终与
+    # 最新的 expand / DAG 同步刷新；不应依赖调用方额外显式传入 --export-txt。
     # ========================================================================
-    if hasattr(config, 'export_txt') and config.export_txt:
+    should_export_circle = bool(getattr(config, "export_txt", None) or getattr(config, "output_base", None))
+    if should_export_circle:
         try:
             try:
                 from .exporters import export_circle_txt

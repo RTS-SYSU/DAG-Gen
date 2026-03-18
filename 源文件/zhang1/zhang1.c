@@ -52,6 +52,7 @@ static void *c3_fn(void *arg);
 static double A[MAT_N][MAT_N];
 static double B[MAT_N][MAT_N];
 static double C[MAT_N][MAT_N];
+static volatile double g_busy_sink = 0.0;
 
 static pthread_t tc0, tc1, tc2, tc3, tc4;
 
@@ -92,19 +93,26 @@ static void init_matrices(void)
 
 static void busy_wait_seconds(double seconds)
 {
-    int repeat = (int)(seconds * WORK_SCALE * 0.1);
-    if (repeat < 1) repeat = 1;
-    for (int r = 0; r < repeat; ++r) {
-        for (int i = 0; i < MAT_N; ++i) {
-            for (int j = 0; j < MAT_N; ++j) {
-                double acc = 0.0;
-                for (int k = 0; k < MAT_N; ++k) {
-                    acc += A[i][k] * B[k][j];
-                }
-                C[i][j] = acc;
-            }
+    int units = (int)(seconds * WORK_SCALE + 0.5);
+    if (units < 1)
+        units = 1;
+
+    double x = 1.000001;
+    double y = 0.999999;
+    double z = 1.0000003;
+    double acc = 0.0;
+
+    for (int r = 0; r < units; ++r) {
+        for (int i = 0; i < 512; ++i) {
+            x = x * 1.0000001 + y * 0.9999999 + z * 0.0000001;
+            y = y * 1.0000002 + z * 0.9999998 + x * 0.0000002;
+            z = z * 1.0000003 + x * 0.9999997 + y * 0.0000003;
+            acc += x * y + z;
         }
     }
+
+    g_busy_sink += acc;
+    C[0][0] = g_busy_sink;
 }
 
 static struct timespec g_prog_start;

@@ -1,0 +1,573 @@
+{
+  "work_scale": 10,
+  "repeats": 10,
+  "cpu_set": [
+    0,
+    1
+  ],
+  "cores_per_task": 2,
+  "cases": [
+    {
+      "base": "zhang1",
+      "runtime_summary_path": "/home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/runtime_results/runtime_task_zhang1/2026-03-18T17-01-28+08-00_ws10_r10/summary.json",
+      "manual": {
+        "baseline": {
+          "source": "/home/chove/Desktop/ScratchDAG/中间结果/zhang1/pipeline/instrument/level2/effective_line_merge/zhao2020/source_original.c",
+          "prepared_source": "/home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang1/baseline/source_original.c",
+          "compile_cmd": "gcc -O0 -g -std=c11 -pthread -lm -I /home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang1/baseline -DWORK_SCALE=10 source_original.c -o /home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang1/baseline/app_baseline",
+          "times_ns": [
+            21883944,
+            22185223,
+            21380230,
+            23596654,
+            23740162,
+            21649236,
+            23238213,
+            20278128,
+            24234475,
+            25122859
+          ],
+          "summary_ns": {
+            "count": 10.0,
+            "mean_ns": 22730912.4,
+            "min_ns": 20278128.0,
+            "max_ns": 25122859.0,
+            "stddev_ns": 1415387.1090956847
+          },
+          "runs": [
+            {
+              "run": 1,
+              "program_total_ns": 21883944
+            },
+            {
+              "run": 2,
+              "program_total_ns": 22185223
+            },
+            {
+              "run": 3,
+              "program_total_ns": 21380230
+            },
+            {
+              "run": 4,
+              "program_total_ns": 23596654
+            },
+            {
+              "run": 5,
+              "program_total_ns": 23740162
+            },
+            {
+              "run": 6,
+              "program_total_ns": 21649236
+            },
+            {
+              "run": 7,
+              "program_total_ns": 23238213
+            },
+            {
+              "run": 8,
+              "program_total_ns": 20278128
+            },
+            {
+              "run": 9,
+              "program_total_ns": 24234475
+            },
+            {
+              "run": 10,
+              "program_total_ns": 25122859
+            }
+          ]
+        },
+        "prio": {
+          "source": "/home/chove/Desktop/ScratchDAG/中间结果/zhang1/pipeline/instrument/level2/effective_line_merge/zhao2020/source_instrumented.c",
+          "prepared_source": "/home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang1/prio/source_instrumented.c",
+          "compile_cmd": "gcc -O0 -g -std=c11 -pthread -lm -I /home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang1/prio -DWORK_SCALE=10 source_instrumented.c -o /home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang1/prio/app_prio",
+          "times_ns": [
+            21012656,
+            20421600,
+            20751360,
+            22007700,
+            21725460,
+            20817945,
+            20339335,
+            21068216,
+            20255382,
+            20563484
+          ],
+          "summary_ns": {
+            "count": 10.0,
+            "mean_ns": 20896313.8,
+            "min_ns": 20255382.0,
+            "max_ns": 22007700.0,
+            "stddev_ns": 552272.5483778458
+          },
+          "runs": [
+            {
+              "run": 1,
+              "program_total_ns": 21012656
+            },
+            {
+              "run": 2,
+              "program_total_ns": 20421600
+            },
+            {
+              "run": 3,
+              "program_total_ns": 20751360
+            },
+            {
+              "run": 4,
+              "program_total_ns": 22007700
+            },
+            {
+              "run": 5,
+              "program_total_ns": 21725460
+            },
+            {
+              "run": 6,
+              "program_total_ns": 20817945
+            },
+            {
+              "run": 7,
+              "program_total_ns": 20339335
+            },
+            {
+              "run": 8,
+              "program_total_ns": 21068216
+            },
+            {
+              "run": 9,
+              "program_total_ns": 20255382
+            },
+            {
+              "run": 10,
+              "program_total_ns": 20563484
+            }
+          ]
+        }
+      },
+      "runtime": {
+        "baseline_times_ns": [
+          23244991,
+          21894356,
+          25633815,
+          21625463,
+          20172873,
+          24740175,
+          24579308,
+          24059742,
+          21883241,
+          20781558
+        ],
+        "baseline_summary_ns": {
+          "mean_ns": 22861552.2,
+          "min_ns": 20172873.0,
+          "max_ns": 25633815.0,
+          "count": 10.0
+        },
+        "prio_times_ns": [
+          22806236,
+          21482030,
+          21029519,
+          20727229,
+          20360655,
+          20434200,
+          21729569,
+          22367023,
+          21263061,
+          20575497
+        ],
+        "prio_summary_ns": {
+          "mean_ns": 21277501.9,
+          "min_ns": 20360655.0,
+          "max_ns": 22806236.0,
+          "count": 10.0
+        }
+      },
+      "comparison": {
+        "baseline_mean_gap_pct": 0.5747230806274224,
+        "prio_mean_gap_pct": 1.8241882451056883,
+        "baseline_delta_ns": 130639.80000000075,
+        "prio_delta_ns": 381188.09999999776
+      }
+    },
+    {
+      "base": "zhang2",
+      "runtime_summary_path": "/home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/runtime_results/runtime_task_zhang2/2026-03-18T17-01-29+08-00_ws10_r10/summary.json",
+      "manual": {
+        "baseline": {
+          "source": "/home/chove/Desktop/ScratchDAG/中间结果/zhang2/pipeline/instrument/level2/effective_line_merge/zhao2020/source_original.c",
+          "prepared_source": "/home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang2/baseline/source_original.c",
+          "compile_cmd": "gcc -O0 -g -std=c11 -pthread -lm -I /home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang2/baseline -DWORK_SCALE=10 source_original.c -o /home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang2/baseline/app_baseline",
+          "times_ns": [
+            907422485,
+            986556893,
+            940224509,
+            968499264,
+            868486399,
+            922992715,
+            861595487,
+            876859019,
+            852461162,
+            847623524
+          ],
+          "summary_ns": {
+            "count": 10.0,
+            "mean_ns": 903272145.7,
+            "min_ns": 847623524.0,
+            "max_ns": 986556893.0,
+            "stddev_ns": 47207732.3067291
+          },
+          "runs": [
+            {
+              "run": 1,
+              "program_total_ns": 907422485
+            },
+            {
+              "run": 2,
+              "program_total_ns": 986556893
+            },
+            {
+              "run": 3,
+              "program_total_ns": 940224509
+            },
+            {
+              "run": 4,
+              "program_total_ns": 968499264
+            },
+            {
+              "run": 5,
+              "program_total_ns": 868486399
+            },
+            {
+              "run": 6,
+              "program_total_ns": 922992715
+            },
+            {
+              "run": 7,
+              "program_total_ns": 861595487
+            },
+            {
+              "run": 8,
+              "program_total_ns": 876859019
+            },
+            {
+              "run": 9,
+              "program_total_ns": 852461162
+            },
+            {
+              "run": 10,
+              "program_total_ns": 847623524
+            }
+          ]
+        },
+        "prio": {
+          "source": "/home/chove/Desktop/ScratchDAG/中间结果/zhang2/pipeline/instrument/level2/effective_line_merge/zhao2020/source_instrumented.c",
+          "prepared_source": "/home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang2/prio/source_instrumented.c",
+          "compile_cmd": "gcc -O0 -g -std=c11 -pthread -lm -I /home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang2/prio -DWORK_SCALE=10 source_instrumented.c -o /home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang2/prio/app_prio",
+          "times_ns": [
+            887364030,
+            864986286,
+            907086657,
+            893494804,
+            916553503,
+            883120278,
+            907222382,
+            868250238,
+            843169999,
+            853654351
+          ],
+          "summary_ns": {
+            "count": 10.0,
+            "mean_ns": 882490252.8,
+            "min_ns": 843169999.0,
+            "max_ns": 916553503.0,
+            "stddev_ns": 23257204.428606085
+          },
+          "runs": [
+            {
+              "run": 1,
+              "program_total_ns": 887364030
+            },
+            {
+              "run": 2,
+              "program_total_ns": 864986286
+            },
+            {
+              "run": 3,
+              "program_total_ns": 907086657
+            },
+            {
+              "run": 4,
+              "program_total_ns": 893494804
+            },
+            {
+              "run": 5,
+              "program_total_ns": 916553503
+            },
+            {
+              "run": 6,
+              "program_total_ns": 883120278
+            },
+            {
+              "run": 7,
+              "program_total_ns": 907222382
+            },
+            {
+              "run": 8,
+              "program_total_ns": 868250238
+            },
+            {
+              "run": 9,
+              "program_total_ns": 843169999
+            },
+            {
+              "run": 10,
+              "program_total_ns": 853654351
+            }
+          ]
+        }
+      },
+      "runtime": {
+        "baseline_times_ns": [
+          1038121483,
+          1013508492,
+          929424824,
+          889074476,
+          862710544,
+          892750240,
+          878453123,
+          892255928,
+          940953575,
+          968289224
+        ],
+        "baseline_summary_ns": {
+          "mean_ns": 930554190.8999999,
+          "min_ns": 862710544.0,
+          "max_ns": 1038121483.0000001,
+          "count": 10.0
+        },
+        "prio_times_ns": [
+          914578078,
+          829773444,
+          835717103,
+          818824583,
+          819268956,
+          816589115,
+          848647403,
+          814938268,
+          817004443,
+          853401737
+        ],
+        "prio_summary_ns": {
+          "mean_ns": 836874313.0,
+          "min_ns": 814938268.0,
+          "max_ns": 914578078.0,
+          "count": 10.0
+        }
+      },
+      "comparison": {
+        "baseline_mean_gap_pct": 3.0203571902305595,
+        "prio_mean_gap_pct": 5.169002111385128,
+        "baseline_delta_ns": 27282045.19999981,
+        "prio_delta_ns": -45615939.79999995
+      }
+    },
+    {
+      "base": "zhang3",
+      "runtime_summary_path": "/home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/runtime_results/runtime_task_zhang3/2026-03-18T17-01-47+08-00_ws10_r10/summary.json",
+      "manual": {
+        "baseline": {
+          "source": "/home/chove/Desktop/ScratchDAG/中间结果/zhang3/pipeline/instrument/level2/effective_line_merge/zhao2020/source_original.c",
+          "prepared_source": "/home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang3/baseline/source_original.c",
+          "compile_cmd": "gcc -O0 -g -std=c11 -pthread -lm -I /home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang3/baseline -DWORK_SCALE=10 source_original.c -o /home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang3/baseline/app_baseline",
+          "times_ns": [
+            74938583,
+            56389883,
+            55166266,
+            61648141,
+            61641855,
+            58937628,
+            58014632,
+            61327757,
+            63753958,
+            61926705
+          ],
+          "summary_ns": {
+            "count": 10.0,
+            "mean_ns": 61374540.8,
+            "min_ns": 55166266.0,
+            "max_ns": 74938583.0,
+            "stddev_ns": 5203030.612135965
+          },
+          "runs": [
+            {
+              "run": 1,
+              "program_total_ns": 74938583
+            },
+            {
+              "run": 2,
+              "program_total_ns": 56389883
+            },
+            {
+              "run": 3,
+              "program_total_ns": 55166266
+            },
+            {
+              "run": 4,
+              "program_total_ns": 61648141
+            },
+            {
+              "run": 5,
+              "program_total_ns": 61641855
+            },
+            {
+              "run": 6,
+              "program_total_ns": 58937628
+            },
+            {
+              "run": 7,
+              "program_total_ns": 58014632
+            },
+            {
+              "run": 8,
+              "program_total_ns": 61327757
+            },
+            {
+              "run": 9,
+              "program_total_ns": 63753958
+            },
+            {
+              "run": 10,
+              "program_total_ns": 61926705
+            }
+          ]
+        },
+        "prio": {
+          "source": "/home/chove/Desktop/ScratchDAG/中间结果/zhang3/pipeline/instrument/level2/effective_line_merge/zhao2020/source_instrumented.c",
+          "prepared_source": "/home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang3/prio/source_instrumented.c",
+          "compile_cmd": "gcc -O0 -g -std=c11 -pthread -lm -I /home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang3/prio -DWORK_SCALE=10 source_instrumented.c -o /home/chove/Desktop/ScratchDAG/test实验/2026-03-18_zhang123_runtime手动测时校验/manual_runs/zhang3/prio/app_prio",
+          "times_ns": [
+            59301501,
+            58091823,
+            57996159,
+            57130952,
+            57569971,
+            57115463,
+            58802429,
+            57588426,
+            56922406,
+            59884770
+          ],
+          "summary_ns": {
+            "count": 10.0,
+            "mean_ns": 58040390.0,
+            "min_ns": 56922406.0,
+            "max_ns": 59884770.0,
+            "stddev_ns": 945275.8782164073
+          },
+          "runs": [
+            {
+              "run": 1,
+              "program_total_ns": 59301501
+            },
+            {
+              "run": 2,
+              "program_total_ns": 58091823
+            },
+            {
+              "run": 3,
+              "program_total_ns": 57996159
+            },
+            {
+              "run": 4,
+              "program_total_ns": 57130952
+            },
+            {
+              "run": 5,
+              "program_total_ns": 57569971
+            },
+            {
+              "run": 6,
+              "program_total_ns": 57115463
+            },
+            {
+              "run": 7,
+              "program_total_ns": 58802429
+            },
+            {
+              "run": 8,
+              "program_total_ns": 57588426
+            },
+            {
+              "run": 9,
+              "program_total_ns": 56922406
+            },
+            {
+              "run": 10,
+              "program_total_ns": 59884770
+            }
+          ]
+        }
+      },
+      "runtime": {
+        "baseline_times_ns": [
+          58571201,
+          61171503,
+          99775070,
+          58527883,
+          62288275,
+          66106450,
+          63085353,
+          77285370,
+          60042326,
+          59484810
+        ],
+        "baseline_summary_ns": {
+          "mean_ns": 66633824.09999999,
+          "min_ns": 58527883.0,
+          "max_ns": 99775070.0,
+          "count": 10.0
+        },
+        "prio_times_ns": [
+          59279049,
+          57448694,
+          59536647,
+          61742691,
+          60639008,
+          60396145,
+          65398390,
+          60366236,
+          60246308,
+          57815382
+        ],
+        "prio_summary_ns": {
+          "mean_ns": 60286855.00000001,
+          "min_ns": 57448694.0,
+          "max_ns": 65398390.0,
+          "count": 10.0
+        }
+      },
+      "comparison": {
+        "baseline_mean_gap_pct": 8.569161139858156,
+        "prio_mean_gap_pct": 3.870520167076767,
+        "baseline_delta_ns": 5259283.29999999,
+        "prio_delta_ns": 2246465.0000000075
+      }
+    }
+  ],
+  "overall": {
+    "baseline_mean_gap_pct": {
+      "count": 3.0,
+      "mean_ns": 4054747.0,
+      "min_ns": 574723.0,
+      "max_ns": 8569161.0,
+      "stddev_ns": 3344670.560562081
+    },
+    "prio_mean_gap_pct": {
+      "count": 3.0,
+      "mean_ns": 3621236.6666666665,
+      "min_ns": 1824188.0,
+      "max_ns": 5169002.0,
+      "stddev_ns": 1376844.6556910074
+    }
+  }
+}

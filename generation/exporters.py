@@ -227,8 +227,10 @@ class CircleTxtExporter:
             func_name, api_name, call_index
         )
         
-        # 提取变量名
-        var_name = self._extract_variable_name(func_name, api_name, call_index)
+        # 优先从源码调用参数中提取信号量名，expand symbol_ref 只作为兜底。
+        var_name = self._extract_source_arg_name(api_name, line_num)
+        if not var_name:
+            var_name = self._extract_variable_name(func_name, api_name, call_index)
         if not var_name:
             var_name = 'sem'  # 默认值
         
@@ -371,6 +373,26 @@ class CircleTxtExporter:
         except Exception:
             pass
         
+        return None
+
+    def _extract_source_arg_name(self, api_name: str, line_num: Optional[int]) -> Optional[str]:
+        """从源码调用参数中提取同步原语变量名，例如 sem_post(&sem_01) -> sem_01。"""
+        if not self.source_file or line_num is None:
+            return None
+        if not self.source_file.exists():
+            return None
+
+        try:
+            source_lines = self.source_file.read_text(encoding="utf-8", errors="ignore").splitlines()
+            if line_num < 1 or line_num > len(source_lines):
+                return None
+            line = source_lines[line_num - 1]
+            m = re.search(rf"\b{re.escape(api_name)}\s*\(\s*&?\s*([A-Za-z_]\w*)", line)
+            if m:
+                return m.group(1)
+        except Exception:
+            pass
+
         return None
     
     def _generate_unique_id(self, var_name: str, category: str) -> str:

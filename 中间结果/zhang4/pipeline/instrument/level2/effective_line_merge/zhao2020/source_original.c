@@ -17,7 +17,7 @@
 
 #define MAT_N 64
 #ifndef WORK_SCALE
-#define WORK_SCALE 25000
+#define WORK_SCALE 100
 #endif
 
 static double mat_a[MAT_N][MAT_N];
