@@ -254,6 +254,111 @@ def register_routes(app):
         
         return jsonify({'task_id': task_id, 'status': 'queued'}), 201
 
+    @app.route('/api/batch_submit', methods=['POST'])
+    def batch_submit():
+        """批量提交：扫描文件夹下所有算法，自动生成任务队列。
+
+        请求体示例：
+        {
+          "entries": [
+            {
+              "folder": "/path/to/中间结果/zhang1",
+              "work_scale": 100,
+              "repeats": 10,
+              "cores_per_task": 2,
+              "cpu_list": [0, 1],
+              "use_sudo": false
+            },
+            ...
+          ],
+          "results_root": "/path/to/output"   // 可选，覆盖当前 results_root
+        }
+
+        扫描路径：{folder}/pipeline/instrument/level2/effective_line_merge/*/
+        每个子目录若同时存在 source_original.c 和 source_instrumented.c，则生成一个任务。
+        batch_name = folder 的最后一级目录名（如 zhang1）
+        algo_name  = 子目录名（如 cpf）
+        """
+        data = request.get_json() or {}
+        entries = data.get('entries', [])
+        if not entries:
+            return jsonify({'error': '缺少 entries 字段'}), 400
+
+        # 可选：临时覆盖 results_root
+        override_root = data.get('results_root', '').strip()
+        if override_root:
+            try:
+                rr = Path(override_root).expanduser().resolve()
+                rr.mkdir(parents=True, exist_ok=True)
+                _task_manager['results_root'] = str(rr)
+            except Exception as e:
+                return jsonify({'error': f'results_root 无效: {e}'}), 400
+
+        added = []
+        errors = []
+
+        for entry in entries:
+            folder = entry.get('folder', '').strip()
+            if not folder:
+                errors.append({'entry': entry, 'error': '缺少 folder 字段'})
+                continue
+
+            folder_path = Path(folder).expanduser().resolve()
+            if not folder_path.is_dir():
+                errors.append({'entry': entry, 'error': f'目录不存在: {folder_path}'})
+                continue
+
+            # 扫描算法子目录
+            instrument_dir = folder_path / 'pipeline' / 'instrument' / 'level2' / 'effective_line_merge'
+            if not instrument_dir.is_dir():
+                errors.append({'entry': entry, 'error': f'未找到 instrument 目录: {instrument_dir}'})
+                continue
+
+            batch_name = folder_path.name  # 如 zhang1
+            work_scale = int(entry.get('work_scale', 100))
+            repeats = int(entry.get('repeats', 10))
+            cores_per_task = int(entry.get('cores_per_task', 2))
+            use_sudo = bool(entry.get('use_sudo', False))
+            cpu_list = entry.get('cpu_list') or None
+
+            algo_dirs = sorted(p for p in instrument_dir.iterdir() if p.is_dir())
+            if not algo_dirs:
+                errors.append({'entry': entry, 'error': f'instrument 目录下没有算法子目录: {instrument_dir}'})
+                continue
+
+            for algo_dir in algo_dirs:
+                baseline_c = algo_dir / 'source_original.c'
+                prio_c = algo_dir / 'source_instrumented.c'
+                if not baseline_c.exists() or not prio_c.exists():
+                    errors.append({
+                        'entry': entry,
+                        'error': f'{algo_dir.name}: 缺少 source_original.c 或 source_instrumented.c'
+                    })
+                    continue
+
+                algo_name = algo_dir.name
+                task_id = (
+                    f"{batch_name}_{algo_name}_vs_prio_"
+                    f"{now_ts_safe()}_{uuid.uuid4().hex[:8]}"
+                )
+                task = Task(
+                    task_id=task_id,
+                    baseline_c=baseline_c,
+                    prio_c=prio_c,
+                    work_scale=work_scale,
+                    repeats=repeats,
+                    cores_per_task=cores_per_task,
+                    use_sudo=use_sudo,
+                    cpu_list=cpu_list,
+                    batch_name=batch_name,
+                    algo_name=algo_name,
+                )
+                _task_manager['tasks'].append(task)
+                _task_manager['task_q'].put(task)
+                added.append({'task_id': task_id, 'batch_name': batch_name, 'algo': algo_name})
+
+        return jsonify({'added': added, 'errors': errors, 'total': len(added)}), 201
+
     @app.route('/api/fs/list', methods=['GET'])
     def list_filesystem():
         """列出目录内容（允许浏览任意本机目录）"""
@@ -652,6 +757,8 @@ def _task_to_dict(task: Task) -> Dict:
         'work_scale': task.work_scale,
         'repeats': task.repeats,
         'cores_per_task': task.cores_per_task,
+        'batch_name': task.batch_name or "",
+        'algo_name': task.algo_name or "",
     }
 
 
