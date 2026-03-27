@@ -8,24 +8,24 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#define C1 100.0
-#define C2 100.0
-#define C3 100.0
-#define C4 100.0
-#define C5 100.0
-#define C6 100.0
-#define C7 100.0
-#define C8 100.0
-#define C9 100.0
-#define C10 100.0
-#define C11 100.0
-#define C12 100.0
-#define C13 140.0
-#define C14 140.0
-#define C15 140.0
-#define C16 140.0
-#define C17 140.0
-#define C18 140.0
+#define C1 3.0
+#define C2 65.0
+#define C3 104.0
+#define C4 72.0
+#define C5 3.0
+#define C6 70.0
+#define C7 109.0
+#define C8 77.0
+#define C9 61.0
+#define C10 11.0
+#define C11 13.0
+#define C12 15.0
+#define C13 5.0
+#define C14 65.0
+#define C15 10.0
+#define C16 11.0
+#define C17 13.0
+#define C18 7.0
 #define F_LONG 28.0
 #define F_SHORT 20.0
 
@@ -232,15 +232,13 @@ SEG_END("MU:worker_c0#004@200-204");
 
 int main(void)
 {
-SEG_BEGIN("MU:main#001@210-270");
+SEG_BEGIN("MU:main#001@210-268");
   pthread_mutex_lock(&mutex_01);
   struct timespec prog_start_ts_local, prog_end_ts_local;
   cpu_set_t cpu_set;
   CPU_ZERO(&cpu_set);
   CPU_SET(0, &cpu_set);
   CPU_SET(1, &cpu_set);
-  CPU_SET(2, &cpu_set);
-  CPU_SET(3, &cpu_set);
   if (sched_setaffinity(0, sizeof(cpu_set), &cpu_set) != 0)
   {
     fprintf(stderr, "sched_setaffinity failed: %s\n", strerror(errno));
@@ -294,40 +292,40 @@ SEG_BEGIN("MU:main#001@210-270");
   pthread_create(&thread_c1, NULL, worker_c1, NULL);
   pthread_create(&thread_c2, NULL, worker_c2, NULL);
   pthread_mutex_unlock(&mutex_01);
-SEG_END("MU:main#001@210-270");
-SEG_BEGIN("MU:main#002@271-274");
+SEG_END("MU:main#001@210-268");
+SEG_BEGIN("MU:main#002@269-272");
   pthread_mutex_lock(&mutex_02);
   busy_wait_seconds(C14);
   sem_post(&sem_01);
   pthread_mutex_unlock(&mutex_02);
-SEG_END("MU:main#002@271-274");
-SEG_BEGIN("MU:main#003@275-279");
+SEG_END("MU:main#002@269-272");
+SEG_BEGIN("MU:main#003@273-277");
   pthread_mutex_lock(&mutex_03);
   sem_wait(&sem_04);
   busy_wait_seconds(C15);
   sem_post(&sem_02);
   pthread_mutex_unlock(&mutex_03);
-SEG_END("MU:main#003@275-279");
-SEG_BEGIN("MU:main#004@280-284");
+SEG_END("MU:main#003@273-277");
+SEG_BEGIN("MU:main#004@278-282");
   pthread_mutex_lock(&mutex_04);
   sem_wait(&sem_05);
   busy_wait_seconds(C16);
   sem_post(&sem_03);
   pthread_mutex_unlock(&mutex_04);
-SEG_END("MU:main#004@280-284");
-SEG_BEGIN("MU:main#005@285-288");
+SEG_END("MU:main#004@278-282");
+SEG_BEGIN("MU:main#005@283-286");
   pthread_mutex_lock(&mutex_05);
   sem_wait(&sem_06);
   busy_wait_seconds(C17);
   pthread_mutex_unlock(&mutex_05);
-SEG_END("MU:main#005@285-288");
-SEG_BEGIN("MU:main#006@289-294");
+SEG_END("MU:main#005@283-286");
+SEG_BEGIN("MU:main#006@287-292");
   pthread_mutex_lock(&mutex_06);
   pthread_join(thread_c0, NULL);
   pthread_join(thread_c1, NULL);
   pthread_join(thread_c2, NULL);
   busy_wait_seconds(C18);
   pthread_mutex_unlock(&mutex_06);
-SEG_END("MU:main#006@289-294");
+SEG_END("MU:main#006@287-292");
   return 0;
 }

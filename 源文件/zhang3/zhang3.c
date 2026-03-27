@@ -7,24 +7,24 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#define C1 100.0
-#define C2 100.0
-#define C3 100.0
-#define C4 100.0
-#define C5 100.0
-#define C6 100.0
-#define C7 100.0
-#define C8 100.0
-#define C9 100.0
-#define C10 100.0
-#define C11 100.0
-#define C12 100.0
-#define C13 140.0
-#define C14 140.0
-#define C15 140.0
-#define C16 140.0
-#define C17 140.0
-#define C18 140.0
+#define C1 3.0
+#define C2 65.0
+#define C3 104.0
+#define C4 72.0
+#define C5 3.0
+#define C6 70.0
+#define C7 109.0
+#define C8 77.0
+#define C9 61.0
+#define C10 11.0
+#define C11 13.0
+#define C12 15.0
+#define C13 5.0
+#define C14 65.0
+#define C15 10.0
+#define C16 11.0
+#define C17 13.0
+#define C18 7.0
 #define F_LONG 28.0
 #define F_SHORT 20.0
 
@@ -213,8 +213,6 @@ int main(void)
   CPU_ZERO(&cpu_set);
   CPU_SET(0, &cpu_set);
   CPU_SET(1, &cpu_set);
-  CPU_SET(2, &cpu_set);
-  CPU_SET(3, &cpu_set);
   if (sched_setaffinity(0, sizeof(cpu_set), &cpu_set) != 0)
   {
     fprintf(stderr, "sched_setaffinity failed: %s\n", strerror(errno));
