@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "base_name": "simple",
+  "nodes": [
+    "SEG:main#001@10-13",
+    "SEG:main#002@14-14",
+    "SEG:main#003@15-16",
+    "SEG:threadtask1#001@6-6"
+  ],
+  "edges": [
+    {
+      "src": "SEG:main#001@10-13",
+      "dst": "SEG:main#002@14-14",
+      "kind": "intra"
+    },
+    {
+      "src": "SEG:main#002@14-14",
+      "dst": "SEG:main#003@15-16",
+      "kind": "intra"
+    },
+    {
+      "src": "SEG:main#001@10-13",
+      "dst": "SEG:threadtask1#001@6-6",
+      "kind": "create"
+    },
+    {
+      "src": "SEG:threadtask1#001@6-6",
+      "dst": "SEG:main#003@15-16",
+      "kind": "join"
+    }
+  ]
+}

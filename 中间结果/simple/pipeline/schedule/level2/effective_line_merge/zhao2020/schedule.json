@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "base_name": "simple",
+  "algo_name": "zhao2020",
+  "priorities": {
+    "SEG:main#001@10-13": 99,
+    "SEG:main#002@14-14": 98,
+    "SEG:main#003@15-16": 97,
+    "SEG:threadtask1#001@6-6": 96
+  },
+  "meta": {
+    "critical_path": [
+      "SEG:main#001@10-13",
+      "SEG:main#002@14-14",
+      "SEG:main#003@15-16"
+    ],
+    "providers": [
+      {
+        "idx": 1,
+        "nodes": [
+          "SEG:main#001@10-13",
+          "SEG:main#002@14-14"
+        ],
+        "F_size": 1,
+        "G_size": 0,
+        "F": [
+          "SEG:threadtask1#001@6-6"
+        ],
+        "G": []
+      },
+      {
+        "idx": 2,
+        "nodes": [
+          "SEG:main#003@15-16"
+        ],
+        "F_size": 0,
+        "G_size": 0,
+        "F": [],
+        "G": []
+      }
+    ]
+  }
+}

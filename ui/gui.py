@@ -300,6 +300,7 @@ class MycallyplusGUIv3:
             ("生成expand文件", self.generate_expand_from_source),
             ("生成dag图", self.generate_dag),
             ("模块化实验", self.pipeline_entry),
+            ("一键完整Pipeline", self.pipeline_full_run),
             ("查看条件节点", self.view_conditions),
             ("生成源码调用图", self.generate_source_only_dag),
             ("查看互斥锁", self.view_mutex),
@@ -918,11 +919,9 @@ class MycallyplusGUIv3:
         self.state.work_dir = expand_src.parent
         self._update_status_display()
 
-    def generate_expand_from_source(self):
-        """按钮1.6: 根据当前源文件生成expand文件并存入配置文件目录。"""
+    def _generate_expand_from_source_impl(self, *, show_message: bool = True) -> Path:
         if not self.state.source_file:
-            self._show_message("错误", "请先选择源文件", is_error=True)
-            return
+            raise RuntimeError("请先选择源文件")
         source_file = self.state.source_file
         src_dir = source_file.parent
         base_name = source_file.stem
@@ -972,8 +971,7 @@ class MycallyplusGUIv3:
                 pass
 
             if result.returncode != 0:
-                self._show_message("错误", f"生成expand失败:\n{result.stderr}", is_error=True)
-                return
+                raise RuntimeError(result.stderr.strip() or "生成expand失败")
 
             # 优先找本次新增 expand；若无新增则回退到目录中最新 expand
             all_expand = sorted(
@@ -984,8 +982,7 @@ class MycallyplusGUIv3:
             new_expand = [p for p in all_expand if p.resolve() not in before_expand]
             expand_files = new_expand or all_expand
             if not expand_files:
-                self._show_message("错误", "未找到生成的expand文件", is_error=True)
-                return
+                raise RuntimeError("未找到生成的expand文件")
 
             expand_src = expand_files[0]
             # 统一重命名为 <source>.Nr.expand，确保 base_name 稳定来自源文件名
@@ -1002,11 +999,21 @@ class MycallyplusGUIv3:
             self.state.expand_file = dst
             self.state.work_dir = config_dir
             self._update_status_display()
-            self._show_message("成功", f"已生成expand文件：\n{dst}")
+            if show_message:
+                self._show_message("成功", f"已生成expand文件：\n{dst}")
+            return dst
+        except Exception:
+            if show_message:
+                import traceback
+                traceback.print_exc()
+            raise
+
+    def generate_expand_from_source(self):
+        """按钮1.6: 根据当前源文件生成expand文件并存入配置文件目录。"""
+        try:
+            self._generate_expand_from_source_impl(show_message=True)
         except Exception as e:
             self._show_message("错误", f"生成expand失败:\n{e}", is_error=True)
-            import traceback
-            traceback.print_exc()
 
     # ===================== 按钮1.6: 选择dot文件 =====================
 
@@ -1174,18 +1181,12 @@ class MycallyplusGUIv3:
     
     # ===================== 按钮2: 生成dag图 =====================
     
-    def generate_dag(self):
-        """按钮2: 生成dag图
-        
-        工作流程：
-        - 若状态区已有 dot 文件：直接渲染并展示
-        - 否则调用 legacy 生成 threads-only dot，再复制到工作目录并渲染
-        """
+    def _generate_dag_impl(self, *, force_regenerate: bool = False, show_message: bool = True) -> Path:
         self._update_call_stats(visible=False)
         self._set_subfunc_toolbar(None)
         try:
             # 优先使用已有 dot
-            if self.state.dot_file and self.state.dot_file.exists():
+            if not force_regenerate and self.state.dot_file and self.state.dot_file.exists():
                 dot_path = self.state.dot_file
                 target_dir = (
                     self.state.work_dir / "生成dag图"
@@ -1199,12 +1200,12 @@ class MycallyplusGUIv3:
                     capture_output=True
                 )
                 self._display_image(png_path)
-                self._show_message("成功", f"已直接渲染当前 DOT：{dot_path.name}")
-                return
+                if show_message:
+                    self._show_message("成功", f"已直接渲染当前 DOT：{dot_path.name}")
+                return dot_path
 
             if not self.state.expand_file:
-                self._show_message("错误", "请先选择源文件或加载 DOT", is_error=True)
-                return
+                raise RuntimeError("请先选择源文件或加载 DOT")
             
             # 调用legacy生成dag图到配置文件目录
             cmd = [
@@ -1225,8 +1226,7 @@ class MycallyplusGUIv3:
             )
             
             if result.returncode != 0:
-                self._show_message("错误", f"生成dag图失败:\n{result.stderr}", is_error=True)
-                return
+                raise RuntimeError(result.stderr.strip() or "生成dag图失败")
             
             # 从配置文件目录查找生成的文件
             source_name = (
@@ -1240,14 +1240,12 @@ class MycallyplusGUIv3:
                     config_dir = cand
                     break
             if config_dir is None:
-                self._show_message("错误", f"未找到配置目录\n路径: {self._config_dir_for_base(source_name)}", is_error=True)
-                return
+                raise RuntimeError(f"未找到配置目录\n路径: {self._config_dir_for_base(source_name)}")
 
             dot_files = list(config_dir.glob("*_threads.dot"))
             
             if not dot_files:
-                self._show_message("错误", f"未找到threads.dot文件\n目录: {config_dir}", is_error=True)
-                return
+                raise RuntimeError(f"未找到threads.dot文件\n目录: {config_dir}")
             
             source_dot = dot_files[0]
 
@@ -1307,8 +1305,22 @@ class MycallyplusGUIv3:
             )
             self._display_image(png_path)
             self._update_status_display()
-            self._show_message("成功", f"dag图生成成功：\n{png_path}")
+            if show_message:
+                self._show_message("成功", f"dag图生成成功：\n{png_path}")
+            return target_dot
             
+        except Exception:
+            raise
+
+    def generate_dag(self):
+        """按钮2: 生成dag图
+        
+        工作流程：
+        - 若状态区已有 dot 文件：直接渲染并展示
+        - 否则调用 legacy 生成 threads-only dot，再复制到工作目录并渲染
+        """
+        try:
+            self._generate_dag_impl(force_regenerate=False, show_message=True)
         except Exception as e:
             self._show_message("错误", f"生成dag图失败:\n{e}", is_error=True)
 
@@ -2313,6 +2325,253 @@ class MycallyplusGUIv3:
                     out.append((level, rule_dir.name))
         return out
 
+    def _pipeline_default_rule(self, level: str) -> Optional[str]:
+        rules = sorted(pipeline_list_rules(level).keys())
+        return rules[0] if rules else None
+
+    def _pipeline_default_algo(self) -> Optional[str]:
+        algos = sorted(pipeline_list_algos().keys())
+        return algos[0] if algos else None
+
+    def _pipeline_collect_run(self, *, base_name: str, source_file: Path) -> Dict:
+        if self._sudo_user:
+            payload = self._pipeline_cli(
+                [
+                    "collect",
+                    "--base-name",
+                    base_name,
+                    "--source",
+                    str(source_file),
+                ]
+            )
+        else:
+            payload = pipeline_runner.run_collector(base_dir=self.base_dir, base_name=base_name, source_file=source_file)
+        self._pipeline_set_context(level="-", rule="-", view="-", algo="-")
+        self._pipeline_record_outputs({"block_info": self.base_dir / "中间结果" / base_name / "pipeline" / "block_info.json"})
+        return payload
+
+    def _pipeline_blocks_run(self, *, base_name: str, source_file: Path, level: str, rule_name: str) -> Path:
+        if self._sudo_user:
+            self._pipeline_cli(
+                [
+                    "blocks",
+                    "--base-name",
+                    base_name,
+                    "--level",
+                    level,
+                    "--rule",
+                    rule_name,
+                    "--source",
+                    str(source_file),
+                ]
+            )
+        else:
+            pipeline_runner.run_blocks(
+                base_dir=self.base_dir,
+                base_name=base_name,
+                level=level,
+                rule_name=rule_name,
+                source_file=source_file,
+            )
+        out_dir = self.base_dir / "中间结果" / base_name / "pipeline" / "blocks" / level / rule_name
+        png = out_dir / "dag_seg.png"
+        if not png.exists():
+            png = out_dir / "sched" / "dag_seg.png"
+        if png.exists():
+            self._display_image(png)
+        self._pipeline_set_context(level=level, rule=rule_name, view="single", algo="-")
+        self._pipeline_record_outputs(
+            {
+                "segments": out_dir / "segments.json",
+                "segments_png": png,
+            }
+        )
+        return out_dir
+
+    def _pipeline_timing_run(self, *, base_name: str, level: str, rule_name: str) -> Dict:
+        if self._sudo_user:
+            result = self._pipeline_cli(
+                [
+                    "timing",
+                    "--base-name",
+                    base_name,
+                    "--level",
+                    level,
+                    "--rule",
+                    rule_name,
+                ]
+            )
+        else:
+            result = pipeline_runner.run_timing_stage(
+                base_dir=self.base_dir, base_name=base_name, level=level, rule_name=rule_name
+            )
+        self._pipeline_set_context(level=level, rule=rule_name, view="single", algo="-")
+        self._pipeline_record_outputs(
+            {"timing": self.base_dir / "中间结果" / base_name / "pipeline" / "timing" / level / rule_name / "timing.json"}
+        )
+        return result
+
+    def _pipeline_schedule_run(self, *, base_name: str, level: str, rule_name: str, algo_name: str) -> Dict:
+        if self._sudo_user:
+            result = self._pipeline_cli(
+                [
+                    "schedule",
+                    "--base-name",
+                    base_name,
+                    "--level",
+                    level,
+                    "--rule",
+                    rule_name,
+                    "--algo",
+                    algo_name,
+                ]
+            )
+        else:
+            result = pipeline_runner.run_schedule_stage(
+                base_dir=self.base_dir,
+                base_name=base_name,
+                level=level,
+                rule_name=rule_name,
+                algo_name=algo_name,
+            )
+        self._pipeline_set_context(level=level, rule=rule_name, view="single", algo=algo_name)
+        self._pipeline_record_outputs(
+            {"schedule": self.base_dir / "中间结果" / base_name / "pipeline" / "schedule" / level / rule_name / algo_name / "schedule.json"}
+        )
+        return result
+
+    def _pipeline_instrument_run(
+        self,
+        *,
+        base_name: str,
+        level: str,
+        rule_name: str,
+        algo_name: str,
+        instrument_mode: str,
+    ) -> Dict:
+        if self._sudo_user:
+            result = self._pipeline_cli(
+                [
+                    "instrument",
+                    "--base-name",
+                    base_name,
+                    "--level",
+                    level,
+                    "--rule",
+                    rule_name,
+                    "--algo",
+                    algo_name,
+                    "--mode",
+                    instrument_mode,
+                ]
+            )
+        else:
+            result = pipeline_runner.run_instrument_stage(
+                base_dir=self.base_dir,
+                base_name=base_name,
+                level=level,
+                rule_name=rule_name,
+                algo_name=algo_name,
+                instrument_mode=instrument_mode,
+            )
+        self._pipeline_set_context(level=level, rule=rule_name, view="single", algo=algo_name)
+        self._pipeline_record_outputs(
+            {
+                "source_original": Path(str(result.get("source_original"))),
+                "source_instrumented": Path(str(result.get("source_instrumented"))),
+            }
+        )
+        return result
+
+    def _pipeline_validation_outputs(self, *, base_name: str, level: str, rule_name: str, algo_name: str) -> Dict[str, Path]:
+        validation_root = self.base_dir / "中间结果" / base_name / "pipeline" / "validation" / level / rule_name / algo_name
+        return {
+            "validation_dot": validation_root / "dag_seg_annotated.dot",
+            "validation_png": validation_root / "dag_seg_annotated.png",
+            "validation_const": validation_root / "const_binding.json",
+        }
+
+    def pipeline_full_run(self):
+        ctx = self._pipeline_context()
+        if not ctx:
+            return
+        base_name, source_file = ctx
+
+        level = "level2"
+        rule_name = "effective_line_merge"
+        algo_names = sorted(pipeline_list_algos().keys())
+        if not rule_name:
+            self._show_message("错误", f"{level} 没有可用规则。", is_error=True)
+            return
+        if not algo_names:
+            self._show_message("错误", "当前没有可用调度算法。", is_error=True)
+            return
+        instrument_mode = "generic"
+
+        try:
+            self._pipeline_notice("一键完整 Pipeline：开始生成 expand...")
+            self._generate_expand_from_source_impl(show_message=False)
+
+            self._pipeline_notice("一键完整 Pipeline：开始生成 DAG...")
+            self._generate_dag_impl(force_regenerate=True, show_message=False)
+
+            self._pipeline_notice("一键完整 Pipeline：collect...")
+            self._pipeline_collect_run(base_name=base_name, source_file=source_file)
+
+            self._pipeline_notice(f"一键完整 Pipeline：blocks ({level}/{rule_name})...")
+            self._pipeline_blocks_run(base_name=base_name, source_file=source_file, level=level, rule_name=rule_name)
+
+            self._pipeline_notice(f"一键完整 Pipeline：timing ({level}/{rule_name})...")
+            timing_result = self._pipeline_timing_run(base_name=base_name, level=level, rule_name=rule_name)
+
+            last_instrument_result: Optional[Dict] = None
+            validation_generated = 0
+            last_validation_png: Optional[Path] = None
+            for idx, algo_name in enumerate(algo_names, start=1):
+                self._pipeline_notice(
+                    f"一键完整 Pipeline：算法 {idx}/{len(algo_names)} -> schedule ({algo_name})..."
+                )
+                self._pipeline_schedule_run(base_name=base_name, level=level, rule_name=rule_name, algo_name=algo_name)
+
+                self._pipeline_notice(
+                    f"一键完整 Pipeline：算法 {idx}/{len(algo_names)} -> instrument + validation ({algo_name})..."
+                )
+                last_instrument_result = self._pipeline_instrument_run(
+                    base_name=base_name,
+                    level=level,
+                    rule_name=rule_name,
+                    algo_name=algo_name,
+                    instrument_mode=instrument_mode,
+                )
+
+                validation_outputs = self._pipeline_validation_outputs(
+                    base_name=base_name,
+                    level=level,
+                    rule_name=rule_name,
+                    algo_name=algo_name,
+                )
+                validation_png = validation_outputs["validation_png"]
+                if validation_png.exists():
+                    validation_generated += 1
+                    last_validation_png = validation_png
+
+            if last_validation_png and last_validation_png.exists():
+                self._display_image(last_validation_png)
+
+            self._pipeline_notice(
+                "一键完整 Pipeline 完成：\n"
+                f"- base: {base_name}\n"
+                f"- level/rule: {level}/{rule_name}\n"
+                f"- algos: {', '.join(algo_names)}\n"
+                f"- timing weights: {len(timing_result.get('weights', {}))}\n"
+                f"- schedule/instrument runs: {len(algo_names)}\n"
+                f"- last instrumented: {last_instrument_result.get('source_instrumented') if last_instrument_result else '-'}\n"
+                f"- validation generated: {validation_generated}/{len(algo_names)}",
+            )
+            self.pipeline_entry()
+        except Exception as e:
+            self._show_message("错误", f"一键完整 Pipeline 失败:\n{e}", is_error=True)
+
     def pipeline_entry(self):
         base_name = self.state.source_file.stem if self.state.source_file else self.state.get_base_name()
         self._set_subfunc_toolbar(
@@ -2335,20 +2594,7 @@ class MycallyplusGUIv3:
             return
         base_name, source_file = ctx
         try:
-            if self._sudo_user:
-                payload = self._pipeline_cli(
-                    [
-                        "collect",
-                        "--base-name",
-                        base_name,
-                        "--source",
-                        str(source_file),
-                    ]
-                )
-            else:
-                payload = pipeline_runner.run_collector(base_dir=self.base_dir, base_name=base_name, source_file=source_file)
-            self._pipeline_set_context(level="-", rule="-", view="-", algo="-")
-            self._pipeline_record_outputs({"block_info": self.base_dir / "中间结果" / base_name / "pipeline" / "block_info.json"})
+            payload = self._pipeline_collect_run(base_name=base_name, source_file=source_file)
             self._pipeline_notice(
                 "已生成分块信息：\n"
                 f"- block_info: {self.base_dir/'中间结果'/base_name/'pipeline'/'block_info.json'}\n"
@@ -2371,42 +2617,7 @@ class MycallyplusGUIv3:
         if not rule_name:
             return
         try:
-            if self._sudo_user:
-                self._pipeline_cli(
-                    [
-                        "blocks",
-                        "--base-name",
-                        base_name,
-                        "--level",
-                        level,
-                        "--rule",
-                        rule_name,
-                        "--source",
-                        str(source_file),
-                    ]
-                )
-            else:
-                pipeline_runner.run_blocks(
-                    base_dir=self.base_dir,
-                    base_name=base_name,
-                    level=level,
-                    rule_name=rule_name,
-                    source_file=source_file,
-                )
-            out_dir = self.base_dir / "中间结果" / base_name / "pipeline" / "blocks" / level / rule_name
-            # New pipeline layout stores dag_seg.png at rule root; keep legacy fallback.
-            png = out_dir / "dag_seg.png"
-            if not png.exists():
-                png = out_dir / "sched" / "dag_seg.png"
-            if png.exists():
-                self._display_image(png)
-            self._pipeline_set_context(level=level, rule=rule_name, view="single", algo="-")
-            self._pipeline_record_outputs(
-                {
-                    "segments": out_dir / "segments.json",
-                    "segments_png": png,
-                }
-            )
+            out_dir = self._pipeline_blocks_run(base_name=base_name, source_file=source_file, level=level, rule_name=rule_name)
             self._pipeline_notice(f"{level} 分块完成：rule={rule_name}，输出目录={out_dir}")
             self.pipeline_entry()
         except Exception as e:
@@ -2428,31 +2639,12 @@ class MycallyplusGUIv3:
             return
         level, rule_name = picked
         try:
-            if self._sudo_user:
-                result = self._pipeline_cli(
-                    [
-                        "timing",
-                        "--base-name",
-                        base_name,
-                        "--level",
-                        level,
-                        "--rule",
-                        rule_name,
-                    ]
-                )
-            else:
-                result = pipeline_runner.run_timing_stage(
-                    base_dir=self.base_dir, base_name=base_name, level=level, rule_name=rule_name
-                )
+            result = self._pipeline_timing_run(base_name=base_name, level=level, rule_name=rule_name)
             self._pipeline_notice(
                 "分块测时完成：\n"
                 f"- target: {level}/{rule_name}\n"
                 f"- weights: {len(result.get('weights', {}))}\n"
                 f"- 文件: {self.base_dir/'中间结果'/base_name/'pipeline'/'timing'/level/rule_name/'timing.json'}",
-            )
-            self._pipeline_set_context(level=level, rule=rule_name, view="single", algo="-")
-            self._pipeline_record_outputs(
-                {"timing": self.base_dir / "中间结果" / base_name / "pipeline" / "timing" / level / rule_name / "timing.json"}
             )
             self.pipeline_entry()
         except Exception as e:
@@ -2490,37 +2682,12 @@ class MycallyplusGUIv3:
             return
         level, rule_name = picked
         try:
-            if self._sudo_user:
-                result = self._pipeline_cli(
-                    [
-                        "schedule",
-                        "--base-name",
-                        base_name,
-                        "--level",
-                        level,
-                        "--rule",
-                        rule_name,
-                        "--algo",
-                        algo_name,
-                    ]
-                )
-            else:
-                result = pipeline_runner.run_schedule_stage(
-                    base_dir=self.base_dir,
-                    base_name=base_name,
-                    level=level,
-                    rule_name=rule_name,
-                    algo_name=algo_name,
-                )
+            result = self._pipeline_schedule_run(base_name=base_name, level=level, rule_name=rule_name, algo_name=algo_name)
             self._pipeline_notice(
                 "调度计算完成：\n"
                 f"- target: {level}/{rule_name}\n"
                 f"- algo: {algo_name}\n"
                 f"- priorities: {len(result.get('priorities', {}))}",
-            )
-            self._pipeline_set_context(level=level, rule=rule_name, view="single", algo=algo_name)
-            self._pipeline_record_outputs(
-                {"schedule": self.base_dir / "中间结果" / base_name / "pipeline" / "schedule" / level / rule_name / algo_name / "schedule.json"}
             )
             self.pipeline_entry()
         except Exception as e:
@@ -2560,44 +2727,19 @@ class MycallyplusGUIv3:
             return
         level, rule_name, algo_name = picked
         try:
-            if self._sudo_user:
-                result = self._pipeline_cli(
-                    [
-                        "instrument",
-                        "--base-name",
-                        base_name,
-                        "--level",
-                        level,
-                        "--rule",
-                        rule_name,
-                        "--algo",
-                        algo_name,
-                        "--mode",
-                        instrument_mode,
-                    ]
-                )
-            else:
-                result = pipeline_runner.run_instrument_stage(
-                    base_dir=self.base_dir,
-                    base_name=base_name,
-                    level=level,
-                    rule_name=rule_name,
-                    algo_name=algo_name,
-                    instrument_mode=instrument_mode,
-                )
+            result = self._pipeline_instrument_run(
+                base_name=base_name,
+                level=level,
+                rule_name=rule_name,
+                algo_name=algo_name,
+                instrument_mode=instrument_mode,
+            )
             self._pipeline_notice(
                 "优先级插装完成：\n"
                 f"- target: {level}/{rule_name}/{algo_name}\n"
                 f"- mode: {instrument_mode}\n"
                 f"- source_original: {result.get('source_original')}\n"
                 f"- source_instrumented: {result.get('source_instrumented')}",
-            )
-            self._pipeline_set_context(level=level, rule=rule_name, view="single", algo=algo_name)
-            self._pipeline_record_outputs(
-                {
-                    "source_original": Path(str(result.get("source_original"))),
-                    "source_instrumented": Path(str(result.get("source_instrumented"))),
-                }
             )
             self.pipeline_entry()
         except Exception as e:

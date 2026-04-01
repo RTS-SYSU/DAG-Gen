@@ -1,9 +1,0 @@
-strict digraph callgraph {
-"main" -> "main/malloc1";
-"main/malloc1" -> "main/pthread_create2";
-"main/pthread_create2" -> "main/printf3";
-"threadtask1/printf1" -> "main/pthread_join4";
-"main/printf3" -> "main/pthread_join4";
-"main/pthread_join4" -> "main/free5";
-"threadtask1" -> "threadtask1/printf1";
-}

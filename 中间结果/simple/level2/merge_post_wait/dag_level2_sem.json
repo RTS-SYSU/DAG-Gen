@@ -1,0 +1,54 @@
+{
+  "nodes": [
+    "main",
+    "main/free5",
+    "main/malloc1",
+    "main/printf3",
+    "main/pthread_create2",
+    "main/pthread_join4",
+    "threadtask1",
+    "threadtask1/printf1"
+  ],
+  "edges": [
+    {
+      "src": "main",
+      "dst": "main/malloc1",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/malloc1",
+      "dst": "main/pthread_create2",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_create2",
+      "dst": "threadtask1",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_create2",
+      "dst": "main/printf3",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/printf3",
+      "dst": "main/pthread_join4",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_join4",
+      "dst": "main/free5",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "threadtask1",
+      "dst": "threadtask1/printf1",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "threadtask1/printf1",
+      "dst": "main/pthread_join4",
+      "kind": "sem_dep"
+    }
+  ]
+}
