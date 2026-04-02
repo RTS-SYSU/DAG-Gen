@@ -191,16 +191,44 @@ def register_routes(app):
     
     @app.route('/api/tasks', methods=['POST'])
     def add_task():
-        """添加新任务"""
+        """添加新任务（支持 v3.0 单文件模式和旧模式）"""
         data = request.get_json()
         
-        # 验证必需字段
+        # v3.0 单文件模式：source_c + algo_name
+        if 'source_c' in data:
+            source_c = Path(data['source_c']).expanduser().resolve()
+            if not source_c.exists() or source_c.suffix.lower() != '.c':
+                return jsonify({'error': '源文件无效'}), 400
+            
+            algo_name = data.get('algo_name', source_c.stem)
+            task_id = (
+                f"{algo_name}_{now_ts_safe()}_{uuid.uuid4().hex[:8]}"
+            )
+            cpu_list = data.get('cpu_list')
+            
+            task = Task(
+                task_id=task_id,
+                source_c=source_c,
+                algo_name=algo_name,
+                work_scale=int(data.get('work_scale', 100)),
+                repeats=int(data.get('repeats', 10)),
+                cores_per_task=int(data.get('cores_per_task', 2)),
+                use_sudo=bool(data.get('use_sudo', False)),
+                cpu_list=cpu_list,
+                config_name=(data.get('config_name') or '').strip() or None,
+                batch_name=(data.get('batch_name') or '').strip() or None,
+            )
+            
+            _task_manager['tasks'].append(task)
+            _task_manager['task_q'].put(task)
+            return jsonify({'task_id': task_id, 'status': 'queued'}), 201
+        
+        # 旧模式兼容：baseline_c + prio_c
         required = ['baseline_c', 'prio_c', 'work_scale', 'repeats', 'cores_per_task']
         for field in required:
             if field not in data:
                 return jsonify({'error': f'缺少必需字段: {field}'}), 400
         
-        # 创建任务
         baseline_c = Path(data['baseline_c']).expanduser().resolve()
         prio_c = Path(data['prio_c']).expanduser().resolve()
         
@@ -213,7 +241,7 @@ def register_routes(app):
             f"{baseline_c.parent.name}_{baseline_c.stem}_vs_{prio_c.stem}_"
             f"{now_ts_safe()}_{uuid.uuid4().hex[:8]}"
         )
-        cpu_list = data.get('cpu_list')  # 可选：手动指定 CPU 核心
+        cpu_list = data.get('cpu_list')
         
         task = Task(
             task_id=task_id,
@@ -230,33 +258,11 @@ def register_routes(app):
         _task_manager['tasks'].append(task)
         _task_manager['task_q'].put(task)
         
-        # 自动导出配置文件
-        try:
-            tool_dir = Path(__file__).parent.parent.parent  # web -> ui -> runtime_compare
-            config_dir = tool_dir / "配置文件"
-            config_dir.mkdir(parents=True, exist_ok=True)
-            config_name = data.get('config_name')  # 可选：用户指定的配置名称
-            if config_name:
-                config_path = config_dir / f"{config_name}.json"
-            else:
-                config_path = config_dir / f"web_tasks_{now_ts_safe()}.json"
-            
-            save_config(
-                _task_manager['tasks'],
-                config_path,
-                queue_mode=_task_manager['queue_mode'],
-                mode="append"
-            )
-        except Exception as e:
-            # 自动导出失败不影响任务添加，但记录错误
-            import logging
-            logging.warning(f"自动导出配置文件失败: {e}")
-        
         return jsonify({'task_id': task_id, 'status': 'queued'}), 201
 
     @app.route('/api/batch_submit', methods=['POST'])
     def batch_submit():
-        """批量提交：扫描文件夹下所有算法，自动生成任务队列。
+        """批量提交：扫描 timing/ 目录下所有算法，自动生成 8 个独立任务。
 
         请求体示例：
         {
@@ -274,10 +280,10 @@ def register_routes(app):
           "results_root": "/path/to/output"   // 可选，覆盖当前 results_root
         }
 
-        扫描路径：{folder}/pipeline/instrument/level2/effective_line_merge/*/
-        每个子目录若同时存在 source_original.c 和 source_instrumented.c，则生成一个任务。
+        v3.0 扫描路径：{folder}/pipeline/instrument/level2/effective_line_merge/timing/*/
+        每个子目录找与目录同名的 .c 文件，生成一个独立任务。
         batch_name = folder 的最后一级目录名（如 zhang1）
-        algo_name  = 子目录名（如 cpf）
+        algo_name  = 子目录名（如 CFS/FIFO/cpf/heft/...）
         """
         data = request.get_json() or {}
         entries = data.get('entries', [])
@@ -308,11 +314,10 @@ def register_routes(app):
                 errors.append({'entry': entry, 'error': f'目录不存在: {folder_path}'})
                 continue
 
-            # 扫描算法子目录
+            # v3.0: 优先扫描 timing/ 目录
+            timing_dir = folder_path / 'pipeline' / 'instrument' / 'level2' / 'effective_line_merge' / 'timing'
+            # 兼容旧结构：如果 timing/ 不存在，回退到旧的扫描方式
             instrument_dir = folder_path / 'pipeline' / 'instrument' / 'level2' / 'effective_line_merge'
-            if not instrument_dir.is_dir():
-                errors.append({'entry': entry, 'error': f'未找到 instrument 目录: {instrument_dir}'})
-                continue
 
             batch_name = folder_path.name  # 如 zhang1
             work_scale = int(entry.get('work_scale', 100))
@@ -321,41 +326,88 @@ def register_routes(app):
             use_sudo = bool(entry.get('use_sudo', False))
             cpu_list = entry.get('cpu_list') or None
 
-            algo_dirs = sorted(p for p in instrument_dir.iterdir() if p.is_dir())
-            if not algo_dirs:
-                errors.append({'entry': entry, 'error': f'instrument 目录下没有算法子目录: {instrument_dir}'})
-                continue
-
-            for algo_dir in algo_dirs:
-                baseline_c = algo_dir / 'source_original.c'
-                prio_c = algo_dir / 'source_instrumented.c'
-                if not baseline_c.exists() or not prio_c.exists():
-                    errors.append({
-                        'entry': entry,
-                        'error': f'{algo_dir.name}: 缺少 source_original.c 或 source_instrumented.c'
-                    })
+            if timing_dir.is_dir():
+                # v3.0 新模式：扫描 timing/ 下的子目录
+                algo_dirs = sorted(p for p in timing_dir.iterdir() if p.is_dir())
+                if not algo_dirs:
+                    errors.append({'entry': entry, 'error': f'timing 目录下没有算法子目录: {timing_dir}'})
                     continue
 
-                algo_name = algo_dir.name
-                task_id = (
-                    f"{batch_name}_{algo_name}_vs_prio_"
-                    f"{now_ts_safe()}_{uuid.uuid4().hex[:8]}"
-                )
-                task = Task(
-                    task_id=task_id,
-                    baseline_c=baseline_c,
-                    prio_c=prio_c,
-                    work_scale=work_scale,
-                    repeats=repeats,
-                    cores_per_task=cores_per_task,
-                    use_sudo=use_sudo,
-                    cpu_list=cpu_list,
-                    batch_name=batch_name,
-                    algo_name=algo_name,
-                )
-                _task_manager['tasks'].append(task)
-                _task_manager['task_q'].put(task)
-                added.append({'task_id': task_id, 'batch_name': batch_name, 'algo': algo_name})
+                for algo_dir in algo_dirs:
+                    algo_name = algo_dir.name
+                    # 找与目录同名的 .c 文件
+                    source_c = algo_dir / f"{algo_name}.c"
+                    if not source_c.exists():
+                        # 回退：找目录下唯一的 .c 文件
+                        c_files = list(algo_dir.glob("*.c"))
+                        if len(c_files) == 1:
+                            source_c = c_files[0]
+                        else:
+                            errors.append({
+                                'entry': entry,
+                                'error': f'{algo_name}: 未找到 {algo_name}.c（目录下有 {len(c_files)} 个 .c 文件）'
+                            })
+                            continue
+
+                    task_id = (
+                        f"{batch_name}_{algo_name}_"
+                        f"{now_ts_safe()}_{uuid.uuid4().hex[:8]}"
+                    )
+                    task = Task(
+                        task_id=task_id,
+                        source_c=source_c,
+                        algo_name=algo_name,
+                        work_scale=work_scale,
+                        repeats=repeats,
+                        cores_per_task=cores_per_task,
+                        use_sudo=use_sudo,
+                        cpu_list=cpu_list,
+                        batch_name=batch_name,
+                    )
+                    _task_manager['tasks'].append(task)
+                    _task_manager['task_q'].put(task)
+                    added.append({'task_id': task_id, 'batch_name': batch_name, 'algo': algo_name})
+
+            elif instrument_dir.is_dir():
+                # 旧模式兼容：扫描算法子目录下的 source_original.c / source_instrumented.c
+                algo_dirs = sorted(p for p in instrument_dir.iterdir() if p.is_dir() and p.name not in ('result', 'timing'))
+                if not algo_dirs:
+                    errors.append({'entry': entry, 'error': f'instrument 目录下没有算法子目录: {instrument_dir}'})
+                    continue
+
+                for algo_dir in algo_dirs:
+                    baseline_c = algo_dir / 'source_original.c'
+                    prio_c = algo_dir / 'source_instrumented.c'
+                    if not baseline_c.exists() or not prio_c.exists():
+                        errors.append({
+                            'entry': entry,
+                            'error': f'{algo_dir.name}: 缺少 source_original.c 或 source_instrumented.c'
+                        })
+                        continue
+
+                    algo_name = algo_dir.name
+                    task_id = (
+                        f"{batch_name}_{algo_name}_vs_prio_"
+                        f"{now_ts_safe()}_{uuid.uuid4().hex[:8]}"
+                    )
+                    task = Task(
+                        task_id=task_id,
+                        baseline_c=baseline_c,
+                        prio_c=prio_c,
+                        work_scale=work_scale,
+                        repeats=repeats,
+                        cores_per_task=cores_per_task,
+                        use_sudo=use_sudo,
+                        cpu_list=cpu_list,
+                        batch_name=batch_name,
+                        algo_name=algo_name,
+                    )
+                    _task_manager['tasks'].append(task)
+                    _task_manager['task_q'].put(task)
+                    added.append({'task_id': task_id, 'batch_name': batch_name, 'algo': algo_name})
+            else:
+                errors.append({'entry': entry, 'error': f'未找到 instrument 或 timing 目录: {instrument_dir}'})
+                continue
 
         return jsonify({'added': added, 'errors': errors, 'total': len(added)}), 201
 
@@ -560,6 +612,71 @@ def register_routes(app):
                 if log_file.exists():
                     return log_file.read_text(encoding='utf-8'), 200, {'Content-Type': 'text/plain'}
         return jsonify({'error': '日志不存在'}), 404
+
+    @app.route('/api/summary_all', methods=['POST'])
+    def generate_summary_all():
+        """生成 summary_all.csv 汇总文件。
+        
+        扫描指定 batch 下所有已完成任务的 summary.json，
+        汇总各算法的平均值到一个 CSV 文件。
+        
+        请求体：{"batch_name": "zhang3"}  或  {"results_dir": "/path/to/batch_dir"}
+        """
+        data = request.get_json() or {}
+        batch_name = data.get('batch_name', '').strip()
+        results_dir = data.get('results_dir', '').strip()
+
+        if results_dir:
+            batch_dir = Path(results_dir).expanduser().resolve()
+        elif batch_name:
+            exp_root = _get_results_root()
+            batch_dir = exp_root / batch_name
+        else:
+            return jsonify({'error': '需要 batch_name 或 results_dir'}), 400
+
+        if not batch_dir.is_dir():
+            return jsonify({'error': f'目录不存在: {batch_dir}'}), 404
+
+        # 扫描子目录中的 summary.json
+        rows = []
+        for sub in sorted(batch_dir.iterdir()):
+            if not sub.is_dir():
+                continue
+            summary_path = sub / 'summary.json'
+            if not summary_path.exists():
+                continue
+            try:
+                summary = json.loads(summary_path.read_text(encoding='utf-8'))
+                algo = summary.get('algo_name', sub.name)
+                stats = summary.get('stats', {})
+                rows.append({
+                    'algorithm': algo,
+                    'avg_s': stats.get('mean_s', 0.0),
+                    'min_s': stats.get('min_s', 0.0),
+                    'max_s': stats.get('max_s', 0.0),
+                    'median_s': stats.get('median_s', 0.0),
+                    'n': stats.get('n', 0),
+                })
+            except Exception:
+                continue
+
+        if not rows:
+            return jsonify({'error': '未找到已完成的任务结果'}), 404
+
+        # 写入 summary_all.csv
+        csv_lines = ["algorithm,avg_s,min_s,max_s,median_s,n\n"]
+        for r in rows:
+            csv_lines.append(
+                f"{r['algorithm']},{r['avg_s']:.9f},{r['min_s']:.9f},{r['max_s']:.9f},{r['median_s']:.9f},{r['n']}\n"
+            )
+        csv_path = batch_dir / "summary_all.csv"
+        csv_path.write_text("".join(csv_lines), encoding="utf-8")
+
+        return jsonify({
+            'path': str(csv_path),
+            'algorithms': len(rows),
+            'rows': rows,
+        }), 200
     
     # ========== 配置文件管理 API ==========
     
@@ -690,31 +807,52 @@ def register_routes(app):
             
             # 去重检查：检查是否已存在相同参数的任务
             existing_tasks = _task_manager.get('tasks', [])
-            existing_keys = {
-                (
-                    t.baseline_c,
-                    t.prio_c,
-                    t.work_scale,
-                    t.repeats,
-                    t.cores_per_task,
-                    bool(t.use_sudo),
-                    tuple(t.cpu_list or []),
-                )
-                for t in existing_tasks
-            }
+            existing_keys = set()
+            for t in existing_tasks:
+                if t.is_single_mode:
+                    existing_keys.add((
+                        t.source_c,
+                        t.algo_name,
+                        t.work_scale,
+                        t.repeats,
+                        t.cores_per_task,
+                        bool(t.use_sudo),
+                        tuple(t.cpu_list or []),
+                    ))
+                else:
+                    existing_keys.add((
+                        t.baseline_c,
+                        t.prio_c,
+                        t.work_scale,
+                        t.repeats,
+                        t.cores_per_task,
+                        bool(t.use_sudo),
+                        tuple(t.cpu_list or []),
+                    ))
             
             added_count = 0
             queued_count = 0
             for task in new_tasks:
-                task_key = (
-                    task.baseline_c,
-                    task.prio_c,
-                    task.work_scale,
-                    task.repeats,
-                    task.cores_per_task,
-                    bool(task.use_sudo),
-                    tuple(task.cpu_list or []),
-                )
+                if task.is_single_mode:
+                    task_key = (
+                        task.source_c,
+                        task.algo_name,
+                        task.work_scale,
+                        task.repeats,
+                        task.cores_per_task,
+                        bool(task.use_sudo),
+                        tuple(task.cpu_list or []),
+                    )
+                else:
+                    task_key = (
+                        task.baseline_c,
+                        task.prio_c,
+                        task.work_scale,
+                        task.repeats,
+                        task.cores_per_task,
+                        bool(task.use_sudo),
+                        tuple(task.cpu_list or []),
+                    )
                 if task_key not in existing_keys:
                     _task_manager['tasks'].append(task)
                     if task.status != "done":
@@ -743,7 +881,7 @@ def _task_to_dict(task: Task) -> Dict:
         if end:
             elapsed = f"{(end - task.start_ns) / 1e9:.1f}s"
     
-    return {
+    d = {
         'task_id': task.task_id,
         'status': task.status,
         'phase': task.phase,
@@ -752,14 +890,22 @@ def _task_to_dict(task: Task) -> Dict:
         'elapsed': elapsed,
         'message': task.message,
         'out_dir': str(task.out_dir) if task.out_dir else "",
-        'baseline_c': str(task.baseline_c),
-        'prio_c': str(task.prio_c),
         'work_scale': task.work_scale,
         'repeats': task.repeats,
         'cores_per_task': task.cores_per_task,
         'batch_name': task.batch_name or "",
         'algo_name': task.algo_name or "",
+        'single_mode': task.is_single_mode,
     }
+    if task.is_single_mode:
+        d['source_c'] = str(task.source_c) if task.source_c else ""
+        d['baseline_c'] = ""
+        d['prio_c'] = ""
+    else:
+        d['source_c'] = ""
+        d['baseline_c'] = str(task.baseline_c) if task.baseline_c else ""
+        d['prio_c'] = str(task.prio_c) if task.prio_c else ""
+    return d
 
 
 def init_task_manager(base_dir: Path, queue_mode: bool = False, results_root: Path | None = None):

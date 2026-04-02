@@ -13,7 +13,7 @@ static inline void l1_set_thread_prio_fifo(int prio) {
     // Best-effort: ignore EPERM when not running with CAP_SYS_NICE/root.
     int rc = pthread_setschedparam(pthread_self(), SCHED_FIFO, &sp);
     if (rc != 0) {
-        // Marker for GUI/tools to detect and warn about missing permissions.
         fprintf(stderr, "L1_PRIO_SET_FAILED rc=%d errno=%d (%s)\n", rc, errno, strerror(errno));
+        fprintf(stderr, "ERROR: 需要 root/sudo 权限才能设置实时优先级！请使用 sudo 运行。\n");
     }
 }

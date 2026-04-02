@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import subprocess
 import threading
@@ -78,6 +79,387 @@ class TaskRunner(threading.Thread):
 
     def _run_one(self, task: Task) -> None:
         """执行单个任务"""
+        if task.is_single_mode:
+            return self._run_one_single(task)
+        return self._run_one_legacy(task)
+
+    def _run_one_single(self, task: Task) -> None:
+        """v3.0 单文件模式：编译运行一个 .c 文件，独立统计"""
+        acquired_serial = False
+        try:
+            def cancel_check() -> bool:
+                return (
+                    task.cancel_requested
+                    or task.cancel_evt.is_set()
+                    or task.status in ("cancelling", "cancelled")
+                )
+
+            class _Cancelled(Exception):
+                pass
+
+            def raise_if_cancelled(phase: Optional[str] = None) -> None:
+                if cancel_check():
+                    if phase:
+                        task.phase = phase
+                    raise _Cancelled()
+
+            if task.status == "cancelled" or task.cancel_evt.is_set() or task.cancel_requested:
+                task.status = "cancelled"
+                task.phase = "cancelled"
+                task.message = task.message or (task.cancel_reason or "用户取消")
+                task.end_ns = time.monotonic_ns()
+                self._on_update(task)
+                return
+
+            if self._queue_mode_fn():
+                self._serial_sem.acquire()
+                acquired_serial = True
+
+            raise_if_cancelled("wait_cpu")
+            group = self._cpu_pool.try_acquire_group(
+                task.cores_per_task,
+                preferred=task.cpu_list
+            )
+            if group is None:
+                if cancel_check():
+                    task.status = "cancelled"
+                    task.phase = "cancelled"
+                    task.message = task.cancel_reason or "用户取消"
+                    task.end_ns = time.monotonic_ns()
+                    self._on_update(task)
+                    return
+                task.status = "queued"
+                task.phase = "wait_cpu"
+                task.message = f"等待 CPU：需要 {task.cores_per_task} 核，当前空闲 {self._cpu_pool.free_count()}"
+                self._on_update(task)
+                time.sleep(0.5)
+                self._task_q.put(task)
+                return
+
+            task.cpu_set = group
+            task.status = "running"
+            task.phase = "setup"
+            task.start_ns = time.monotonic_ns()
+            self._on_update(task)
+
+            if task.use_sudo and not has_passwordless_sudo():
+                task.status = "error"
+                task.message = "启用 sudo 运行但当前不可用（请用 sudo 启动本工具，或配置 sudo NOPASSWD）。"
+                self._on_update(task)
+                return
+
+            # 准备输出目录
+            exp_root = Path(self._results_root_fn()).expanduser()
+            if not exp_root.is_absolute():
+                exp_root = (self._tool_dir / exp_root).resolve()
+            else:
+                exp_root = exp_root.resolve()
+            ensure_writable_dir(exp_root, use_sudo=task.use_sudo)
+
+            ts = now_ts_safe()
+            algo_str = task.algo_name or "unknown"
+
+            if task.batch_name:
+                batch_dir = exp_root / task.batch_name
+                ensure_writable_dir(batch_dir, use_sudo=task.use_sudo)
+                out_dir = batch_dir / algo_str
+            else:
+                config_name = task.config_name if task.config_name else "web_tasks"
+                config_dir = exp_root / config_name
+                ensure_writable_dir(config_dir, use_sudo=task.use_sudo)
+                out_dir = config_dir / f"{algo_str}_ws{task.work_scale}_r{task.repeats}_{ts}"
+
+            ensure_writable_dir(out_dir, use_sudo=task.use_sudo)
+            task.out_dir = out_dir
+
+            # 复制源文件目录
+            task.phase = "copy"
+            task.progress_i = 0
+            task.progress_n = 0
+            self._on_update(task)
+            raise_if_cancelled("copy")
+
+            src_root = task.source_c.parent
+            work_dir = out_dir / "src"
+            if work_dir.exists():
+                shutil.rmtree(work_dir)
+            shutil.copytree(src_root, work_dir)
+
+            # 确保 prio_runtime.h 可用
+            prio_runtime_candidates = [
+                self._base_dir / "level1" / "prio_runtime.h",
+                self._repo_root / "level1" / "prio_runtime.h",
+            ]
+            prio_runtime_src = next((p for p in prio_runtime_candidates if p.exists()), None)
+            if prio_runtime_src:
+                dst = work_dir / "prio_runtime.h"
+                if not dst.exists():
+                    shutil.copy2(prio_runtime_src, dst)
+
+            # 重写 CPU 亲和性
+            patched_affinity = False
+            patch_error: Optional[str] = None
+            try:
+                src_file = work_dir / task.source_c.name
+                if src_file.exists():
+                    txt = src_file.read_text(encoding="utf-8", errors="replace")
+                    new_txt, changed = rewrite_sched_setaffinity_cpu_set(txt, task.cpu_set)
+                    if changed:
+                        src_file.write_text(new_txt, encoding="utf-8")
+                        patched_affinity = True
+            except Exception as e:
+                patch_error = str(e)
+
+            # 编译
+            task.phase = "compile"
+            task.progress_i = 0
+            task.progress_n = 1
+            self._on_update(task)
+            raise_if_cancelled("compile")
+
+            app_bin = out_dir / f"app_{algo_str}"
+            entry_c_name = task.source_c.name
+            c_files = [entry_c_name]
+
+            include_dirs: List[str] = [str(work_dir)]
+            if prio_runtime_src and prio_runtime_src.exists():
+                include_dirs.append(str(prio_runtime_src.parent))
+            include_flags: List[str] = []
+            for inc in include_dirs:
+                include_flags.extend(["-I", inc])
+
+            cmd_parts = [
+                "gcc",
+                *GCC_FLAGS,
+                *include_flags,
+                f"-DWORK_SCALE={task.work_scale}",
+                *c_files,
+                "-o",
+                str(app_bin),
+            ]
+
+            def preexec() -> None:
+                os.setsid()
+
+            proc = subprocess.Popen(
+                cmd_parts,
+                cwd=str(work_dir),
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                preexec_fn=preexec,
+            )
+            try:
+                while True:
+                    raise_if_cancelled("compile")
+                    try:
+                        so, se = proc.communicate(timeout=0.2)
+                        rc = int(proc.returncode or 0)
+                        break
+                    except subprocess.TimeoutExpired:
+                        continue
+            except _Cancelled:
+                try:
+                    os.killpg(proc.pid, signal.SIGTERM)
+                except Exception:
+                    try:
+                        proc.terminate()
+                    except Exception:
+                        pass
+                try:
+                    proc.communicate(timeout=1.0)
+                except Exception:
+                    try:
+                        os.killpg(proc.pid, signal.SIGKILL)
+                    except Exception:
+                        try:
+                            proc.kill()
+                        except Exception:
+                            pass
+                    proc.communicate()
+                raise
+
+            cmd_txt = " ".join(cmd_parts)
+
+            # Fallback: 如果 __wrap_main 符号缺失，去掉 --wrap=main 重试
+            if rc != 0 and "__wrap_main" in se:
+                filtered_flags = [f for f in GCC_FLAGS if f != "-Wl,--wrap=main"]
+                cmd_parts2 = [
+                    "gcc",
+                    *filtered_flags,
+                    *include_flags,
+                    f"-DWORK_SCALE={task.work_scale}",
+                    *c_files,
+                    "-o",
+                    str(app_bin),
+                ]
+                proc2 = subprocess.Popen(
+                    cmd_parts2, cwd=str(work_dir),
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+                )
+                so2, se2 = proc2.communicate()
+                rc = int(proc2.returncode or 0)
+                cmd_txt += "\nRETRY(no --wrap=main): " + " ".join(cmd_parts2)
+                so += so2
+                se += "\n[retry]\n" + se2
+
+            (out_dir / "compile.log").write_text("CMD: " + cmd_txt + "\n" + so + se, encoding="utf-8")
+            task.progress_i = 1
+            self._on_update(task)
+
+            if rc != 0:
+                raise RuntimeError(f"{algo_str} 编译失败：{se[-500:]}")
+
+            # 运行 N 次
+            task.phase = "run"
+            task.progress_i = 0
+            task.progress_n = task.repeats
+            self._on_update(task)
+            raise_if_cancelled("run")
+
+            env = dict(os.environ)
+            env["WORK_SCALE"] = str(task.work_scale)
+
+            times: List[float] = []
+            runs: List[Dict] = []
+            run_log = []
+
+            for i in range(task.repeats):
+                raise_if_cancelled("run")
+                rc_run, out_txt, err_txt, wall_ns = run_with_affinity(
+                    [str(app_bin)],
+                    cwd=app_bin.parent,
+                    env=env,
+                    cpu_set=task.cpu_set,
+                    use_sudo=task.use_sudo,
+                    cancel_check=cancel_check,
+                )
+                raise_if_cancelled("run")
+                run_log.append(f"=== {algo_str} run #{i+1} (rc={rc_run}) ===\n")
+                run_log.append(out_txt)
+                if err_txt:
+                    run_log.append("\n[stderr]\n")
+                    run_log.append(err_txt)
+                run_log.append("\n")
+
+                t = parse_internal_time_seconds(out_txt, err_txt)
+                if t is None:
+                    raise RuntimeError(f"{algo_str} 运行失败：无法解析 MAIN_ELAPSED_S / PROGRAM_TOTAL_NS")
+                if rc_run != 0:
+                    raise RuntimeError(f"{algo_str} 运行失败：rc={rc_run}, stderr_tail={err_txt[-400:]}")
+
+                times.append(float(t))
+                runs.append({
+                    "algo": algo_str,
+                    "iter": int(i),
+                    "time_s": float(t),
+                    "wall_s": float(wall_ns / 1e9),
+                    "cpu_set": task.cpu_set,
+                    "returncode": int(rc_run),
+                })
+                task.progress_i = i + 1
+                self._on_update(task)
+
+            # 统计
+            times_sorted = sorted(times)
+            n = len(times_sorted)
+            mean_s = sum(times_sorted) / max(1, n)
+            min_s = times_sorted[0] if n else 0.0
+            max_s = times_sorted[-1] if n else 0.0
+            median_s = times_sorted[n // 2] if n else 0.0
+
+            stat = {
+                "n": n,
+                "mean_s": mean_s,
+                "min_s": min_s,
+                "max_s": max_s,
+                "median_s": median_s,
+            }
+
+            summary = {
+                "task_id": task.task_id,
+                "algo_name": algo_str,
+                "created_at": ts,
+                "cpu_set": task.cpu_set,
+                "cores_per_task": task.cores_per_task,
+                "work_scale": task.work_scale,
+                "repeats": task.repeats,
+                "source_c": str(task.source_c),
+                "compile_cmd": cmd_txt.strip(),
+                "affinity_rewritten": patched_affinity,
+                "stats": stat,
+                "times_s": times,
+                "runs": runs,
+            }
+            if patch_error:
+                summary["affinity_patch_error"] = patch_error
+            (out_dir / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+            (out_dir / "run.log").write_text("".join(run_log), encoding="utf-8")
+
+            # CSV 输出
+            try:
+                csv_lines = ["run,time_s,wall_s\n"]
+                for r in runs:
+                    csv_lines.append(f"{r['iter']+1},{r['time_s']:.9f},{r['wall_s']:.9f}\n")
+                csv_lines.append(f"avg,{mean_s:.9f},\n")
+                csv_lines.append(f"min,{min_s:.9f},\n")
+                csv_lines.append(f"max,{max_s:.9f},\n")
+                (out_dir / "runs.csv").write_text("".join(csv_lines), encoding="utf-8")
+            except Exception:
+                pass
+
+            task.status = "done"
+            task.phase = "done"
+            task.message = f"完成: {algo_str} mean={mean_s:.3f}s ({n} 次)"
+            task.end_ns = time.monotonic_ns()
+
+            # 断点续跑
+            try:
+                if task.resume_file and task.task_key and task.out_dir:
+                    payload = task_payload_for_key(
+                        baseline_c=task.source_c,
+                        prio_c=task.source_c,
+                        work_scale=task.work_scale,
+                        repeats=task.repeats,
+                        cores_per_task=task.cores_per_task,
+                        use_sudo=task.use_sudo,
+                        cpu_list=task.cpu_list,
+                    )
+                    mark_done(
+                        resume_file=Path(task.resume_file),
+                        task_key=str(task.task_key),
+                        task_id=task.task_id,
+                        out_dir=task.out_dir,
+                        message=task.message,
+                        done_at=now_ts_safe(),
+                        payload=payload,
+                    )
+            except Exception:
+                pass
+            self._on_update(task)
+        except Exception as e:
+            if isinstance(e, type) and e.__class__.__name__ == "_Cancelled":
+                task.status = "cancelled"
+                task.phase = "cancelled"
+                task.message = task.cancel_reason or "用户取消"
+            elif "Cancelled" in type(e).__name__:
+                task.status = "cancelled"
+                task.phase = "cancelled"
+                task.message = task.cancel_reason or "用户取消"
+            else:
+                task.status = "error"
+                task.phase = "error"
+                task.message = str(e)
+            task.end_ns = time.monotonic_ns()
+            self._on_update(task)
+        finally:
+            if task.cpu_set:
+                self._cpu_pool.release_group(task.cpu_set)
+            if acquired_serial:
+                self._serial_sem.release()
+
+    def _run_one_legacy(self, task: Task) -> None:
+        """旧模式：baseline + prio 对比（保留兼容性）"""
         acquired_serial = False
         try:
             def cancel_check() -> bool:
@@ -477,6 +859,51 @@ class TaskRunner(threading.Thread):
             baseline_stat = stats(baseline_times)
             prio_stat = stats(prio_times)
 
+            # 三栏模式均值计算（提前计算供 txt 和 message 使用）
+            cfs_mean = baseline_stat['mean_s']
+            fifo_mean = baseline_stat['mean_s']
+            prio_mean = prio_stat['mean_s']
+            timing_dir = None
+            for candidate in [
+                out_dir / "baseline" / (task.algo_name or "") / "测时",
+                out_dir / "prio" / (task.algo_name or "") / "测时",
+                out_dir / "测时",
+            ]:
+                if candidate.exists():
+                    timing_dir = candidate
+                    break
+            if timing_dir and (timing_dir / "compile_and_run.sh").exists():
+                try:
+                    sh_env = dict(os.environ)
+                    sh_env["WORK_SCALE"] = str(task.work_scale)
+                    result = subprocess.run(
+                        ["timeout", "20", str(timing_dir / "compile_and_run.sh")],
+                        cwd=timing_dir,
+                        capture_output=True,
+                        text=True,
+                        timeout=25,
+                        env=sh_env,
+                    )
+                    main_elapsed_times: List[float] = []
+                    for line in result.stdout.splitlines():
+                        m = re.search(r"MAIN_ELAPSED_S=([\d.]+)", line)
+                        if m:
+                            try:
+                                main_elapsed_times.append(float(m.group(1)))
+                            except Exception:
+                                pass
+                    if main_elapsed_times:
+                        # 输出顺序: baseline_FIFO, baseline_CFS, prio
+                        fifo_mean = main_elapsed_times[0]
+                        if len(main_elapsed_times) >= 2:
+                            cfs_mean = main_elapsed_times[1]
+                        if len(main_elapsed_times) >= 3:
+                            prio_mean = main_elapsed_times[2]
+                        else:
+                            prio_mean = main_elapsed_times[-1]
+                except Exception:
+                    pass
+
             delta_mean = prio_stat["mean_s"] - baseline_stat["mean_s"]
             improve = None
             if baseline_stat["mean_s"] > 1e-12:
@@ -542,6 +969,10 @@ class TaskRunner(threading.Thread):
                 lines.append("\n=== PRIO STATS (program time) ===\n")
                 lines.append(f"times_s={[round(x,6) for x in prio_times]}\n")
                 lines.append(f"mean={prio_stat['mean_s']:.6f}s min={prio_stat['min_s']:.6f}s max={prio_stat['max_s']:.6f}s rcs={[r['returncode'] for r in runs if r['program']=='prio']}\n")
+
+                # 三栏模式统计（来自测时脚本的 MAIN_ELAPSED_S）
+                lines.append(f"\n=== THREE COLUMN STATS (MAIN_ELAPSED_S from 测时/) ===\n")
+                lines.append(f"CFS mean={cfs_mean:.6f}s, FIFO mean={fifo_mean:.6f}s, PRIO mean={prio_mean:.6f}s\n")
                 if patch_error:
                     lines.append(f"\n[warn] affinity rewrite failed: {patch_error}\n")
                 elif not any(patched_affinity.values()):
@@ -559,7 +990,9 @@ class TaskRunner(threading.Thread):
 
             task.status = "done"
             task.phase = "done"
-            task.message = f"完成：baseline mean={baseline_stat['mean_s']:.3f}s, prio mean={prio_stat['mean_s']:.3f}s"
+
+            # 三栏模式消息（均值已在前面计算）
+            task.message = f"完成: CFS mean={cfs_mean:.3f}s, FIFO mean={fifo_mean:.3f}s, prio mean={prio_mean:.3f}s (三栏模式)"
             task.end_ns = time.monotonic_ns()
             # 断点续跑：记录已完成任务，重启后可跳过
             try:

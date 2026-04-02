@@ -4,8 +4,8 @@ import json
 from pathlib import Path
 from typing import Dict
 
-from ...level2 import merge_post_wait_dag
-from ...level2 import segment_dag_level2
+from level2 import merge_post_wait_dag
+from level2 import segment_dag_level2
 
 from .base import RuleOutput
 from .utils import normalize_dag, normalize_segments

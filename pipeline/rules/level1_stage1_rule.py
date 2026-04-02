@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Dict
 
-from ...level1.segment_dag import _render_seg_dag_dot, build_stage1_segments_and_dag
+from level1.segment_dag import _render_seg_dag_dot, build_stage1_segments_and_dag
 
 from .base import RuleOutput
 from .utils import normalize_dag, normalize_segments

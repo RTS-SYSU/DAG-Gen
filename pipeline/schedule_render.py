@@ -196,3 +196,89 @@ def render_annotated_schedule_dag(
     lines.append("}")
     lines.append("")
     return "\n".join(lines)
+
+
+def _parse_constant_values(source_text: str) -> Dict[str, float]:
+    """从源代码解析 #define Cxxx value 的常量值映射"""
+    import re
+    const_values: Dict[str, float] = {}
+    pattern = re.compile(r"^#define\s+(C\d+)\s+([0-9.]+)", re.MULTILINE)
+    
+    for match in pattern.finditer(source_text):
+        const_name = match.group(1)
+        try:
+            value = float(match.group(2))
+            const_values[const_name] = value
+        except ValueError:
+            continue
+    
+    # 也处理 WORK_SCALE
+    ws_pattern = re.compile(r"#define\s+WORK_SCALE\s+([0-9]+)", re.MULTILINE)
+    for match in ws_pattern.finditer(source_text):
+        try:
+            const_values["WORK_SCALE"] = float(match.group(1))
+        except ValueError:
+            pass
+            
+    return const_values
+
+
+def render_annotated_schedule_dag_value(
+    *,
+    dag_json: Dict,
+    segments_json: Dict,
+    timing_json: Dict,
+    schedule_json: Dict,
+    source_text: str,
+) -> str:
+    """生成简化版的 DAG 图，包含常量名到常量值的映射信息"""
+    node_ids = _load_node_ids(dag_json, segments_json)
+    node_set = set(node_ids)
+    edges = _load_edges(dag_json, node_set)
+    avg_ns = _load_avg_ns(timing_json, node_ids)
+    priorities = _load_priorities(schedule_json, node_ids)
+    const_values = _parse_constant_values(source_text)
+    
+    # 使用现有的 binding 逻辑获取常量名
+    const_binding: Dict = {}
+    try:
+        const_binding = build_const_binding(
+            dag_json=dag_json,
+            segments_json=segments_json,
+            source_text=source_text,
+        )
+    except Exception:
+        const_binding = {}
+
+    lines: List[str] = []
+    lines.append("digraph dag_seg_annotated_value {")
+    lines.append("  rankdir=LR;")
+    lines.append('  node [shape=box, style="rounded,filled", fillcolor="#E6F3FF", color="#1976D2", fontsize=10];')
+    lines.append('  edge [color="#1976D2"];')
+
+    for seg_id in node_ids:
+        # 获取常量信息
+        binding = const_binding.get(seg_id, {})
+        const_name = binding.get("const_name", "NA")
+        const_names = binding.get("const_names", [])
+        
+        # 构建常量值信息
+        const_info_parts = []
+        if const_names:
+            for cname in const_names:
+                value = const_values.get(cname, 0.0)
+                const_info_parts.append(f"{cname}={value:.1f}")
+        else:
+            const_info_parts.append(f"{const_name}=?")
+            
+        const_info = " | ".join(const_info_parts)
+            
+        label = f"{seg_id}\n{const_info}\navg_ns={avg_ns.get(seg_id, 0)}\nprio={priorities.get(seg_id, 0)}"
+        lines.append(f'  "{_dot_escape_id(seg_id)}" [label="{_dot_escape_label(label)}"];')
+
+    for src, dst in edges:
+        lines.append(f'  "{_dot_escape_id(src)}" -> "{_dot_escape_id(dst)}";')
+
+    lines.append("}")
+    lines.append("")
+    return "\n".join(lines)

@@ -1,0 +1,345 @@
+{
+  "task_id": "zhang3_heft_vs_prio_2026-04-01T16-44-17+00-00_deb0fe3a",
+  "created_at": "2026-04-01T16-44-59+00-00",
+  "cpu_set": [
+    6,
+    7
+  ],
+  "cores_per_task": 2,
+  "work_scale": 100,
+  "repeats": 10,
+  "affinity_rewritten_in_source": {
+    "baseline": true,
+    "prio": true
+  },
+  "baseline": {
+    "c_file": "/home/firefly/Desktop/ScratchDAG/中间结果/zhang3/pipeline/instrument/level2/effective_line_merge/heft/source_original.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -I /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/一般实验结果/zhang3/heft_ws100_r10_cpu67_2026-04-01T16-44-59+00-00/baseline/heft -I /home/firefly/Desktop/ScratchDAG/level1 -DWORK_SCALE=100 source_original.c wrap_main.c prog_timer.c -o /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/一般实验结果/zhang3/heft_ws100_r10_cpu67_2026-04-01T16-44-59+00-00/baseline/app_baseline",
+    "stats": {
+      "n": 10.0,
+      "min_s": 0.278880583,
+      "max_s": 0.307890917,
+      "mean_s": 0.29333517519999996,
+      "median_s": 0.295329126
+    },
+    "times_s": [
+      0.307890917,
+      0.295329126,
+      0.298338834,
+      0.29846075,
+      0.278880583,
+      0.282758584,
+      0.293743333,
+      0.284601333,
+      0.301737625,
+      0.291610667
+    ]
+  },
+  "prio": {
+    "c_file": "/home/firefly/Desktop/ScratchDAG/中间结果/zhang3/pipeline/instrument/level2/effective_line_merge/heft/source_instrumented.c",
+    "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -I /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/一般实验结果/zhang3/heft_ws100_r10_cpu67_2026-04-01T16-44-59+00-00/prio/heft -I /home/firefly/Desktop/ScratchDAG/level1 -DWORK_SCALE=100 source_instrumented.c wrap_main.c prog_timer.c -o /home/firefly/Desktop/ScratchDAG/tools/runtime_compare/实验结果/一般实验结果/zhang3/heft_ws100_r10_cpu67_2026-04-01T16-44-59+00-00/prio/app_prio",
+    "stats": {
+      "n": 10.0,
+      "min_s": 0.284235875,
+      "max_s": 0.41084225,
+      "mean_s": 0.2972739293,
+      "median_s": 0.284550875
+    },
+    "times_s": [
+      0.284628167,
+      0.284550875,
+      0.284428667,
+      0.284235875,
+      0.284311708,
+      0.284470376,
+      0.41084225,
+      0.284460167,
+      0.285096583,
+      0.285714625
+    ]
+  },
+  "runs": [
+    {
+      "program": "baseline",
+      "iter": 0,
+      "time_s": 0.307890917,
+      "wall_s": 0.340987304,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #1 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=307890917\n"
+    },
+    {
+      "program": "prio",
+      "iter": 0,
+      "time_s": 0.284628167,
+      "wall_s": 0.311513723,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #1 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=284628167\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 1,
+      "time_s": 0.295329126,
+      "wall_s": 0.301456822,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #2 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=295329126\n"
+    },
+    {
+      "program": "prio",
+      "iter": 1,
+      "time_s": 0.284550875,
+      "wall_s": 0.289728873,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #2 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=284550875\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 2,
+      "time_s": 0.298338834,
+      "wall_s": 0.303554312,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #3 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=298338834\n"
+    },
+    {
+      "program": "prio",
+      "iter": 2,
+      "time_s": 0.284428667,
+      "wall_s": 0.316015262,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #3 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=284428667\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 3,
+      "time_s": 0.29846075,
+      "wall_s": 0.351057644,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #4 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=298460750\n"
+    },
+    {
+      "program": "prio",
+      "iter": 3,
+      "time_s": 0.284235875,
+      "wall_s": 0.315907051,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #4 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=284235875\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 4,
+      "time_s": 0.278880583,
+      "wall_s": 0.284118386,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #5 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=278880583\n"
+    },
+    {
+      "program": "prio",
+      "iter": 4,
+      "time_s": 0.284311708,
+      "wall_s": 0.290307878,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #5 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=284311708\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 5,
+      "time_s": 0.282758584,
+      "wall_s": 0.287838499,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #6 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=282758584\n"
+    },
+    {
+      "program": "prio",
+      "iter": 5,
+      "time_s": 0.284470376,
+      "wall_s": 0.290364764,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #6 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=284470376\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 6,
+      "time_s": 0.293743333,
+      "wall_s": 0.314240686,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #7 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=293743333\n"
+    },
+    {
+      "program": "prio",
+      "iter": 6,
+      "time_s": 0.41084225,
+      "wall_s": 0.418708345,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #7 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=410842250\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 7,
+      "time_s": 0.284601333,
+      "wall_s": 0.29103214,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #8 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=284601333\n"
+    },
+    {
+      "program": "prio",
+      "iter": 7,
+      "time_s": 0.284460167,
+      "wall_s": 0.289751365,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #8 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=284460167\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 8,
+      "time_s": 0.301737625,
+      "wall_s": 0.30822592,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #9 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=301737625\n"
+    },
+    {
+      "program": "prio",
+      "iter": 8,
+      "time_s": 0.285096583,
+      "wall_s": 0.291432626,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #9 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=285096583\n"
+    },
+    {
+      "program": "baseline",
+      "iter": 9,
+      "time_s": 0.291610667,
+      "wall_s": 0.32295762,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [baseline] run #10 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=291610667\n"
+    },
+    {
+      "program": "prio",
+      "iter": 9,
+      "time_s": 0.285714625,
+      "wall_s": 0.323129129,
+      "parsed_from_stdout": true,
+      "parsed_from_program_output": true,
+      "cpu_set": [
+        6,
+        7
+      ],
+      "returncode": 0,
+      "log_text": "----- [prio] run #10 (rc=0) -----\n\n[stderr]\nPROGRAM_TOTAL_NS=285714625\n"
+    }
+  ],
+  "delta_mean_s": 0.0039387541000000525,
+  "improvement_ratio": -0.013427486483046418
+}

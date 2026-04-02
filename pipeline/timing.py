@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 from typing import Dict, List, Optional, Set, Tuple
 
-from ..level1.time_analysis_level1 import Segment, instrument_source
+from level1.time_analysis_level1 import Segment, instrument_source
 
 from .constants import SCHEMA_VERSION
 from .errors import StageError

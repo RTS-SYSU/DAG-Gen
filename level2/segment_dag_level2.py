@@ -7,8 +7,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Set, Tuple
 
-from ..level1.segment_dag import _iter_stage1_cut_points  # type: ignore
-from ..level1.segment_dag import _load_functions_full, _load_functions_ranges, _load_internal_meta  # type: ignore
+from level1.segment_dag import _iter_stage1_cut_points  # type: ignore
+from level1.segment_dag import _load_functions_full, _load_functions_ranges, _load_internal_meta  # type: ignore
 
 
 @dataclass(frozen=True)

@@ -9,8 +9,12 @@ from typing import Optional
 def parse_internal_time_seconds(stdout: str, stderr: str = "") -> Optional[float]:
     """从程序输出中解析内部计时时间（秒）
     
-    优先解析 PROGRAM_TOTAL_NS=...，如果失败则尝试解析 "total time" 行。
-    为兼容已有程序将 PROGRAM_TOTAL_NS 打到 stderr 的情况，同时扫描 stdout/stderr。
+    支持三种格式：
+    - MAIN_ELAPSED_S=... （pipeline 新测时版本）
+    - PROGRAM_TOTAL_NS=... （ns转秒）
+    - "total time" 行
+    
+    优先使用 pipeline 新格式，兼容旧运行时工具输出。同时扫描 stdout/stderr。
     
     Args:
         stdout: 程序的标准输出
@@ -23,6 +27,14 @@ def parse_internal_time_seconds(stdout: str, stderr: str = "") -> Optional[float
     time_candidates: list[float] = []
     for stream_text in (stdout or "", stderr or ""):
         for ln in stream_text.splitlines():
+            # 支持 pipeline 新格式 MAIN_ELAPSED_S=...
+            m = re.search(r"MAIN_ELAPSED_S=([\d.]+)", ln)
+            if m:
+                try:
+                    time_candidates.append(float(m.group(1)))
+                except Exception:
+                    pass
+                continue
             m = re.search(r"PROGRAM_TOTAL_NS=(\d+)", ln)
             if m:
                 try:

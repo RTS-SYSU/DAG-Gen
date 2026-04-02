@@ -3,5 +3,25 @@
   "http.proxy": "http://127.0.0.1:7897",
   "http.proxySupport": "override",
   "http.systemCertificates": true,
-  "git.ignoreLimitWarning": true
+  "git.ignoreLimitWarning": true,
+  "code-runner.executorMap": {
+    "c": "cd \"$dir\" && rm -f \"$fileNameWithoutExt\" && gcc -O2 -g -std=c11 -pthread -lrt -Wall -I\"/home/firefly/Desktop/ScratchDAG/level1\" -I\"$dir\" -I. \"$fileName\" -o \"$fileNameWithoutExt\" -lm && \"./$fileNameWithoutExt\"",
+    "cpp": "cd \"$dir\" && rm -f \"$fileNameWithoutExt\" && g++ -O2 -g -std=c++11 -pthread -lrt -Wall -I\"/home/firefly/Desktop/ScratchDAG/level1\" -I\"$dir\" -I. \"$fileName\" -o \"$fileNameWithoutExt\" -lm && \"./$fileNameWithoutExt\""
+  },
+  "code-runner.runInTerminal": true,
+  "code-runner.saveFileBeforeRun": true,
+  "C_Cpp.default.includePath": [
+    "/home/firefly/Desktop/ScratchDAG/level1",
+    "${workspaceFolder}/**",
+    "${fileDirname}/**"
+  ],
+  "C_Cpp.default.compilerPath": "/usr/bin/gcc",
+  "C_Cpp.default.cStandard": "c11",
+  "code-runner.clearPreviousOutput": true,
+  "code-runner.showExecutionMessage": true,
+  "code-runner.saveAllFilesBeforeRun": false,
+  "code-runner.runInTerminal": true,
+  "code-runner.executorMapByFileExtension": {
+    ".c": "cd \"$dir\" && rm -f \"$fileNameWithoutExt\" && gcc -O2 -g -std=c11 -pthread -lrt -Wall -I\"/home/firefly/Desktop/ScratchDAG/level1\" -I\"$dir\" -I. \"$fileName\" -o \"$fileNameWithoutExt\" -lm && \"./$fileNameWithoutExt\""
+  }
 }
