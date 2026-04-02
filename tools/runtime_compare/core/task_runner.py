@@ -156,11 +156,11 @@ class TaskRunner(threading.Thread):
                 exp_root = exp_root.resolve()
             ensure_writable_dir(exp_root, use_sudo=task.use_sudo)
 
-            ts = now_ts_safe()
+            ts = task.batch_ts or now_ts_safe()
             algo_str = task.algo_name or "unknown"
 
             if task.batch_name:
-                batch_dir = exp_root / task.batch_name
+                batch_dir = exp_root / f"{task.batch_name}_{ts}"
                 ensure_writable_dir(batch_dir, use_sudo=task.use_sudo)
                 out_dir = batch_dir / algo_str
             else:
@@ -537,12 +537,12 @@ class TaskRunner(threading.Thread):
             ts = now_ts_safe()
 
             if task.batch_name:
-                # 批量模式：{exp_root}/{batch_name}/{algo}_ws{ws}_r{r}_cpu{cores}_{ts}/
-                batch_dir = exp_root / task.batch_name
+                # 批量模式：{exp_root}/{batch_name}_{ts}/{algo}/
+                batch_dir = exp_root / f"{task.batch_name}_{ts}"
                 ensure_writable_dir(batch_dir, use_sudo=task.use_sudo)
                 cpu_str = "cpu" + "".join(str(c) for c in sorted(task.cpu_list)) if task.cpu_list else "cpuX"
                 algo_str = task.algo_name or task.baseline_c.parent.name
-                out_dir = batch_dir / f"{algo_str}_ws{task.work_scale}_r{task.repeats}_{cpu_str}_{ts}"
+                out_dir = batch_dir / algo_str
             else:
                 # 单任务模式（原有逻辑）：{exp_root}/{config_name}/{ts}_ws{ws}_r{r}/
                 config_name = task.config_name if task.config_name else "web_tasks"

@@ -7,21 +7,21 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#define C1 20.0
-#define C2 20.0
-#define C3 1000.0
-#define C4 20.0
-#define C5 1000.0
+#define C1 15.0
+#define C2 200.0
+#define C3 300.0
+#define C4 15.0
+#define C5 400.0
 #define C6 20.0
-#define C7 80.0
-#define C8 40.0
-#define C9 80.0
-#define C10 100.0
-#define C11 2000.0
-#define C12 120.0
-#define C13 1000.0
-#define C14 1000.0
-#define C15 2.0
+#define C7 50.0
+#define C8 30.0
+#define C9 40.0
+#define C10 50.0
+#define C11 100.0
+#define C12 50.0
+#define C13 80.0
+#define C14 80.0
+#define C15 5.0
 #define C16 2.0
 #define F_LONG 28.0
 #define F_SHORT 20.0
@@ -29,7 +29,7 @@
 static void *worker_c0(void *arg);
 static void *worker_c1(void *arg);
 static void *worker_c2(void *arg);
-static void *worker_c3(void *arg);
+
 
 #define MAT_N 64
 #ifndef WORK_SCALE
@@ -79,26 +79,32 @@ static void init_matrices(void)
   }
 }
 
+static volatile double g_busy_sink = 0.0;
+
 static void busy_wait_seconds(double seconds)
 {
-  int repeat_count = (int)(seconds * WORK_SCALE * 0.1);
+  int repeat_count = (int)(seconds * WORK_SCALE + 0.5);
   if (repeat_count < 1)
     repeat_count = 1;
+
+  double x = 1.000001;
+  double y = 0.999999;
+  double z = 1.0000003;
+  double acc = 0.0;
+
   for (int r = 0; r < repeat_count; ++r)
   {
-    for (int i = 0; i < MAT_N; ++i)
+    for (int i = 0; i < 512; ++i)
     {
-      for (int j = 0; j < MAT_N; ++j)
-      {
-        double accum = 0.0;
-        for (int k = 0; k < MAT_N; ++k)
-        {
-          accum += mat_a[i][k] * mat_b[k][j];
-        }
-        mat_c[i][j] = accum;
-      }
+      x = x * 1.0000001 + y * 0.9999999 + z * 0.0000001;
+      y = y * 1.0000002 + z * 0.9999998 + x * 0.0000002;
+      z = z * 1.0000003 + x * 0.9999997 + y * 0.0000003;
+      acc += x * y + z;
     }
   }
+
+  g_busy_sink += acc;
+  mat_c[0][0] = g_busy_sink;
 }
 
 static struct timespec prog_start_ts;
@@ -108,12 +114,12 @@ static void *worker_c2(void *arg)
   pthread_mutex_lock(&mutex_01);
   busy_wait_seconds(C1);
   pthread_mutex_unlock(&mutex_01);
-  pthread_mutex_lock(&mutex_02);
   sem_wait(&sem_02);
+  pthread_mutex_lock(&mutex_02);
   busy_wait_seconds(C2);
   pthread_mutex_unlock(&mutex_02);
-  pthread_mutex_lock(&mutex_03);
   sem_wait(&sem_03);
+  pthread_mutex_lock(&mutex_03);
   busy_wait_seconds(C3);
   pthread_mutex_unlock(&mutex_03);
   return NULL;
@@ -124,8 +130,8 @@ static void *worker_c1(void *arg)
   pthread_mutex_lock(&mutex_04);
   busy_wait_seconds(C4);
   pthread_mutex_unlock(&mutex_04);
-  pthread_mutex_lock(&mutex_05);
   sem_wait(&sem_01);
+  pthread_mutex_lock(&mutex_05);
   busy_wait_seconds(C5);
   pthread_mutex_unlock(&mutex_05);
   return NULL;
@@ -145,10 +151,9 @@ int main(void)
   struct timespec prog_start_ts_local, prog_end_ts_local;
   cpu_set_t cpu_set;
   CPU_ZERO(&cpu_set);
-  CPU_SET(0, &cpu_set);
-  CPU_SET(1, &cpu_set);
-  CPU_SET(2, &cpu_set);
-  CPU_SET(3, &cpu_set);
+  CPU_SET(6, &cpu_set);
+  CPU_SET(7, &cpu_set);
+
   if (sched_setaffinity(0, sizeof(cpu_set), &cpu_set) != 0)
   {
     fprintf(stderr, "sched_setaffinity failed: %s\n", strerror(errno));
@@ -175,34 +180,34 @@ int main(void)
   pthread_create(&thread_c0, NULL, worker_c0, NULL);
   pthread_create(&thread_c1, NULL, worker_c1, NULL);
   pthread_create(&thread_c2, NULL, worker_c2, NULL);
-  busy_wait_seconds(C10);
+  busy_wait_seconds(C8);
   pthread_mutex_unlock(&mutex_01);
   pthread_mutex_lock(&mutex_07);
-  busy_wait_seconds(C10);
+  busy_wait_seconds(C9);
   pthread_mutex_unlock(&mutex_07);
   pthread_mutex_lock(&mutex_08);
   busy_wait_seconds(C10);
   sem_post(&sem_01);
   sem_post(&sem_02);
   pthread_mutex_unlock(&mutex_08);
-  pthread_mutex_lock(&mutex_09);
   pthread_join(thread_c0, NULL);
-  busy_wait_seconds(C10);
+  pthread_mutex_lock(&mutex_09);
+  busy_wait_seconds(C11);
   pthread_mutex_unlock(&mutex_09);
   pthread_mutex_lock(&mutex_10);
-  busy_wait_seconds(C10);
+  busy_wait_seconds(C12);
   sem_post(&sem_03);
   pthread_mutex_unlock(&mutex_10);
-  pthread_mutex_lock(&mutex_11);
   pthread_join(thread_c1, NULL);
-  busy_wait_seconds(C10);
+  pthread_mutex_lock(&mutex_11);
+  busy_wait_seconds(C13);
   pthread_mutex_unlock(&mutex_11);
   pthread_mutex_lock(&mutex_12);
-  busy_wait_seconds(C10);
+  busy_wait_seconds(C14);
   pthread_mutex_unlock(&mutex_12);
-  pthread_mutex_lock(&mutex_13);
   pthread_join(thread_c2, NULL);
-  busy_wait_seconds(C10);
+  pthread_mutex_lock(&mutex_13);
+  busy_wait_seconds(C15);
   pthread_mutex_unlock(&mutex_13);
   return 0;
 }

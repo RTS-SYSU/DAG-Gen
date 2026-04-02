@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import shutil
 import subprocess
 from pathlib import Path
 from typing import Dict, Set
@@ -39,10 +40,15 @@ def run_instrument(
     result_root = instrument_root / "result"
     timing_root = instrument_root / "timing"
 
-    # 兼容旧调用：仍然用 algo 子目录下的一个临时 meta 来做 mark_running/mark_success
-    algo_work_dir = instrument_root / algo_name
-    algo_work_dir.mkdir(parents=True, exist_ok=True)
-    meta_path = algo_work_dir / "instrument_status.json"
+    # v3.0: 清理旧结构（旧算法子目录如 cpf/heft/... 直接在 instrument_root 下）
+    _KNOWN_ALGOS = {"cpf", "heft", "lpf", "t_level", "wcet_first", "zhao2020"}
+    if instrument_root.exists():
+        for old_dir in instrument_root.iterdir():
+            if old_dir.is_dir() and old_dir.name in _KNOWN_ALGOS:
+                shutil.rmtree(old_dir, ignore_errors=True)
+
+    # 状态跟踪用 instrument_root 下的 status 文件
+    meta_path = instrument_root / "instrument_status.json"
     mark_running(meta_path, step="instrument", extra={"algo_name": algo_name})
 
     try:

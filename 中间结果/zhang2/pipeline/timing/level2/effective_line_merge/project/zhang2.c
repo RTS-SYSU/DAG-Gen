@@ -8,27 +8,29 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#define C1 260.0
-#define C2 6.0
-#define C3 6.0
-#define C4 320.0
-#define C5 3.0
-#define C6 120.0
-#define C7 1.0
-#define C8 1.0
-#define C9 2.0
-#define C10 20.0
-#define C11 15.0
-#define C12 60.0
-#define C13 90.0
-#define C14 30.0
+#define C1 15.0
+#define C2 200.0
+#define C3 300.0
+#define C4 15.0
+#define C5 400.0
+#define C6 20.0
+#define C7 50.0
+#define C8 30.0
+#define C9 40.0
+#define C10 50.0
+#define C11 100.0
+#define C12 50.0
+#define C13 80.0
+#define C14 80.0
+#define C15 5.0
+#define C16 2.0
 #define F_LONG 28.0
 #define F_SHORT 20.0
 
 static void *worker_c0(void *arg);
 static void *worker_c1(void *arg);
 static void *worker_c2(void *arg);
-static void *worker_c3(void *arg);
+
 
 #define MAT_N 64
 #ifndef WORK_SCALE
@@ -38,7 +40,6 @@ static void *worker_c3(void *arg);
 static double mat_a[MAT_N][MAT_N];
 static double mat_b[MAT_N][MAT_N];
 static double mat_c[MAT_N][MAT_N];
-static volatile double g_busy_sink = 0.0;
 
 static pthread_t thread_c0, thread_c1, thread_c2, thread_c3, thread_c4;
 
@@ -66,9 +67,12 @@ static pthread_mutex_t mutex_14 = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mutex_15 = PTHREAD_MUTEX_INITIALIZER;
 static pthread_mutex_t mutex_16 = PTHREAD_MUTEX_INITIALIZER;
 
-static void init_matrices(void) {
-  for (int i = 0; i < MAT_N; ++i) {
-    for (int j = 0; j < MAT_N; ++j) {
+static void init_matrices(void)
+{
+  for (int i = 0; i < MAT_N; ++i)
+  {
+    for (int j = 0; j < MAT_N; ++j)
+    {
       mat_a[i][j] = (double)(i + j + 1);
       mat_b[i][j] = (double)(i * 2 + j + 3);
       mat_c[i][j] = 0.0;
@@ -76,18 +80,23 @@ static void init_matrices(void) {
   }
 }
 
-static void busy_wait_seconds(double seconds) {
-  int units = (int)(seconds * WORK_SCALE + 0.5);
-  if (units < 1)
-    units = 1;
+static volatile double g_busy_sink = 0.0;
+
+static void busy_wait_seconds(double seconds)
+{
+  int repeat_count = (int)(seconds * WORK_SCALE + 0.5);
+  if (repeat_count < 1)
+    repeat_count = 1;
 
   double x = 1.000001;
   double y = 0.999999;
   double z = 1.0000003;
   double acc = 0.0;
 
-  for (int r = 0; r < units; ++r) {
-    for (int i = 0; i < 512; ++i) {
+  for (int r = 0; r < repeat_count; ++r)
+  {
+    for (int i = 0; i < 512; ++i)
+    {
       x = x * 1.0000001 + y * 0.9999999 + z * 0.0000001;
       y = y * 1.0000002 + z * 0.9999998 + x * 0.0000002;
       z = z * 1.0000003 + x * 0.9999997 + y * 0.0000003;
@@ -101,71 +110,71 @@ static void busy_wait_seconds(double seconds) {
 
 static struct timespec prog_start_ts;
 
-static void *worker_c2(void *arg) {
-
-SEG_BEGIN("MU:worker_c2#001@105-107");
+static void *worker_c2(void *arg)
+{
   pthread_mutex_lock(&mutex_01);
+SEG_BEGIN("MU:worker_c2#001@114-116");
   busy_wait_seconds(C1);
+SEG_END("MU:worker_c2#001@114-116");
   pthread_mutex_unlock(&mutex_01);
-SEG_END("MU:worker_c2#001@105-107");
-SEG_BEGIN("MU:worker_c2#002@108-111");
-  pthread_mutex_lock(&mutex_02);
   sem_wait(&sem_02);
+  pthread_mutex_lock(&mutex_02);
+SEG_BEGIN("MU:worker_c2#002@117-120");
   busy_wait_seconds(C2);
+SEG_END("MU:worker_c2#002@117-120");
   pthread_mutex_unlock(&mutex_02);
-SEG_END("MU:worker_c2#002@108-111");
-SEG_BEGIN("MU:worker_c2#003@112-115");
-  pthread_mutex_lock(&mutex_03);
   sem_wait(&sem_03);
+  pthread_mutex_lock(&mutex_03);
+SEG_BEGIN("MU:worker_c2#003@121-124");
   busy_wait_seconds(C3);
+SEG_END("MU:worker_c2#003@121-124");
   pthread_mutex_unlock(&mutex_03);
-SEG_END("MU:worker_c2#003@112-115");
   return NULL;
 }
 
-static void *worker_c1(void *arg) {
-SEG_BEGIN("MU:worker_c1#001@120-122");
+static void *worker_c1(void *arg)
+{
   pthread_mutex_lock(&mutex_04);
+SEG_BEGIN("MU:worker_c1#001@130-132");
   busy_wait_seconds(C4);
+SEG_END("MU:worker_c1#001@130-132");
   pthread_mutex_unlock(&mutex_04);
-SEG_END("MU:worker_c1#001@120-122");
-SEG_BEGIN("MU:worker_c1#002@123-126");
-  pthread_mutex_lock(&mutex_05);
   sem_wait(&sem_01);
+  pthread_mutex_lock(&mutex_05);
+SEG_BEGIN("MU:worker_c1#002@133-136");
   busy_wait_seconds(C5);
+SEG_END("MU:worker_c1#002@133-136");
   pthread_mutex_unlock(&mutex_05);
-SEG_END("MU:worker_c1#002@123-126");
   return NULL;
 }
 
-static void *worker_c0(void *arg) {
-
-SEG_BEGIN("MU:worker_c0#001@132-134");
+static void *worker_c0(void *arg)
+{
   pthread_mutex_lock(&mutex_07);
-  busy_wait_seconds(C6);
+SEG_BEGIN("MU:worker_c0#001@142-144");
+  busy_wait_seconds(C7);
+SEG_END("MU:worker_c0#001@142-144");
   pthread_mutex_unlock(&mutex_07);
-SEG_END("MU:worker_c0#001@132-134");
   return NULL;
 }
 
-int main(void) {
-SEG_BEGIN("MU:main#001@139-175");
+int main(void)
+{
   pthread_mutex_lock(&mutex_01);
+SEG_BEGIN("MU:main#001@150-184");
   struct timespec prog_start_ts_local, prog_end_ts_local;
   cpu_set_t cpu_set;
   CPU_ZERO(&cpu_set);
-  CPU_SET(0, &cpu_set);
-  CPU_SET(1, &cpu_set);
-  CPU_SET(2, &cpu_set);
-  CPU_SET(3, &cpu_set);
-  if (sched_setaffinity(0, sizeof(cpu_set), &cpu_set) != 0) {
+  CPU_SET(6, &cpu_set);
+  CPU_SET(7, &cpu_set);
+
+  if (sched_setaffinity(0, sizeof(cpu_set), &cpu_set) != 0)
+  {
     fprintf(stderr, "sched_setaffinity failed: %s\n", strerror(errno));
   }
-
   init_matrices();
   clock_gettime(CLOCK_MONOTONIC, &prog_start_ts);
   clock_gettime(CLOCK_MONOTONIC, &prog_start_ts_local);
-
   if (sem_init(&sem_01, 0, 0) != 0)
     return 1;
   if (sem_init(&sem_02, 0, 0) != 0)
@@ -185,49 +194,49 @@ SEG_BEGIN("MU:main#001@139-175");
   pthread_create(&thread_c0, NULL, worker_c0, NULL);
   pthread_create(&thread_c1, NULL, worker_c1, NULL);
   pthread_create(&thread_c2, NULL, worker_c2, NULL);
-  busy_wait_seconds(C7);
-  pthread_mutex_unlock(&mutex_01);
-SEG_END("MU:main#001@139-175");
-SEG_BEGIN("MU:main#002@176-178");
-  pthread_mutex_lock(&mutex_07);
   busy_wait_seconds(C8);
-  pthread_mutex_unlock(&mutex_07);
-SEG_END("MU:main#002@176-178");
-SEG_BEGIN("MU:main#003@179-183");
-  pthread_mutex_lock(&mutex_08);
+SEG_END("MU:main#001@150-184");
+  pthread_mutex_unlock(&mutex_01);
+  pthread_mutex_lock(&mutex_07);
+SEG_BEGIN("MU:main#002@185-187");
   busy_wait_seconds(C9);
+SEG_END("MU:main#002@185-187");
+  pthread_mutex_unlock(&mutex_07);
+  pthread_mutex_lock(&mutex_08);
+SEG_BEGIN("MU:main#003@188-192");
+  busy_wait_seconds(C10);
   sem_post(&sem_01);
   sem_post(&sem_02);
+SEG_END("MU:main#003@188-192");
   pthread_mutex_unlock(&mutex_08);
-SEG_END("MU:main#003@179-183");
-SEG_BEGIN("MU:main#004@184-187");
-  pthread_mutex_lock(&mutex_09);
   pthread_join(thread_c0, NULL);
-  busy_wait_seconds(C10);
-  pthread_mutex_unlock(&mutex_09);
-SEG_END("MU:main#004@184-187");
-SEG_BEGIN("MU:main#005@188-191");
-  pthread_mutex_lock(&mutex_10);
+  pthread_mutex_lock(&mutex_09);
+SEG_BEGIN("MU:main#004@193-196");
   busy_wait_seconds(C11);
-  sem_post(&sem_03);
-  pthread_mutex_unlock(&mutex_10);
-SEG_END("MU:main#005@188-191");
-SEG_BEGIN("MU:main#006@192-195");
-  pthread_mutex_lock(&mutex_11);
-  pthread_join(thread_c1, NULL);
+SEG_END("MU:main#004@193-196");
+  pthread_mutex_unlock(&mutex_09);
+  pthread_mutex_lock(&mutex_10);
+SEG_BEGIN("MU:main#005@197-200");
   busy_wait_seconds(C12);
-  pthread_mutex_unlock(&mutex_11);
-SEG_END("MU:main#006@192-195");
-SEG_BEGIN("MU:main#007@196-198");
-  pthread_mutex_lock(&mutex_12);
+  sem_post(&sem_03);
+SEG_END("MU:main#005@197-200");
+  pthread_mutex_unlock(&mutex_10);
+  pthread_join(thread_c1, NULL);
+  pthread_mutex_lock(&mutex_11);
+SEG_BEGIN("MU:main#006@201-204");
   busy_wait_seconds(C13);
-  pthread_mutex_unlock(&mutex_12);
-SEG_END("MU:main#007@196-198");
-SEG_BEGIN("MU:main#008@199-202");
-  pthread_mutex_lock(&mutex_13);
-  pthread_join(thread_c2, NULL);
+SEG_END("MU:main#006@201-204");
+  pthread_mutex_unlock(&mutex_11);
+  pthread_mutex_lock(&mutex_12);
+SEG_BEGIN("MU:main#007@205-207");
   busy_wait_seconds(C14);
+SEG_END("MU:main#007@205-207");
+  pthread_mutex_unlock(&mutex_12);
+  pthread_join(thread_c2, NULL);
+  pthread_mutex_lock(&mutex_13);
+SEG_BEGIN("MU:main#008@208-211");
+  busy_wait_seconds(C15);
+SEG_END("MU:main#008@208-211");
   pthread_mutex_unlock(&mutex_13);
-SEG_END("MU:main#008@199-202");
   return 0;
 }

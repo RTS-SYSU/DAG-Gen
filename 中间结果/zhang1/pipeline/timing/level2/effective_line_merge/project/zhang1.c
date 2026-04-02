@@ -124,89 +124,87 @@ static struct timespec g_prog_start;
 static void *c2_fn(void *arg)
 {
 
-SEG_BEGIN("MU:c2_fn#001@126-128");
     pthread_mutex_lock(&mutex1);
+SEG_BEGIN("MU:c2_fn#001@126-128");
     busy_wait_seconds(C1);
-    pthread_mutex_unlock(&mutex1);
 SEG_END("MU:c2_fn#001@126-128");
-SEG_BEGIN("MU:c2_fn#002@129-132");
+    pthread_mutex_unlock(&mutex1);
     sem_wait(&sem5);
     pthread_mutex_lock(&mutex2);
+SEG_BEGIN("MU:c2_fn#002@129-132");
     busy_wait_seconds(C2);
-    pthread_mutex_unlock(&mutex2);
 SEG_END("MU:c2_fn#002@129-132");
-SEG_BEGIN("MU:c2_fn#003@133-136");
+    pthread_mutex_unlock(&mutex2);
     sem_wait(&sem6);
     pthread_mutex_lock(&mutex3);
+SEG_BEGIN("MU:c2_fn#003@133-136");
     busy_wait_seconds(C3);
-    pthread_mutex_unlock(&mutex3);
 SEG_END("MU:c2_fn#003@133-136");
+    pthread_mutex_unlock(&mutex3);
     return NULL;
 }
 
 static void *c1_fn(void *arg)
 {
-SEG_BEGIN("MU:c1_fn#001@142-145");
     pthread_mutex_lock(&mutex4);
+SEG_BEGIN("MU:c1_fn#001@142-145");
     busy_wait_seconds(C4);
+SEG_END("MU:c1_fn#001@142-145");
     pthread_mutex_unlock(&mutex4);
     pthread_create(&tc2, NULL, c2_fn, NULL);
-SEG_END("MU:c1_fn#001@142-145");
-SEG_BEGIN("MU:c1_fn#002@146-150");
         sem_wait(&sem3);
     pthread_mutex_lock(&mutex5);
+SEG_BEGIN("MU:c1_fn#002@146-150");
     busy_wait_seconds(C5);
+SEG_END("MU:c1_fn#002@146-150");
     pthread_mutex_unlock(&mutex5);
     sem_post(&sem5);
-SEG_END("MU:c1_fn#002@146-150");
-SEG_BEGIN("MU:c1_fn#003@151-155");
     sem_wait(&sem4);
     pthread_mutex_lock(&mutex6);
+SEG_BEGIN("MU:c1_fn#003@151-155");
     busy_wait_seconds(C6);
+SEG_END("MU:c1_fn#003@151-155");
     pthread_mutex_unlock(&mutex6);
     sem_post(&sem6);
-SEG_END("MU:c1_fn#003@151-155");
     return NULL;
 }
 
 static void *c0_fn(void *arg)
 {
 
-SEG_BEGIN("MU:c0_fn#001@162-165");
     pthread_mutex_lock(&mutex7);
+SEG_BEGIN("MU:c0_fn#001@162-165");
     busy_wait_seconds(C7);
+SEG_END("MU:c0_fn#001@162-165");
     pthread_mutex_unlock(&mutex7);
     pthread_create(&tc1, NULL, c1_fn, NULL);
-SEG_END("MU:c0_fn#001@162-165");
-SEG_BEGIN("MU:c0_fn#002@166-170");
     sem_wait(&sem1);
     pthread_mutex_lock(&mutex8);
+SEG_BEGIN("MU:c0_fn#002@166-170");
     busy_wait_seconds(C8);
+SEG_END("MU:c0_fn#002@166-170");
     pthread_mutex_unlock(&mutex8);
     sem_post(&sem3);
-SEG_END("MU:c0_fn#002@166-170");
-SEG_BEGIN("MU:c0_fn#003@171-175");
     sem_wait(&sem2);
     pthread_mutex_lock(&mutex9);
+SEG_BEGIN("MU:c0_fn#003@171-175");
     busy_wait_seconds(C9);
+SEG_END("MU:c0_fn#003@171-175");
     pthread_mutex_unlock(&mutex9);
     sem_post(&sem4);
-SEG_END("MU:c0_fn#003@171-175");
     return NULL;
 }
 
 
 int main(void)
 {
-SEG_BEGIN("MU:main#001@182-210");
     pthread_mutex_lock(&mutex10);
+SEG_BEGIN("MU:main#001@182-208");
     struct timespec ts_prog_start, ts_prog_end;
     cpu_set_t set;
     CPU_ZERO(&set);
-    CPU_SET(0, &set);
-    CPU_SET(1, &set);
-    CPU_SET(2, &set);
-    CPU_SET(3, &set);
+    CPU_SET(6, &set);
+    CPU_SET(7, &set);
     if (sched_setaffinity(0, sizeof(set), &set) != 0) {
         fprintf(stderr, "sched_setaffinity failed: %s\n", strerror(errno));
     }
@@ -226,41 +224,41 @@ SEG_BEGIN("MU:main#001@182-210");
     /* 先创建填充任务，再创建关键链入口，便于 FIFO 先跑填充 */
 
     busy_wait_seconds(C10);
+SEG_END("MU:main#001@182-208");
     pthread_mutex_unlock(&mutex10);
     pthread_create(&tc0, NULL, c0_fn, NULL);
-SEG_END("MU:main#001@182-210");
-SEG_BEGIN("MU:main#002@211-214");
     pthread_mutex_lock(&mutex11);
+SEG_BEGIN("MU:main#002@209-212");
     busy_wait_seconds(C11);
+SEG_END("MU:main#002@209-212");
     pthread_mutex_unlock(&mutex11);
     sem_post(&sem1);
-SEG_END("MU:main#002@211-214");
-SEG_BEGIN("MU:main#003@215-218");
     pthread_mutex_lock(&mutex12);
+SEG_BEGIN("MU:main#003@213-216");
     busy_wait_seconds(C12);
+SEG_END("MU:main#003@213-216");
     pthread_mutex_unlock(&mutex12);
     sem_post(&sem2);
-SEG_END("MU:main#003@215-218");
-SEG_BEGIN("MU:main#004@219-221");
     pthread_mutex_lock(&mutex13);
+SEG_BEGIN("MU:main#004@217-219");
     busy_wait_seconds(C13);
+SEG_END("MU:main#004@217-219");
     pthread_mutex_unlock(&mutex13);
-SEG_END("MU:main#004@219-221");
-SEG_BEGIN("MU:main#005@222-225");
     pthread_join(tc0, NULL);
     pthread_mutex_lock(&mutex14);
+SEG_BEGIN("MU:main#005@220-223");
     busy_wait_seconds(C14);
+SEG_END("MU:main#005@220-223");
     pthread_mutex_unlock(&mutex14);
-SEG_END("MU:main#005@222-225");
-SEG_BEGIN("MU:main#006@226-229");
     pthread_join(tc1, NULL);
     pthread_mutex_lock(&mutex15);
+SEG_BEGIN("MU:main#006@224-227");
     busy_wait_seconds(C15);
+SEG_END("MU:main#006@224-227");
     pthread_mutex_unlock(&mutex15);
-SEG_END("MU:main#006@226-229");
-SEG_BEGIN("MU:main#007@230-239");
     pthread_join(tc2, NULL);
     pthread_mutex_lock(&mutex16);
+SEG_BEGIN("MU:main#007@228-237");
     busy_wait_seconds(C16);
     sem_destroy(&sem1);
     sem_destroy(&sem2);
@@ -268,7 +266,7 @@ SEG_BEGIN("MU:main#007@230-239");
     sem_destroy(&sem4);
     sem_destroy(&sem5);
     sem_destroy(&sem6);
+SEG_END("MU:main#007@228-237");
         pthread_mutex_unlock(&mutex16);
-SEG_END("MU:main#007@230-239");
     return 0;
 }

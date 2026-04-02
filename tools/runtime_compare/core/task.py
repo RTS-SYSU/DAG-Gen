@@ -29,6 +29,7 @@ class Task:
     cpu_list: Optional[List[int]] = None  # 可选：手动指定 CPU 核心列表
     config_name: Optional[str] = None  # 可选：配置文件名（不含扩展名），用于结果目录命名
     batch_name: Optional[str] = None   # 批量提交时的分组名（如 zhang1），用于结果子目录
+    batch_ts: Optional[str] = None     # 批量提交时的统一时间戳，同一批次所有算法共用
     # 断点续跑：稳定 key + resume 状态文件
     task_key: Optional[str] = None
     resume_file: Optional[Path] = None

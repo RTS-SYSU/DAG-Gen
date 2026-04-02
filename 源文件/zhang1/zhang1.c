@@ -183,10 +183,8 @@ int main(void)
     struct timespec ts_prog_start, ts_prog_end;
     cpu_set_t set;
     CPU_ZERO(&set);
-    CPU_SET(0, &set);
-    CPU_SET(1, &set);
-    CPU_SET(2, &set);
-    CPU_SET(3, &set);
+    CPU_SET(6, &set);
+    CPU_SET(7, &set);
     if (sched_setaffinity(0, sizeof(set), &set) != 0) {
         fprintf(stderr, "sched_setaffinity failed: %s\n", strerror(errno));
     }

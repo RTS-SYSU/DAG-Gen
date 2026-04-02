@@ -441,7 +441,22 @@ def build_level2_segments_and_dag(
                     filtered.discard(k)
         cut_after_by_fn[fn] = filtered
 
-    # Apply merge rules based on nearest effective code lines (skip blanks/comments)
+    # Merge rules: bidirectional absorption of sync primitives into
+    # adjacent MU blocks.
+    #
+    # Forward chain (from each unlock): absorb post/create lines.
+    # Backward chain (from each lock): absorb wait/join lines.
+    #
+    # Each direction only absorbs its own type and stops when it meets
+    # the other type.  In the typical pattern:
+    #   unlock → post → post → wait → wait → lock
+    # forward absorbs the posts, backward absorbs the waits, they meet
+    # in the middle and stop — post goes to the preceding MU, wait goes
+    # to the following MU, no overlap.
+    #
+    # Cut-point deletion: "cut_after L" means a segment boundary exists
+    # after line L.  To merge line X into the segment that ends at line
+    # X-1, we remove cut_after(X-1).
     for fn in fn_range.keys():
         fn_cuts = cut_after_by_fn.setdefault(fn, set())
         prev_effective = prev_effective_by_fn.get(fn, {})
@@ -449,15 +464,26 @@ def build_level2_segments_and_dag(
         fn_unlock_lines = unlock_lines_by_fn.get(fn, set())
         fn_lock_lines = lock_lines_by_fn.get(fn, set())
 
-        for line in create_lines_by_fn.get(fn, []) + sem_post_lines_by_fn.get(fn, []):
-            prev_line = prev_effective.get(line)
-            if isinstance(prev_line, int) and prev_line in fn_unlock_lines:
-                fn_cuts.discard(prev_line)
+        # Build sets for O(1) lookup
+        post_or_create = set(create_lines_by_fn.get(fn, []) + sem_post_lines_by_fn.get(fn, []))
+        wait_or_join = set(join_lines_by_fn.get(fn, []) + sem_wait_lines_by_fn.get(fn, []))
 
-        for line in join_lines_by_fn.get(fn, []) + sem_wait_lines_by_fn.get(fn, []):
-            next_line = next_effective.get(line)
-            if isinstance(next_line, int) and next_line in fn_lock_lines:
-                fn_cuts.discard(next_line - 1)
+        # Forward chain: unlock -> post/create -> post/create -> ...
+        # Each absorbed line removes the cut *before* it (cur - 1).
+        for unlock_line in fn_unlock_lines:
+            cur = next_effective.get(unlock_line)
+            while isinstance(cur, int) and cur in post_or_create:
+                fn_cuts.discard(cur - 1)
+                cur = next_effective.get(cur)
+
+        # Backward chain: lock <- wait/join <- wait/join <- ...
+        # Each absorbed line removes the cut *after* it (cur itself),
+        # which is the boundary between this wait/join and the next line.
+        for lock_line in fn_lock_lines:
+            cur = prev_effective.get(lock_line)
+            while isinstance(cur, int) and cur in wait_or_join:
+                fn_cuts.discard(cur)
+                cur = prev_effective.get(cur)
 
     # Build initial segments
     #

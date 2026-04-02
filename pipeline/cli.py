@@ -74,6 +74,14 @@ def main(argv: Optional[list[str]] = None) -> int:
     c_info = sub.add_parser("list", help="List rules and algos")
     c_info.add_argument("--level", default=None, choices=["level1", "level2", "level3"])
 
+    c_all = sub.add_parser("run_all", help="Run full pipeline (collect → blocks → timing → schedule × 6 → instrument × 6)")
+    c_all.add_argument("--source", type=Path, required=True, help="源文件路径，如 源文件/zhang1/zhang1.c")
+    c_all.add_argument("--base-name", default=None, help="测试用例名（默认取源文件名）")
+    c_all.add_argument("--level", default="level2", choices=["level1", "level2", "level3"])
+    c_all.add_argument("--rule", default="effective_line_merge")
+    c_all.add_argument("--repeats", type=int, default=DEFAULT_TIMING_REPEATS)
+    c_all.add_argument("--mode", default="auto", choices=["auto", "specialized", "generic"])
+
     args = ap.parse_args(argv)
     base_dir = args.base_dir.resolve()
 
@@ -141,6 +149,132 @@ def main(argv: Optional[list[str]] = None) -> int:
                     "algos": sorted(list_algos().keys()),
                 }
             )
+        return 0
+
+    if args.cmd == "run_all":
+        import os
+        import subprocess as _sp
+        import sys
+        source = args.source.resolve()
+        base_name = _resolve_base_name(args.base_name, source, None)
+        level = args.level
+        rule = args.rule or default_rule_for_level(level) or "effective_line_merge"
+        algos = sorted(list_algos().keys())
+
+        print(f"=== Pipeline 完整流程: {base_name} ===")
+        print(f"    源文件: {source}")
+        print(f"    level={level}, rule={rule}")
+        print(f"    算法: {', '.join(algos)}")
+        print()
+
+        # 第1阶段: 源码准备（确认源文件存在）
+        print("=== 第1阶段: 源码准备 ===")
+        if not source.exists():
+            print(f"    ✗ 源文件不存在: {source}")
+            return 1
+        print(f"    ✓ 源文件: {source}")
+
+        # 第2阶段: 编译展开（生成 .233r.expand）
+        print("=== 第2阶段: 编译展开 ===")
+        expand_file = source.parent / f"{source.name}.233r.expand"
+        gcc_cmd = ["gcc", "-fdump-rtl-expand", "-c", str(source), "-o", str(source.parent / f"{source.stem}.o")]
+        result = _sp.run(gcc_cmd, cwd=str(source.parent), capture_output=True, text=True)
+        if result.returncode != 0:
+            print(f"    ✗ GCC 编译失败: {result.stderr[:500]}")
+            return 1
+        if not expand_file.exists():
+            print(f"    ✗ expand 文件未生成: {expand_file}")
+            return 1
+        print(f"    ✓ expand: {expand_file}")
+
+        # 第3阶段: DAG 生成
+        print("=== 第3阶段: DAG 生成 ===")
+        gen_env = dict(os.environ)
+        gen_env["PYTHONPATH"] = str(base_dir.parent)
+
+        # 3a: 生成 threads-only 视图 (配置文件/{base_name}_threads.dot)
+        gen_cmd_threads = [
+            sys.executable, "-m",
+            f"{base_dir.name}.generation.legacy",
+            str(expand_file),
+            "--threads-only",
+            "--source-file", str(source),
+            "--output-base", str(base_dir),
+            "--force",
+        ]
+        result = _sp.run(gen_cmd_threads, cwd=str(base_dir.parent), capture_output=True, text=True, env=gen_env)
+        if result.returncode != 0:
+            print(f"    ✗ DAG 生成(threads)失败: {result.stderr[:500]}")
+            return 1
+        print(f"    ✓ threads 视图生成完成")
+
+        # 3b: 生成完整 DAG 视图 (配置文件/{base_name}.dot)
+        gen_cmd_full = [
+            sys.executable, "-m",
+            f"{base_dir.name}.generation.legacy",
+            str(expand_file),
+            "--source-file", str(source),
+            "--output-base", str(base_dir),
+            "--force",
+        ]
+        result = _sp.run(gen_cmd_full, cwd=str(base_dir.parent), capture_output=True, text=True, env=gen_env)
+        if result.returncode != 0:
+            print(f"    ✗ DAG 生成(full)失败: {result.stderr[:500]}")
+            return 1
+        print(f"    ✓ 完整 DAG 视图生成完成")
+
+        # 3c: 确保 生成dag图/dag.dot 存在 (collector 前置检查需要)
+        results_root = base_dir / "中间结果" / base_name
+        dag_dot_path = results_root / "生成dag图" / "dag.dot"
+        if not dag_dot_path.exists():
+            dag_dot_path.parent.mkdir(parents=True, exist_ok=True)
+            # 复制完整视图 dot 文件作为 dag.dot
+            config_dot = results_root / "配置文件" / f"{base_name}.dot"
+            if config_dot.exists():
+                import shutil
+                shutil.copy2(config_dot, dag_dot_path)
+                print(f"    ✓ dag.dot 已从完整视图复制")
+            else:
+                dag_dot_path.touch()
+                print(f"    ✓ dag.dot 已创建(空)")
+        print(f"    ✓ DAG 生成完成")
+
+        # 第4阶段: Collect
+        print("=== 第4阶段: Collect ===")
+        payload = run_collector(base_dir=base_dir, base_name=base_name, source_file=source)
+        print(f"    ✓ Collect 完成")
+
+        # 第5阶段: Blocks
+        print("=== 第5阶段: Blocks ===")
+        payload = run_blocks(base_dir=base_dir, base_name=base_name, level=level, rule_name=rule)
+        print(f"    ✓ Blocks 完成")
+
+        # 第6阶段: Timing
+        print("=== 第6阶段: Timing ===")
+        payload = run_timing_stage(base_dir=base_dir, base_name=base_name, level=level, rule_name=rule, repeats=args.repeats)
+        print(f"    ✓ Timing 完成")
+
+        # 第7阶段: Schedule (6 个算法)
+        print("=== 第7阶段: Schedule ===")
+        for algo in algos:
+            payload = run_schedule_stage(base_dir=base_dir, base_name=base_name, level=level, rule_name=rule, algo_name=algo)
+            prio_count = len(payload.get("priorities", {}))
+            print(f"    ✓ {algo}: {prio_count} 个优先级")
+
+        # 第8阶段: Instrument (6 个算法)
+        print("=== 第8阶段: Instrument ===")
+        for algo in algos:
+            payload = run_instrument_stage(
+                base_dir=base_dir, base_name=base_name, level=level,
+                rule_name=rule, algo_name=algo, instrument_mode=args.mode,
+            )
+            prio_count = payload.get("priority_count", 0)
+            print(f"    ✓ {algo}: {prio_count} 个优先级插桩")
+
+        print()
+        print(f"=== 完成: {base_name} 全部 8 个阶段 ===")
+        print(f"    result: {payload.get('result_dir', '')}")
+        print(f"    timing: {payload.get('timing_dir', '')}")
         return 0
 
     return 0

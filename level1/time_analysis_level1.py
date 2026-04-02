@@ -97,6 +97,42 @@ def instrument_source(source_c: Path, segments: List[Segment], out_c: Path) -> T
         begin_line = seg.start_line
         end_line = seg.end_line
 
+        # Locate probe positions by scanning for mutex_lock / mutex_unlock
+        # inside the segment.  SEG_BEGIN goes right after lock, SEG_END goes
+        # right before unlock.  For pure-blocker SEG segments (sem_wait /
+        # pthread_join only), skip entirely — they get avg_ns=0 automatically.
+        _LOCK_RE = re.compile(r"^\s*pthread_mutex_lock\s*\(")
+        _UNLOCK_RE = re.compile(r"^\s*pthread_mutex_unlock\s*\(")
+        _BLOCKER_RE = re.compile(r"^\s*(sem_wait|pthread_join|sem_post|pthread_create)\s*\(")
+
+        lock_line = None
+        unlock_line = None
+        for ln in range(begin_line, end_line + 1):
+            txt = lines[ln - 1]
+            if _LOCK_RE.match(txt) and lock_line is None:
+                lock_line = ln
+            if _UNLOCK_RE.match(txt):
+                unlock_line = ln
+
+        if lock_line is not None and unlock_line is not None:
+            # MU block: probe between lock and unlock
+            begin_line = lock_line + 1
+            end_line = unlock_line - 1
+            if begin_line > end_line:
+                warnings.append(f"[warn] {seg.seg_id}: empty mutex region, skipped")
+                continue
+        elif lock_line is None and unlock_line is None:
+            # Pure SEG segment (no mutex) — skip if all lines are blockers
+            all_blocker = True
+            for ln in range(begin_line, end_line + 1):
+                if not _BLOCKER_RE.match(lines[ln - 1]):
+                    all_blocker = False
+                    break
+            if all_blocker:
+                # Pure blocker segment, skip (will get avg_ns=0)
+                continue
+            # Non-blocker SEG: keep original begin/end
+
         before.setdefault(begin_line, []).append(f'SEG_BEGIN("{seg.seg_id}");\n')
 
         end_text = lines[end_line - 1].strip()

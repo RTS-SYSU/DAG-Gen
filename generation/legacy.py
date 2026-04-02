@@ -1062,15 +1062,22 @@ def build_join_binding_map(functions: dict) -> None:
             join_binding_map["thread_to_tail"][fn_name] = tail_node
         # 句柄 -> 线程函数（句柄来自 create 记录）
         for key, val in myinfo.items():
-            if key in ("tail", "__create_queue__"):
+            if key in ("tail", "__create_queue__", "__source_create_queue__"):
                 continue
-            if isinstance(key, str) and isinstance(val, str):
-                join_binding_map["handle_to_thread"][key] = val
-        # 句柄 -> join 节点（来自 join 记录）
+            if not isinstance(key, str) or not isinstance(val, str):
+                continue
+            # Skip join entries (join_node -> handle); they contain '/' in key
+            if "/" in key:
+                continue
+            join_binding_map["handle_to_thread"][key] = val
+        # 句柄 -> join 节点（来自 join 记录：join_node -> handle）
         for join_node, join_var in myinfo.items():
-            if join_node in ("tail", "__create_queue__"):
+            if join_node in ("tail", "__create_queue__", "__source_create_queue__"):
                 continue
             if not isinstance(join_var, str):
+                continue
+            # Only process join entries: key contains 'pthread_join'
+            if "pthread_join" not in join_node:
                 continue
             join_binding_map["handle_to_joins"].setdefault(join_var, []).append(join_node)
     # 尾节点 -> join 节点：句柄 -> 线程函数 -> 尾节点，再对应该句柄的 join 列表
@@ -1196,6 +1203,122 @@ def preparse_pthread_join_bindings(rtl_files, *, max_backtrack_lines: int = 300)
         return []
 
     return join_bindings
+
+
+# ---------------------------------------------------------------------------
+# Source-based create/join binding (platform-independent)
+# ---------------------------------------------------------------------------
+
+_SRC_CREATE_RE = re.compile(
+    r"pthread_create\s*\(\s*(?:&\s*)?(\w+)\s*,"   # arg0: &handle
+    r"\s*[^,]+,\s*(\w+)"                           # arg2: start_routine
+)
+_SRC_JOIN_RE = re.compile(
+    r"pthread_join\s*\(\s*(\w+)"                   # arg0: handle
+)
+
+
+def _fixup_create_join_bindings_from_source(functions: dict, config) -> None:
+    """Post-process: re-derive create/join handle bindings from C source lines.
+
+    For every pthread_create / pthread_join node that has a valid source line
+    number in mycalls_meta, read that line from the C source and extract the
+    handle variable name and (for create) the task function name.  Then patch
+    myinfo, mycalls, and __create_queue__ so that:
+      1. build_join_binding_map() can produce correct tail_to_joins (join edges)
+      2. full_call_graph() sees correct function names in mycalls (create edges)
+
+    This replaces the old RTL-register-based approach which only worked on
+    x86_64.
+    """
+    # Resolve source file path once
+    source_file = getattr(config, "source_file", None)
+    if source_file:
+        source_path = Path(str(source_file))
+    else:
+        source_path = None
+
+    # Cache: source path -> list of lines
+    _src_cache: dict = {}
+
+    def _read_src_lines(file_hint: str) -> list:
+        """Read and cache source file lines."""
+        # Try source_path first (--source-file), then file_hint from meta
+        for candidate in [source_path, Path(file_hint) if file_hint else None]:
+            if candidate is None:
+                continue
+            key = str(candidate)
+            if key in _src_cache:
+                return _src_cache[key]
+            try:
+                lines = candidate.read_text(encoding="utf-8", errors="ignore").splitlines()
+                _src_cache[key] = lines
+                return lines
+            except Exception:
+                continue
+        return []
+
+    for fn_name, finfo in functions.items():
+        meta = finfo.get("mycalls_meta", {})
+        myinfo = finfo.get("myinfo", {})
+        mycalls = finfo.get("mycalls", [])
+        if not meta:
+            continue
+
+        # Collect create bindings: create_node -> (handle, task_fn)
+        create_bindings: dict = {}
+
+        for node, node_meta in meta.items():
+            line_no = node_meta.get("line")
+            file_hint = node_meta.get("file")
+            if not line_no:
+                continue
+
+            is_create = "pthread_create" in node
+            is_join = "pthread_join" in node
+            if not is_create and not is_join:
+                continue
+
+            src_lines = _read_src_lines(file_hint)
+            if not src_lines or line_no < 1 or line_no > len(src_lines):
+                continue
+            src_line = src_lines[line_no - 1]
+
+            if is_create:
+                m = _SRC_CREATE_RE.search(src_line)
+                if m:
+                    handle, task_fn = m.group(1), m.group(2)
+                    create_bindings[node] = (handle, task_fn)
+                    # Patch myinfo: handle -> task_fn
+                    myinfo[handle] = task_fn
+
+            elif is_join:
+                m = _SRC_JOIN_RE.search(src_line)
+                if m:
+                    handle = m.group(1)
+                    # Patch myinfo: join_node -> handle
+                    myinfo[node] = handle
+
+        # --- Fix mycalls and __create_queue__ ---
+        # In mycalls, after each "xxx/pthread_createN" node, the RTL parser
+        # appended resolved_target.  On ARM64 this is the handle variable name
+        # (e.g. "thread_c0") instead of the task function (e.g. "worker_c0").
+        # We need to replace those handle names with the correct function names.
+        if create_bindings:
+            # Build handle_name -> task_fn mapping from all create bindings
+            handle_to_task = {handle: task for _node, (handle, task) in create_bindings.items()}
+
+            # Fix mycalls: replace handle variable names with function names
+            for i, entry in enumerate(mycalls):
+                if entry in handle_to_task:
+                    mycalls[i] = handle_to_task[entry]
+
+            # Rebuild __create_queue__ with correct function names
+            new_queue = []
+            for _node, (handle, task_fn) in sorted(create_bindings.items()):
+                if task_fn not in new_queue:
+                    new_queue.append(task_fn)
+            myinfo["__create_queue__"] = new_queue
 
 
 def _resolve_symbol_from_reg_history(lines: list, reg_num: str, *, max_hops: int = 8, scan_window: int = 8) -> str:
@@ -1811,6 +1934,7 @@ def main():
     #在这里进行实例化处理
     instfunctions(functions)
     #在这里进行总表统计
+    _fixup_create_join_bindings_from_source(functions, config)
     build_join_binding_map(functions)
     _dump_debug_snapshot(
         config,

@@ -326,6 +326,12 @@ def register_routes(app):
             use_sudo = bool(entry.get('use_sudo', False))
             cpu_list = entry.get('cpu_list') or None
 
+            # 结果文件夹命名：{base_name}_ws{ws}_r{r}_cpu{cores}
+            cpu_tag = "".join(str(c) for c in sorted(cpu_list)) if cpu_list else f"{cores_per_task}core"
+            batch_name = f"{batch_name}_ws{work_scale}_r{repeats}_cpu{cpu_tag}"
+            # 统一时间戳：同一批次所有算法共用
+            batch_ts = now_ts_safe()
+
             if timing_dir.is_dir():
                 # v3.0 新模式：扫描 timing/ 下的子目录
                 algo_dirs = sorted(p for p in timing_dir.iterdir() if p.is_dir())
@@ -363,6 +369,7 @@ def register_routes(app):
                         use_sudo=use_sudo,
                         cpu_list=cpu_list,
                         batch_name=batch_name,
+                        batch_ts=batch_ts,
                     )
                     _task_manager['tasks'].append(task)
                     _task_manager['task_q'].put(task)
@@ -638,7 +645,8 @@ def register_routes(app):
             return jsonify({'error': f'目录不存在: {batch_dir}'}), 404
 
         # 扫描子目录中的 summary.json
-        rows = []
+        # 同一算法可能有多轮结果（带时间戳），取最新一轮（目录名排序最后的）
+        algo_latest: Dict = {}  # algo_name -> (dir_name, row_dict)
         for sub in sorted(batch_dir.iterdir()):
             if not sub.is_dir():
                 continue
@@ -649,16 +657,22 @@ def register_routes(app):
                 summary = json.loads(summary_path.read_text(encoding='utf-8'))
                 algo = summary.get('algo_name', sub.name)
                 stats = summary.get('stats', {})
-                rows.append({
+                row = {
                     'algorithm': algo,
                     'avg_s': stats.get('mean_s', 0.0),
                     'min_s': stats.get('min_s', 0.0),
                     'max_s': stats.get('max_s', 0.0),
                     'median_s': stats.get('median_s', 0.0),
                     'n': stats.get('n', 0),
-                })
+                    'dir': sub.name,
+                }
+                # 同一算法取目录名最大的（即最新时间戳）
+                if algo not in algo_latest or sub.name > algo_latest[algo][0]:
+                    algo_latest[algo] = (sub.name, row)
             except Exception:
                 continue
+
+        rows = [v[1] for v in sorted(algo_latest.values(), key=lambda x: x[1]['algorithm'])]
 
         if not rows:
             return jsonify({'error': '未找到已完成的任务结果'}), 404

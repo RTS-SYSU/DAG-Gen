@@ -198,6 +198,16 @@ def run_timing(*, base_dir: Path, base_name: str, level: str, rule_name: str, re
             program_totals_ns.append(_parse_program_total_ns(proc.stderr or ""))
 
         weights = _summarize(rows)
+
+        # Fill zero weights for pure-blocker segments (sem_wait / pthread_join
+        # only) that were skipped by instrument_source and thus have no trace.
+        all_seg_ids = {s.seg_id for s in segments}
+        for sid in all_seg_ids:
+            if sid not in weights:
+                weights[sid] = {
+                    "total_ns": 0, "count": 0,
+                    "avg_ns": 0, "min_ns": 0, "max_ns": 0,
+                }
         timing_json = {
             "schema_version": SCHEMA_VERSION,
             "base_name": base_name,
