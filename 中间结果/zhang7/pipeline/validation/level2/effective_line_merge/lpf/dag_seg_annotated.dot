@@ -1,0 +1,23 @@
+digraph dag_seg_annotated {
+  rankdir=LR;
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#334155", fontsize=10];
+  edge [color="#475569"];
+  "MU:critical_fn#001@123-125" [label="MU:critical_fn#001@123-125\nconst=C2\navg_ns=339327803\nprio=98"];
+  "MU:filler_a#001@132-134" [label="MU:filler_a#001@132-134\nconst=C3\navg_ns=158046110\nprio=96"];
+  "MU:filler_b#001@141-143" [label="MU:filler_b#001@141-143\nconst=C4\navg_ns=143565531\nprio=95"];
+  "MU:filler_c#001@150-152" [label="MU:filler_c#001@150-152\nconst=C5\navg_ns=101151300\nprio=94"];
+  "MU:filler_d#001@159-161" [label="MU:filler_d#001@159-161\nconst=C6\navg_ns=173665908\nprio=97"];
+  "MU:main#001@168-176" [label="MU:main#001@168-176\nconst=C1\navg_ns=1136973\nprio=99"];
+  "MU:main#002@177-184" [label="MU:main#002@177-184\nconst=C7\navg_ns=941581\nprio=93"];
+  "MU:main#001@168-176" -> "MU:main#002@177-184";
+  "MU:main#001@168-176" -> "MU:filler_a#001@132-134";
+  "MU:main#001@168-176" -> "MU:filler_b#001@141-143";
+  "MU:main#001@168-176" -> "MU:filler_c#001@150-152";
+  "MU:main#001@168-176" -> "MU:filler_d#001@159-161";
+  "MU:main#001@168-176" -> "MU:critical_fn#001@123-125";
+  "MU:critical_fn#001@123-125" -> "MU:main#002@177-184";
+  "MU:filler_a#001@132-134" -> "MU:main#002@177-184";
+  "MU:filler_b#001@141-143" -> "MU:main#002@177-184";
+  "MU:filler_c#001@150-152" -> "MU:main#002@177-184";
+  "MU:filler_d#001@159-161" -> "MU:main#002@177-184";
+}

@@ -1,0 +1,38 @@
+digraph dag_seg_annotated_value {
+  rankdir=LR;
+  node [shape=box, style="rounded,filled", fillcolor="#E6F3FF", color="#1976D2", fontsize=10];
+  edge [color="#1976D2"];
+  "MU:main#001@150-184" [label="MU:main#001@150-184\nC8=2.0\navg_ns=2138697\nprio=86"];
+  "MU:main#002@185-187" [label="MU:main#002@185-187\nC9=2.0\navg_ns=879938\nprio=90"];
+  "MU:main#003@188-192" [label="MU:main#003@188-192\nC10=2.0\navg_ns=877663\nprio=91"];
+  "MU:main#004@193-196" [label="MU:main#004@193-196\nC11=2.0\navg_ns=736057\nprio=94"];
+  "MU:main#005@197-200" [label="MU:main#005@197-200\nC12=2.0\navg_ns=735999\nprio=95"];
+  "MU:main#006@201-204" [label="MU:main#006@201-204\nC13=2.0\navg_ns=735736\nprio=97"];
+  "MU:main#007@205-207" [label="MU:main#007@205-207\nC14=2.0\navg_ns=735182\nprio=98"];
+  "MU:main#008@208-211" [label="MU:main#008@208-211\nC15=1.0\navg_ns=367270\nprio=99"];
+  "MU:worker_c0#001@142-144" [label="MU:worker_c0#001@142-144\nC7=500.0\navg_ns=193869715\nprio=89"];
+  "MU:worker_c1#001@130-132" [label="MU:worker_c1#001@130-132\nC4=1.0\navg_ns=439021\nprio=88"];
+  "MU:worker_c1#002@133-136" [label="MU:worker_c1#002@133-136\nC5=600.0\navg_ns=229672845\nprio=93"];
+  "MU:worker_c2#001@114-116" [label="MU:worker_c2#001@114-116\nC1=1.0\navg_ns=439546\nprio=87"];
+  "MU:worker_c2#002@117-120" [label="MU:worker_c2#002@117-120\nC2=1.0\navg_ns=439283\nprio=92"];
+  "MU:worker_c2#003@121-124" [label="MU:worker_c2#003@121-124\nC3=1.0\navg_ns=367182\nprio=96"];
+  "MU:worker_c2#001@114-116" -> "MU:worker_c2#002@117-120";
+  "MU:worker_c2#002@117-120" -> "MU:worker_c2#003@121-124";
+  "MU:worker_c1#001@130-132" -> "MU:worker_c1#002@133-136";
+  "MU:main#001@150-184" -> "MU:main#002@185-187";
+  "MU:main#002@185-187" -> "MU:main#003@188-192";
+  "MU:main#003@188-192" -> "MU:main#004@193-196";
+  "MU:main#004@193-196" -> "MU:main#005@197-200";
+  "MU:main#005@197-200" -> "MU:main#006@201-204";
+  "MU:main#006@201-204" -> "MU:main#007@205-207";
+  "MU:main#007@205-207" -> "MU:main#008@208-211";
+  "MU:main#001@150-184" -> "MU:worker_c0#001@142-144";
+  "MU:main#001@150-184" -> "MU:worker_c1#001@130-132";
+  "MU:main#001@150-184" -> "MU:worker_c2#001@114-116";
+  "MU:worker_c0#001@142-144" -> "MU:main#004@193-196";
+  "MU:worker_c1#002@133-136" -> "MU:main#006@201-204";
+  "MU:worker_c2#003@121-124" -> "MU:main#008@208-211";
+  "MU:main#003@188-192" -> "MU:worker_c2#002@117-120";
+  "MU:main#005@197-200" -> "MU:worker_c2#003@121-124";
+  "MU:main#003@188-192" -> "MU:worker_c1#002@133-136";
+}

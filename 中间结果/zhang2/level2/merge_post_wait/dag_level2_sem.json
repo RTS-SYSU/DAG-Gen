@@ -38,9 +38,9 @@
     "main/pthread_mutex_lock44",
     "main/pthread_mutex_unlock19",
     "main/pthread_mutex_unlock22",
-    "main/pthread_mutex_unlock27",
+    "main/pthread_mutex_unlock25",
     "main/pthread_mutex_unlock31",
-    "main/pthread_mutex_unlock35",
+    "main/pthread_mutex_unlock34",
     "main/pthread_mutex_unlock39",
     "main/pthread_mutex_unlock42",
     "main/pthread_mutex_unlock46",
@@ -51,9 +51,9 @@
     "main/sem_init13",
     "main/sem_init14",
     "main/sem_init9",
-    "main/sem_post25",
     "main/sem_post26",
-    "main/sem_post34",
+    "main/sem_post27",
+    "main/sem_post35",
     "worker_c0",
     "worker_c0/pthread_mutex_lock1",
     "worker_c0/pthread_mutex_unlock3",
@@ -221,21 +221,21 @@
     },
     {
       "src": "busy_wait_seconds@instance8",
-      "dst": "main/sem_post25",
+      "dst": "main/pthread_mutex_unlock25",
       "kind": "sem_dep"
     },
     {
-      "src": "main/sem_post25",
+      "src": "main/pthread_mutex_unlock25",
       "dst": "main/sem_post26",
       "kind": "sem_dep"
     },
     {
       "src": "main/sem_post26",
-      "dst": "main/pthread_mutex_unlock27",
+      "dst": "main/sem_post27",
       "kind": "sem_dep"
     },
     {
-      "src": "main/pthread_mutex_unlock27",
+      "src": "main/sem_post27",
       "dst": "main/pthread_join28",
       "kind": "sem_dep"
     },
@@ -266,16 +266,16 @@
     },
     {
       "src": "busy_wait_seconds@instance10",
-      "dst": "main/sem_post34",
+      "dst": "main/pthread_mutex_unlock34",
       "kind": "sem_dep"
     },
     {
-      "src": "main/sem_post34",
-      "dst": "main/pthread_mutex_unlock35",
+      "src": "main/pthread_mutex_unlock34",
+      "dst": "main/sem_post35",
       "kind": "sem_dep"
     },
     {
-      "src": "main/pthread_mutex_unlock35",
+      "src": "main/sem_post35",
       "dst": "main/pthread_join36",
       "kind": "sem_dep"
     },
@@ -455,17 +455,17 @@
       "kind": "sem_dep"
     },
     {
-      "src": "main/sem_post26",
+      "src": "main/sem_post27",
       "dst": "worker_c2/sem_wait4",
       "kind": "sem_dep"
     },
     {
-      "src": "main/sem_post34",
+      "src": "main/sem_post35",
       "dst": "worker_c2/sem_wait8",
       "kind": "sem_dep"
     },
     {
-      "src": "main/sem_post25",
+      "src": "main/sem_post26",
       "dst": "worker_c1/sem_wait4",
       "kind": "sem_dep"
     }

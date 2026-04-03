@@ -146,9 +146,9 @@ static void *worker_c1(void *arg)
 static void *worker_c0(void *arg)
 {
   l1_set_thread_prio_fifo(92);
-  pthread_mutex_lock(&mutex_07);
+  pthread_mutex_lock(&mutex_06);
   busy_wait_seconds(C7);
-  pthread_mutex_unlock(&mutex_07);
+  pthread_mutex_unlock(&mutex_06);
   return NULL;
 }
 
@@ -157,7 +157,7 @@ int main(void)
     struct timespec ts_main_begin, ts_main_end;
     clock_gettime(CLOCK_MONOTONIC, &ts_main_begin);
   l1_set_thread_prio_fifo(99);
-  pthread_mutex_lock(&mutex_01);
+  pthread_mutex_lock(&mutex_07);
   struct timespec prog_start_ts_local, prog_end_ts_local;
   cpu_set_t cpu_set;
   CPU_ZERO(&cpu_set);
@@ -191,41 +191,41 @@ int main(void)
   pthread_create(&thread_c1, NULL, worker_c1, NULL);
   pthread_create(&thread_c2, NULL, worker_c2, NULL);
   busy_wait_seconds(C8);
-  pthread_mutex_unlock(&mutex_01);
-  l1_set_thread_prio_fifo(98);
-  pthread_mutex_lock(&mutex_07);
-  busy_wait_seconds(C9);
   pthread_mutex_unlock(&mutex_07);
-  l1_set_thread_prio_fifo(97);
+  l1_set_thread_prio_fifo(98);
   pthread_mutex_lock(&mutex_08);
+  busy_wait_seconds(C9);
+  pthread_mutex_unlock(&mutex_08);
+  l1_set_thread_prio_fifo(97);
+  pthread_mutex_lock(&mutex_09);
   busy_wait_seconds(C10);
+  pthread_mutex_unlock(&mutex_09);
   sem_post(&sem_01);
   sem_post(&sem_02);
-  pthread_mutex_unlock(&mutex_08);
   l1_set_thread_prio_fifo(91);
   pthread_join(thread_c0, NULL);
-  pthread_mutex_lock(&mutex_09);
-  busy_wait_seconds(C11);
-  pthread_mutex_unlock(&mutex_09);
-  l1_set_thread_prio_fifo(90);
   pthread_mutex_lock(&mutex_10);
-  busy_wait_seconds(C12);
-  sem_post(&sem_03);
+  busy_wait_seconds(C11);
   pthread_mutex_unlock(&mutex_10);
+  l1_set_thread_prio_fifo(90);
+  pthread_mutex_lock(&mutex_11);
+  busy_wait_seconds(C12);
+  pthread_mutex_unlock(&mutex_11);
+  sem_post(&sem_03);
   l1_set_thread_prio_fifo(88);
   pthread_join(thread_c1, NULL);
-  pthread_mutex_lock(&mutex_11);
-  busy_wait_seconds(C13);
-  pthread_mutex_unlock(&mutex_11);
-  l1_set_thread_prio_fifo(87);
   pthread_mutex_lock(&mutex_12);
-  busy_wait_seconds(C14);
+  busy_wait_seconds(C13);
   pthread_mutex_unlock(&mutex_12);
+  l1_set_thread_prio_fifo(87);
+  pthread_mutex_lock(&mutex_13);
+  busy_wait_seconds(C14);
+  pthread_mutex_unlock(&mutex_13);
   l1_set_thread_prio_fifo(86);
   pthread_join(thread_c2, NULL);
-  pthread_mutex_lock(&mutex_13);
+  pthread_mutex_lock(&mutex_14);
   busy_wait_seconds(C15);
-  pthread_mutex_unlock(&mutex_13);
+  pthread_mutex_unlock(&mutex_14);
     clock_gettime(CLOCK_MONOTONIC, &ts_main_end);
     {
         double main_s = (double)(ts_main_end.tv_sec - ts_main_begin.tv_sec)

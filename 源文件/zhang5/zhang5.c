@@ -97,7 +97,6 @@ static pthread_t thread_a, thread_f1, thread_f2, thread_f3;
 
 /* --- worker_a: C3 → C4 (关键路径, 最重) --- */
 static void *worker_a(void *arg) {
-  (void)arg;
   pthread_mutex_lock(&mutex_03);
   busy_wait_seconds(C3);
   pthread_mutex_unlock(&mutex_03);
@@ -109,7 +108,6 @@ static void *worker_a(void *arg) {
 
 /* --- filler_1: C5 → C8 --- */
 static void *filler_1(void *arg) {
-  (void)arg;
   pthread_mutex_lock(&mutex_05);
   busy_wait_seconds(C5);
   pthread_mutex_unlock(&mutex_05);
@@ -121,7 +119,6 @@ static void *filler_1(void *arg) {
 
 /* --- filler_2: C6 --- */
 static void *filler_2(void *arg) {
-  (void)arg;
   pthread_mutex_lock(&mutex_06);
   busy_wait_seconds(C6);
   pthread_mutex_unlock(&mutex_06);
@@ -130,7 +127,6 @@ static void *filler_2(void *arg) {
 
 /* --- filler_3: C7 --- */
 static void *filler_3(void *arg) {
-  (void)arg;
   pthread_mutex_lock(&mutex_07);
   busy_wait_seconds(C7);
   pthread_mutex_unlock(&mutex_07);
@@ -139,29 +135,21 @@ static void *filler_3(void *arg) {
 
 /* --- main --- */
 int main(void) {
-  init_matrices();
 
-  /* main#001: 极轻 */
   pthread_mutex_lock(&mutex_01);
+  init_matrices();
   busy_wait_seconds(C1);
   pthread_mutex_unlock(&mutex_01);
-
-  /* fork all */
   pthread_create(&thread_a, NULL, worker_a, NULL);
   pthread_create(&thread_f1, NULL, filler_1, NULL);
   pthread_create(&thread_f2, NULL, filler_2, NULL);
   pthread_create(&thread_f3, NULL, filler_3, NULL);
-
-  /* join: 先 worker_a(关键路径), 再 filler */
   pthread_join(thread_a, NULL);
   pthread_join(thread_f1, NULL);
   pthread_join(thread_f2, NULL);
   pthread_join(thread_f3, NULL);
-
-  /* main#002: 极轻, 收尾 */
   pthread_mutex_lock(&mutex_02);
   busy_wait_seconds(C2);
   pthread_mutex_unlock(&mutex_02);
-
   return 0;
 }

@@ -150,17 +150,17 @@ SEG_END("MU:worker_c1#002@133-136");
 
 static void *worker_c0(void *arg)
 {
-  pthread_mutex_lock(&mutex_07);
+  pthread_mutex_lock(&mutex_06);
 SEG_BEGIN("MU:worker_c0#001@142-144");
   busy_wait_seconds(C7);
 SEG_END("MU:worker_c0#001@142-144");
-  pthread_mutex_unlock(&mutex_07);
+  pthread_mutex_unlock(&mutex_06);
   return NULL;
 }
 
 int main(void)
 {
-  pthread_mutex_lock(&mutex_01);
+  pthread_mutex_lock(&mutex_07);
 SEG_BEGIN("MU:main#001@150-184");
   struct timespec prog_start_ts_local, prog_end_ts_local;
   cpu_set_t cpu_set;
@@ -196,47 +196,47 @@ SEG_BEGIN("MU:main#001@150-184");
   pthread_create(&thread_c2, NULL, worker_c2, NULL);
   busy_wait_seconds(C8);
 SEG_END("MU:main#001@150-184");
-  pthread_mutex_unlock(&mutex_01);
-  pthread_mutex_lock(&mutex_07);
+  pthread_mutex_unlock(&mutex_07);
+  pthread_mutex_lock(&mutex_08);
 SEG_BEGIN("MU:main#002@185-187");
   busy_wait_seconds(C9);
 SEG_END("MU:main#002@185-187");
-  pthread_mutex_unlock(&mutex_07);
-  pthread_mutex_lock(&mutex_08);
+  pthread_mutex_unlock(&mutex_08);
+  pthread_mutex_lock(&mutex_09);
 SEG_BEGIN("MU:main#003@188-192");
   busy_wait_seconds(C10);
+SEG_END("MU:main#003@188-192");
+  pthread_mutex_unlock(&mutex_09);
   sem_post(&sem_01);
   sem_post(&sem_02);
-SEG_END("MU:main#003@188-192");
-  pthread_mutex_unlock(&mutex_08);
   pthread_join(thread_c0, NULL);
-  pthread_mutex_lock(&mutex_09);
+  pthread_mutex_lock(&mutex_10);
 SEG_BEGIN("MU:main#004@193-196");
   busy_wait_seconds(C11);
 SEG_END("MU:main#004@193-196");
-  pthread_mutex_unlock(&mutex_09);
-  pthread_mutex_lock(&mutex_10);
+  pthread_mutex_unlock(&mutex_10);
+  pthread_mutex_lock(&mutex_11);
 SEG_BEGIN("MU:main#005@197-200");
   busy_wait_seconds(C12);
-  sem_post(&sem_03);
 SEG_END("MU:main#005@197-200");
-  pthread_mutex_unlock(&mutex_10);
+  pthread_mutex_unlock(&mutex_11);
+  sem_post(&sem_03);
   pthread_join(thread_c1, NULL);
-  pthread_mutex_lock(&mutex_11);
+  pthread_mutex_lock(&mutex_12);
 SEG_BEGIN("MU:main#006@201-204");
   busy_wait_seconds(C13);
 SEG_END("MU:main#006@201-204");
-  pthread_mutex_unlock(&mutex_11);
-  pthread_mutex_lock(&mutex_12);
+  pthread_mutex_unlock(&mutex_12);
+  pthread_mutex_lock(&mutex_13);
 SEG_BEGIN("MU:main#007@205-207");
   busy_wait_seconds(C14);
 SEG_END("MU:main#007@205-207");
-  pthread_mutex_unlock(&mutex_12);
+  pthread_mutex_unlock(&mutex_13);
   pthread_join(thread_c2, NULL);
-  pthread_mutex_lock(&mutex_13);
+  pthread_mutex_lock(&mutex_14);
 SEG_BEGIN("MU:main#008@208-211");
   busy_wait_seconds(C15);
 SEG_END("MU:main#008@208-211");
-  pthread_mutex_unlock(&mutex_13);
+  pthread_mutex_unlock(&mutex_14);
   return 0;
 }

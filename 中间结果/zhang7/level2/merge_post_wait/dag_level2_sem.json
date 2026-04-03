@@ -1,0 +1,259 @@
+{
+  "nodes": [
+    "busy_wait_seconds",
+    "busy_wait_seconds@instance1",
+    "busy_wait_seconds@instance2",
+    "busy_wait_seconds@instance3",
+    "busy_wait_seconds@instance4",
+    "busy_wait_seconds@instance5",
+    "busy_wait_seconds@instance6",
+    "critical_fn",
+    "critical_fn/pthread_mutex_lock1",
+    "critical_fn/pthread_mutex_unlock3",
+    "filler_a",
+    "filler_a/pthread_mutex_lock1",
+    "filler_a/pthread_mutex_unlock3",
+    "filler_b",
+    "filler_b/pthread_mutex_lock1",
+    "filler_b/pthread_mutex_unlock3",
+    "filler_c",
+    "filler_c/pthread_mutex_lock1",
+    "filler_c/pthread_mutex_unlock3",
+    "filler_d",
+    "filler_d/pthread_mutex_lock1",
+    "filler_d/pthread_mutex_unlock3",
+    "init_matrices",
+    "main",
+    "main/pthread_create5",
+    "main/pthread_create6",
+    "main/pthread_create7",
+    "main/pthread_create8",
+    "main/pthread_create9",
+    "main/pthread_join10",
+    "main/pthread_join11",
+    "main/pthread_join12",
+    "main/pthread_join13",
+    "main/pthread_join14",
+    "main/pthread_mutex_lock15",
+    "main/pthread_mutex_lock2",
+    "main/pthread_mutex_unlock17",
+    "main/pthread_mutex_unlock4"
+  ],
+  "edges": [
+    {
+      "src": "critical_fn",
+      "dst": "critical_fn/pthread_mutex_lock1",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "critical_fn/pthread_mutex_lock1",
+      "dst": "busy_wait_seconds",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "busy_wait_seconds",
+      "dst": "critical_fn/pthread_mutex_unlock3",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "filler_a",
+      "dst": "filler_a/pthread_mutex_lock1",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "filler_a/pthread_mutex_lock1",
+      "dst": "busy_wait_seconds@instance1",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "busy_wait_seconds@instance1",
+      "dst": "filler_a/pthread_mutex_unlock3",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "filler_b",
+      "dst": "filler_b/pthread_mutex_lock1",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "filler_b/pthread_mutex_lock1",
+      "dst": "busy_wait_seconds@instance2",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "busy_wait_seconds@instance2",
+      "dst": "filler_b/pthread_mutex_unlock3",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "filler_c",
+      "dst": "filler_c/pthread_mutex_lock1",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "filler_c/pthread_mutex_lock1",
+      "dst": "busy_wait_seconds@instance3",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "busy_wait_seconds@instance3",
+      "dst": "filler_c/pthread_mutex_unlock3",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "filler_d",
+      "dst": "filler_d/pthread_mutex_lock1",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "filler_d/pthread_mutex_lock1",
+      "dst": "busy_wait_seconds@instance4",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "busy_wait_seconds@instance4",
+      "dst": "filler_d/pthread_mutex_unlock3",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main",
+      "dst": "init_matrices",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "init_matrices",
+      "dst": "main/pthread_mutex_lock2",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_mutex_lock2",
+      "dst": "busy_wait_seconds@instance5",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "busy_wait_seconds@instance5",
+      "dst": "main/pthread_mutex_unlock4",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_mutex_unlock4",
+      "dst": "main/pthread_create5",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_create5",
+      "dst": "filler_a",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_create5",
+      "dst": "main/pthread_create6",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_create6",
+      "dst": "filler_b",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_create6",
+      "dst": "main/pthread_create7",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_create7",
+      "dst": "filler_c",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_create7",
+      "dst": "main/pthread_create8",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_create8",
+      "dst": "filler_d",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_create8",
+      "dst": "main/pthread_create9",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_create9",
+      "dst": "critical_fn",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_create9",
+      "dst": "main/pthread_join10",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_join10",
+      "dst": "main/pthread_join10",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_join10",
+      "dst": "main/pthread_join11",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_join11",
+      "dst": "main/pthread_join12",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_join12",
+      "dst": "main/pthread_join13",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_join13",
+      "dst": "main/pthread_join14",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_join14",
+      "dst": "main/pthread_mutex_lock15",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_mutex_lock15",
+      "dst": "busy_wait_seconds@instance6",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "busy_wait_seconds@instance6",
+      "dst": "main/pthread_mutex_unlock17",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "filler_a/pthread_mutex_unlock3",
+      "dst": "main/pthread_join11",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "filler_b/pthread_mutex_unlock3",
+      "dst": "main/pthread_join12",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "filler_c/pthread_mutex_unlock3",
+      "dst": "main/pthread_join13",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "filler_d/pthread_mutex_unlock3",
+      "dst": "main/pthread_join14",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "critical_fn/pthread_mutex_unlock3",
+      "dst": "main/pthread_join10",
+      "kind": "sem_dep"
+    }
+  ]
+}

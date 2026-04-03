@@ -1,0 +1,1690 @@
+
+;; Function init_matrices (init_matrices, funcdef_no=6, decl_uid=5532, cgraph_uid=7, symbol_order=10)
+
+Partition 1: size 4 align 4
+	j_9
+Partition 0: size 4 align 4
+	i_8
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+;; Generating RTL for gimple basic block 4
+
+;; Generating RTL for gimple basic block 5
+
+;; Generating RTL for gimple basic block 6
+
+;; Generating RTL for gimple basic block 7
+
+;; Generating RTL for gimple basic block 8
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Forwarding edge 8->9 to 10 failed.
+Merging block 10 into block 9...
+Merged blocks 9 and 10.
+Merged 9 and 10 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 3 NOTE_INSN_DELETED)
+(note 3 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(note 2 3 5 2 NOTE_INSN_FUNCTION_BEG)
+(insn 5 2 6 2 (set (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 i+0 S4 A32])
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":72:12 -1
+     (nil))
+(jump_insn 6 5 7 2 (set (pc)
+        (label_ref 60)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":72:3 -1
+     (nil)
+ -> 60)
+(barrier 7 6 62)
+(code_label 62 7 8 4 5 (nil) [1 uses])
+(note 8 62 9 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
+(insn 9 8 10 4 (set (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [2 j+0 S4 A32])
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":74:14 -1
+     (nil))
+(jump_insn 10 9 11 4 (set (pc)
+        (label_ref 48)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":74:5 -1
+     (nil)
+ -> 48)
+(barrier 11 10 50)
+(code_label 50 11 12 5 4 (nil) [1 uses])
+(note 12 50 13 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
+(insn 13 12 14 5 (set (reg:SI 97)
+        (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 i+0 S4 A32])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":76:32 -1
+     (nil))
+(insn 14 13 15 5 (set (reg:SI 98)
+        (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [2 j+0 S4 A32])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":76:32 -1
+     (nil))
+(insn 15 14 16 5 (set (reg:SI 90 [ _1 ])
+        (plus:SI (reg:SI 97)
+            (reg:SI 98))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":76:32 -1
+     (nil))
+(insn 16 15 17 5 (set (reg:SI 91 [ _2 ])
+        (plus:SI (reg:SI 90 [ _1 ])
+            (const_int 1 [0x1]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":76:36 -1
+     (nil))
+(insn 17 16 18 5 (set (reg:DF 92 [ _3 ])
+        (float:DF (reg:SI 91 [ _2 ]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":76:21 -1
+     (nil))
+(insn 18 17 19 5 (set (reg:DI 100)
+        (high:DI (symbol_ref:DI ("mat_a") [flags 0x2]  <var_decl 0x7fa2809e10 mat_a>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":76:19 -1
+     (nil))
+(insn 19 18 20 5 (set (reg/f:DI 99)
+        (lo_sum:DI (reg:DI 100)
+            (symbol_ref:DI ("mat_a") [flags 0x2]  <var_decl 0x7fa2809e10 mat_a>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":76:19 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mat_a") [flags 0x2]  <var_decl 0x7fa2809e10 mat_a>)
+        (nil)))
+(insn 20 19 21 5 (set (reg:DI 101)
+        (sign_extend:DI (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                    (const_int -4 [0xfffffffffffffffc])) [2 j+0 S4 A32]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":76:19 -1
+     (nil))
+(insn 21 20 22 5 (set (reg:DI 102)
+        (sign_extend:DI (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                    (const_int -8 [0xfffffffffffffff8])) [2 i+0 S4 A32]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":76:19 -1
+     (nil))
+(insn 22 21 23 5 (set (reg:DI 103)
+        (ashift:DI (reg:DI 102)
+            (const_int 6 [0x6]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":76:19 -1
+     (nil))
+(insn 23 22 24 5 (set (reg:DI 104)
+        (plus:DI (reg:DI 103)
+            (reg:DI 101))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":76:19 -1
+     (nil))
+(insn 24 23 25 5 (set (mem:DF (plus:DI (mult:DI (reg:DI 104)
+                    (const_int 8 [0x8]))
+                (reg/f:DI 99)) [1 mat_a S8 A64])
+        (reg:DF 92 [ _3 ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":76:19 -1
+     (nil))
+(insn 25 24 26 5 (set (reg:SI 105)
+        (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 i+0 S4 A32])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":77:32 -1
+     (nil))
+(insn 26 25 27 5 (set (reg:SI 93 [ _4 ])
+        (ashift:SI (reg:SI 105)
+            (const_int 1 [0x1]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":77:32 -1
+     (nil))
+(insn 27 26 28 5 (set (reg:SI 106)
+        (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [2 j+0 S4 A32])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":77:36 -1
+     (nil))
+(insn 28 27 29 5 (set (reg:SI 94 [ _5 ])
+        (plus:SI (reg:SI 93 [ _4 ])
+            (reg:SI 106))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":77:36 -1
+     (nil))
+(insn 29 28 30 5 (set (reg:SI 95 [ _6 ])
+        (plus:SI (reg:SI 94 [ _5 ])
+            (const_int 3 [0x3]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":77:40 -1
+     (nil))
+(insn 30 29 31 5 (set (reg:DF 96 [ _7 ])
+        (float:DF (reg:SI 95 [ _6 ]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":77:21 -1
+     (nil))
+(insn 31 30 32 5 (set (reg:DI 108)
+        (high:DI (symbol_ref:DI ("mat_b") [flags 0x2]  <var_decl 0x7fa2809ea0 mat_b>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":77:19 -1
+     (nil))
+(insn 32 31 33 5 (set (reg/f:DI 107)
+        (lo_sum:DI (reg:DI 108)
+            (symbol_ref:DI ("mat_b") [flags 0x2]  <var_decl 0x7fa2809ea0 mat_b>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":77:19 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mat_b") [flags 0x2]  <var_decl 0x7fa2809ea0 mat_b>)
+        (nil)))
+(insn 33 32 34 5 (set (reg:DI 109)
+        (sign_extend:DI (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                    (const_int -4 [0xfffffffffffffffc])) [2 j+0 S4 A32]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":77:19 -1
+     (nil))
+(insn 34 33 35 5 (set (reg:DI 110)
+        (sign_extend:DI (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                    (const_int -8 [0xfffffffffffffff8])) [2 i+0 S4 A32]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":77:19 -1
+     (nil))
+(insn 35 34 36 5 (set (reg:DI 111)
+        (ashift:DI (reg:DI 110)
+            (const_int 6 [0x6]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":77:19 -1
+     (nil))
+(insn 36 35 37 5 (set (reg:DI 112)
+        (plus:DI (reg:DI 111)
+            (reg:DI 109))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":77:19 -1
+     (nil))
+(insn 37 36 38 5 (set (mem:DF (plus:DI (mult:DI (reg:DI 112)
+                    (const_int 8 [0x8]))
+                (reg/f:DI 107)) [1 mat_b S8 A64])
+        (reg:DF 96 [ _7 ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":77:19 -1
+     (nil))
+(insn 38 37 39 5 (set (reg:DI 114)
+        (high:DI (symbol_ref:DI ("mat_c") [flags 0x2]  <var_decl 0x7fa2809f30 mat_c>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":78:19 -1
+     (nil))
+(insn 39 38 40 5 (set (reg/f:DI 113)
+        (lo_sum:DI (reg:DI 114)
+            (symbol_ref:DI ("mat_c") [flags 0x2]  <var_decl 0x7fa2809f30 mat_c>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":78:19 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mat_c") [flags 0x2]  <var_decl 0x7fa2809f30 mat_c>)
+        (nil)))
+(insn 40 39 41 5 (set (reg:DI 115)
+        (sign_extend:DI (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                    (const_int -4 [0xfffffffffffffffc])) [2 j+0 S4 A32]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":78:19 -1
+     (nil))
+(insn 41 40 42 5 (set (reg:DI 116)
+        (sign_extend:DI (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                    (const_int -8 [0xfffffffffffffff8])) [2 i+0 S4 A32]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":78:19 -1
+     (nil))
+(insn 42 41 43 5 (set (reg:DI 117)
+        (ashift:DI (reg:DI 116)
+            (const_int 6 [0x6]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":78:19 -1
+     (nil))
+(insn 43 42 44 5 (set (reg:DI 118)
+        (plus:DI (reg:DI 117)
+            (reg:DI 115))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":78:19 -1
+     (nil))
+(insn 44 43 45 5 (set (mem:DF (plus:DI (mult:DI (reg:DI 118)
+                    (const_int 8 [0x8]))
+                (reg/f:DI 113)) [1 mat_c S8 A64])
+        (const_double:DF 0.0 [0x0.0p+0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":78:19 -1
+     (nil))
+(insn 45 44 46 5 (set (reg:SI 120)
+        (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [2 j+0 S4 A32])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":74:32 -1
+     (nil))
+(insn 46 45 47 5 (set (reg:SI 119)
+        (plus:SI (reg:SI 120)
+            (const_int 1 [0x1]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":74:32 -1
+     (nil))
+(insn 47 46 48 5 (set (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [2 j+0 S4 A32])
+        (reg:SI 119)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":74:32 -1
+     (nil))
+(code_label 48 47 49 6 3 (nil) [1 uses])
+(note 49 48 53 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
+(insn 53 49 54 6 (set (reg:SI 121)
+        (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -4 [0xfffffffffffffffc])) [2 j+0 S4 A32])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":74:5 -1
+     (nil))
+(insn 54 53 55 6 (set (reg:CC 66 cc)
+        (compare:CC (reg:SI 121)
+            (const_int 63 [0x3f]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":74:5 -1
+     (nil))
+(jump_insn 55 54 56 6 (set (pc)
+        (if_then_else (le (reg:CC 66 cc)
+                (const_int 0 [0]))
+            (label_ref 50)
+            (pc))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":74:5 -1
+     (nil)
+ -> 50)
+(note 56 55 57 7 [bb 7] NOTE_INSN_BASIC_BLOCK)
+(insn 57 56 58 7 (set (reg:SI 123)
+        (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 i+0 S4 A32])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":72:30 -1
+     (nil))
+(insn 58 57 59 7 (set (reg:SI 122)
+        (plus:SI (reg:SI 123)
+            (const_int 1 [0x1]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":72:30 -1
+     (nil))
+(insn 59 58 60 7 (set (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 i+0 S4 A32])
+        (reg:SI 122)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":72:30 -1
+     (nil))
+(code_label 60 59 61 8 2 (nil) [1 uses])
+(note 61 60 65 8 [bb 8] NOTE_INSN_BASIC_BLOCK)
+(insn 65 61 66 8 (set (reg:SI 124)
+        (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [2 i+0 S4 A32])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":72:3 -1
+     (nil))
+(insn 66 65 67 8 (set (reg:CC 66 cc)
+        (compare:CC (reg:SI 124)
+            (const_int 63 [0x3f]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":72:3 -1
+     (nil))
+(jump_insn 67 66 68 8 (set (pc)
+        (if_then_else (le (reg:CC 66 cc)
+                (const_int 0 [0]))
+            (label_ref 62)
+            (pc))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":72:3 -1
+     (nil)
+ -> 62)
+(note 68 67 0 9 [bb 9] NOTE_INSN_BASIC_BLOCK)
+
+;; Function busy_wait_seconds (busy_wait_seconds, funcdef_no=7, decl_uid=5543, cgraph_uid=8, symbol_order=11)
+
+Partition 4: size 8 align 8
+	acc_27
+Partition 3: size 8 align 8
+	z_25
+Partition 2: size 8 align 8
+	y_23
+Partition 1: size 8 align 8
+	x_21
+Partition 6: size 4 align 4
+	i_30
+Partition 5: size 4 align 4
+	r_29
+Partition 0: size 4 align 4
+	repeat_count_20
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+;; Generating RTL for gimple basic block 4
+
+;; Generating RTL for gimple basic block 5
+
+;; Generating RTL for gimple basic block 6
+
+;; Generating RTL for gimple basic block 7
+
+;; Generating RTL for gimple basic block 8
+
+;; Generating RTL for gimple basic block 9
+
+;; Generating RTL for gimple basic block 10
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 12 into block 11...
+Merged blocks 11 and 12.
+Merged 11 and 12 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -56 [0xffffffffffffffc8])) [1 seconds+0 S8 A64])
+        (reg:DF 32 v0 [ seconds ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":84:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DF 109)
+        (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -56 [0xffffffffffffffc8])) [1 seconds+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":85:36 -1
+     (nil))
+(insn 7 6 8 2 (set (reg:DF 110)
+        (const_double:DF 1.0e+2 [0x0.c8p+7])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":85:36 -1
+     (nil))
+(insn 8 7 9 2 (set (reg:DF 90 [ _1 ])
+        (mult:DF (reg:DF 109)
+            (reg:DF 110))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":85:36 -1
+     (nil))
+(insn 9 8 10 2 (set (reg:DF 111)
+        (const_double:DF 5.0e-1 [0x0.8p+0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":85:49 -1
+     (nil))
+(insn 10 9 11 2 (set (reg:DF 91 [ _2 ])
+        (plus:DF (reg:DF 90 [ _1 ])
+            (reg:DF 111))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":85:49 -1
+     (nil))
+(insn 11 10 12 2 (set (reg:SI 112)
+        (fix:SI (reg:DF 91 [ _2 ]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":85:7 -1
+     (nil))
+(insn 12 11 15 2 (set (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -44 [0xffffffffffffffd4])) [2 repeat_count+0 S4 A32])
+        (reg:SI 112)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":85:7 -1
+     (nil))
+(insn 15 12 16 2 (set (reg:SI 113)
+        (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -44 [0xffffffffffffffd4])) [2 repeat_count+0 S4 A32])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":86:6 -1
+     (nil))
+(insn 16 15 17 2 (set (reg:CC 66 cc)
+        (compare:CC (reg:SI 113)
+            (const_int 0 [0]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":86:6 -1
+     (nil))
+(jump_insn 17 16 18 2 (set (pc)
+        (if_then_else (gt (reg:CC 66 cc)
+                (const_int 0 [0]))
+            (label_ref 21)
+            (pc))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":86:6 -1
+     (nil)
+ -> 21)
+(note 18 17 19 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
+(insn 19 18 20 4 (set (reg:SI 114)
+        (const_int 1 [0x1])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":87:18 -1
+     (nil))
+(insn 20 19 21 4 (set (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -44 [0xffffffffffffffd4])) [2 repeat_count+0 S4 A32])
+        (reg:SI 114)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":87:18 -1
+     (nil))
+(code_label 21 20 22 5 7 (nil) [1 uses])
+(note 22 21 23 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
+(insn 23 22 24 5 (set (reg:DF 115)
+        (const_double:DF 1.0000009999999999177333620536956004798412322998046875e+0 [0x0.800008637bd058p+1])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":89:10 -1
+     (nil))
+(insn 24 23 25 5 (set (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -32 [0xffffffffffffffe0])) [1 x+0 S8 A64])
+        (reg:DF 115)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":89:10 -1
+     (nil))
+(insn 25 24 26 5 (set (reg:DF 116)
+        (const_double:DF 9.9999899999999997124433548378874547779560089111328125e-1 [0x0.ffffef39085f48p+0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":90:10 -1
+     (nil))
+(insn 26 25 27 5 (set (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -24 [0xffffffffffffffe8])) [1 y+0 S8 A64])
+        (reg:DF 116)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":90:10 -1
+     (nil))
+(insn 27 26 28 5 (set (reg:DF 117)
+        (const_double:DF 1.000000299999999953115548123605549335479736328125e+0 [0x0.800002843ebe8p+1])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":91:10 -1
+     (nil))
+(insn 28 27 29 5 (set (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [1 z+0 S8 A64])
+        (reg:DF 117)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":91:10 -1
+     (nil))
+(insn 29 28 30 5 (set (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [1 acc+0 S8 A64])
+        (const_double:DF 0.0 [0x0.0p+0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":92:10 -1
+     (nil))
+(insn 30 29 31 5 (set (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -40 [0xffffffffffffffd8])) [2 r+0 S4 A32])
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":94:12 -1
+     (nil))
+(jump_insn 31 30 32 5 (set (pc)
+        (label_ref 97)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":94:3 -1
+     (nil)
+ -> 97)
+(barrier 32 31 99)
+(code_label 99 32 33 6 11 (nil) [1 uses])
+(note 33 99 34 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
+(insn 34 33 35 6 (set (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -36 [0xffffffffffffffdc])) [2 i+0 S4 A32])
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":96:14 -1
+     (nil))
+(jump_insn 35 34 36 6 (set (pc)
+        (label_ref 85)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":96:5 -1
+     (nil)
+ -> 85)
+(barrier 36 35 87)
+(code_label 87 36 37 7 10 (nil) [1 uses])
+(note 37 87 38 7 [bb 7] NOTE_INSN_BASIC_BLOCK)
+(insn 38 37 39 7 (set (reg:DF 118)
+        (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -32 [0xffffffffffffffe0])) [1 x+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":98:13 -1
+     (nil))
+(insn 39 38 40 7 (set (reg:DF 119)
+        (const_double:DF 1.0000001000000000583867176828789524734020233154296875e+0 [0x0.800000d6bf94d8p+1])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":98:13 -1
+     (nil))
+(insn 40 39 41 7 (set (reg:DF 92 [ _3 ])
+        (mult:DF (reg:DF 118)
+            (reg:DF 119))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":98:13 -1
+     (nil))
+(insn 41 40 42 7 (set (reg:DF 120)
+        (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -24 [0xffffffffffffffe8])) [1 y+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":98:29 -1
+     (nil))
+(insn 42 41 43 7 (set (reg:DF 121)
+        (const_double:DF 9.9999990000000005263558477963670156896114349365234375e-1 [0x0.fffffe5280d658p+0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":98:29 -1
+     (nil))
+(insn 43 42 44 7 (set (reg:DF 93 [ _4 ])
+        (mult:DF (reg:DF 120)
+            (reg:DF 121))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":98:29 -1
+     (nil))
+(insn 44 43 45 7 (set (reg:DF 94 [ _5 ])
+        (plus:DF (reg:DF 92 [ _3 ])
+            (reg:DF 93 [ _4 ]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":98:25 -1
+     (nil))
+(insn 45 44 46 7 (set (reg:DF 122)
+        (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [1 z+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":98:45 -1
+     (nil))
+(insn 46 45 47 7 (set (reg:DF 123)
+        (const_double:DF 9.9999999999999995474811182588625868561393872369080782e-8 [0x0.d6bf94d5e57a4p-23])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":98:45 -1
+     (nil))
+(insn 47 46 48 7 (set (reg:DF 95 [ _6 ])
+        (mult:DF (reg:DF 122)
+            (reg:DF 123))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":98:45 -1
+     (nil))
+(insn 48 47 49 7 (set (reg:DF 124)
+        (plus:DF (reg:DF 94 [ _5 ])
+            (reg:DF 95 [ _6 ]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":98:9 -1
+     (nil))
+(insn 49 48 50 7 (set (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -32 [0xffffffffffffffe0])) [1 x+0 S8 A64])
+        (reg:DF 124)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":98:9 -1
+     (nil))
+(insn 50 49 51 7 (set (reg:DF 125)
+        (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -24 [0xffffffffffffffe8])) [1 y+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":99:13 -1
+     (nil))
+(insn 51 50 52 7 (set (reg:DF 126)
+        (const_double:DF 1.0000001999999998947288304407265968620777130126953125e+0 [0x0.800001ad7f29a8p+1])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":99:13 -1
+     (nil))
+(insn 52 51 53 7 (set (reg:DF 96 [ _7 ])
+        (mult:DF (reg:DF 125)
+            (reg:DF 126))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":99:13 -1
+     (nil))
+(insn 53 52 54 7 (set (reg:DF 127)
+        (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [1 z+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":99:29 -1
+     (nil))
+(insn 54 53 55 7 (set (reg:DF 128)
+        (const_double:DF 9.9999979999999999424886709675774909555912017822265625e-1 [0x0.fffffca501aca8p+0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":99:29 -1
+     (nil))
+(insn 55 54 56 7 (set (reg:DF 97 [ _8 ])
+        (mult:DF (reg:DF 127)
+            (reg:DF 128))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":99:29 -1
+     (nil))
+(insn 56 55 57 7 (set (reg:DF 98 [ _9 ])
+        (plus:DF (reg:DF 96 [ _7 ])
+            (reg:DF 97 [ _8 ]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":99:25 -1
+     (nil))
+(insn 57 56 58 7 (set (reg:DF 129)
+        (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -32 [0xffffffffffffffe0])) [1 x+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":99:45 -1
+     (nil))
+(insn 58 57 59 7 (set (reg:DF 130)
+        (const_double:DF 1.9999999999999999094962236517725173712278774473816156e-7 [0x0.d6bf94d5e57a4p-22])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":99:45 -1
+     (nil))
+(insn 59 58 60 7 (set (reg:DF 99 [ _10 ])
+        (mult:DF (reg:DF 129)
+            (reg:DF 130))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":99:45 -1
+     (nil))
+(insn 60 59 61 7 (set (reg:DF 131)
+        (plus:DF (reg:DF 98 [ _9 ])
+            (reg:DF 99 [ _10 ]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":99:9 -1
+     (nil))
+(insn 61 60 62 7 (set (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -24 [0xffffffffffffffe8])) [1 y+0 S8 A64])
+        (reg:DF 131)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":99:9 -1
+     (nil))
+(insn 62 61 63 7 (set (reg:DF 132)
+        (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [1 z+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":100:13 -1
+     (nil))
+(insn 63 62 64 7 (set (reg:DF 133)
+        (const_double:DF 1.000000299999999953115548123605549335479736328125e+0 [0x0.800002843ebe8p+1])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":100:13 -1
+     (nil))
+(insn 64 63 65 7 (set (reg:DF 100 [ _11 ])
+        (mult:DF (reg:DF 132)
+            (reg:DF 133))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":100:13 -1
+     (nil))
+(insn 65 64 66 7 (set (reg:DF 134)
+        (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -32 [0xffffffffffffffe0])) [1 x+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":100:29 -1
+     (nil))
+(insn 66 65 67 7 (set (reg:DF 135)
+        (const_double:DF 9.99999700000000046884451876394450664520263671875e-1 [0x0.fffffaf78283p+0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":100:29 -1
+     (nil))
+(insn 67 66 68 7 (set (reg:DF 101 [ _12 ])
+        (mult:DF (reg:DF 134)
+            (reg:DF 135))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":100:29 -1
+     (nil))
+(insn 68 67 69 7 (set (reg:DF 102 [ _13 ])
+        (plus:DF (reg:DF 100 [ _11 ])
+            (reg:DF 101 [ _12 ]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":100:25 -1
+     (nil))
+(insn 69 68 70 7 (set (reg:DF 136)
+        (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -24 [0xffffffffffffffe8])) [1 y+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":100:45 -1
+     (nil))
+(insn 70 69 71 7 (set (reg:DF 137)
+        (const_double:DF 2.9999999999999998642443354776587760568418161710724235e-7 [0x0.a10fafa06c1bbp-21])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":100:45 -1
+     (nil))
+(insn 71 70 72 7 (set (reg:DF 103 [ _14 ])
+        (mult:DF (reg:DF 136)
+            (reg:DF 137))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":100:45 -1
+     (nil))
+(insn 72 71 73 7 (set (reg:DF 138)
+        (plus:DF (reg:DF 102 [ _13 ])
+            (reg:DF 103 [ _14 ]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":100:9 -1
+     (nil))
+(insn 73 72 74 7 (set (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [1 z+0 S8 A64])
+        (reg:DF 138)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":100:9 -1
+     (nil))
+(insn 74 73 75 7 (set (reg:DF 139)
+        (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -32 [0xffffffffffffffe0])) [1 x+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":101:16 -1
+     (nil))
+(insn 75 74 76 7 (set (reg:DF 140)
+        (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -24 [0xffffffffffffffe8])) [1 y+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":101:16 -1
+     (nil))
+(insn 76 75 77 7 (set (reg:DF 104 [ _15 ])
+        (mult:DF (reg:DF 139)
+            (reg:DF 140))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":101:16 -1
+     (nil))
+(insn 77 76 78 7 (set (reg:DF 141)
+        (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -16 [0xfffffffffffffff0])) [1 z+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":101:20 -1
+     (nil))
+(insn 78 77 79 7 (set (reg:DF 105 [ _16 ])
+        (plus:DF (reg:DF 104 [ _15 ])
+            (reg:DF 141))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":101:20 -1
+     (nil))
+(insn 79 78 80 7 (set (reg:DF 143)
+        (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [1 acc+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":101:11 -1
+     (nil))
+(insn 80 79 81 7 (set (reg:DF 142)
+        (plus:DF (reg:DF 143)
+            (reg:DF 105 [ _16 ]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":101:11 -1
+     (nil))
+(insn 81 80 82 7 (set (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [1 acc+0 S8 A64])
+        (reg:DF 142)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":101:11 -1
+     (nil))
+(insn 82 81 83 7 (set (reg:SI 145)
+        (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -36 [0xffffffffffffffdc])) [2 i+0 S4 A32])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":96:30 -1
+     (nil))
+(insn 83 82 84 7 (set (reg:SI 144)
+        (plus:SI (reg:SI 145)
+            (const_int 1 [0x1]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":96:30 -1
+     (nil))
+(insn 84 83 85 7 (set (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -36 [0xffffffffffffffdc])) [2 i+0 S4 A32])
+        (reg:SI 144)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":96:30 -1
+     (nil))
+(code_label 85 84 86 8 9 (nil) [1 uses])
+(note 86 85 90 8 [bb 8] NOTE_INSN_BASIC_BLOCK)
+(insn 90 86 91 8 (set (reg:SI 146)
+        (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -36 [0xffffffffffffffdc])) [2 i+0 S4 A32])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":96:5 -1
+     (nil))
+(insn 91 90 92 8 (set (reg:CC 66 cc)
+        (compare:CC (reg:SI 146)
+            (const_int 511 [0x1ff]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":96:5 -1
+     (nil))
+(jump_insn 92 91 93 8 (set (pc)
+        (if_then_else (le (reg:CC 66 cc)
+                (const_int 0 [0]))
+            (label_ref 87)
+            (pc))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":96:5 -1
+     (nil)
+ -> 87)
+(note 93 92 94 9 [bb 9] NOTE_INSN_BASIC_BLOCK)
+(insn 94 93 95 9 (set (reg:SI 148)
+        (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -40 [0xffffffffffffffd8])) [2 r+0 S4 A32])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":94:37 -1
+     (nil))
+(insn 95 94 96 9 (set (reg:SI 147)
+        (plus:SI (reg:SI 148)
+            (const_int 1 [0x1]))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":94:37 -1
+     (nil))
+(insn 96 95 97 9 (set (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -40 [0xffffffffffffffd8])) [2 r+0 S4 A32])
+        (reg:SI 147)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":94:37 -1
+     (nil))
+(code_label 97 96 98 10 8 (nil) [1 uses])
+(note 98 97 100 10 [bb 10] NOTE_INSN_BASIC_BLOCK)
+(insn 100 98 101 10 (set (reg:SI 149)
+        (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -40 [0xffffffffffffffd8])) [2 r+0 S4 A32])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":94:3 -1
+     (nil))
+(insn 101 100 102 10 (set (reg:SI 150)
+        (mem/c:SI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -44 [0xffffffffffffffd4])) [2 repeat_count+0 S4 A32])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":94:3 -1
+     (nil))
+(insn 102 101 103 10 (set (reg:CC 66 cc)
+        (compare:CC (reg:SI 149)
+            (reg:SI 150))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":94:3 -1
+     (nil))
+(jump_insn 103 102 104 10 (set (pc)
+        (if_then_else (lt (reg:CC 66 cc)
+                (const_int 0 [0]))
+            (label_ref 99)
+            (pc))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":94:3 -1
+     (nil)
+ -> 99)
+(note 104 103 105 11 [bb 11] NOTE_INSN_BASIC_BLOCK)
+(insn 105 104 106 11 (set (reg:DI 152)
+        (high:DI (symbol_ref:DI ("g_busy_sink") [flags 0x2]  <var_decl 0x7fa15fc000 g_busy_sink>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":105:15 -1
+     (nil))
+(insn 106 105 107 11 (set (reg/f:DI 151)
+        (lo_sum:DI (reg:DI 152)
+            (symbol_ref:DI ("g_busy_sink") [flags 0x2]  <var_decl 0x7fa15fc000 g_busy_sink>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":105:15 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("g_busy_sink") [flags 0x2]  <var_decl 0x7fa15fc000 g_busy_sink>)
+        (nil)))
+(insn 107 106 108 11 (set (reg:DF 106 [ g_busy_sink.0_17 ])
+        (mem/v/c:DF (reg/f:DI 151) [1 g_busy_sink+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":105:15 -1
+     (nil))
+(insn 108 107 109 11 (set (reg:DF 153)
+        (mem/c:DF (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [1 acc+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":105:15 -1
+     (nil))
+(insn 109 108 110 11 (set (reg:DF 107 [ _18 ])
+        (plus:DF (reg:DF 106 [ g_busy_sink.0_17 ])
+            (reg:DF 153))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":105:15 -1
+     (nil))
+(insn 110 109 111 11 (set (reg:DI 155)
+        (high:DI (symbol_ref:DI ("g_busy_sink") [flags 0x2]  <var_decl 0x7fa15fc000 g_busy_sink>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":105:15 -1
+     (nil))
+(insn 111 110 112 11 (set (reg/f:DI 154)
+        (lo_sum:DI (reg:DI 155)
+            (symbol_ref:DI ("g_busy_sink") [flags 0x2]  <var_decl 0x7fa15fc000 g_busy_sink>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":105:15 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("g_busy_sink") [flags 0x2]  <var_decl 0x7fa15fc000 g_busy_sink>)
+        (nil)))
+(insn 112 111 113 11 (set (mem/v/c:DF (reg/f:DI 154) [1 g_busy_sink+0 S8 A64])
+        (reg:DF 107 [ _18 ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":105:15 -1
+     (nil))
+(insn 113 112 114 11 (set (reg:DI 157)
+        (high:DI (symbol_ref:DI ("g_busy_sink") [flags 0x2]  <var_decl 0x7fa15fc000 g_busy_sink>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":106:15 -1
+     (nil))
+(insn 114 113 115 11 (set (reg/f:DI 156)
+        (lo_sum:DI (reg:DI 157)
+            (symbol_ref:DI ("g_busy_sink") [flags 0x2]  <var_decl 0x7fa15fc000 g_busy_sink>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":106:15 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("g_busy_sink") [flags 0x2]  <var_decl 0x7fa15fc000 g_busy_sink>)
+        (nil)))
+(insn 115 114 116 11 (set (reg:DF 108 [ g_busy_sink.1_19 ])
+        (mem/v/c:DF (reg/f:DI 156) [1 g_busy_sink+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":106:15 -1
+     (nil))
+(insn 116 115 117 11 (set (reg:DI 159)
+        (high:DI (symbol_ref:DI ("mat_c") [flags 0x2]  <var_decl 0x7fa2809f30 mat_c>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":106:15 -1
+     (nil))
+(insn 117 116 118 11 (set (reg/f:DI 158)
+        (lo_sum:DI (reg:DI 159)
+            (symbol_ref:DI ("mat_c") [flags 0x2]  <var_decl 0x7fa2809f30 mat_c>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":106:15 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mat_c") [flags 0x2]  <var_decl 0x7fa2809f30 mat_c>)
+        (nil)))
+(insn 118 117 0 11 (set (mem/c:DF (reg/f:DI 158) [1 mat_c+0 S8 A64])
+        (reg:DF 108 [ g_busy_sink.1_19 ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":106:15 -1
+     (nil))
+
+;; Function critical_fn (critical_fn, funcdef_no=8, decl_uid=5518, cgraph_uid=9, symbol_order=24)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 18.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [8 arg+0 S8 A64])
+        (reg:DI 0 x0 [ arg ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":122:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DI 92)
+        (high:DI (symbol_ref:DI ("mutex_02") [flags 0x2]  <var_decl 0x7fa15fc6c0 mutex_02>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":123:3 -1
+     (nil))
+(insn 7 6 8 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 92)
+            (symbol_ref:DI ("mutex_02") [flags 0x2]  <var_decl 0x7fa15fc6c0 mutex_02>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":123:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_02") [flags 0x2]  <var_decl 0x7fa15fc6c0 mutex_02>)
+        (nil)))
+(call_insn 8 7 9 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7fa1538e00 pthread_mutex_lock>) [0 pthread_mutex_lock S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":123:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (nil)))))
+(insn 9 8 10 2 (set (reg:DF 32 v0)
+        (const_double:DF 8.0e+2 [0x0.c8p+10])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":124:3 -1
+     (nil))
+(call_insn 10 9 11 2 (parallel [
+            (call (mem:DI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7fa15f9300 busy_wait_seconds>) [0 busy_wait_seconds S8 A8])
+                (const_int 0 [0]))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":124:3 -1
+     (nil)
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DF (use (reg:DF 32 v0))
+                (nil)))))
+(insn 11 10 12 2 (set (reg:DI 93)
+        (high:DI (symbol_ref:DI ("mutex_02") [flags 0x2]  <var_decl 0x7fa15fc6c0 mutex_02>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":125:3 -1
+     (nil))
+(insn 12 11 13 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 93)
+            (symbol_ref:DI ("mutex_02") [flags 0x2]  <var_decl 0x7fa15fc6c0 mutex_02>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":125:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_02") [flags 0x2]  <var_decl 0x7fa15fc6c0 mutex_02>)
+        (nil)))
+(call_insn 13 12 14 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7fa1542100 pthread_mutex_unlock>) [0 pthread_mutex_unlock S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":125:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (nil)))))
+(insn 14 13 17 2 (set (reg/f:DI 90 [ _5 ])
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":126:10 -1
+     (nil))
+(insn 17 14 21 2 (set (reg/f:DI 91 [ <retval> ])
+        (reg/f:DI 90 [ _5 ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":126:10 -1
+     (nil))
+(insn 21 17 22 2 (set (reg/i:DI 0 x0)
+        (reg/f:DI 91 [ <retval> ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":127:1 -1
+     (nil))
+(insn 22 21 0 2 (use (reg/i:DI 0 x0)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":127:1 -1
+     (nil))
+
+;; Function filler_a (filler_a, funcdef_no=9, decl_uid=5520, cgraph_uid=10, symbol_order=25)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 18.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [8 arg+0 S8 A64])
+        (reg:DI 0 x0 [ arg ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":131:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DI 92)
+        (high:DI (symbol_ref:DI ("mutex_03") [flags 0x2]  <var_decl 0x7fa15fc7e0 mutex_03>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":132:3 -1
+     (nil))
+(insn 7 6 8 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 92)
+            (symbol_ref:DI ("mutex_03") [flags 0x2]  <var_decl 0x7fa15fc7e0 mutex_03>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":132:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_03") [flags 0x2]  <var_decl 0x7fa15fc7e0 mutex_03>)
+        (nil)))
+(call_insn 8 7 9 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7fa1538e00 pthread_mutex_lock>) [0 pthread_mutex_lock S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":132:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (nil)))))
+(insn 9 8 10 2 (set (reg:DF 32 v0)
+        (const_double:DF 2.5e+2 [0x0.fap+8])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":133:3 -1
+     (nil))
+(call_insn 10 9 11 2 (parallel [
+            (call (mem:DI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7fa15f9300 busy_wait_seconds>) [0 busy_wait_seconds S8 A8])
+                (const_int 0 [0]))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":133:3 -1
+     (nil)
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DF (use (reg:DF 32 v0))
+                (nil)))))
+(insn 11 10 12 2 (set (reg:DI 93)
+        (high:DI (symbol_ref:DI ("mutex_03") [flags 0x2]  <var_decl 0x7fa15fc7e0 mutex_03>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":134:3 -1
+     (nil))
+(insn 12 11 13 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 93)
+            (symbol_ref:DI ("mutex_03") [flags 0x2]  <var_decl 0x7fa15fc7e0 mutex_03>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":134:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_03") [flags 0x2]  <var_decl 0x7fa15fc7e0 mutex_03>)
+        (nil)))
+(call_insn 13 12 14 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7fa1542100 pthread_mutex_unlock>) [0 pthread_mutex_unlock S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":134:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (nil)))))
+(insn 14 13 17 2 (set (reg/f:DI 90 [ _5 ])
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":135:10 -1
+     (nil))
+(insn 17 14 21 2 (set (reg/f:DI 91 [ <retval> ])
+        (reg/f:DI 90 [ _5 ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":135:10 -1
+     (nil))
+(insn 21 17 22 2 (set (reg/i:DI 0 x0)
+        (reg/f:DI 91 [ <retval> ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":136:1 -1
+     (nil))
+(insn 22 21 0 2 (use (reg/i:DI 0 x0)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":136:1 -1
+     (nil))
+
+;; Function filler_b (filler_b, funcdef_no=10, decl_uid=5522, cgraph_uid=11, symbol_order=26)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 18.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [8 arg+0 S8 A64])
+        (reg:DI 0 x0 [ arg ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":140:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DI 92)
+        (high:DI (symbol_ref:DI ("mutex_04") [flags 0x2]  <var_decl 0x7fa15fc900 mutex_04>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":141:3 -1
+     (nil))
+(insn 7 6 8 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 92)
+            (symbol_ref:DI ("mutex_04") [flags 0x2]  <var_decl 0x7fa15fc900 mutex_04>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":141:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_04") [flags 0x2]  <var_decl 0x7fa15fc900 mutex_04>)
+        (nil)))
+(call_insn 8 7 9 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7fa1538e00 pthread_mutex_lock>) [0 pthread_mutex_lock S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":141:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (nil)))))
+(insn 9 8 10 2 (set (reg:DF 32 v0)
+        (const_double:DF 2.5e+2 [0x0.fap+8])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":142:3 -1
+     (nil))
+(call_insn 10 9 11 2 (parallel [
+            (call (mem:DI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7fa15f9300 busy_wait_seconds>) [0 busy_wait_seconds S8 A8])
+                (const_int 0 [0]))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":142:3 -1
+     (nil)
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DF (use (reg:DF 32 v0))
+                (nil)))))
+(insn 11 10 12 2 (set (reg:DI 93)
+        (high:DI (symbol_ref:DI ("mutex_04") [flags 0x2]  <var_decl 0x7fa15fc900 mutex_04>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":143:3 -1
+     (nil))
+(insn 12 11 13 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 93)
+            (symbol_ref:DI ("mutex_04") [flags 0x2]  <var_decl 0x7fa15fc900 mutex_04>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":143:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_04") [flags 0x2]  <var_decl 0x7fa15fc900 mutex_04>)
+        (nil)))
+(call_insn 13 12 14 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7fa1542100 pthread_mutex_unlock>) [0 pthread_mutex_unlock S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":143:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (nil)))))
+(insn 14 13 17 2 (set (reg/f:DI 90 [ _5 ])
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":144:10 -1
+     (nil))
+(insn 17 14 21 2 (set (reg/f:DI 91 [ <retval> ])
+        (reg/f:DI 90 [ _5 ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":144:10 -1
+     (nil))
+(insn 21 17 22 2 (set (reg/i:DI 0 x0)
+        (reg/f:DI 91 [ <retval> ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":145:1 -1
+     (nil))
+(insn 22 21 0 2 (use (reg/i:DI 0 x0)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":145:1 -1
+     (nil))
+
+;; Function filler_c (filler_c, funcdef_no=11, decl_uid=5524, cgraph_uid=12, symbol_order=27)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 18.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [8 arg+0 S8 A64])
+        (reg:DI 0 x0 [ arg ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":149:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DI 92)
+        (high:DI (symbol_ref:DI ("mutex_05") [flags 0x2]  <var_decl 0x7fa15fca20 mutex_05>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":150:3 -1
+     (nil))
+(insn 7 6 8 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 92)
+            (symbol_ref:DI ("mutex_05") [flags 0x2]  <var_decl 0x7fa15fca20 mutex_05>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":150:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_05") [flags 0x2]  <var_decl 0x7fa15fca20 mutex_05>)
+        (nil)))
+(call_insn 8 7 9 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7fa1538e00 pthread_mutex_lock>) [0 pthread_mutex_lock S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":150:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (nil)))))
+(insn 9 8 10 2 (set (reg:DF 32 v0)
+        (const_double:DF 2.5e+2 [0x0.fap+8])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":151:3 -1
+     (nil))
+(call_insn 10 9 11 2 (parallel [
+            (call (mem:DI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7fa15f9300 busy_wait_seconds>) [0 busy_wait_seconds S8 A8])
+                (const_int 0 [0]))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":151:3 -1
+     (nil)
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DF (use (reg:DF 32 v0))
+                (nil)))))
+(insn 11 10 12 2 (set (reg:DI 93)
+        (high:DI (symbol_ref:DI ("mutex_05") [flags 0x2]  <var_decl 0x7fa15fca20 mutex_05>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":152:3 -1
+     (nil))
+(insn 12 11 13 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 93)
+            (symbol_ref:DI ("mutex_05") [flags 0x2]  <var_decl 0x7fa15fca20 mutex_05>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":152:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_05") [flags 0x2]  <var_decl 0x7fa15fca20 mutex_05>)
+        (nil)))
+(call_insn 13 12 14 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7fa1542100 pthread_mutex_unlock>) [0 pthread_mutex_unlock S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":152:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (nil)))))
+(insn 14 13 17 2 (set (reg/f:DI 90 [ _5 ])
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":153:10 -1
+     (nil))
+(insn 17 14 21 2 (set (reg/f:DI 91 [ <retval> ])
+        (reg/f:DI 90 [ _5 ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":153:10 -1
+     (nil))
+(insn 21 17 22 2 (set (reg/i:DI 0 x0)
+        (reg/f:DI 91 [ <retval> ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":154:1 -1
+     (nil))
+(insn 22 21 0 2 (use (reg/i:DI 0 x0)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":154:1 -1
+     (nil))
+
+;; Function filler_d (filler_d, funcdef_no=12, decl_uid=5526, cgraph_uid=13, symbol_order=28)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 18.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn 2 4 3 2 (set (mem/f/c:DI (plus:DI (reg/f:DI 85 virtual-stack-vars)
+                (const_int -8 [0xfffffffffffffff8])) [8 arg+0 S8 A64])
+        (reg:DI 0 x0 [ arg ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":158:1 -1
+     (nil))
+(note 3 2 6 2 NOTE_INSN_FUNCTION_BEG)
+(insn 6 3 7 2 (set (reg:DI 92)
+        (high:DI (symbol_ref:DI ("mutex_06") [flags 0x2]  <var_decl 0x7fa15fcb40 mutex_06>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":159:3 -1
+     (nil))
+(insn 7 6 8 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 92)
+            (symbol_ref:DI ("mutex_06") [flags 0x2]  <var_decl 0x7fa15fcb40 mutex_06>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":159:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_06") [flags 0x2]  <var_decl 0x7fa15fcb40 mutex_06>)
+        (nil)))
+(call_insn 8 7 9 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7fa1538e00 pthread_mutex_lock>) [0 pthread_mutex_lock S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":159:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (nil)))))
+(insn 9 8 10 2 (set (reg:DF 32 v0)
+        (const_double:DF 2.5e+2 [0x0.fap+8])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":160:3 -1
+     (nil))
+(call_insn 10 9 11 2 (parallel [
+            (call (mem:DI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7fa15f9300 busy_wait_seconds>) [0 busy_wait_seconds S8 A8])
+                (const_int 0 [0]))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":160:3 -1
+     (nil)
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DF (use (reg:DF 32 v0))
+                (nil)))))
+(insn 11 10 12 2 (set (reg:DI 93)
+        (high:DI (symbol_ref:DI ("mutex_06") [flags 0x2]  <var_decl 0x7fa15fcb40 mutex_06>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":161:3 -1
+     (nil))
+(insn 12 11 13 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 93)
+            (symbol_ref:DI ("mutex_06") [flags 0x2]  <var_decl 0x7fa15fcb40 mutex_06>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":161:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_06") [flags 0x2]  <var_decl 0x7fa15fcb40 mutex_06>)
+        (nil)))
+(call_insn 13 12 14 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7fa1542100 pthread_mutex_unlock>) [0 pthread_mutex_unlock S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":161:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (nil)))))
+(insn 14 13 17 2 (set (reg/f:DI 90 [ _5 ])
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":162:10 -1
+     (nil))
+(insn 17 14 21 2 (set (reg/f:DI 91 [ <retval> ])
+        (reg/f:DI 90 [ _5 ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":162:10 -1
+     (nil))
+(insn 21 17 22 2 (set (reg/i:DI 0 x0)
+        (reg/f:DI 91 [ <retval> ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":163:1 -1
+     (nil))
+(insn 22 21 0 2 (use (reg/i:DI 0 x0)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":163:1 -1
+     (nil))
+
+;; Function main (main, funcdef_no=13, decl_uid=5586, cgraph_uid=14, symbol_order=29)
+
+
+;; Generating RTL for gimple basic block 2
+
+;; Generating RTL for gimple basic block 3
+
+
+try_optimize_cfg iteration 1
+
+Merging block 3 into block 2...
+Merged blocks 2 and 3.
+Merged 2 and 3 without moving.
+Merging block 4 into block 2...
+Merged blocks 2 and 4.
+Merged 2 and 4 without moving.
+Removing jump 91.
+Merging block 5 into block 2...
+Merged blocks 2 and 5.
+Merged 2 and 5 without moving.
+
+
+try_optimize_cfg iteration 2
+
+
+
+;;
+;; Full RTL generated for this function:
+;;
+(note 1 0 3 NOTE_INSN_DELETED)
+(note 3 1 2 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(note 2 3 5 2 NOTE_INSN_FUNCTION_BEG)
+(insn 5 2 6 2 (set (reg:DI 97)
+        (high:DI (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x7fa15fc5a0 mutex_01>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":168:3 -1
+     (nil))
+(insn 6 5 7 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 97)
+            (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x7fa15fc5a0 mutex_01>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":168:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x7fa15fc5a0 mutex_01>)
+        (nil)))
+(call_insn 7 6 8 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7fa1538e00 pthread_mutex_lock>) [0 pthread_mutex_lock S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":168:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (nil)))))
+(call_insn 8 7 9 2 (parallel [
+            (call (mem:DI (symbol_ref:DI ("init_matrices") [flags 0x3]  <function_decl 0x7fa15f9200 init_matrices>) [0 init_matrices S8 A8])
+                (const_int 0 [0]))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":169:3 -1
+     (nil)
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (nil))))
+(insn 9 8 10 2 (set (reg:DF 32 v0)
+        (const_double:DF 1.0e+0 [0x0.8p+1])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":170:3 -1
+     (nil))
+(call_insn 10 9 11 2 (parallel [
+            (call (mem:DI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7fa15f9300 busy_wait_seconds>) [0 busy_wait_seconds S8 A8])
+                (const_int 0 [0]))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":170:3 -1
+     (nil)
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DF (use (reg:DF 32 v0))
+                (nil)))))
+(insn 11 10 12 2 (set (reg:DI 98)
+        (high:DI (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x7fa15fc5a0 mutex_01>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":171:3 -1
+     (nil))
+(insn 12 11 13 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 98)
+            (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x7fa15fc5a0 mutex_01>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":171:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_01") [flags 0x2]  <var_decl 0x7fa15fc5a0 mutex_01>)
+        (nil)))
+(call_insn 13 12 14 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7fa1542100 pthread_mutex_unlock>) [0 pthread_mutex_unlock S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":171:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (nil)))))
+(insn 14 13 15 2 (set (reg:DI 3 x3)
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":172:3 -1
+     (nil))
+(insn 15 14 16 2 (set (reg:DI 99)
+        (high:DI (symbol_ref:DI ("filler_a") [flags 0x3]  <function_decl 0x7fa15f3100 filler_a>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":172:3 -1
+     (nil))
+(insn 16 15 17 2 (set (reg:DI 2 x2)
+        (lo_sum:DI (reg:DI 99)
+            (symbol_ref:DI ("filler_a") [flags 0x3]  <function_decl 0x7fa15f3100 filler_a>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":172:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("filler_a") [flags 0x3]  <function_decl 0x7fa15f3100 filler_a>)
+        (nil)))
+(insn 17 16 18 2 (set (reg:DI 1 x1)
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":172:3 -1
+     (nil))
+(insn 18 17 19 2 (set (reg:DI 100)
+        (high:DI (symbol_ref:DI ("thread_fa") [flags 0x2]  <var_decl 0x7fa15fce10 thread_fa>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":172:3 -1
+     (nil))
+(insn 19 18 20 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 100)
+            (symbol_ref:DI ("thread_fa") [flags 0x2]  <var_decl 0x7fa15fce10 thread_fa>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":172:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("thread_fa") [flags 0x2]  <var_decl 0x7fa15fce10 thread_fa>)
+        (nil)))
+(call_insn 20 19 21 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7fa1526400 pthread_create>) [0 pthread_create S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":172:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (expr_list:DI (use (reg:DI 1 x1))
+                    (expr_list:DI (use (reg:DI 2 x2))
+                        (expr_list:DI (use (reg:DI 3 x3))
+                            (nil))))))))
+(insn 21 20 22 2 (set (reg:DI 3 x3)
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":173:3 -1
+     (nil))
+(insn 22 21 23 2 (set (reg:DI 101)
+        (high:DI (symbol_ref:DI ("filler_b") [flags 0x3]  <function_decl 0x7fa15f3300 filler_b>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":173:3 -1
+     (nil))
+(insn 23 22 24 2 (set (reg:DI 2 x2)
+        (lo_sum:DI (reg:DI 101)
+            (symbol_ref:DI ("filler_b") [flags 0x3]  <function_decl 0x7fa15f3300 filler_b>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":173:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("filler_b") [flags 0x3]  <function_decl 0x7fa15f3300 filler_b>)
+        (nil)))
+(insn 24 23 25 2 (set (reg:DI 1 x1)
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":173:3 -1
+     (nil))
+(insn 25 24 26 2 (set (reg:DI 102)
+        (high:DI (symbol_ref:DI ("thread_fb") [flags 0x2]  <var_decl 0x7fa15fcea0 thread_fb>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":173:3 -1
+     (nil))
+(insn 26 25 27 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 102)
+            (symbol_ref:DI ("thread_fb") [flags 0x2]  <var_decl 0x7fa15fcea0 thread_fb>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":173:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("thread_fb") [flags 0x2]  <var_decl 0x7fa15fcea0 thread_fb>)
+        (nil)))
+(call_insn 27 26 28 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7fa1526400 pthread_create>) [0 pthread_create S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":173:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (expr_list:DI (use (reg:DI 1 x1))
+                    (expr_list:DI (use (reg:DI 2 x2))
+                        (expr_list:DI (use (reg:DI 3 x3))
+                            (nil))))))))
+(insn 28 27 29 2 (set (reg:DI 3 x3)
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":174:3 -1
+     (nil))
+(insn 29 28 30 2 (set (reg:DI 103)
+        (high:DI (symbol_ref:DI ("filler_c") [flags 0x3]  <function_decl 0x7fa15f9000 filler_c>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":174:3 -1
+     (nil))
+(insn 30 29 31 2 (set (reg:DI 2 x2)
+        (lo_sum:DI (reg:DI 103)
+            (symbol_ref:DI ("filler_c") [flags 0x3]  <function_decl 0x7fa15f9000 filler_c>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":174:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("filler_c") [flags 0x3]  <function_decl 0x7fa15f9000 filler_c>)
+        (nil)))
+(insn 31 30 32 2 (set (reg:DI 1 x1)
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":174:3 -1
+     (nil))
+(insn 32 31 33 2 (set (reg:DI 104)
+        (high:DI (symbol_ref:DI ("thread_fc") [flags 0x2]  <var_decl 0x7fa15fcf30 thread_fc>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":174:3 -1
+     (nil))
+(insn 33 32 34 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 104)
+            (symbol_ref:DI ("thread_fc") [flags 0x2]  <var_decl 0x7fa15fcf30 thread_fc>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":174:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("thread_fc") [flags 0x2]  <var_decl 0x7fa15fcf30 thread_fc>)
+        (nil)))
+(call_insn 34 33 35 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7fa1526400 pthread_create>) [0 pthread_create S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":174:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (expr_list:DI (use (reg:DI 1 x1))
+                    (expr_list:DI (use (reg:DI 2 x2))
+                        (expr_list:DI (use (reg:DI 3 x3))
+                            (nil))))))))
+(insn 35 34 36 2 (set (reg:DI 3 x3)
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":175:3 -1
+     (nil))
+(insn 36 35 37 2 (set (reg:DI 105)
+        (high:DI (symbol_ref:DI ("filler_d") [flags 0x3]  <function_decl 0x7fa15f9100 filler_d>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":175:3 -1
+     (nil))
+(insn 37 36 38 2 (set (reg:DI 2 x2)
+        (lo_sum:DI (reg:DI 105)
+            (symbol_ref:DI ("filler_d") [flags 0x3]  <function_decl 0x7fa15f9100 filler_d>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":175:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("filler_d") [flags 0x3]  <function_decl 0x7fa15f9100 filler_d>)
+        (nil)))
+(insn 38 37 39 2 (set (reg:DI 1 x1)
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":175:3 -1
+     (nil))
+(insn 39 38 40 2 (set (reg:DI 106)
+        (high:DI (symbol_ref:DI ("thread_fd") [flags 0x2]  <var_decl 0x7fa1601000 thread_fd>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":175:3 -1
+     (nil))
+(insn 40 39 41 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 106)
+            (symbol_ref:DI ("thread_fd") [flags 0x2]  <var_decl 0x7fa1601000 thread_fd>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":175:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("thread_fd") [flags 0x2]  <var_decl 0x7fa1601000 thread_fd>)
+        (nil)))
+(call_insn 41 40 42 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7fa1526400 pthread_create>) [0 pthread_create S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":175:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (expr_list:DI (use (reg:DI 1 x1))
+                    (expr_list:DI (use (reg:DI 2 x2))
+                        (expr_list:DI (use (reg:DI 3 x3))
+                            (nil))))))))
+(insn 42 41 43 2 (set (reg:DI 3 x3)
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":176:3 -1
+     (nil))
+(insn 43 42 44 2 (set (reg:DI 107)
+        (high:DI (symbol_ref:DI ("critical_fn") [flags 0x3]  <function_decl 0x7fa15f3900 critical_fn>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":176:3 -1
+     (nil))
+(insn 44 43 45 2 (set (reg:DI 2 x2)
+        (lo_sum:DI (reg:DI 107)
+            (symbol_ref:DI ("critical_fn") [flags 0x3]  <function_decl 0x7fa15f3900 critical_fn>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":176:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("critical_fn") [flags 0x3]  <function_decl 0x7fa15f3900 critical_fn>)
+        (nil)))
+(insn 45 44 46 2 (set (reg:DI 1 x1)
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":176:3 -1
+     (nil))
+(insn 46 45 47 2 (set (reg:DI 108)
+        (high:DI (symbol_ref:DI ("thread_crit") [flags 0x2]  <var_decl 0x7fa15fcd80 thread_crit>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":176:3 -1
+     (nil))
+(insn 47 46 48 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 108)
+            (symbol_ref:DI ("thread_crit") [flags 0x2]  <var_decl 0x7fa15fcd80 thread_crit>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":176:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("thread_crit") [flags 0x2]  <var_decl 0x7fa15fcd80 thread_crit>)
+        (nil)))
+(call_insn 48 47 49 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_create") [flags 0x41]  <function_decl 0x7fa1526400 pthread_create>) [0 pthread_create S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":176:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (expr_list:DI (use (reg:DI 1 x1))
+                    (expr_list:DI (use (reg:DI 2 x2))
+                        (expr_list:DI (use (reg:DI 3 x3))
+                            (nil))))))))
+(insn 49 48 50 2 (set (reg:DI 110)
+        (high:DI (symbol_ref:DI ("thread_crit") [flags 0x2]  <var_decl 0x7fa15fcd80 thread_crit>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":177:3 -1
+     (nil))
+(insn 50 49 51 2 (set (reg/f:DI 109)
+        (lo_sum:DI (reg:DI 110)
+            (symbol_ref:DI ("thread_crit") [flags 0x2]  <var_decl 0x7fa15fcd80 thread_crit>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":177:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("thread_crit") [flags 0x2]  <var_decl 0x7fa15fcd80 thread_crit>)
+        (nil)))
+(insn 51 50 52 2 (set (reg:DI 90 [ thread_crit.2_1 ])
+        (mem/c:DI (reg/f:DI 109) [7 thread_crit+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":177:3 -1
+     (nil))
+(insn 52 51 53 2 (set (reg:DI 1 x1)
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":177:3 -1
+     (nil))
+(insn 53 52 54 2 (set (reg:DI 0 x0)
+        (reg:DI 90 [ thread_crit.2_1 ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":177:3 -1
+     (nil))
+(call_insn 54 53 55 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7fa1526600 pthread_join>) [0 pthread_join S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":177:3 -1
+     (nil)
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (expr_list:DI (use (reg:DI 1 x1))
+                    (nil))))))
+(insn 55 54 56 2 (set (reg:DI 112)
+        (high:DI (symbol_ref:DI ("thread_fa") [flags 0x2]  <var_decl 0x7fa15fce10 thread_fa>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":178:3 -1
+     (nil))
+(insn 56 55 57 2 (set (reg/f:DI 111)
+        (lo_sum:DI (reg:DI 112)
+            (symbol_ref:DI ("thread_fa") [flags 0x2]  <var_decl 0x7fa15fce10 thread_fa>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":178:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("thread_fa") [flags 0x2]  <var_decl 0x7fa15fce10 thread_fa>)
+        (nil)))
+(insn 57 56 58 2 (set (reg:DI 91 [ thread_fa.3_2 ])
+        (mem/c:DI (reg/f:DI 111) [7 thread_fa+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":178:3 -1
+     (nil))
+(insn 58 57 59 2 (set (reg:DI 1 x1)
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":178:3 -1
+     (nil))
+(insn 59 58 60 2 (set (reg:DI 0 x0)
+        (reg:DI 91 [ thread_fa.3_2 ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":178:3 -1
+     (nil))
+(call_insn 60 59 61 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7fa1526600 pthread_join>) [0 pthread_join S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":178:3 -1
+     (nil)
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (expr_list:DI (use (reg:DI 1 x1))
+                    (nil))))))
+(insn 61 60 62 2 (set (reg:DI 114)
+        (high:DI (symbol_ref:DI ("thread_fb") [flags 0x2]  <var_decl 0x7fa15fcea0 thread_fb>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":179:3 -1
+     (nil))
+(insn 62 61 63 2 (set (reg/f:DI 113)
+        (lo_sum:DI (reg:DI 114)
+            (symbol_ref:DI ("thread_fb") [flags 0x2]  <var_decl 0x7fa15fcea0 thread_fb>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":179:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("thread_fb") [flags 0x2]  <var_decl 0x7fa15fcea0 thread_fb>)
+        (nil)))
+(insn 63 62 64 2 (set (reg:DI 92 [ thread_fb.4_3 ])
+        (mem/c:DI (reg/f:DI 113) [7 thread_fb+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":179:3 -1
+     (nil))
+(insn 64 63 65 2 (set (reg:DI 1 x1)
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":179:3 -1
+     (nil))
+(insn 65 64 66 2 (set (reg:DI 0 x0)
+        (reg:DI 92 [ thread_fb.4_3 ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":179:3 -1
+     (nil))
+(call_insn 66 65 67 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7fa1526600 pthread_join>) [0 pthread_join S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":179:3 -1
+     (nil)
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (expr_list:DI (use (reg:DI 1 x1))
+                    (nil))))))
+(insn 67 66 68 2 (set (reg:DI 116)
+        (high:DI (symbol_ref:DI ("thread_fc") [flags 0x2]  <var_decl 0x7fa15fcf30 thread_fc>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":180:3 -1
+     (nil))
+(insn 68 67 69 2 (set (reg/f:DI 115)
+        (lo_sum:DI (reg:DI 116)
+            (symbol_ref:DI ("thread_fc") [flags 0x2]  <var_decl 0x7fa15fcf30 thread_fc>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":180:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("thread_fc") [flags 0x2]  <var_decl 0x7fa15fcf30 thread_fc>)
+        (nil)))
+(insn 69 68 70 2 (set (reg:DI 93 [ thread_fc.5_4 ])
+        (mem/c:DI (reg/f:DI 115) [7 thread_fc+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":180:3 -1
+     (nil))
+(insn 70 69 71 2 (set (reg:DI 1 x1)
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":180:3 -1
+     (nil))
+(insn 71 70 72 2 (set (reg:DI 0 x0)
+        (reg:DI 93 [ thread_fc.5_4 ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":180:3 -1
+     (nil))
+(call_insn 72 71 73 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7fa1526600 pthread_join>) [0 pthread_join S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":180:3 -1
+     (nil)
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (expr_list:DI (use (reg:DI 1 x1))
+                    (nil))))))
+(insn 73 72 74 2 (set (reg:DI 118)
+        (high:DI (symbol_ref:DI ("thread_fd") [flags 0x2]  <var_decl 0x7fa1601000 thread_fd>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":181:3 -1
+     (nil))
+(insn 74 73 75 2 (set (reg/f:DI 117)
+        (lo_sum:DI (reg:DI 118)
+            (symbol_ref:DI ("thread_fd") [flags 0x2]  <var_decl 0x7fa1601000 thread_fd>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":181:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("thread_fd") [flags 0x2]  <var_decl 0x7fa1601000 thread_fd>)
+        (nil)))
+(insn 75 74 76 2 (set (reg:DI 94 [ thread_fd.6_5 ])
+        (mem/c:DI (reg/f:DI 117) [7 thread_fd+0 S8 A64])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":181:3 -1
+     (nil))
+(insn 76 75 77 2 (set (reg:DI 1 x1)
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":181:3 -1
+     (nil))
+(insn 77 76 78 2 (set (reg:DI 0 x0)
+        (reg:DI 94 [ thread_fd.6_5 ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":181:3 -1
+     (nil))
+(call_insn 78 77 79 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_join") [flags 0x41]  <function_decl 0x7fa1526600 pthread_join>) [0 pthread_join S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":181:3 -1
+     (nil)
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (expr_list:DI (use (reg:DI 1 x1))
+                    (nil))))))
+(insn 79 78 80 2 (set (reg:DI 119)
+        (high:DI (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x7fa15fcc60 mutex_07>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":182:3 -1
+     (nil))
+(insn 80 79 81 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 119)
+            (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x7fa15fcc60 mutex_07>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":182:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x7fa15fcc60 mutex_07>)
+        (nil)))
+(call_insn 81 80 82 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_mutex_lock") [flags 0x41]  <function_decl 0x7fa1538e00 pthread_mutex_lock>) [0 pthread_mutex_lock S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":182:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (nil)))))
+(insn 82 81 83 2 (set (reg:DF 32 v0)
+        (const_double:DF 1.0e+0 [0x0.8p+1])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":183:3 -1
+     (nil))
+(call_insn 83 82 84 2 (parallel [
+            (call (mem:DI (symbol_ref:DI ("busy_wait_seconds") [flags 0x3]  <function_decl 0x7fa15f9300 busy_wait_seconds>) [0 busy_wait_seconds S8 A8])
+                (const_int 0 [0]))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":183:3 -1
+     (nil)
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DF (use (reg:DF 32 v0))
+                (nil)))))
+(insn 84 83 85 2 (set (reg:DI 120)
+        (high:DI (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x7fa15fcc60 mutex_07>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":184:3 -1
+     (nil))
+(insn 85 84 86 2 (set (reg:DI 0 x0)
+        (lo_sum:DI (reg:DI 120)
+            (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x7fa15fcc60 mutex_07>))) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":184:3 -1
+     (expr_list:REG_EQUAL (symbol_ref:DI ("mutex_07") [flags 0x2]  <var_decl 0x7fa15fcc60 mutex_07>)
+        (nil)))
+(call_insn 86 85 87 2 (parallel [
+            (set (reg:SI 0 x0)
+                (call (mem:DI (symbol_ref:DI ("pthread_mutex_unlock") [flags 0x41]  <function_decl 0x7fa1542100 pthread_mutex_unlock>) [0 pthread_mutex_unlock S8 A8])
+                    (const_int 0 [0])))
+            (clobber (reg:DI 30 x30))
+        ]) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":184:3 -1
+     (expr_list:REG_EH_REGION (const_int 0 [0])
+        (nil))
+    (expr_list (clobber (reg:DI 17 x17))
+        (expr_list (clobber (reg:DI 16 x16))
+            (expr_list:DI (use (reg:DI 0 x0))
+                (nil)))))
+(insn 87 86 90 2 (set (reg:SI 95 [ _24 ])
+        (const_int 0 [0])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":185:10 -1
+     (nil))
+(insn 90 87 94 2 (set (reg:SI 96 [ <retval> ])
+        (reg:SI 95 [ _24 ])) -1
+     (nil))
+(insn 94 90 95 2 (set (reg/i:SI 0 x0)
+        (reg:SI 96 [ <retval> ])) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":186:1 -1
+     (nil))
+(insn 95 94 0 2 (use (reg/i:SI 0 x0)) "/home/firefly/Desktop/ScratchDAG/源文件/zhang7/zhang7.c":186:1 -1
+     (nil))
