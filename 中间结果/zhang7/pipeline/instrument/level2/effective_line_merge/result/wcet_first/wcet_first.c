@@ -131,7 +131,7 @@ static void *critical_fn(void *arg)
 /* --- filler_a: C3=250 --- */
 static void *filler_a(void *arg)
 {
-  l1_set_thread_prio_fifo(97);
+  l1_set_thread_prio_fifo(96);
   pthread_mutex_lock(&mutex_03);
   busy_wait_seconds(C3);
   pthread_mutex_unlock(&mutex_03);
@@ -141,7 +141,7 @@ static void *filler_a(void *arg)
 /* --- filler_b: C4=250 --- */
 static void *filler_b(void *arg)
 {
-  l1_set_thread_prio_fifo(96);
+  l1_set_thread_prio_fifo(97);
   pthread_mutex_lock(&mutex_04);
   busy_wait_seconds(C4);
   pthread_mutex_unlock(&mutex_04);
@@ -151,7 +151,7 @@ static void *filler_b(void *arg)
 /* --- filler_c: C5=250 --- */
 static void *filler_c(void *arg)
 {
-  l1_set_thread_prio_fifo(95);
+  l1_set_thread_prio_fifo(98);
   pthread_mutex_lock(&mutex_05);
   busy_wait_seconds(C5);
   pthread_mutex_unlock(&mutex_05);
@@ -161,7 +161,7 @@ static void *filler_c(void *arg)
 /* --- filler_d: C6=250 --- */
 static void *filler_d(void *arg)
 {
-  l1_set_thread_prio_fifo(98);
+  l1_set_thread_prio_fifo(95);
   pthread_mutex_lock(&mutex_06);
   busy_wait_seconds(C6);
   pthread_mutex_unlock(&mutex_06);
