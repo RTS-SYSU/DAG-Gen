@@ -162,23 +162,45 @@ unit_test_maxdepth5_callee_output = [
 ]
 
 
+_INSTANCE_SUFFIX_RE = re.compile(r"@instance\d+$")
+
+
+def _mycall_internal_base(target: str, func_keys: set) -> Optional[str]:
+    """将 mycalls 里带条件/ switch 前缀或 @instance 后缀的 callee 归一到 functions 的键。
+
+    例：`switch0/compute_work_scale`、`if/compute_work_scale` -> `compute_work_scale`。
+    """
+    if not target or not func_keys:
+        return None
+    if target in func_keys:
+        return target
+    tail = target.split("/")[-1]
+    stem = _INSTANCE_SUFFIX_RE.sub("", tail)
+    if stem in func_keys:
+        return stem
+    return None
+
+
 def instfunctions(functions: dict):
     """对调用次数大于 1 的函数生成实例并更新调用方引用。
 
     规则：
-    - 原始函数名保留第一次调用。
-    - 额外调用按全局计数追加 `@instanceN`。
+    - 将 `switch0/foo`、`if/foo` 等与顶层定义的 `foo` 视为同一被调函数参与计数。
+    - 全部调用按源码行号、列号、调用方函数名、在 mycalls 中的位置排序；
+      第一次出现保留 `foo`，之后依次使用 `foo@instance1`…（与旧版后缀编号一致）。
     - 只处理 functions 中的自定义函数；库函数等不在 functions 的不处理。
     - 不展开递归/循环，遇到自调用不特殊处理。
     """
     if not functions:
         return
 
+    func_keys = set(functions.keys())
     call_count = defaultdict(int)
     for finfo in functions.values():
         for target in finfo.get("mycalls", []):
-            if target in functions:
-                call_count[target] += 1
+            b = _mycall_internal_base(target, func_keys)
+            if b is not None:
+                call_count[b] += 1
 
     clones = {}
     for fn, cnt in call_count.items():
@@ -192,9 +214,41 @@ def instfunctions(functions: dict):
         if fn not in functions:
             continue
         for inst_name in inst_names:
+            if inst_name in functions:
+                del functions[inst_name]
             functions[inst_name] = copy.deepcopy(functions[fn])
 
-    seen = defaultdict(int)
+    occurrences = []
+    for fn_name in sorted(functions.keys()):
+        finfo = functions[fn_name]
+        meta_map = finfo.get("mycalls_meta", {}) or {}
+        for idx, call in enumerate(finfo.get("mycalls", [])):
+            base = _mycall_internal_base(call, func_keys)
+            if base not in clones:
+                continue
+            meta = meta_map.get(call, {}) or {}
+            line = meta.get("line")
+            col = meta.get("col") or 0
+            if line is None:
+                line = 10**9
+            occurrences.append((line, col, fn_name, idx, call, base))
+
+    occurrences.sort(key=lambda t: (t[0], t[1], t[2], t[3]))
+
+    assign_by_pos = {}
+    per_base = defaultdict(list)
+    for tup in occurrences:
+        per_base[tup[5]].append(tup)
+
+    for base, items in per_base.items():
+        if base not in clones:
+            continue
+        for order, (_line, _col, fn_name, idx, _call, _b) in enumerate(items):
+            if order == 0:
+                new_t = base
+            else:
+                new_t = clones[base][order - 1]
+            assign_by_pos[(fn_name, idx)] = new_t
 
     for fn, finfo in functions.items():
         mycalls = finfo.get("mycalls", [])
@@ -205,15 +259,8 @@ def instfunctions(functions: dict):
         new_meta = {}
         new_call_src_full = {}
 
-        for call in mycalls:
-            target = call
-            if call in clones:
-                seen[call] += 1
-                idx = seen[call]
-                if idx > 1:
-                    inst_list = clones[call]
-                    inst_idx = min(idx - 2, len(inst_list) - 1)
-                    target = inst_list[inst_idx]
+        for idx, call in enumerate(mycalls):
+            target = assign_by_pos.get((fn, idx), call)
             new_calls.append(target)
 
             if call in meta_map:

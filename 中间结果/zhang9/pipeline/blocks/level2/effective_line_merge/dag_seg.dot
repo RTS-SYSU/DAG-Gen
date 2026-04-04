@@ -1,0 +1,37 @@
+digraph Level2SegDAG {
+  rankdir=LR;
+  node [shape=box, fontname="Consolas", fontsize=10];
+  "MU:main#001@113-143" [style="rounded,filled", fillcolor="#E3F2FD", label="MU:main#001@113-143\nmain mutex_cs @113-143"];
+  "MU:main#002@144-146" [style="rounded,filled", fillcolor="#E3F2FD", label="MU:main#002@144-146\nmain mutex_cs @144-146"];
+  "MU:main#003@147-151" [style="rounded,filled", fillcolor="#E3F2FD", label="MU:main#003@147-151\nmain mutex_cs @147-151"];
+  "MU:main#004@152-155" [style="rounded,filled", fillcolor="#E3F2FD", label="MU:main#004@152-155\nmain mutex_cs @152-155"];
+  "MU:main#005@156-159" [style="rounded,filled", fillcolor="#E3F2FD", label="MU:main#005@156-159\nmain mutex_cs @156-159"];
+  "MU:main#006@160-163" [style="rounded,filled", fillcolor="#E3F2FD", label="MU:main#006@160-163\nmain mutex_cs @160-163"];
+  "MU:main#007@164-166" [style="rounded,filled", fillcolor="#E3F2FD", label="MU:main#007@164-166\nmain mutex_cs @164-166"];
+  "MU:main#008@167-170" [style="rounded,filled", fillcolor="#E3F2FD", label="MU:main#008@167-170\nmain mutex_cs @167-170"];
+  "MU:worker_c0#001@105-107" [style="rounded,filled", fillcolor="#E8F5E9", label="MU:worker_c0#001@105-107\nworker_c0 mutex_cs @105-107"];
+  "MU:worker_c1#001@93-95" [style="rounded,filled", fillcolor="#FFF3E0", label="MU:worker_c1#001@93-95\nworker_c1 mutex_cs @93-95"];
+  "MU:worker_c1#002@96-99" [style="rounded,filled", fillcolor="#FFF3E0", label="MU:worker_c1#002@96-99\nworker_c1 mutex_cs @96-99"];
+  "MU:worker_c2#001@77-79" [style="rounded,filled", fillcolor="#F3E5F5", label="MU:worker_c2#001@77-79\nworker_c2 mutex_cs @77-79"];
+  "MU:worker_c2#002@80-83" [style="rounded,filled", fillcolor="#F3E5F5", label="MU:worker_c2#002@80-83\nworker_c2 mutex_cs @80-83"];
+  "MU:worker_c2#003@84-87" [style="rounded,filled", fillcolor="#F3E5F5", label="MU:worker_c2#003@84-87\nworker_c2 mutex_cs @84-87"];
+  "MU:worker_c2#001@77-79" -> "MU:worker_c2#002@80-83" [color="#666666", style="solid", penwidth=1.0];
+  "MU:worker_c2#002@80-83" -> "MU:worker_c2#003@84-87" [color="#666666", style="solid", penwidth=1.0];
+  "MU:worker_c1#001@93-95" -> "MU:worker_c1#002@96-99" [color="#666666", style="solid", penwidth=1.0];
+  "MU:main#001@113-143" -> "MU:main#002@144-146" [color="#666666", style="solid", penwidth=1.0];
+  "MU:main#002@144-146" -> "MU:main#003@147-151" [color="#666666", style="solid", penwidth=1.0];
+  "MU:main#003@147-151" -> "MU:main#004@152-155" [color="#666666", style="solid", penwidth=1.0];
+  "MU:main#004@152-155" -> "MU:main#005@156-159" [color="#666666", style="solid", penwidth=1.0];
+  "MU:main#005@156-159" -> "MU:main#006@160-163" [color="#666666", style="solid", penwidth=1.0];
+  "MU:main#006@160-163" -> "MU:main#007@164-166" [color="#666666", style="solid", penwidth=1.0];
+  "MU:main#007@164-166" -> "MU:main#008@167-170" [color="#666666", style="solid", penwidth=1.0];
+  "MU:main#001@113-143" -> "MU:worker_c0#001@105-107" [color="#1565C0", style="solid", penwidth=2.2];
+  "MU:main#001@113-143" -> "MU:worker_c1#001@93-95" [color="#1565C0", style="solid", penwidth=2.2];
+  "MU:main#001@113-143" -> "MU:worker_c2#001@77-79" [color="#1565C0", style="solid", penwidth=2.2];
+  "MU:worker_c0#001@105-107" -> "MU:main#004@152-155" [color="#2E7D32", style="solid", penwidth=2.2];
+  "MU:worker_c1#002@96-99" -> "MU:main#006@160-163" [color="#2E7D32", style="solid", penwidth=2.2];
+  "MU:worker_c2#003@84-87" -> "MU:main#008@167-170" [color="#2E7D32", style="solid", penwidth=2.2];
+  "MU:main#003@147-151" -> "MU:worker_c2#002@80-83" [color="#D32F2F", style="dashed", penwidth=2.2];
+  "MU:main#005@156-159" -> "MU:worker_c2#003@84-87" [color="#D32F2F", style="dashed", penwidth=2.2];
+  "MU:main#003@147-151" -> "MU:worker_c1#002@96-99" [color="#D32F2F", style="dashed", penwidth=2.2];
+}

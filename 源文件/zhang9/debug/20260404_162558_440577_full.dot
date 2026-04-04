@@ -1,0 +1,136 @@
+strict digraph callgraph {
+"main" -> "main/while/pthread_mutex_lock1";
+"main/while/pthread_mutex_lock1" [style=dashed]
+"main/while/pthread_mutex_lock1" -> "main/while/sched_setaffinity2";
+"main/while/sched_setaffinity2" [style=dashed]
+"main/while/sched_setaffinity2" -> "main/__errno_location3";
+"main/__errno_location3" -> "main/strerror4";
+"main/strerror4" -> "main/fprintf5";
+"main/fprintf5" -> "main/while/clock_gettime6";
+"main/while/clock_gettime6" [style=dashed]
+"main/while/clock_gettime6" -> "main/while/clock_gettime7";
+"main/while/clock_gettime7" [style=dashed]
+"main/while/clock_gettime7" -> "main/while/sem_init8";
+"main/while/sem_init8" [style=dashed]
+"main/while/sem_init8" -> "main/while/sem_init9";
+"main/while/sem_init9" [style=dashed]
+"main/while/sem_init9" -> "main/while/sem_init10";
+"main/while/sem_init10" [style=dashed]
+"main/while/sem_init10" -> "main/while/sem_init11";
+"main/while/sem_init11" [style=dashed]
+"main/while/sem_init11" -> "main/while/sem_init12";
+"main/while/sem_init12" [style=dashed]
+"main/while/sem_init12" -> "main/while/sem_init13";
+"main/while/sem_init13" [style=dashed]
+"main/while/sem_init13" -> "main/while/pthread_create14";
+"main/while/pthread_create14" -> "worker_c0";
+"main/while/pthread_create14" -> "main/while/pthread_create15";
+"main/while/pthread_create15" -> "worker_c1";
+"main/while/pthread_create15" -> "main/while/pthread_create16";
+"main/while/pthread_create16" -> "worker_c2";
+"main/while/pthread_create16" -> "while/busy_wait_seconds";
+"while/busy_wait_seconds" -> "while/busy_wait_seconds";
+"while/busy_wait_seconds" [style=dashed]
+"while/busy_wait_seconds" -> "main/while/pthread_mutex_unlock18";
+"main/while/pthread_mutex_unlock18" [style=dashed]
+"main/while/pthread_mutex_unlock18" -> "main/while/pthread_mutex_lock19";
+"main/while/pthread_mutex_lock19" [style=dashed]
+"main/while/pthread_mutex_lock19" -> "while/busy_wait_seconds";
+"while/busy_wait_seconds" [style=dashed]
+"while/busy_wait_seconds" -> "main/while/pthread_mutex_unlock21";
+"main/while/pthread_mutex_unlock21" [style=dashed]
+"main/while/pthread_mutex_unlock21" -> "main/while/pthread_mutex_lock22";
+"main/while/pthread_mutex_lock22" [style=dashed]
+"main/while/pthread_mutex_lock22" -> "while/busy_wait_seconds";
+"while/busy_wait_seconds" [style=dashed]
+"while/busy_wait_seconds" -> "main/while/pthread_mutex_unlock24";
+"main/while/pthread_mutex_unlock24" [style=dashed]
+"main/while/pthread_mutex_unlock24" -> "main/while/sem_post25";
+"main/while/sem_post25" [style=dashed]
+"main/while/sem_post25" -> "main/while/sem_post26";
+"main/while/sem_post26" [style=dashed]
+"main/while/sem_post26" -> "main/while/pthread_join27";
+"main/while/pthread_join27" [style=dashed]
+"main/while/pthread_join27" -> "main/while/pthread_mutex_lock28";
+"main/while/pthread_mutex_lock28" [style=dashed]
+"main/while/pthread_mutex_lock28" -> "while/busy_wait_seconds";
+"while/busy_wait_seconds" [style=dashed]
+"while/busy_wait_seconds" -> "main/while/pthread_mutex_unlock30";
+"main/while/pthread_mutex_unlock30" [style=dashed]
+"main/while/pthread_mutex_unlock30" -> "main/while/pthread_mutex_lock31";
+"main/while/pthread_mutex_lock31" [style=dashed]
+"main/while/pthread_mutex_lock31" -> "while/busy_wait_seconds";
+"while/busy_wait_seconds" [style=dashed]
+"while/busy_wait_seconds" -> "main/while/pthread_mutex_unlock33";
+"main/while/pthread_mutex_unlock33" [style=dashed]
+"main/while/pthread_mutex_unlock33" -> "main/while/sem_post34";
+"main/while/sem_post34" [style=dashed]
+"main/while/sem_post34" -> "main/while/pthread_join35";
+"main/while/pthread_join35" [style=dashed]
+"main/while/pthread_join35" -> "main/while/pthread_mutex_lock36";
+"main/while/pthread_mutex_lock36" [style=dashed]
+"main/while/pthread_mutex_lock36" -> "while/busy_wait_seconds";
+"while/busy_wait_seconds" [style=dashed]
+"while/busy_wait_seconds" -> "main/while/pthread_mutex_unlock38";
+"main/while/pthread_mutex_unlock38" [style=dashed]
+"main/while/pthread_mutex_unlock38" -> "main/while/pthread_mutex_lock39";
+"main/while/pthread_mutex_lock39" [style=dashed]
+"main/while/pthread_mutex_lock39" -> "while/busy_wait_seconds";
+"while/busy_wait_seconds" [style=dashed]
+"while/busy_wait_seconds" -> "main/while/pthread_mutex_unlock41";
+"main/while/pthread_mutex_unlock41" [style=dashed]
+"main/while/pthread_mutex_unlock41" -> "main/while/pthread_join42";
+"main/while/pthread_join42" [style=dashed]
+"main/while/pthread_join42" -> "main/while/pthread_mutex_lock43";
+"main/while/pthread_mutex_lock43" [style=dashed]
+"main/while/pthread_mutex_lock43" -> "while/busy_wait_seconds";
+"while/busy_wait_seconds" [style=dashed]
+"while/busy_wait_seconds" -> "main/while/pthread_mutex_unlock45";
+"main/while/pthread_mutex_unlock45" [style=dashed]
+"main/while/pthread_mutex_unlock45" -> "main/__stack_chk_fail46";
+"worker_c0" -> "worker_c0/while/pthread_mutex_lock1";
+"worker_c0/while/pthread_mutex_lock1" [style=dashed]
+"worker_c0/while/pthread_mutex_lock1" -> "while/busy_wait_seconds";
+"while/busy_wait_seconds" [style=dashed]
+"while/busy_wait_seconds" -> "worker_c0/while/pthread_mutex_unlock3";
+"worker_c0/while/pthread_mutex_unlock3" [style=dashed]
+"worker_c1" -> "worker_c1/while/pthread_mutex_lock1";
+"worker_c1/while/pthread_mutex_lock1" [style=dashed]
+"worker_c1/while/pthread_mutex_lock1" -> "while/busy_wait_seconds";
+"while/busy_wait_seconds" [style=dashed]
+"while/busy_wait_seconds" -> "worker_c1/while/pthread_mutex_unlock3";
+"worker_c1/while/pthread_mutex_unlock3" [style=dashed]
+"worker_c1/while/pthread_mutex_unlock3" -> "worker_c1/while/sem_wait4";
+"worker_c1/while/sem_wait4" [style=dashed]
+"worker_c1/while/sem_wait4" -> "worker_c1/while/pthread_mutex_lock5";
+"worker_c1/while/pthread_mutex_lock5" [style=dashed]
+"worker_c1/while/pthread_mutex_lock5" -> "while/busy_wait_seconds";
+"while/busy_wait_seconds" [style=dashed]
+"while/busy_wait_seconds" -> "worker_c1/while/pthread_mutex_unlock7";
+"worker_c1/while/pthread_mutex_unlock7" [style=dashed]
+"worker_c2" -> "worker_c2/while/pthread_mutex_lock1";
+"worker_c2/while/pthread_mutex_lock1" [style=dashed]
+"worker_c2/while/pthread_mutex_lock1" -> "while/busy_wait_seconds";
+"while/busy_wait_seconds" [style=dashed]
+"while/busy_wait_seconds" -> "worker_c2/while/pthread_mutex_unlock3";
+"worker_c2/while/pthread_mutex_unlock3" [style=dashed]
+"worker_c2/while/pthread_mutex_unlock3" -> "worker_c2/while/sem_wait4";
+"worker_c2/while/sem_wait4" [style=dashed]
+"worker_c2/while/sem_wait4" -> "worker_c2/while/pthread_mutex_lock5";
+"worker_c2/while/pthread_mutex_lock5" [style=dashed]
+"worker_c2/while/pthread_mutex_lock5" -> "while/busy_wait_seconds";
+"while/busy_wait_seconds" [style=dashed]
+"while/busy_wait_seconds" -> "worker_c2/while/pthread_mutex_unlock7";
+"worker_c2/while/pthread_mutex_unlock7" [style=dashed]
+"worker_c2/while/pthread_mutex_unlock7" -> "worker_c2/while/sem_wait8";
+"worker_c2/while/sem_wait8" [style=dashed]
+"worker_c2/while/sem_wait8" -> "worker_c2/while/pthread_mutex_lock9";
+"worker_c2/while/pthread_mutex_lock9" [style=dashed]
+"worker_c2/while/pthread_mutex_lock9" -> "while/busy_wait_seconds";
+"while/busy_wait_seconds" [style=dashed]
+"while/busy_wait_seconds" -> "worker_c2/while/pthread_mutex_unlock11";
+"worker_c2/while/pthread_mutex_unlock11" [style=dashed]
+"worker_c0/while/pthread_mutex_unlock3" -> "main/while/pthread_join27";
+"worker_c1/while/pthread_mutex_unlock7" -> "main/while/pthread_join35";
+"worker_c2/while/pthread_mutex_unlock11" -> "main/while/pthread_join42";
+}

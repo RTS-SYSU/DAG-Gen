@@ -1,15 +1,55 @@
 {
   "nodes": [
+    "busy_wait_seconds",
+    "busy_wait_seconds@instance1",
+    "busy_wait_seconds@instance2",
+    "busy_wait_seconds@instance3",
+    "busy_wait_seconds@instance4",
+    "compute_work_scale",
     "main",
-    "main/free5",
+    "main/free14",
+    "main/if/free6",
     "main/malloc1",
-    "main/printf3",
-    "main/pthread_create2",
-    "main/pthread_join4",
-    "threadtask1",
-    "threadtask1/printf1"
+    "main/pthread_create5",
+    "main/pthread_join10",
+    "main/pthread_mutex_lock11",
+    "main/pthread_mutex_lock2",
+    "main/pthread_mutex_lock7",
+    "main/pthread_mutex_unlock13",
+    "main/pthread_mutex_unlock4",
+    "main/pthread_mutex_unlock9",
+    "worker_main",
+    "worker_main/pthread_mutex_lock1",
+    "worker_main/pthread_mutex_lock4",
+    "worker_main/pthread_mutex_unlock3",
+    "worker_main/pthread_mutex_unlock6"
   ],
   "edges": [
+    {
+      "src": "busy_wait_seconds",
+      "dst": "compute_work_scale",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "busy_wait_seconds@instance1",
+      "dst": "compute_work_scale",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "busy_wait_seconds@instance2",
+      "dst": "compute_work_scale",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "busy_wait_seconds@instance3",
+      "dst": "compute_work_scale",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "busy_wait_seconds@instance4",
+      "dst": "compute_work_scale",
+      "kind": "sem_dep"
+    },
     {
       "src": "main",
       "dst": "main/malloc1",
@@ -17,37 +57,117 @@
     },
     {
       "src": "main/malloc1",
-      "dst": "main/pthread_create2",
+      "dst": "main/pthread_mutex_lock2",
       "kind": "sem_dep"
     },
     {
-      "src": "main/pthread_create2",
-      "dst": "threadtask1",
+      "src": "main/pthread_mutex_lock2",
+      "dst": "busy_wait_seconds@instance2",
       "kind": "sem_dep"
     },
     {
-      "src": "main/pthread_create2",
-      "dst": "main/printf3",
+      "src": "busy_wait_seconds@instance2",
+      "dst": "main/pthread_mutex_unlock4",
       "kind": "sem_dep"
     },
     {
-      "src": "main/printf3",
-      "dst": "main/pthread_join4",
+      "src": "main/pthread_mutex_unlock4",
+      "dst": "main/pthread_create5",
       "kind": "sem_dep"
     },
     {
-      "src": "main/pthread_join4",
-      "dst": "main/free5",
+      "src": "main/pthread_create5",
+      "dst": "worker_main",
       "kind": "sem_dep"
     },
     {
-      "src": "threadtask1",
-      "dst": "threadtask1/printf1",
+      "src": "main/pthread_create5",
+      "dst": "main/if/free6",
       "kind": "sem_dep"
     },
     {
-      "src": "threadtask1/printf1",
-      "dst": "main/pthread_join4",
+      "src": "main/if/free6",
+      "dst": "main/if/free6",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/if/free6",
+      "dst": "main/pthread_mutex_lock7",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/if/free6",
+      "dst": "main/pthread_mutex_lock7",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_mutex_lock7",
+      "dst": "busy_wait_seconds@instance3",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "busy_wait_seconds@instance3",
+      "dst": "main/pthread_mutex_unlock9",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_mutex_unlock9",
+      "dst": "main/pthread_join10",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_join10",
+      "dst": "main/pthread_mutex_lock11",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_mutex_lock11",
+      "dst": "busy_wait_seconds@instance4",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "busy_wait_seconds@instance4",
+      "dst": "main/pthread_mutex_unlock13",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "main/pthread_mutex_unlock13",
+      "dst": "main/free14",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "worker_main",
+      "dst": "worker_main/pthread_mutex_lock1",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "worker_main/pthread_mutex_lock1",
+      "dst": "busy_wait_seconds",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "busy_wait_seconds",
+      "dst": "worker_main/pthread_mutex_unlock3",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "worker_main/pthread_mutex_unlock3",
+      "dst": "worker_main/pthread_mutex_lock4",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "worker_main/pthread_mutex_lock4",
+      "dst": "busy_wait_seconds@instance1",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "busy_wait_seconds@instance1",
+      "dst": "worker_main/pthread_mutex_unlock6",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "worker_main/pthread_mutex_unlock6",
+      "dst": "main/pthread_join10",
       "kind": "sem_dep"
     }
   ]

@@ -1,0 +1,129 @@
+{
+  "schema_version": "1.0",
+  "base_name": "zhang1_core2",
+  "nodes": [
+    "MU:main#001@173-183",
+    "MU:main#002@184-189",
+    "MU:main#003@190-193",
+    "MU:main#004@194-199",
+    "MU:main#005@200-205",
+    "MU:worker_fill_x#001@137-139",
+    "MU:worker_fill_x#002@140-143",
+    "MU:worker_fill_y#001@149-151",
+    "MU:worker_fill_y#002@152-155",
+    "MU:worker_fill_z#001@161-163",
+    "MU:worker_fill_z#002@164-167",
+    "MU:worker_key_a#001@124-127",
+    "MU:worker_key_a#002@128-131",
+    "MU:worker_key_b#001@111-114",
+    "MU:worker_key_b#002@115-118",
+    "MU:worker_key_c#001@102-105"
+  ],
+  "edges": [
+    {
+      "src": "MU:worker_key_b#001@111-114",
+      "dst": "MU:worker_key_b#002@115-118",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:worker_key_a#001@124-127",
+      "dst": "MU:worker_key_a#002@128-131",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:worker_fill_x#001@137-139",
+      "dst": "MU:worker_fill_x#002@140-143",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:worker_fill_y#001@149-151",
+      "dst": "MU:worker_fill_y#002@152-155",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:worker_fill_z#001@161-163",
+      "dst": "MU:worker_fill_z#002@164-167",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#001@173-183",
+      "dst": "MU:main#002@184-189",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#002@184-189",
+      "dst": "MU:main#003@190-193",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#003@190-193",
+      "dst": "MU:main#004@194-199",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#004@194-199",
+      "dst": "MU:main#005@200-205",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#002@184-189",
+      "dst": "MU:worker_fill_x#001@137-139",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#002@184-189",
+      "dst": "MU:worker_fill_y#001@149-151",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#002@184-189",
+      "dst": "MU:worker_fill_z#001@161-163",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#003@190-193",
+      "dst": "MU:worker_key_a#001@124-127",
+      "kind": "create"
+    },
+    {
+      "src": "MU:worker_key_a#002@128-131",
+      "dst": "MU:main#004@194-199",
+      "kind": "join"
+    },
+    {
+      "src": "MU:worker_key_b#002@115-118",
+      "dst": "MU:main#004@194-199",
+      "kind": "join"
+    },
+    {
+      "src": "MU:worker_key_c#001@102-105",
+      "dst": "MU:main#004@194-199",
+      "kind": "join"
+    },
+    {
+      "src": "MU:worker_fill_x#002@140-143",
+      "dst": "MU:main#005@200-205",
+      "kind": "join"
+    },
+    {
+      "src": "MU:worker_fill_y#002@152-155",
+      "dst": "MU:main#005@200-205",
+      "kind": "join"
+    },
+    {
+      "src": "MU:worker_fill_z#002@164-167",
+      "dst": "MU:main#005@200-205",
+      "kind": "join"
+    },
+    {
+      "src": "MU:worker_key_a#001@124-127",
+      "dst": "MU:worker_key_b#001@111-114",
+      "kind": "create"
+    },
+    {
+      "src": "MU:worker_key_b#001@111-114",
+      "dst": "MU:worker_key_c#001@102-105",
+      "kind": "create"
+    }
+  ]
+}

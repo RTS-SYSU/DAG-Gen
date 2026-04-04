@@ -1,0 +1,32 @@
+strict digraph callgraph {
+"busy_wait_seconds" -> "compute_work_scale";
+"busy_wait_seconds@instance1" -> "compute_work_scale";
+"busy_wait_seconds@instance2" -> "compute_work_scale";
+"busy_wait_seconds@instance3" -> "compute_work_scale";
+"busy_wait_seconds@instance4" -> "compute_work_scale";
+"main" -> "main/malloc1";
+"main/malloc1" -> "main/pthread_mutex_lock2";
+"main/pthread_mutex_lock2" -> "busy_wait_seconds@instance2";
+"busy_wait_seconds@instance2" -> "main/pthread_mutex_unlock4";
+"main/pthread_mutex_unlock4" -> "main/pthread_create5";
+"main/pthread_create5" -> "worker_main";
+"main/pthread_create5" -> "main/if/free6";
+"main/if/free6" -> "main/if/free6";
+"main/if/free6" [style=dashed]
+"main/if/free6" -> "main/pthread_mutex_lock7";
+"main/if/free6" -> "main/pthread_mutex_lock7";
+"main/pthread_mutex_lock7" -> "busy_wait_seconds@instance3";
+"busy_wait_seconds@instance3" -> "main/pthread_mutex_unlock9";
+"main/pthread_mutex_unlock9" -> "main/pthread_join10";
+"main/pthread_join10" -> "main/pthread_mutex_lock11";
+"main/pthread_mutex_lock11" -> "busy_wait_seconds@instance4";
+"busy_wait_seconds@instance4" -> "main/pthread_mutex_unlock13";
+"main/pthread_mutex_unlock13" -> "main/free14";
+"worker_main" -> "worker_main/pthread_mutex_lock1";
+"worker_main/pthread_mutex_lock1" -> "busy_wait_seconds";
+"busy_wait_seconds" -> "worker_main/pthread_mutex_unlock3";
+"worker_main/pthread_mutex_unlock3" -> "worker_main/pthread_mutex_lock4";
+"worker_main/pthread_mutex_lock4" -> "busy_wait_seconds@instance1";
+"busy_wait_seconds@instance1" -> "worker_main/pthread_mutex_unlock6";
+"worker_main/pthread_mutex_unlock6" -> "main/pthread_join10";
+}

@@ -1,0 +1,191 @@
+{
+  "schema_version": "1.0",
+  "base_name": "zhang1_core4",
+  "nodes": [
+    "MU:gate_worker_1#001@139-142",
+    "MU:gate_worker_1#002@143-146",
+    "MU:gate_worker_2#001@152-155",
+    "MU:gate_worker_2#002@156-159",
+    "MU:main#001@237-260",
+    "MU:main#002@261-264",
+    "MU:main#003@265-271",
+    "MU:main#004@272-278",
+    "MU:main#005@279-289",
+    "MU:noise_worker_a#001@165-167",
+    "MU:noise_worker_a#002@168-171",
+    "MU:noise_worker_b#001@177-179",
+    "MU:noise_worker_b#002@180-183",
+    "MU:noise_worker_c#001@189-191",
+    "MU:noise_worker_c#002@192-195",
+    "MU:noise_worker_d#001@201-203",
+    "MU:noise_worker_d#002@204-207",
+    "MU:noise_worker_e#001@213-215",
+    "MU:noise_worker_e#002@216-219",
+    "MU:noise_worker_f#001@225-227",
+    "MU:noise_worker_f#002@228-231",
+    "MU:tail_worker_1#001@121-124",
+    "MU:tail_worker_2#001@130-133"
+  ],
+  "edges": [
+    {
+      "src": "MU:gate_worker_1#001@139-142",
+      "dst": "MU:gate_worker_1#002@143-146",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:gate_worker_2#001@152-155",
+      "dst": "MU:gate_worker_2#002@156-159",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:noise_worker_a#001@165-167",
+      "dst": "MU:noise_worker_a#002@168-171",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:noise_worker_b#001@177-179",
+      "dst": "MU:noise_worker_b#002@180-183",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:noise_worker_c#001@189-191",
+      "dst": "MU:noise_worker_c#002@192-195",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:noise_worker_d#001@201-203",
+      "dst": "MU:noise_worker_d#002@204-207",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:noise_worker_e#001@213-215",
+      "dst": "MU:noise_worker_e#002@216-219",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:noise_worker_f#001@225-227",
+      "dst": "MU:noise_worker_f#002@228-231",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#001@237-260",
+      "dst": "MU:main#002@261-264",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#002@261-264",
+      "dst": "MU:main#003@265-271",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#003@265-271",
+      "dst": "MU:main#004@272-278",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#004@272-278",
+      "dst": "MU:main#005@279-289",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:gate_worker_1#001@139-142",
+      "dst": "MU:tail_worker_1#001@121-124",
+      "kind": "create"
+    },
+    {
+      "src": "MU:gate_worker_2#001@152-155",
+      "dst": "MU:tail_worker_2#001@130-133",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@237-260",
+      "dst": "MU:noise_worker_a#001@165-167",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@237-260",
+      "dst": "MU:noise_worker_b#001@177-179",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@237-260",
+      "dst": "MU:noise_worker_c#001@189-191",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@237-260",
+      "dst": "MU:noise_worker_d#001@201-203",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@237-260",
+      "dst": "MU:noise_worker_e#001@213-215",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@237-260",
+      "dst": "MU:noise_worker_f#001@225-227",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@237-260",
+      "dst": "MU:gate_worker_1#001@139-142",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@237-260",
+      "dst": "MU:gate_worker_2#001@152-155",
+      "kind": "create"
+    },
+    {
+      "src": "MU:gate_worker_1#002@143-146",
+      "dst": "MU:main#003@265-271",
+      "kind": "join"
+    },
+    {
+      "src": "MU:gate_worker_2#002@156-159",
+      "dst": "MU:main#003@265-271",
+      "kind": "join"
+    },
+    {
+      "src": "MU:tail_worker_1#001@121-124",
+      "dst": "MU:main#004@272-278",
+      "kind": "join"
+    },
+    {
+      "src": "MU:tail_worker_2#001@130-133",
+      "dst": "MU:main#004@272-278",
+      "kind": "join"
+    },
+    {
+      "src": "MU:noise_worker_a#002@168-171",
+      "dst": "MU:main#005@279-289",
+      "kind": "join"
+    },
+    {
+      "src": "MU:noise_worker_b#002@180-183",
+      "dst": "MU:main#005@279-289",
+      "kind": "join"
+    },
+    {
+      "src": "MU:noise_worker_c#002@192-195",
+      "dst": "MU:main#005@279-289",
+      "kind": "join"
+    },
+    {
+      "src": "MU:noise_worker_d#002@204-207",
+      "dst": "MU:main#005@279-289",
+      "kind": "join"
+    },
+    {
+      "src": "MU:noise_worker_e#002@216-219",
+      "dst": "MU:main#005@279-289",
+      "kind": "join"
+    },
+    {
+      "src": "MU:noise_worker_f#002@228-231",
+      "dst": "MU:main#005@279-289",
+      "kind": "join"
+    }
+  ]
+}

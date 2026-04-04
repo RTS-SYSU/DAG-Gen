@@ -2,30 +2,60 @@
   "schema_version": "1.0",
   "base_name": "simple",
   "nodes": [
-    "SEG:main#001@10-13",
-    "SEG:main#002@14-14",
-    "SEG:main#003@15-16",
-    "SEG:threadtask1#001@6-6"
+    "SEG:main#001@69-74",
+    "MU:main#002@75-77",
+    "SEG:main#003@78-79",
+    "SEG:main#004@80-83",
+    "MU:main#005@84-87",
+    "MU:main#006@88-92",
+    "SEG:main#007@93-94",
+    "MU:worker_main#001@57-60",
+    "MU:worker_main#002@61-64"
   ],
   "edges": [
     {
-      "src": "SEG:main#001@10-13",
-      "dst": "SEG:main#002@14-14",
+      "src": "MU:worker_main#001@57-60",
+      "dst": "MU:worker_main#002@61-64",
       "kind": "intra"
     },
     {
-      "src": "SEG:main#002@14-14",
-      "dst": "SEG:main#003@15-16",
+      "src": "SEG:main#001@69-74",
+      "dst": "MU:main#002@75-77",
       "kind": "intra"
     },
     {
-      "src": "SEG:main#001@10-13",
-      "dst": "SEG:threadtask1#001@6-6",
+      "src": "MU:main#002@75-77",
+      "dst": "SEG:main#003@78-79",
+      "kind": "intra"
+    },
+    {
+      "src": "SEG:main#003@78-79",
+      "dst": "SEG:main#004@80-83",
+      "kind": "intra"
+    },
+    {
+      "src": "SEG:main#004@80-83",
+      "dst": "MU:main#005@84-87",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#005@84-87",
+      "dst": "MU:main#006@88-92",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#006@88-92",
+      "dst": "SEG:main#007@93-94",
+      "kind": "intra"
+    },
+    {
+      "src": "SEG:main#003@78-79",
+      "dst": "MU:worker_main#001@57-60",
       "kind": "create"
     },
     {
-      "src": "SEG:threadtask1#001@6-6",
-      "dst": "SEG:main#003@15-16",
+      "src": "MU:worker_main#002@61-64",
+      "dst": "MU:main#006@88-92",
       "kind": "join"
     }
   ]

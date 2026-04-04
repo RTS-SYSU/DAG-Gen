@@ -1,0 +1,284 @@
+{
+  "rtl_files": [
+    "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c.233r.expand"
+  ],
+  "functions": {
+    "compute_work_scale": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {},
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "worker_main": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c.233r.expand"
+      ],
+      "calls": {
+        "pthread_mutex_lock": true,
+        "compute_work_scale": true,
+        "pthread_mutex_unlock": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c": true,
+        "mutex_03": true,
+        "mutex_04": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [
+        "worker_main/pthread_mutex_lock1",
+        "compute_work_scale",
+        "worker_main/pthread_mutex_unlock3",
+        "worker_main/pthread_mutex_lock4",
+        "compute_work_scale@instance1",
+        "worker_main/pthread_mutex_unlock6"
+      ],
+      "myinfo": {
+        "tail": "worker_main/pthread_mutex_unlock6"
+      },
+      "mycalls_meta": {
+        "worker_main/pthread_mutex_lock1": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 57,
+          "col": 5,
+          "extern": 0
+        },
+        "compute_work_scale": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 62,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_main/pthread_mutex_unlock3": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 59,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_main/pthread_mutex_lock4": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 61,
+          "col": 5,
+          "extern": 0
+        },
+        "compute_work_scale@instance1": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 62,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_main/pthread_mutex_unlock6": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 63,
+          "col": 5,
+          "extern": 0
+        }
+      }
+    },
+    "main": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c.233r.expand"
+      ],
+      "calls": {
+        "malloc": true,
+        "pthread_mutex_lock": true,
+        "compute_work_scale": true,
+        "pthread_mutex_unlock": true,
+        "thread_01": true,
+        "free": true,
+        "pthread_join": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c": true,
+        "mutex_01": true,
+        "worker_main": true,
+        "thread_01": true,
+        "mutex_02": true,
+        "mutex_05": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [
+        "main/malloc1",
+        "main/pthread_mutex_lock2",
+        "compute_work_scale@instance2",
+        "main/pthread_mutex_unlock4",
+        "main/pthread_create5",
+        "worker_main",
+        "main/free6",
+        "main/pthread_mutex_lock7",
+        "compute_work_scale@instance3",
+        "main/pthread_mutex_unlock9",
+        "main/pthread_join10",
+        "main/pthread_mutex_lock11",
+        "compute_work_scale@instance4",
+        "main/pthread_mutex_unlock13",
+        "main/free14"
+      ],
+      "myinfo": {
+        "tail": "main/free14",
+        "": "thread_01",
+        "__create_queue__": [
+          "worker_main"
+        ],
+        "main/pthread_join10": "thread_01",
+        "thread_01": "worker_main"
+      },
+      "mycalls_meta": {
+        "main/malloc1": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 69,
+          "col": 20,
+          "extern": 0
+        },
+        "main/pthread_mutex_lock2": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 75,
+          "col": 5,
+          "extern": 0
+        },
+        "compute_work_scale@instance2": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 91,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_mutex_unlock4": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 77,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_create5": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 79,
+          "col": 9,
+          "extern": 0
+        },
+        "main/free6": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 80,
+          "col": 9,
+          "extern": 0
+        },
+        "main/pthread_mutex_lock7": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 84,
+          "col": 5,
+          "extern": 0
+        },
+        "compute_work_scale@instance3": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 91,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_mutex_unlock9": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 86,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_join10": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 88,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_mutex_lock11": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 90,
+          "col": 5,
+          "extern": 0
+        },
+        "compute_work_scale@instance4": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 91,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_mutex_unlock13": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 92,
+          "col": 5,
+          "extern": 0
+        },
+        "main/free14": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c",
+          "line": 94,
+          "col": 5,
+          "extern": 0
+        }
+      }
+    },
+    "compute_work_scale@instance1": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {},
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "compute_work_scale@instance2": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {},
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "compute_work_scale@instance3": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {},
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "compute_work_scale@instance4": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/simple/simple.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {},
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    }
+  },
+  "thread_edges_preview": []
+}

@@ -242,6 +242,142 @@ def _build_effective_line_neighbors(
     return prev_map_by_fn, next_map_by_fn
 
 
+def _span_has_effective_code(
+    span: Tuple[int, int],
+    *,
+    source_lines: Sequence[str],
+) -> bool:
+    a, b = span
+    in_block_comment = False
+    for raw in source_lines[: max(a - 1, 0)]:
+        _has_code, in_block_comment = _line_has_effective_code(raw, in_block_comment=in_block_comment)
+
+    for raw in source_lines[max(a - 1, 0): min(b, len(source_lines))]:
+        has_code, in_block_comment = _line_has_effective_code(raw, in_block_comment=in_block_comment)
+        if has_code:
+            return True
+    return False
+
+
+
+def _merge_empty_spans(
+    spans: Sequence[Tuple[int, int]],
+    *,
+    source_lines: Sequence[str],
+) -> List[Tuple[int, int]]:
+    if not spans:
+        return []
+
+    merged: List[List[int]] = [[a, b] for a, b in spans]
+    i = 0
+    while i < len(merged):
+        a, b = merged[i]
+        if _span_has_effective_code((a, b), source_lines=source_lines):
+            i += 1
+            continue
+
+        if i > 0:
+            merged[i - 1][1] = b
+            del merged[i]
+            i -= 1
+            continue
+
+        if i + 1 < len(merged):
+            merged[i + 1][0] = a
+            del merged[i]
+            continue
+
+        del merged[i]
+
+    return [(a, b) for a, b in merged]
+
+
+
+def _effective_lines_in_span(
+    span: Tuple[int, int],
+    *,
+    source_lines: Sequence[str],
+) -> List[str]:
+    a, b = span
+    in_block_comment = False
+    for raw in source_lines[: max(a - 1, 0)]:
+        _has_code, in_block_comment = _line_has_effective_code(raw, in_block_comment=in_block_comment)
+
+    lines: List[str] = []
+    for raw in source_lines[max(a - 1, 0): min(b, len(source_lines))]:
+        has_code, in_block_comment = _line_has_effective_code(raw, in_block_comment=in_block_comment)
+        if has_code:
+            lines.append(raw.strip())
+    return lines
+
+
+
+def _classify_control_span(
+    span: Tuple[int, int],
+    *,
+    source_lines: Sequence[str],
+) -> str:
+    lines = _effective_lines_in_span(span, source_lines=source_lines)
+    if not lines:
+        return "empty"
+
+    def _is_create_or_post(line: str) -> bool:
+        return line.startswith("pthread_create(") or line.startswith("sem_post(")
+
+    def _is_join_or_wait(line: str) -> bool:
+        return line.startswith("pthread_join(") or line.startswith("sem_wait(")
+
+    if all(_is_create_or_post(line) for line in lines):
+        return "forward_control"
+    if all(_is_join_or_wait(line) for line in lines):
+        return "backward_control"
+    return "other"
+
+
+
+def _merge_control_spans(
+    spans: Sequence[Tuple[int, int]],
+    *,
+    source_lines: Sequence[str],
+) -> List[Tuple[int, int]]:
+    if not spans:
+        return []
+
+    merged: List[List[int]] = [[a, b] for a, b in spans]
+    i = 0
+    while i < len(merged):
+        a, b = merged[i]
+        kind = _classify_control_span((a, b), source_lines=source_lines)
+
+        if kind == "other":
+            i += 1
+            continue
+
+        if kind in ("empty", "forward_control"):
+            if i > 0:
+                merged[i - 1][1] = b
+                del merged[i]
+                i -= 1
+                continue
+            if kind == "empty" and i + 1 < len(merged):
+                merged[i + 1][0] = a
+                del merged[i]
+                continue
+            i += 1
+            continue
+
+        if kind == "backward_control":
+            if i + 1 < len(merged):
+                merged[i + 1][0] = a
+                del merged[i]
+                continue
+            i += 1
+            continue
+
+    return [(a, b) for a, b in merged]
+
+
+
 def _build_segments_for_function(
     fn: str,
     *,
@@ -249,6 +385,7 @@ def _build_segments_for_function(
     end_line: int,
     cut_after: Set[int],
     mutex_intervals: Sequence[Tuple[int, int]],
+    source_lines: Sequence[str],
 ) -> List[Segment]:
     if start_line <= 0 or end_line < start_line:
         return []
@@ -264,6 +401,9 @@ def _build_segments_for_function(
             cur = k + 1
     if cur <= end_line:
         spans.append((cur, end_line))
+
+    spans = _merge_empty_spans(spans, source_lines=source_lines)
+    spans = _merge_control_spans(spans, source_lines=source_lines)
 
     out: List[Segment] = []
     idx = 0
@@ -501,6 +641,7 @@ def build_level2_segments_and_dag(
             end_line=e,
             cut_after=cut_after_by_fn.get(fn, set()),
             mutex_intervals=mutex_intervals_by_fn.get(fn, []),
+            source_lines=source_lines,
         )
 
     # Flatten segments (stable order)

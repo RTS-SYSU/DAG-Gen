@@ -1,0 +1,23 @@
+digraph dag_seg_annotated_value {
+  rankdir=LR;
+  node [shape=box, style="rounded,filled", fillcolor="#E6F3FF", color="#1976D2", fontsize=10];
+  edge [color="#1976D2"];
+  "SEG:main#001@69-74" [label="SEG:main#001@69-74\nNA=?\navg_ns=972\nprio=99"];
+  "MU:main#002@75-77" [label="MU:main#002@75-77\nC1=1.0\navg_ns=10924736\nprio=98"];
+  "SEG:main#003@78-79" [label="SEG:main#003@78-79\nNA=?\navg_ns=0\nprio=97"];
+  "SEG:main#004@80-83" [label="SEG:main#004@80-83\nNA=?\navg_ns=4580323136550\nprio=96"];
+  "MU:main#005@84-87" [label="MU:main#005@84-87\nC2=2.0\navg_ns=21436316\nprio=95"];
+  "MU:main#006@88-92" [label="MU:main#006@88-92\nC5=5.0\navg_ns=86029167\nprio=94"];
+  "SEG:main#007@93-94" [label="SEG:main#007@93-94\nNA=?\navg_ns=486\nprio=93"];
+  "MU:worker_main#001@57-60" [label="MU:worker_main#001@57-60\nC3=3.0\navg_ns=31044484\nprio=92"];
+  "MU:worker_main#002@61-64" [label="MU:worker_main#002@61-64\nC4=4.0\navg_ns=70142889\nprio=91"];
+  "MU:worker_main#001@57-60" -> "MU:worker_main#002@61-64";
+  "SEG:main#001@69-74" -> "MU:main#002@75-77";
+  "MU:main#002@75-77" -> "SEG:main#003@78-79";
+  "SEG:main#003@78-79" -> "SEG:main#004@80-83";
+  "SEG:main#004@80-83" -> "MU:main#005@84-87";
+  "MU:main#005@84-87" -> "MU:main#006@88-92";
+  "MU:main#006@88-92" -> "SEG:main#007@93-94";
+  "SEG:main#003@78-79" -> "MU:worker_main#001@57-60";
+  "MU:worker_main#002@61-64" -> "MU:main#006@88-92";
+}

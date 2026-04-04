@@ -1,12 +1,22 @@
 digraph Level2SegDAG {
   rankdir=LR;
   node [shape=box, fontname="Consolas", fontsize=10];
-  "SEG:main#001@10-13" [style="rounded,filled", fillcolor="#E3F2FD", label="SEG:main#001@10-13\nmain compute @10-13"];
-  "SEG:main#002@14-14" [style="rounded,filled", fillcolor="#E3F2FD", label="SEG:main#002@14-14\nmain compute @14-14"];
-  "SEG:main#003@15-16" [style="rounded,filled", fillcolor="#E3F2FD", label="SEG:main#003@15-16\nmain compute @15-16"];
-  "SEG:threadtask1#001@6-6" [style="rounded,filled", fillcolor="#E8F5E9", label="SEG:threadtask1#001@6-6\nthreadtask1 compute @6-6"];
-  "SEG:main#001@10-13" -> "SEG:main#002@14-14" [color="#666666", style="solid", penwidth=1.0];
-  "SEG:main#002@14-14" -> "SEG:main#003@15-16" [color="#666666", style="solid", penwidth=1.0];
-  "SEG:main#001@10-13" -> "SEG:threadtask1#001@6-6" [color="#1565C0", style="solid", penwidth=2.2];
-  "SEG:threadtask1#001@6-6" -> "SEG:main#003@15-16" [color="#2E7D32", style="solid", penwidth=2.2];
+  "MU:main#002@75-77" [style="rounded,filled", fillcolor="#E3F2FD", label="MU:main#002@75-77\nmain mutex_cs @75-77"];
+  "MU:main#005@84-87" [style="rounded,filled", fillcolor="#E3F2FD", label="MU:main#005@84-87\nmain mutex_cs @84-87"];
+  "MU:main#006@88-92" [style="rounded,filled", fillcolor="#E3F2FD", label="MU:main#006@88-92\nmain mutex_cs @88-92"];
+  "MU:worker_main#001@57-60" [style="rounded,filled", fillcolor="#E8F5E9", label="MU:worker_main#001@57-60\nworker_main mutex_cs @57-60"];
+  "MU:worker_main#002@61-64" [style="rounded,filled", fillcolor="#E8F5E9", label="MU:worker_main#002@61-64\nworker_main mutex_cs @61-64"];
+  "SEG:main#001@69-74" [style="rounded,filled", fillcolor="#E3F2FD", label="SEG:main#001@69-74\nmain compute @69-74"];
+  "SEG:main#003@78-79" [style="rounded,filled", fillcolor="#E3F2FD", label="SEG:main#003@78-79\nmain compute @78-79"];
+  "SEG:main#004@80-83" [style="rounded,filled", fillcolor="#E3F2FD", label="SEG:main#004@80-83\nmain compute @80-83"];
+  "SEG:main#007@93-94" [style="rounded,filled", fillcolor="#E3F2FD", label="SEG:main#007@93-94\nmain compute @93-94"];
+  "MU:worker_main#001@57-60" -> "MU:worker_main#002@61-64" [color="#666666", style="solid", penwidth=1.0];
+  "SEG:main#001@69-74" -> "MU:main#002@75-77" [color="#666666", style="solid", penwidth=1.0];
+  "MU:main#002@75-77" -> "SEG:main#003@78-79" [color="#666666", style="solid", penwidth=1.0];
+  "SEG:main#003@78-79" -> "SEG:main#004@80-83" [color="#666666", style="solid", penwidth=1.0];
+  "SEG:main#004@80-83" -> "MU:main#005@84-87" [color="#666666", style="solid", penwidth=1.0];
+  "MU:main#005@84-87" -> "MU:main#006@88-92" [color="#666666", style="solid", penwidth=1.0];
+  "MU:main#006@88-92" -> "SEG:main#007@93-94" [color="#666666", style="solid", penwidth=1.0];
+  "SEG:main#003@78-79" -> "MU:worker_main#001@57-60" [color="#1565C0", style="solid", penwidth=2.2];
+  "MU:worker_main#002@61-64" -> "MU:main#006@88-92" [color="#2E7D32", style="solid", penwidth=2.2];
 }

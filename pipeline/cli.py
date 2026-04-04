@@ -153,6 +153,7 @@ def main(argv: Optional[list[str]] = None) -> int:
 
     if args.cmd == "run_all":
         import os
+        import shutil
         import subprocess as _sp
         import sys
         source = args.source.resolve()
@@ -231,12 +232,30 @@ def main(argv: Optional[list[str]] = None) -> int:
             # 复制完整视图 dot 文件作为 dag.dot
             config_dot = results_root / "配置文件" / f"{base_name}.dot"
             if config_dot.exists():
-                import shutil
                 shutil.copy2(config_dot, dag_dot_path)
                 print(f"    ✓ dag.dot 已从完整视图复制")
             else:
                 dag_dot_path.touch()
                 print(f"    ✓ dag.dot 已创建(空)")
+
+        # 3d: 渲染 dag.png（与 GUI「生成dag图」产物一致，便于直接打开查看）
+        dag_png_path = dag_dot_path.with_suffix(".png")
+        if dag_dot_path.exists() and dag_dot_path.stat().st_size > 0:
+            dot_bin = shutil.which("dot")
+            if dot_bin:
+                r_png = _sp.run(
+                    [dot_bin, "-Tpng", str(dag_dot_path), "-o", str(dag_png_path)],
+                    cwd=str(dag_dot_path.parent),
+                    capture_output=True,
+                    text=True,
+                )
+                if r_png.returncode == 0 and dag_png_path.exists():
+                    print(f"    ✓ dag.png 已生成")
+                elif r_png.stderr:
+                    print(f"    [warn] dag.png 渲染失败: {r_png.stderr[:200]}")
+            else:
+                print(f"    [warn] 未找到 graphviz 「dot」，跳过 dag.png")
+
         print(f"    ✓ DAG 生成完成")
 
         # 第4阶段: Collect

@@ -1,0 +1,253 @@
+{
+  "schema_version": "1.0",
+  "base_name": "zhang2_core4",
+  "nodes": [
+    "MU:blocker_a#001@255-257",
+    "MU:blocker_a#002@258-261",
+    "MU:blocker_b#001@267-269",
+    "MU:blocker_b#002@270-273",
+    "MU:blocker_c#001@279-281",
+    "MU:blocker_c#002@282-285",
+    "MU:blocker_d#001@291-293",
+    "MU:blocker_d#002@294-297",
+    "MU:gate_worker_1#001@175-178",
+    "MU:gate_worker_1#002@179-182",
+    "MU:gate_worker_2#001@188-191",
+    "MU:gate_worker_2#002@192-195",
+    "MU:gate_worker_3#001@201-204",
+    "MU:gate_worker_3#002@205-208",
+    "MU:gate_worker_4#001@214-217",
+    "MU:gate_worker_4#002@218-221",
+    "MU:launcher_l#001@227-231",
+    "MU:launcher_l#002@232-235",
+    "MU:launcher_r#001@241-245",
+    "MU:launcher_r#002@246-249",
+    "MU:main#001@303-324",
+    "MU:main#002@325-328",
+    "MU:main#003@329-335",
+    "MU:main#004@336-344",
+    "MU:main#005@345-353",
+    "MU:main#006@354-362",
+    "MU:tail_worker_1#001@139-142",
+    "MU:tail_worker_2#001@148-151",
+    "MU:tail_worker_3#001@157-160",
+    "MU:tail_worker_4#001@166-169"
+  ],
+  "edges": [
+    {
+      "src": "MU:gate_worker_1#001@175-178",
+      "dst": "MU:gate_worker_1#002@179-182",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:gate_worker_2#001@188-191",
+      "dst": "MU:gate_worker_2#002@192-195",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:gate_worker_3#001@201-204",
+      "dst": "MU:gate_worker_3#002@205-208",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:gate_worker_4#001@214-217",
+      "dst": "MU:gate_worker_4#002@218-221",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:launcher_l#001@227-231",
+      "dst": "MU:launcher_l#002@232-235",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:launcher_r#001@241-245",
+      "dst": "MU:launcher_r#002@246-249",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:blocker_a#001@255-257",
+      "dst": "MU:blocker_a#002@258-261",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:blocker_b#001@267-269",
+      "dst": "MU:blocker_b#002@270-273",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:blocker_c#001@279-281",
+      "dst": "MU:blocker_c#002@282-285",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:blocker_d#001@291-293",
+      "dst": "MU:blocker_d#002@294-297",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#001@303-324",
+      "dst": "MU:main#002@325-328",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#002@325-328",
+      "dst": "MU:main#003@329-335",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#003@329-335",
+      "dst": "MU:main#004@336-344",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#004@336-344",
+      "dst": "MU:main#005@345-353",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#005@345-353",
+      "dst": "MU:main#006@354-362",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:gate_worker_1#001@175-178",
+      "dst": "MU:tail_worker_1#001@139-142",
+      "kind": "create"
+    },
+    {
+      "src": "MU:gate_worker_2#001@188-191",
+      "dst": "MU:tail_worker_2#001@148-151",
+      "kind": "create"
+    },
+    {
+      "src": "MU:gate_worker_3#001@201-204",
+      "dst": "MU:tail_worker_3#001@157-160",
+      "kind": "create"
+    },
+    {
+      "src": "MU:gate_worker_4#001@214-217",
+      "dst": "MU:tail_worker_4#001@166-169",
+      "kind": "create"
+    },
+    {
+      "src": "MU:launcher_l#001@227-231",
+      "dst": "MU:gate_worker_1#001@175-178",
+      "kind": "create"
+    },
+    {
+      "src": "MU:launcher_l#001@227-231",
+      "dst": "MU:gate_worker_2#001@188-191",
+      "kind": "create"
+    },
+    {
+      "src": "MU:launcher_r#001@241-245",
+      "dst": "MU:gate_worker_3#001@201-204",
+      "kind": "create"
+    },
+    {
+      "src": "MU:launcher_r#001@241-245",
+      "dst": "MU:gate_worker_4#001@214-217",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@303-324",
+      "dst": "MU:blocker_a#001@255-257",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@303-324",
+      "dst": "MU:blocker_b#001@267-269",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@303-324",
+      "dst": "MU:blocker_c#001@279-281",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@303-324",
+      "dst": "MU:blocker_d#001@291-293",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@303-324",
+      "dst": "MU:launcher_l#001@227-231",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@303-324",
+      "dst": "MU:launcher_r#001@241-245",
+      "kind": "create"
+    },
+    {
+      "src": "MU:launcher_l#002@232-235",
+      "dst": "MU:main#003@329-335",
+      "kind": "join"
+    },
+    {
+      "src": "MU:launcher_r#002@246-249",
+      "dst": "MU:main#003@329-335",
+      "kind": "join"
+    },
+    {
+      "src": "MU:gate_worker_1#002@179-182",
+      "dst": "MU:main#004@336-344",
+      "kind": "join"
+    },
+    {
+      "src": "MU:gate_worker_2#002@192-195",
+      "dst": "MU:main#004@336-344",
+      "kind": "join"
+    },
+    {
+      "src": "MU:gate_worker_3#002@205-208",
+      "dst": "MU:main#004@336-344",
+      "kind": "join"
+    },
+    {
+      "src": "MU:gate_worker_4#002@218-221",
+      "dst": "MU:main#004@336-344",
+      "kind": "join"
+    },
+    {
+      "src": "MU:tail_worker_1#001@139-142",
+      "dst": "MU:main#005@345-353",
+      "kind": "join"
+    },
+    {
+      "src": "MU:tail_worker_2#001@148-151",
+      "dst": "MU:main#005@345-353",
+      "kind": "join"
+    },
+    {
+      "src": "MU:tail_worker_3#001@157-160",
+      "dst": "MU:main#005@345-353",
+      "kind": "join"
+    },
+    {
+      "src": "MU:tail_worker_4#001@166-169",
+      "dst": "MU:main#005@345-353",
+      "kind": "join"
+    },
+    {
+      "src": "MU:blocker_a#002@258-261",
+      "dst": "MU:main#006@354-362",
+      "kind": "join"
+    },
+    {
+      "src": "MU:blocker_b#002@270-273",
+      "dst": "MU:main#006@354-362",
+      "kind": "join"
+    },
+    {
+      "src": "MU:blocker_c#002@282-285",
+      "dst": "MU:main#006@354-362",
+      "kind": "join"
+    },
+    {
+      "src": "MU:blocker_d#002@294-297",
+      "dst": "MU:main#006@354-362",
+      "kind": "join"
+    }
+  ]
+}

@@ -1,10 +1,24 @@
 strict digraph callgraph {
 "main" -> "main/malloc1";
-"main/malloc1" -> "main/pthread_create2";
-"main/pthread_create2" -> "threadtask1";
-"main/pthread_create2" -> "main/printf3";
-"main/printf3" -> "main/pthread_join4";
-"main/pthread_join4" -> "main/free5";
-"threadtask1" -> "threadtask1/printf1";
-"threadtask1/printf1" -> "main/pthread_join4";
+"main/malloc1" -> "main/pthread_mutex_lock2";
+"main/pthread_mutex_lock2" -> "compute_work_scale@instance2";
+"compute_work_scale@instance2" -> "main/pthread_mutex_unlock4";
+"main/pthread_mutex_unlock4" -> "main/pthread_create5";
+"main/pthread_create5" -> "worker_main";
+"main/pthread_create5" -> "main/free6";
+"main/free6" -> "main/pthread_mutex_lock7";
+"main/pthread_mutex_lock7" -> "compute_work_scale@instance3";
+"compute_work_scale@instance3" -> "main/pthread_mutex_unlock9";
+"main/pthread_mutex_unlock9" -> "main/pthread_join10";
+"main/pthread_join10" -> "main/pthread_mutex_lock11";
+"main/pthread_mutex_lock11" -> "compute_work_scale@instance4";
+"compute_work_scale@instance4" -> "main/pthread_mutex_unlock13";
+"main/pthread_mutex_unlock13" -> "main/free14";
+"worker_main" -> "worker_main/pthread_mutex_lock1";
+"worker_main/pthread_mutex_lock1" -> "compute_work_scale";
+"compute_work_scale" -> "worker_main/pthread_mutex_unlock3";
+"worker_main/pthread_mutex_unlock3" -> "worker_main/pthread_mutex_lock4";
+"worker_main/pthread_mutex_lock4" -> "compute_work_scale@instance1";
+"compute_work_scale@instance1" -> "worker_main/pthread_mutex_unlock6";
+"worker_main/pthread_mutex_unlock6" -> "main/pthread_join10";
 }
