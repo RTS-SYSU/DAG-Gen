@@ -1,0 +1,70 @@
+{
+  "task_id": "dag3_ws100_r3_cpu0123_wcet_first_2026-04-06T23-07-01+08-00",
+  "algo_name": "wcet_first",
+  "created_at": "2026-04-06T23-07-01+08-00",
+  "cpu_set": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "cores_per_task": 4,
+  "work_scale": 100,
+  "repeats": 3,
+  "source_c": "/home/chove/Desktop/ASAP/ScratchDAG/中间结果/dag3/pipeline/instrument/level2/effective_line_merge/timing/wcet_first/wcet_first.c",
+  "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -I /home/chove/Desktop/ASAP/ScratchDAG/tools/runtime_compare/实验结果/_dag3_tune_quick/dag3_ws100_r3_cpu0123_2026-04-06T23-07-01+08-00/wcet_first/src -I /home/chove/Desktop/ASAP/ScratchDAG/level1 -DWORK_SCALE=100 wcet_first.c -o /home/chove/Desktop/ASAP/ScratchDAG/tools/runtime_compare/实验结果/_dag3_tune_quick/dag3_ws100_r3_cpu0123_2026-04-06T23-07-01+08-00/wcet_first/app_wcet_first\nRETRY(no --wrap=main): gcc -O0 -g -std=c11 -pthread -lm -I /home/chove/Desktop/ASAP/ScratchDAG/tools/runtime_compare/实验结果/_dag3_tune_quick/dag3_ws100_r3_cpu0123_2026-04-06T23-07-01+08-00/wcet_first/src -I /home/chove/Desktop/ASAP/ScratchDAG/level1 -DWORK_SCALE=100 wcet_first.c -o /home/chove/Desktop/ASAP/ScratchDAG/tools/runtime_compare/实验结果/_dag3_tune_quick/dag3_ws100_r3_cpu0123_2026-04-06T23-07-01+08-00/wcet_first/app_wcet_first",
+  "affinity_rewritten": false,
+  "stats": {
+    "n": 3,
+    "mean_s": 1.3269067416666667,
+    "min_s": 1.300152689,
+    "max_s": 1.345754368,
+    "median_s": 1.334813168
+  },
+  "times_s": [
+    1.334813168,
+    1.345754368,
+    1.300152689
+  ],
+  "runs": [
+    {
+      "algo": "wcet_first",
+      "iter": 0,
+      "time_s": 1.334813168,
+      "wall_s": 1.337593492,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0
+    },
+    {
+      "algo": "wcet_first",
+      "iter": 1,
+      "time_s": 1.345754368,
+      "wall_s": 1.348597072,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0
+    },
+    {
+      "algo": "wcet_first",
+      "iter": 2,
+      "time_s": 1.300152689,
+      "wall_s": 1.30351951,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0
+    }
+  ]
+}

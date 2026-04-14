@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0",
+  "base_name": "dag6",
+  "nodes": [
+    "MU:a_stage0#001@162-165",
+    "MU:b_stage1#001@153-157",
+    "MU:c_stage2#001@144-148",
+    "MU:d_stage3#001@136-139",
+    "MU:filler_01#001@94-96",
+    "MU:filler_02#001@101-103",
+    "MU:filler_03#001@108-110",
+    "MU:filler_04#001@115-117",
+    "MU:filler_05#001@122-124",
+    "MU:filler_06#001@129-131",
+    "MU:main#001@170-191",
+    "MU:main#002@192-205"
+  ],
+  "edges": [
+    {
+      "src": "MU:main#001@170-191",
+      "dst": "MU:main#002@192-205",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#001@170-191",
+      "dst": "MU:filler_01#001@94-96",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@170-191",
+      "dst": "MU:filler_02#001@101-103",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@170-191",
+      "dst": "MU:filler_03#001@108-110",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@170-191",
+      "dst": "MU:filler_04#001@115-117",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@170-191",
+      "dst": "MU:filler_05#001@122-124",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@170-191",
+      "dst": "MU:filler_06#001@129-131",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@170-191",
+      "dst": "MU:d_stage3#001@136-139",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@170-191",
+      "dst": "MU:c_stage2#001@144-148",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@170-191",
+      "dst": "MU:b_stage1#001@153-157",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@170-191",
+      "dst": "MU:a_stage0#001@162-165",
+      "kind": "create"
+    },
+    {
+      "src": "MU:filler_01#001@94-96",
+      "dst": "MU:main#002@192-205",
+      "kind": "join"
+    },
+    {
+      "src": "MU:filler_02#001@101-103",
+      "dst": "MU:main#002@192-205",
+      "kind": "join"
+    },
+    {
+      "src": "MU:filler_03#001@108-110",
+      "dst": "MU:main#002@192-205",
+      "kind": "join"
+    },
+    {
+      "src": "MU:filler_04#001@115-117",
+      "dst": "MU:main#002@192-205",
+      "kind": "join"
+    },
+    {
+      "src": "MU:filler_05#001@122-124",
+      "dst": "MU:main#002@192-205",
+      "kind": "join"
+    },
+    {
+      "src": "MU:filler_06#001@129-131",
+      "dst": "MU:main#002@192-205",
+      "kind": "join"
+    },
+    {
+      "src": "MU:d_stage3#001@136-139",
+      "dst": "MU:main#002@192-205",
+      "kind": "join"
+    },
+    {
+      "src": "MU:c_stage2#001@144-148",
+      "dst": "MU:main#002@192-205",
+      "kind": "join"
+    },
+    {
+      "src": "MU:b_stage1#001@153-157",
+      "dst": "MU:main#002@192-205",
+      "kind": "join"
+    },
+    {
+      "src": "MU:a_stage0#001@162-165",
+      "dst": "MU:main#002@192-205",
+      "kind": "join"
+    },
+    {
+      "src": "MU:c_stage2#001@144-148",
+      "dst": "MU:d_stage3#001@136-139",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "MU:b_stage1#001@153-157",
+      "dst": "MU:c_stage2#001@144-148",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "MU:a_stage0#001@162-165",
+      "dst": "MU:b_stage1#001@153-157",
+      "kind": "sem_dep"
+    }
+  ]
+}

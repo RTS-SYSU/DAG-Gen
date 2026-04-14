@@ -1,0 +1,1025 @@
+{
+  "rtl_files": [
+    "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+  ],
+  "caller": null,
+  "callee": null,
+  "exclude": null,
+  "no_externs": false,
+  "max_depth": 0,
+  "functions": {
+    "init_matrices": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "mat_a": true,
+        "mat_b": true,
+        "mat_c": true
+      },
+      "callee_calls": {
+        "main": 1
+      },
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {
+        "worker_key_c": 1,
+        "worker_key_b": 1,
+        "worker_key_a": 1,
+        "worker_fill_x": 1,
+        "worker_fill_y": 1,
+        "worker_fill_z": 1,
+        "main": 1
+      },
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "worker_key_c": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {
+        "pthread_mutex_lock": true,
+        "busy_wait_seconds": true,
+        "pthread_mutex_unlock": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "mutex_08": true
+      },
+      "callee_calls": {},
+      "callee_refs": {
+        "worker_key_b": 1
+      },
+      "mycalls": [
+        "worker_key_c/pthread_mutex_lock1",
+        "busy_wait_seconds",
+        "worker_key_c/pthread_mutex_unlock3"
+      ],
+      "myinfo": {
+        "tail": "worker_key_c/pthread_mutex_unlock3"
+      },
+      "mycalls_meta": {
+        "worker_key_c/pthread_mutex_lock1": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 102,
+          "col": 5,
+          "extern": 0
+        },
+        "busy_wait_seconds": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 103,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_key_c/pthread_mutex_unlock3": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 104,
+          "col": 5,
+          "extern": 0
+        }
+      }
+    },
+    "worker_key_b": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {
+        "pthread_mutex_lock": true,
+        "busy_wait_seconds": true,
+        "pthread_mutex_unlock": true,
+        "thread_key_c": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "mutex_06": true,
+        "worker_key_c": true,
+        "thread_key_c": true,
+        "mutex_07": true
+      },
+      "callee_calls": {},
+      "callee_refs": {
+        "worker_key_a": 1
+      },
+      "mycalls": [
+        "worker_key_b/pthread_mutex_lock1",
+        "busy_wait_seconds@instance1",
+        "worker_key_b/pthread_mutex_unlock3",
+        "worker_key_b/pthread_create4",
+        "worker_key_c",
+        "worker_key_b/pthread_mutex_lock5",
+        "busy_wait_seconds@instance2",
+        "worker_key_b/pthread_mutex_unlock7"
+      ],
+      "myinfo": {
+        "tail": "worker_key_b/pthread_mutex_unlock7",
+        "": "thread_key_c",
+        "__create_queue__": [
+          "worker_key_c"
+        ],
+        "thread_key_c": "worker_key_c"
+      },
+      "mycalls_meta": {
+        "worker_key_b/pthread_mutex_lock1": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 111,
+          "col": 5,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance1": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 116,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_key_b/pthread_mutex_unlock3": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 113,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_key_b/pthread_create4": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 114,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_key_b/pthread_mutex_lock5": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 115,
+          "col": 5,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance2": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 116,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_key_b/pthread_mutex_unlock7": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 117,
+          "col": 5,
+          "extern": 0
+        }
+      }
+    },
+    "worker_key_a": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {
+        "pthread_mutex_lock": true,
+        "busy_wait_seconds": true,
+        "pthread_mutex_unlock": true,
+        "thread_key_b": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "mutex_04": true,
+        "worker_key_b": true,
+        "thread_key_b": true,
+        "mutex_05": true
+      },
+      "callee_calls": {},
+      "callee_refs": {
+        "main": 1
+      },
+      "mycalls": [
+        "worker_key_a/pthread_mutex_lock1",
+        "busy_wait_seconds@instance3",
+        "worker_key_a/pthread_mutex_unlock3",
+        "worker_key_a/pthread_create4",
+        "worker_key_b",
+        "worker_key_a/pthread_mutex_lock5",
+        "busy_wait_seconds@instance4",
+        "worker_key_a/pthread_mutex_unlock7"
+      ],
+      "myinfo": {
+        "tail": "worker_key_a/pthread_mutex_unlock7",
+        "": "thread_key_b",
+        "__create_queue__": [
+          "worker_key_b"
+        ],
+        "thread_key_b": "worker_key_b"
+      },
+      "mycalls_meta": {
+        "worker_key_a/pthread_mutex_lock1": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 126,
+          "col": 5,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance3": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 131,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_key_a/pthread_mutex_unlock3": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 128,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_key_a/pthread_create4": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 129,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_key_a/pthread_mutex_lock5": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 130,
+          "col": 5,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance4": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 131,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_key_a/pthread_mutex_unlock7": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 132,
+          "col": 5,
+          "extern": 0
+        }
+      }
+    },
+    "worker_fill_x": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {
+        "pthread_mutex_lock": true,
+        "busy_wait_seconds": true,
+        "pthread_mutex_unlock": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "mutex_09": true,
+        "mutex_10": true
+      },
+      "callee_calls": {},
+      "callee_refs": {
+        "main": 1
+      },
+      "mycalls": [
+        "worker_fill_x/pthread_mutex_lock1",
+        "busy_wait_seconds@instance5",
+        "worker_fill_x/pthread_mutex_unlock3",
+        "worker_fill_x/pthread_mutex_lock4",
+        "busy_wait_seconds@instance6",
+        "worker_fill_x/pthread_mutex_unlock6"
+      ],
+      "myinfo": {
+        "tail": "worker_fill_x/pthread_mutex_unlock6"
+      },
+      "mycalls_meta": {
+        "worker_fill_x/pthread_mutex_lock1": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 141,
+          "col": 5,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance5": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 145,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_fill_x/pthread_mutex_unlock3": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 143,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_fill_x/pthread_mutex_lock4": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 144,
+          "col": 5,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance6": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 145,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_fill_x/pthread_mutex_unlock6": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 146,
+          "col": 5,
+          "extern": 0
+        }
+      }
+    },
+    "worker_fill_y": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {
+        "pthread_mutex_lock": true,
+        "busy_wait_seconds": true,
+        "pthread_mutex_unlock": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "mutex_11": true,
+        "mutex_12": true
+      },
+      "callee_calls": {},
+      "callee_refs": {
+        "main": 1
+      },
+      "mycalls": [
+        "worker_fill_y/pthread_mutex_lock1",
+        "busy_wait_seconds@instance7",
+        "worker_fill_y/pthread_mutex_unlock3",
+        "worker_fill_y/pthread_mutex_lock4",
+        "busy_wait_seconds@instance8",
+        "worker_fill_y/pthread_mutex_unlock6"
+      ],
+      "myinfo": {
+        "tail": "worker_fill_y/pthread_mutex_unlock6"
+      },
+      "mycalls_meta": {
+        "worker_fill_y/pthread_mutex_lock1": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 155,
+          "col": 5,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance7": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 159,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_fill_y/pthread_mutex_unlock3": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 157,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_fill_y/pthread_mutex_lock4": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 158,
+          "col": 5,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance8": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 159,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_fill_y/pthread_mutex_unlock6": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 160,
+          "col": 5,
+          "extern": 0
+        }
+      }
+    },
+    "worker_fill_z": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {
+        "pthread_mutex_lock": true,
+        "busy_wait_seconds": true,
+        "pthread_mutex_unlock": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "mutex_13": true,
+        "mutex_14": true
+      },
+      "callee_calls": {},
+      "callee_refs": {
+        "main": 1
+      },
+      "mycalls": [
+        "worker_fill_z/pthread_mutex_lock1",
+        "busy_wait_seconds@instance9",
+        "worker_fill_z/pthread_mutex_unlock3",
+        "worker_fill_z/pthread_mutex_lock4",
+        "busy_wait_seconds@instance10",
+        "worker_fill_z/pthread_mutex_unlock6"
+      ],
+      "myinfo": {
+        "tail": "worker_fill_z/pthread_mutex_unlock6"
+      },
+      "mycalls_meta": {
+        "worker_fill_z/pthread_mutex_lock1": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 169,
+          "col": 5,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance9": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 173,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_fill_z/pthread_mutex_unlock3": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 171,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_fill_z/pthread_mutex_lock4": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 172,
+          "col": 5,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance10": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 173,
+          "col": 5,
+          "extern": 0
+        },
+        "worker_fill_z/pthread_mutex_unlock6": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 174,
+          "col": 5,
+          "extern": 0
+        }
+      }
+    },
+    "main": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {
+        "pthread_mutex_lock": true,
+        "init_matrices": true,
+        "sched_setaffinity": true,
+        "__errno_location": true,
+        "strerror": true,
+        "fprintf": true,
+        "pthread_mutex_unlock": true,
+        "busy_wait_seconds": true,
+        "thread_fill_x": true,
+        "thread_fill_y": true,
+        "thread_fill_z": true,
+        "thread_key_a": true,
+        "pthread_join": true,
+        "__stack_chk_fail": true
+      },
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "__stack_chk_guard": true,
+        "mutex_16": true,
+        "stderr": true,
+        "*.LC11": true,
+        "mutex_01": true,
+        "worker_fill_x": true,
+        "thread_fill_x": true,
+        "worker_fill_y": true,
+        "thread_fill_y": true,
+        "worker_fill_z": true,
+        "thread_fill_z": true,
+        "worker_key_a": true,
+        "thread_key_a": true,
+        "mutex_02": true,
+        "thread_key_b": true,
+        "thread_key_c": true,
+        "mutex_03": true,
+        "mutex_15": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [
+        "main/pthread_mutex_lock1",
+        "init_matrices",
+        "main/sched_setaffinity3",
+        "main/__errno_location4",
+        "main/strerror5",
+        "main/fprintf6",
+        "main/pthread_mutex_unlock7",
+        "main/pthread_mutex_lock8",
+        "busy_wait_seconds@instance11",
+        "main/pthread_mutex_unlock10",
+        "main/pthread_create11",
+        "worker_fill_x",
+        "main/pthread_create12",
+        "worker_fill_y",
+        "main/pthread_create13",
+        "worker_fill_z",
+        "main/pthread_create14",
+        "worker_key_a",
+        "main/pthread_mutex_lock15",
+        "busy_wait_seconds@instance12",
+        "main/pthread_mutex_unlock17",
+        "main/pthread_join18",
+        "main/pthread_join19",
+        "main/pthread_join20",
+        "main/pthread_mutex_lock21",
+        "busy_wait_seconds@instance13",
+        "main/pthread_mutex_unlock23",
+        "main/pthread_join24",
+        "main/pthread_join25",
+        "main/pthread_join26",
+        "main/pthread_mutex_lock27",
+        "busy_wait_seconds@instance14",
+        "main/pthread_mutex_unlock29",
+        "main/__stack_chk_fail30"
+      ],
+      "myinfo": {
+        "tail": "main/__stack_chk_fail30",
+        "": "thread_key_a",
+        "__create_queue__": [
+          "worker_fill_x",
+          "worker_fill_y",
+          "worker_fill_z",
+          "worker_key_a"
+        ],
+        "main/pthread_join18": "thread_key_a",
+        "main/pthread_join19": "thread_key_b",
+        "main/pthread_join20": "thread_key_c",
+        "main/pthread_join24": "thread_fill_x",
+        "main/pthread_join25": "thread_fill_y",
+        "main/pthread_join26": "thread_fill_z",
+        "thread_fill_x": "worker_fill_x",
+        "thread_fill_y": "worker_fill_y",
+        "thread_fill_z": "worker_fill_z",
+        "thread_key_a": "worker_key_a"
+      },
+      "mycalls_meta": {
+        "main/pthread_mutex_lock1": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 181,
+          "col": 5,
+          "extern": 0
+        },
+        "init_matrices": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 182,
+          "col": 5,
+          "extern": 0
+        },
+        "main/sched_setaffinity3": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 187,
+          "col": 9,
+          "extern": 0
+        },
+        "main/__errno_location4": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 189,
+          "col": 68,
+          "extern": 0
+        },
+        "main/strerror5": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 189,
+          "col": 9,
+          "extern": 0
+        },
+        "main/fprintf6": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 189,
+          "col": 9,
+          "extern": 0
+        },
+        "main/pthread_mutex_unlock7": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 191,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_mutex_lock8": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 192,
+          "col": 5,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance11": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 212,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_mutex_unlock10": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 194,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_create11": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 195,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_create12": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 196,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_create13": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 197,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_create14": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 198,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_mutex_lock15": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 199,
+          "col": 5,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance12": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 212,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_mutex_unlock17": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 201,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_join18": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 202,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_join19": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 203,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_join20": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 204,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_mutex_lock21": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 205,
+          "col": 5,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance13": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 212,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_mutex_unlock23": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 207,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_join24": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 208,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_join25": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 209,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_join26": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 210,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_mutex_lock27": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 211,
+          "col": 5,
+          "extern": 0
+        },
+        "busy_wait_seconds@instance14": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 212,
+          "col": 5,
+          "extern": 0
+        },
+        "main/pthread_mutex_unlock29": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 213,
+          "col": 5,
+          "extern": 0
+        },
+        "main/__stack_chk_fail30": {
+          "file": "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c",
+          "line": 215,
+          "col": 1,
+          "extern": 0
+        }
+      }
+    },
+    "busy_wait_seconds@instance1": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds@instance2": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds@instance3": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds@instance4": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds@instance5": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds@instance6": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds@instance7": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds@instance8": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds@instance9": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds@instance10": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds@instance11": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds@instance12": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds@instance13": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    },
+    "busy_wait_seconds@instance14": {
+      "files": [
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c.233r.expand"
+      ],
+      "calls": {},
+      "call_src": {},
+      "call_src_full": {},
+      "refs": {
+        "/home/firefly/Desktop/ScratchDAG/源文件/zhang1_core2/zhang1_core2.c": true,
+        "g_busy_sink": true,
+        "mat_c": true
+      },
+      "callee_calls": {},
+      "callee_refs": {},
+      "mycalls": [],
+      "myinfo": {},
+      "mycalls_meta": {}
+    }
+  }
+}

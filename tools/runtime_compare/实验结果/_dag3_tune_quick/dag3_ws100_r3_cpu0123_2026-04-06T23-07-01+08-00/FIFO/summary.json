@@ -1,0 +1,70 @@
+{
+  "task_id": "dag3_ws100_r3_cpu0123_FIFO_2026-04-06T23-07-01+08-00",
+  "algo_name": "FIFO",
+  "created_at": "2026-04-06T23-07-01+08-00",
+  "cpu_set": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "cores_per_task": 4,
+  "work_scale": 100,
+  "repeats": 3,
+  "source_c": "/home/chove/Desktop/ASAP/ScratchDAG/中间结果/dag3/pipeline/instrument/level2/effective_line_merge/timing/FIFO/FIFO.c",
+  "compile_cmd": "gcc -O0 -g -std=c11 -pthread -Wl,--wrap=main -lm -I /home/chove/Desktop/ASAP/ScratchDAG/tools/runtime_compare/实验结果/_dag3_tune_quick/dag3_ws100_r3_cpu0123_2026-04-06T23-07-01+08-00/FIFO/src -I /home/chove/Desktop/ASAP/ScratchDAG/level1 -DWORK_SCALE=100 FIFO.c -o /home/chove/Desktop/ASAP/ScratchDAG/tools/runtime_compare/实验结果/_dag3_tune_quick/dag3_ws100_r3_cpu0123_2026-04-06T23-07-01+08-00/FIFO/app_FIFO\nRETRY(no --wrap=main): gcc -O0 -g -std=c11 -pthread -lm -I /home/chove/Desktop/ASAP/ScratchDAG/tools/runtime_compare/实验结果/_dag3_tune_quick/dag3_ws100_r3_cpu0123_2026-04-06T23-07-01+08-00/FIFO/src -I /home/chove/Desktop/ASAP/ScratchDAG/level1 -DWORK_SCALE=100 FIFO.c -o /home/chove/Desktop/ASAP/ScratchDAG/tools/runtime_compare/实验结果/_dag3_tune_quick/dag3_ws100_r3_cpu0123_2026-04-06T23-07-01+08-00/FIFO/app_FIFO",
+  "affinity_rewritten": false,
+  "stats": {
+    "n": 3,
+    "mean_s": 1.4533573183333335,
+    "min_s": 1.367172194,
+    "max_s": 1.535473144,
+    "median_s": 1.457426617
+  },
+  "times_s": [
+    1.535473144,
+    1.457426617,
+    1.367172194
+  ],
+  "runs": [
+    {
+      "algo": "FIFO",
+      "iter": 0,
+      "time_s": 1.535473144,
+      "wall_s": 1.5388353,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0
+    },
+    {
+      "algo": "FIFO",
+      "iter": 1,
+      "time_s": 1.457426617,
+      "wall_s": 1.460766259,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0
+    },
+    {
+      "algo": "FIFO",
+      "iter": 2,
+      "time_s": 1.367172194,
+      "wall_s": 1.369662985,
+      "cpu_set": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "returncode": 0
+    }
+  ]
+}
