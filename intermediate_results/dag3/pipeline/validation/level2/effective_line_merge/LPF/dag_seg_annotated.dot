@@ -1,0 +1,30 @@
+digraph dag_seg_annotated {
+  rankdir=LR;
+  node [shape=box, style="rounded,filled", fillcolor="#F8FAFC", color="#334155", fontsize=10];
+  edge [color="#475569"];
+  "MU:a_head#001@109-112" [label="MU:a_head#001@109-112\nconst=C4\navg_ns=327850817\nprio=98"];
+  "MU:b_tail#001@117-120" [label="MU:b_tail#001@117-120\nconst=C5\navg_ns=241382839\nprio=97"];
+  "MU:filler_c#001@125-127" [label="MU:filler_c#001@125-127\nconst=C6\navg_ns=165356514\nprio=91"];
+  "MU:filler_d#001@132-134" [label="MU:filler_d#001@132-134\nconst=C7\navg_ns=192090299\nprio=93"];
+  "MU:filler_e#001@139-141" [label="MU:filler_e#001@139-141\nconst=C8\navg_ns=173132385\nprio=92"];
+  "MU:late_f#001@146-149" [label="MU:late_f#001@146-149\nconst=C9\navg_ns=222769923\nprio=94"];
+  "MU:main#001@154-167" [label="MU:main#001@154-167\nconst=C1\navg_ns=9977578\nprio=99"];
+  "MU:main#002@168-171" [label="MU:main#002@168-171\nconst=C2\navg_ns=33533401\nprio=95"];
+  "MU:main#003@172-180" [label="MU:main#003@172-180\nconst=C3\navg_ns=540837735\nprio=96"];
+  "MU:main#001@154-167" -> "MU:main#002@168-171";
+  "MU:main#002@168-171" -> "MU:main#003@172-180";
+  "MU:main#001@154-167" -> "MU:filler_c#001@125-127";
+  "MU:main#001@154-167" -> "MU:filler_d#001@132-134";
+  "MU:main#001@154-167" -> "MU:filler_e#001@139-141";
+  "MU:main#001@154-167" -> "MU:late_f#001@146-149";
+  "MU:main#001@154-167" -> "MU:b_tail#001@117-120";
+  "MU:main#001@154-167" -> "MU:a_head#001@109-112";
+  "MU:filler_c#001@125-127" -> "MU:main#003@172-180";
+  "MU:filler_d#001@132-134" -> "MU:main#003@172-180";
+  "MU:filler_e#001@139-141" -> "MU:main#003@172-180";
+  "MU:late_f#001@146-149" -> "MU:main#003@172-180";
+  "MU:b_tail#001@117-120" -> "MU:main#003@172-180";
+  "MU:a_head#001@109-112" -> "MU:main#003@172-180";
+  "MU:a_head#001@109-112" -> "MU:b_tail#001@117-120";
+  "MU:main#002@168-171" -> "MU:late_f#001@146-149";
+}

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480" width="480" height="480">
+  <defs>
+    <!-- Node gradients -->
+    <radialGradient id="nodeBlue" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#6FB3E8"/>
+      <stop offset="100%" stop-color="#2C6FAC"/>
+    </radialGradient>
+    <radialGradient id="nodeOrange" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#F5B942"/>
+      <stop offset="100%" stop-color="#C97B0A"/>
+    </radialGradient>
+    <radialGradient id="nodeTeal" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#5DCFB8"/>
+      <stop offset="100%" stop-color="#1E8A73"/>
+    </radialGradient>
+    <!-- Background gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0F4FA"/>
+      <stop offset="100%" stop-color="#E2EAF4"/>
+    </linearGradient>
+    <!-- Drop shadow -->
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#2C6FAC" flood-opacity="0.25"/>
+    </filter>
+    <filter id="shadowWarm" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#C97B0A" flood-opacity="0.25"/>
+    </filter>
+    <!-- Arrow markers -->
+    <marker id="arrowBlue" viewBox="0 0 12 12" refX="10" refY="6"
+            markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 1 L 11 6 L 0 11 Z" fill="#4A85C0"/>
+    </marker>
+    <marker id="arrowOrange" viewBox="0 0 12 12" refX="10" refY="6"
+            markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 1 L 11 6 L 0 11 Z" fill="#D4850E"/>
+    </marker>
+    <marker id="arrowTeal" viewBox="0 0 12 12" refX="10" refY="6"
+            markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 1 L 11 6 L 0 11 Z" fill="#1E8A73"/>
+    </marker>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="240" cy="240" r="220" fill="url(#bgGrad)"/>
+  <circle cx="240" cy="240" r="220" fill="none" stroke="#C8D8EE" stroke-width="3"/>
+  <!-- Subtle inner ring -->
+  <circle cx="240" cy="240" r="195" fill="none" stroke="#D8E6F4" stroke-width="1" stroke-dasharray="6,5"/>
+
+  <!-- ====== DAG EDGES ====== -->
+
+  <!-- Thread T0 vertical chain (left column): v0->v1->v4->v7 — blue sequential -->
+  <line x1="120" y1="143" x2="120" y2="183" stroke="#4A85C0" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <line x1="120" y1="223" x2="120" y2="263" stroke="#4A85C0" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <line x1="120" y1="303" x2="120" y2="343" stroke="#4A85C0" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+
+  <!-- Thread T1 vertical chain (center): v2->v3->v5->v8 — blue sequential -->
+  <line x1="240" y1="143" x2="240" y2="183" stroke="#4A85C0" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <line x1="240" y1="223" x2="240" y2="263" stroke="#4A85C0" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <line x1="240" y1="303" x2="240" y2="343" stroke="#4A85C0" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+
+  <!-- Thread T2 vertical chain (right): v6->v9 — blue sequential -->
+  <line x1="360" y1="193" x2="360" y2="263" stroke="#4A85C0" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+  <line x1="360" y1="303" x2="360" y2="343" stroke="#4A85C0" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+
+  <!-- Thread create edges (orange — thread dependency): v0->v2, v0->v6 -->
+  <path d="M 138 125 Q 189 105 222 125" stroke="#D4850E" stroke-width="2.5" fill="none" marker-end="url(#arrowOrange)" stroke-dasharray="6,3"/>
+  <path d="M 138 130 Q 249 80 342 175" stroke="#D4850E" stroke-width="2.5" fill="none" marker-end="url(#arrowOrange)" stroke-dasharray="6,3"/>
+
+  <!-- Thread join edges (orange): v8->v7, v9->v7 -->
+  <path d="M 222 358 Q 171 378 138 362" stroke="#D4850E" stroke-width="2.5" fill="none" marker-end="url(#arrowBlue)" stroke-dasharray="6,3"/>
+  <path d="M 342 362 Q 249 400 138 366" stroke="#D4850E" stroke-width="2.5" fill="none" marker-end="url(#arrowBlue)" stroke-dasharray="6,3"/>
+
+  <!-- Semaphore edges (teal): v3->v5 cross, v4->v5 -->
+  <path d="M 258 203 Q 300 233 242 258" stroke="#1E8A73" stroke-width="2.2" fill="none" marker-end="url(#arrowTeal)" stroke-dasharray="4,3"/>
+  <path d="M 138 283 Q 189 303 222 278" stroke="#1E8A73" stroke-width="2.2" fill="none" marker-end="url(#arrowTeal)" stroke-dasharray="4,3"/>
+
+  <!-- ====== DAG NODES ====== -->
+
+  <!-- T0 column -->
+  <!-- v0 — source node (orange, critical) -->
+  <circle cx="120" cy="125" r="22" fill="url(#nodeOrange)" stroke="#fff" stroke-width="3" filter="url(#shadowWarm)"/>
+  <text x="120" y="131" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="15" font-weight="bold" fill="#fff">v₀</text>
+
+  <!-- v1 -->
+  <circle cx="120" cy="203" r="19" fill="url(#nodeBlue)" stroke="#fff" stroke-width="2.5" filter="url(#shadow)"/>
+  <text x="120" y="209" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="14" font-weight="bold" fill="#fff">v₁</text>
+
+  <!-- v4 -->
+  <circle cx="120" cy="283" r="19" fill="url(#nodeBlue)" stroke="#fff" stroke-width="2.5" filter="url(#shadow)"/>
+  <text x="120" y="289" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="14" font-weight="bold" fill="#fff">v₄</text>
+
+  <!-- v7 — sink (teal) -->
+  <circle cx="120" cy="363" r="22" fill="url(#nodeTeal)" stroke="#fff" stroke-width="3" filter="url(#shadow)"/>
+  <text x="120" y="369" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="14" font-weight="bold" fill="#fff">v₇</text>
+
+  <!-- T1 column -->
+  <!-- v2 -->
+  <circle cx="240" cy="125" r="19" fill="url(#nodeBlue)" stroke="#fff" stroke-width="2.5" filter="url(#shadow)"/>
+  <text x="240" y="131" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="14" font-weight="bold" fill="#fff">v₂</text>
+
+  <!-- v3 -->
+  <circle cx="240" cy="203" r="19" fill="url(#nodeBlue)" stroke="#fff" stroke-width="2.5" filter="url(#shadow)"/>
+  <text x="240" y="209" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="14" font-weight="bold" fill="#fff">v₃</text>
+
+  <!-- v5 — semaphore sync (orange highlight) -->
+  <circle cx="240" cy="283" r="21" fill="url(#nodeOrange)" stroke="#fff" stroke-width="3" filter="url(#shadowWarm)"/>
+  <text x="240" y="289" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="14" font-weight="bold" fill="#fff">v₅</text>
+
+  <!-- v8 -->
+  <circle cx="240" cy="363" r="19" fill="url(#nodeBlue)" stroke="#fff" stroke-width="2.5" filter="url(#shadow)"/>
+  <text x="240" y="369" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="14" font-weight="bold" fill="#fff">v₈</text>
+
+  <!-- T2 column -->
+  <!-- v6 -->
+  <circle cx="360" cy="183" r="19" fill="url(#nodeBlue)" stroke="#fff" stroke-width="2.5" filter="url(#shadow)"/>
+  <text x="360" y="189" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="14" font-weight="bold" fill="#fff">v₆</text>
+
+  <!-- v9 -->
+  <circle cx="360" cy="283" r="19" fill="url(#nodeBlue)" stroke="#fff" stroke-width="2.5" filter="url(#shadow)"/>
+  <text x="360" y="289" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="14" font-weight="bold" fill="#fff">v₉</text>
+
+  <!-- Thread labels -->
+  <text x="70" y="244" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="13" fill="#5A7AAA" font-style="italic">T₀</text>
+  <text x="189" y="244" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="13" fill="#5A7AAA" font-style="italic">T₁</text>
+  <text x="408" y="234" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="13" fill="#5A7AAA" font-style="italic">T₂</text>
+
+  <!-- Legend (bottom) -->
+  <g transform="translate(68, 418)">
+    <!-- Sequential -->
+    <line x1="0" y1="8" x2="22" y2="8" stroke="#4A85C0" stroke-width="2.5" marker-end="url(#arrowBlue)"/>
+    <text x="27" y="12" font-family="'Segoe UI',Arial,sans-serif" font-size="11" fill="#4A6080">sequential</text>
+    <!-- Thread -->
+    <line x1="105" y1="8" x2="127" y2="8" stroke="#D4850E" stroke-width="2.5" stroke-dasharray="5,3" marker-end="url(#arrowOrange)"/>
+    <text x="132" y="12" font-family="'Segoe UI',Arial,sans-serif" font-size="11" fill="#4A6080">thread create/join</text>
+    <!-- Semaphore -->
+    <line x1="258" y1="8" x2="280" y2="8" stroke="#1E8A73" stroke-width="2.2" stroke-dasharray="4,3" marker-end="url(#arrowTeal)"/>
+    <text x="285" y="12" font-family="'Segoe UI',Arial,sans-serif" font-size="11" fill="#4A6080">semaphore</text>
+  </g>
+</svg>

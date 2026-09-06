@@ -1,0 +1,30 @@
+from __future__ import annotations 
+
+"""Thread complements edge (modern interface).\n\nOnly for UT or toolchain. GUI/CLI thread patching comes from the legacy process."""
+
+from typing import List ,Tuple 
+
+from .model import CallGraph ,ThreadInfo 
+
+
+def infer_thread_edges (graph :CallGraph )->List [Tuple [str ,str ]]:
+    """Based on modern caching, derive the `tail -> pthread_join` edge."""
+    if graph .thread_edges :
+        return graph .thread_edges 
+
+    edges :List [Tuple [str ,str ]]=[]
+    for _ ,info in graph .thread_infos .items ():
+        task =info .task_function 
+        if not task :
+            continue 
+        tail =_find_tail (graph ,task )
+        edges .append ((tail ,"pthread_join"))
+    return edges 
+
+
+def _find_tail (graph :CallGraph ,task :str )->str :
+    fn =graph .functions .get (task )
+    if not fn or not fn .call_sequence :
+        return task 
+    last_call =fn .call_sequence [-1 ]
+    return last_call if last_call else task 

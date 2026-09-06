@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "base_name": "dag3",
+  "nodes": [
+    "MU:a_head#001@109-112",
+    "MU:b_tail#001@117-120",
+    "MU:filler_c#001@125-127",
+    "MU:filler_d#001@132-134",
+    "MU:filler_e#001@139-141",
+    "MU:late_f#001@146-149",
+    "MU:main#001@154-167",
+    "MU:main#002@168-171",
+    "MU:main#003@172-180"
+  ],
+  "edges": [
+    {
+      "src": "MU:main#001@154-167",
+      "dst": "MU:main#002@168-171",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#002@168-171",
+      "dst": "MU:main#003@172-180",
+      "kind": "intra"
+    },
+    {
+      "src": "MU:main#001@154-167",
+      "dst": "MU:filler_c#001@125-127",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@154-167",
+      "dst": "MU:filler_d#001@132-134",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@154-167",
+      "dst": "MU:filler_e#001@139-141",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@154-167",
+      "dst": "MU:late_f#001@146-149",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@154-167",
+      "dst": "MU:b_tail#001@117-120",
+      "kind": "create"
+    },
+    {
+      "src": "MU:main#001@154-167",
+      "dst": "MU:a_head#001@109-112",
+      "kind": "create"
+    },
+    {
+      "src": "MU:filler_c#001@125-127",
+      "dst": "MU:main#003@172-180",
+      "kind": "join"
+    },
+    {
+      "src": "MU:filler_d#001@132-134",
+      "dst": "MU:main#003@172-180",
+      "kind": "join"
+    },
+    {
+      "src": "MU:filler_e#001@139-141",
+      "dst": "MU:main#003@172-180",
+      "kind": "join"
+    },
+    {
+      "src": "MU:late_f#001@146-149",
+      "dst": "MU:main#003@172-180",
+      "kind": "join"
+    },
+    {
+      "src": "MU:b_tail#001@117-120",
+      "dst": "MU:main#003@172-180",
+      "kind": "join"
+    },
+    {
+      "src": "MU:a_head#001@109-112",
+      "dst": "MU:main#003@172-180",
+      "kind": "join"
+    },
+    {
+      "src": "MU:a_head#001@109-112",
+      "dst": "MU:b_tail#001@117-120",
+      "kind": "sem_dep"
+    },
+    {
+      "src": "MU:main#002@168-171",
+      "dst": "MU:late_f#001@146-149",
+      "kind": "sem_dep"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "base_name": "dag3",
+  "algo_name": "zhao2020",
+  "priorities": {
+    "MU:main#001@154-167": 99,
+    "MU:a_head#001@109-112": 98,
+    "MU:b_tail#001@117-120": 97,
+    "MU:main#003@172-180": 96,
+    "MU:main#002@168-171": 95,
+    "MU:late_f#001@146-149": 94,
+    "MU:filler_d#001@132-134": 93,
+    "MU:filler_e#001@139-141": 92,
+    "MU:filler_c#001@125-127": 91
+  },
+  "meta": {
+    "critical_path": [
+      "MU:main#001@154-167",
+      "MU:a_head#001@109-112",
+      "MU:b_tail#001@117-120",
+      "MU:main#003@172-180"
+    ],
+    "providers": [
+      {
+        "idx": 1,
+        "nodes": [
+          "MU:main#001@154-167",
+          "MU:a_head#001@109-112"
+        ],
+        "F_size": 0,
+        "G_size": 0,
+        "F": [],
+        "G": []
+      },
+      {
+        "idx": 2,
+        "nodes": [
+          "MU:b_tail#001@117-120"
+        ],
+        "F_size": 5,
+        "G_size": 5,
+        "F": [
+          "MU:filler_c#001@125-127",
+          "MU:filler_d#001@132-134",
+          "MU:filler_e#001@139-141",
+          "MU:late_f#001@146-149",
+          "MU:main#002@168-171"
+        ],
+        "G": [
+          "MU:filler_c#001@125-127",
+          "MU:filler_d#001@132-134",
+          "MU:filler_e#001@139-141",
+          "MU:late_f#001@146-149",
+          "MU:main#002@168-171"
+        ]
+      },
+      {
+        "idx": 3,
+        "nodes": [
+          "MU:main#003@172-180"
+        ],
+        "F_size": 0,
+        "G_size": 0,
+        "F": [],
+        "G": []
+      }
+    ]
+  }
+}

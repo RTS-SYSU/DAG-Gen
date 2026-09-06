@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runtime Compare Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .section h2 {
+            margin-top: 0;
+        }
+        .form-group {
+            margin: 10px 0;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+        }
+        input, select {
+            padding: 5px;
+            width: 300px;
+        }
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button.danger {
+            background: #dc3545;
+        }
+        button.danger:hover {
+            background: #c82333;
+        }
+        button.success {
+            background: #28a745;
+        }
+        button.success:hover {
+            background: #218838;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .status-queued { color: #ffc107; font-weight: bold; }
+        .status-running { color: #007bff; font-weight: bold; }
+        .status-done { color: #28a745; font-weight: bold; }
+        .status-error { color: #dc3545; font-weight: bold; }
+        .status-cancelled { color: #6c757d; font-weight: bold; }
+        .progress-bar {
+            width: 100px;
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #007bff;
+            transition: width 0.3s;
+        }
+        .task-details {
+            display: none;
+            background-color: #f8f9fa;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 4px;
+        }
+        .task-details.show {
+            display: block;
+        }
+        .alert {
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 4px;
+            display: none;
+        }
+        .alert.show {
+            display: block;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .connection-status {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        .connection-status.online {
+            background-color: #28a745;
+        }
+        .connection-status.offline {
+            background-color: #dc3545;
+        }
+        .config-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .config-item {
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .config-item:last-child {
+            border-bottom: none;
+        }
+        .config-actions {
+            display: flex;
+            gap: 5px;
+        }
+        .filter-group {
+            margin: 10px 0;
+        }
+        .filter-group label {
+            width: auto;
+            margin-right: 10px;
+        }
+        .filter-group select {
+            width: auto;
+            margin-right: 20px;
+        }
+        .path-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .path-row input {
+            flex: 1;
+            min-width: 0;
+        }
+        .path-row button {
+            white-space: nowrap;
+        }
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.35);
+            display: none;
+        }
+        .modal.show {
+            display: block;
+        }
+        .modal-content {
+            background: #fff;
+            margin: 6% auto;
+            width: 80%;
+            max-width: 900px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        .modal-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-body {
+            padding: 14px 16px;
+            max-height: 60vh;
+            overflow: auto;
+        }
+        .fs-path {
+            font-family: Consolas, monospace;
+            background: #f7f7f7;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .fs-list {
+            border: 1px solid #e6e6e6;
+            border-radius: 4px;
+        }
+        .fs-item {
+            padding: 8px 10px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .fs-item:last-child {
+            border-bottom: none;
+        }
+        .fs-item span {
+            font-family: Consolas, monospace;
+        }
+        .fs-item-clickable {
+            cursor: pointer;
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .fs-item-clickable:hover {
+            color: #007bff;
+            text-decoration: underline;
+        }
+        .recent-files {
+            margin-top: 4px;
+            font-size: 12px;
+        }
+        .recent-files a {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 8px;
+            word-break: break-all;
+        }
+        .recent-files a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Runtime Compare Tool <span class="connection-status online" id="connection-status" title="Connection status"></span></h1>
+        
+        <!-- Alert area -->
+        <div id="alert-area"></div>
+        
+        <div class="section">
+            <h2>System Information</h2>
+            <div id="system-info">Loading...</div>
+            <div style="margin-top: 10px;">
+                <label>
+                    <input type="checkbox" id="queue-mode-checkbox" onchange="toggleQueueMode()">
+                    Queue mode (run all tasks serially)
+                </label>
+                <button style="margin-left: 10px;" onclick="saveSystemInfo()">Save system info</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Experiment Results Directory</h2>
+            <div class="form-group">
+                <label>Current directory:</label>
+                <div class="path-row">
+                    <input type="text" id="results_root" placeholder="/path/to/results">
+                    <button type="button" onclick="pickResultsRootWithBrowser()">Browse</button>
+                    <button type="button" onclick="setResultsRootFromInput()">Apply path</button>
+                    <button type="button" onclick="resetResultsRoot()">Reset default</button>
+                </div>
+                <small style="color: #666; margin-left: 150px;">Manual paste is supported. This only affects future tasks, not running ones.</small>
+            </div>
+            <div class="form-group">
+                <label>Create subdirectory:</label>
+                <div class="path-row">
+                    <input type="text" id="results_root_new_name" placeholder="Example: zhang1_2026-02-14">
+                    <button type="button" class="success" onclick="createAndUseResultsSubdir()">Create and use</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Config-file management -->
+        <div class="section">
+            <h2>Config File Management</h2>
+            <div style="margin-bottom: 10px;">
+                <button onclick="refreshConfigList()">Refresh config list</button>
+                <button class="success" onclick="exportConfig()">Export current config</button>
+                <label style="width: auto; margin-left: 20px;">
+                    <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importConfig()">
+                    <button onclick="document.getElementById('import-file').click()">Import config file</button>
+                </label>
+            </div>
+            <div id="config-list-area">
+                <div class="config-list" id="config-list">Loading...</div>
+            </div>
+        </div>
+        
+        <div class="section" id="recommend-section" style="display:none; background:#e8f5e9; border-color:#a5d6a7;">
+            <h2 style="margin-top:0;">Platform Detection & Recommended Settings</h2>
+            <div id="recommend-info" style="margin-bottom:10px;"></div>
+            <button class="success" onclick="applyRecommend()">Apply recommended settings</button>
+            <small style="color:#555; margin-left:10px;">Automatically set core count and CPU list to keep prio tests valid.</small>
+        </div>
+
+<!-- ===== Batch Submission ===== -->
+<div class="section" id="batch-section">
+    <h2>Batch Submission (Multiple Folders x All Algorithms)</h2>
+    <p style="color:#555;margin-top:0;">
+        Specify one folder per line (for example <code>intermediate_results/zhang1</code>). The system scans
+        <code>pipeline/instrument/level2/effective_line_merge/*/</code>
+        all algorithms under the path below and generates tasks automatically. Algorithms in the same folder share one parameter set.
+    </p>
+
+    <!-- Result output directory -->
+    <div class="form-group">
+        <label>Result output directory:</label>
+        <div class="path-row">
+            <input type="text" id="batch_results_root" placeholder="Leave empty to use the current results directory" style="width:420px;">
+            <button type="button" onclick="pickBatchResultsRoot()">Browse</button>
+        </div>
+        <small>When set, results for this batch are written under this directory, grouped by folder name.</small>
+    </div>
+
+    <!-- Folder list -->
+    <div id="batch-entries">
+        <!-- Generated dynamically -->
+    </div>
+    <button type="button" onclick="addBatchEntry()">+ Add folder</button>
+    <hr style="margin:12px 0;">
+    <button type="button" class="success" onclick="submitBatch()">Submit all</button>
+    <span id="batch-submit-msg" style="margin-left:12px;color:#555;"></span>
+</div>
+
+<style>
+.batch-entry {
+    border: 1px solid #ccc;
+    border-radius:4px;
+    padding:10px 14px;
+    margin:8px 0;
+    background:#fafafa;
+    position:relative;
+}
+.batch-entry .entry-title {
+    font-weight:bold;
+    margin-bottom:6px;
+    color:#333;
+}
+.batch-entry .entry-grid {
+    display:grid;
+    grid-template-columns: 140px 1fr;
+    gap:4px 8px;
+    align-items:center;
+}
+.batch-entry .entry-grid label { font-weight:normal; }
+.batch-entry .entry-grid input { width:260px; padding:4px; }
+.batch-entry .remove-btn {
+    position:absolute; top:8px; right:8px;
+    background:#dc3545; color:white; border:none;
+    border-radius:3px; padding:3px 8px; cursor:pointer; font-size:12px;
+}
+</style>
+
+<script>
+let batchEntryCount = 0;
+
+function addBatchEntry(defaults) {
+    defaults = defaults || {};
+    batchEntryCount++;
+    const idx = batchEntryCount;
+    const div = document.createElement('div');
+    div.className = 'batch-entry';
+    div.id = 'batch-entry-' + idx;
+    div.innerHTML = `
+        <div class="entry-title">Folder #${idx}</div>
+        <button class="remove-btn" onclick="removeBatchEntry(${idx})">Delete</button>
+        <div class="entry-grid">
+            <label>Folder path:</label>
+            <div class="path-row" style="display:flex;gap:4px;">
+                <input type="text" id="be_folder_${idx}" placeholder="/path/to/intermediate_results/zhang1"
+                       style="width:340px;" value="${defaults.folder||''}">
+                <button type="button" onclick="pickBatchFolder(${idx})">Browse</button>
+            </div>
+            <label>WORK_SCALE:</label>
+            <input type="number" id="be_ws_${idx}" value="${defaults.work_scale||100}" min="1">
+            <label>Repeats:</label>
+            <input type="number" id="be_repeats_${idx}" value="${defaults.repeats||10}" min="1">
+            <label>Cores per task:</label>
+            <input type="number" id="be_cores_${idx}" value="${defaults.cores_per_task||2}" min="1">
+            <label>CPU core list:</label>
+            <input type="text" id="be_cpu_${idx}" placeholder="Example: 0,1 (leave empty for automatic selection)" value="${defaults.cpu_list||''}">
+            <label>Use sudo:</label>
+            <input type="checkbox" id="be_sudo_${idx}" ${defaults.use_sudo?'checked':''}>
+        </div>
+    `;
+    document.getElementById('batch-entries').appendChild(div);
+}
+
+function removeBatchEntry(idx) {
+    const el = document.getElementById('batch-entry-' + idx);
+    if (el) el.remove();
+}
+
+function pickBatchFolder(idx) {
+    openDirBrowser({
+        title: 'Select folder',
+        onSelect: (dirPath) => {
+            document.getElementById('be_folder_' + idx).value = dirPath;
+        },
+    });
+}
+
+function pickBatchResultsRoot() {
+    openDirBrowser({
+        title: 'Select results output directory',
+        onSelect: (dirPath) => {
+            document.getElementById('batch_results_root').value = dirPath;
+        },
+    });
+}
+
+async function submitBatch() {
+    const msgEl = document.getElementById('batch-submit-msg');
+    msgEl.textContent = 'Submitting...';
+
+    // Collect all entries
+    const entryDivs = document.querySelectorAll('.batch-entry');
+    const entries = [];
+    for (const div of entryDivs) {
+        const idx = div.id.replace('batch-entry-', '');
+        const folder = document.getElementById('be_folder_' + idx).value.trim();
+        if (!folder) continue;
+        const cpuStr = document.getElementById('be_cpu_' + idx).value.trim();
+        const cpuList = cpuStr
+            ? cpuStr.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n))
+            : null;
+        entries.push({
+            folder: folder,
+            work_scale: parseInt(document.getElementById('be_ws_' + idx).value),
+            repeats: parseInt(document.getElementById('be_repeats_' + idx).value),
+            cores_per_task: parseInt(document.getElementById('be_cores_' + idx).value),
+            use_sudo: document.getElementById('be_sudo_' + idx).checked,
+            cpu_list: cpuList,
+        });
+    }
+
+    if (entries.length === 0) {
+        msgEl.textContent = 'Please add at least one folder';
+        return;
+    }
+
+    const payload = { entries };
+    const resultsRoot = document.getElementById('batch_results_root').value.trim();
+    if (resultsRoot) payload.results_root = resultsRoot;
+
+    try {
+        const res = await fetch('/api/batch_submit', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (res.ok) {
+            const errCount = (data.errors || []).length;
+            let msg = `Submitted ${data.total} tasks`;
+            if (errCount > 0) msg += `, ${errCount} errors (see console)`;
+            msgEl.textContent = msg;
+            if (errCount > 0) console.warn('Batch submission errors:', data.errors);
+            showAlert(msg, errCount > 0 ? 'warning' : 'success');
+            refreshTasks();
+        } else {
+            msgEl.textContent = 'Submission failed: ' + (data.error || 'Unknown error');
+            showAlert('Batch submission failed: ' + (data.error || ''), 'error');
+        }
+    } catch (e) {
+        msgEl.textContent = 'Submission failed: ' + e.message;
+        showAlert('Batch submission failed: ' + e.message, 'error');
+    }
+}
+
+// Add one empty entry during initialization
+addBatchEntry();
+</script>
+<!-- ===== /Batch Submission ===== -->
+
+<div class="section">
+    <h2>Add New Task</h2>
+    <form id="task-form">
+                <div class="form-group">
+                    <label>Config name (optional):</label>
+                    <input type="text" id="config_name" placeholder="Leave empty for auto naming">
+                    <small style="color: #666; margin-left: 10px;">Used to name exported config files</small>
+                </div>
+                <div class="form-group">
+                    <label>Project directory (intermediate_results/&lt;base&gt;):</label>
+                <div class="path-row">
+                    <input type="text" id="project_root_dir" placeholder="/home/chove/Desktop/ScratchDAG/intermediate_results/zhang1">
+                    <button type="button" onclick="pickProjectRootWithBrowser()">Browse</button>
+                    <button type="button" onclick="applyProjectRootDir()">Locate instrument directory</button>
+                </div>
+                    <small id="project_dir_hint" style="color: #666; display: block; margin-top: 6px;">Project directory not set. Browsing starts from the project root.</small>
+                </div>
+                <div class="form-group">
+                    <label>Source file (.c):</label>
+                    <div class="path-row">
+                        <input type="text" id="source_c" required placeholder="/path/to/source.c">
+                        <button type="button" onclick="openFileBrowser('source_c')">Browse</button>
+                    </div>
+                    <div class="recent-files" id="recent-source"></div>
+                </div>
+                <div class="form-group">
+                    <label>Algorithm name:</label>
+                    <input type="text" id="algo_name" placeholder="For example: CFS / FIFO / heft / zhao2020 (leave empty to infer from filename)">
+                </div>
+                <div class="form-group">
+                    <label>WORK_SCALE:</label>
+                    <input type="number" id="work_scale" value="25000" required>
+                </div>
+                <div class="form-group">
+                    <label>Repeats:</label>
+                    <input type="number" id="repeats" value="1" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label>Cores per task:</label>
+                    <input type="number" id="cores_per_task" value="1" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label>CPU core list (optional):</label>
+                    <input type="text" id="cpu_list" placeholder="Example: 4,5,6,7 (leave empty for automatic allocation)">
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="use_sudo"> Run with sudo
+                    </label>
+                </div>
+                <button type="submit">Add task</button>
+            </form>
+        </div>
+        
+        <div class="section">
+            <h2>Task List</h2>
+            <div class="filter-group">
+                <label>Filter by status:</label>
+                <select id="status-filter" onchange="refreshTasks()">
+                    <option value="">All</option>
+                    <option value="queued">Queued</option>
+                    <option value="running">Running</option>
+                    <option value="done">Done</option>
+                    <option value="error">Error</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+                <button onclick="refreshTasks()">Refresh</button>
+            </div>
+            <table id="tasks-table">
+                <thead>
+                    <tr>
+                        <th>Task ID</th>
+                        <th>Status</th>
+                        <th>Phase</th>
+                        <th>Progress</th>
+                        <th>CPU</th>
+                        <th>Elapsed</th>
+                        <th>Message</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="tasks-body">
+                    <tr><td colspan="8">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="file-browser-modal" class="modal" onclick="closeFileBrowserOnBackdrop(event)">
+        <div class="modal-content">
+            <div class="modal-header">
+                <strong id="file-browser-title">Select C File</strong>
+                <button type="button" id="btn-select-current-dir" style="display: none;" onclick="selectCurrentDirFromBrowser()">Select current directory</button>
+                <button type="button" class="danger" onclick="closeFileBrowser()">Close</button>
+            </div>
+            <div class="modal-body">
+                <div class="path-row" style="margin-bottom: 10px;">
+                    <input type="text" id="fs-path-input" placeholder="/path/to/dir">
+                    <button type="button" onclick="goToPathFromInput()">Open path</button>
+                    <button type="button" onclick="goToParentPath()">Parent</button>
+                </div>
+                <div class="fs-path" id="fs-current-path">Loading...</div>
+                <div class="fs-list" id="fs-list"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let refreshInterval;
+        let allTasks = [];
+        let currentRecommend = null;
+        let recommendApplied = false;
+        let fileBrowserTargetInput = null;
+        let fileBrowserCurrentPath = '';
+        let preferredInstrumentDir = '';
+        let fileBrowserMode = 'file';
+        let fileBrowserDirSelectHandler = null;
+
+        // ---- localStorage memory ----
+        const STORAGE_KEY = 'runtime_compare_memory';
+        function loadMemory() {
+            try {
+                return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+            } catch(e) { return {}; }
+        }
+        function saveMemory(patch) {
+            try {
+                const mem = Object.assign(loadMemory(), patch);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(mem));
+            } catch(e) {}
+        }
+        function addRecentFile(field, filePath) {
+            const mem = loadMemory();
+            const key = 'recent_' + field;
+            let arr = mem[key] || [];
+            arr = arr.filter(function(p){ return p !== filePath; });
+            arr.unshift(filePath);
+            if (arr.length > 8) arr = arr.slice(0, 8);
+            mem[key] = arr;
+            mem['last_' + field] = filePath;
+            const dir = filePath.replace(/\/[^/]+$/, '');
+            if (dir) mem['last_browse_dir'] = dir;
+            saveMemory(mem);
+        }
+        function renderRecentFiles(field, containerId) {
+            var mem = loadMemory();
+            var arr = mem['recent_' + field] || [];
+            var el = document.getElementById(containerId);
+            if (!el) return;
+            if (arr.length === 0) { el.innerHTML = ''; return; }
+            var html = '<span style="color:#888;">Recent: </span>';
+            arr.forEach(function(p) {
+                var short = p.length > 60 ? '...' + p.slice(-55) : p;
+                html += '<a onclick="fillFromRecent(\'' + field + '\',\'' + escapeJsStr(p) + '\')" title="' + escapeHtml(p) + '">' + escapeHtml(short) + '</a> ';
+            });
+            el.innerHTML = html;
+        }
+        function fillFromRecent(field, path) {
+            document.getElementById(field).value = path;
+            showAlert('Filled: ' + path, 'success');
+        }
+        function escapeJsStr(s) {
+            return String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        }
+        function restoreFromMemory() {
+            var mem = loadMemory();
+            if (mem.last_source_c) document.getElementById('source_c').value = mem.last_source_c;
+            if (mem.last_project_root) document.getElementById('project_root_dir').value = mem.last_project_root;
+            renderRecentFiles('source_c', 'recent-source');
+        }
+        
+        // Show alert messages
+        function showAlert(message, type = 'info') {
+            const alertArea = document.getElementById('alert-area');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type} show`;
+            alert.textContent = message;
+            alertArea.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.classList.remove('show');
+                setTimeout(() => alert.remove(), 300);
+            }, 3000);
+        }
+        
+        // Update connection status
+        function updateConnectionStatus(online) {
+            const status = document.getElementById('connection-status');
+            status.className = `connection-status ${online ? 'online' : 'offline'}`;
+            status.title = online ? 'Online' : 'Offline';
+        }
+
+        let defaultResultsRoot = '';
+
+        async function loadResultsRoot() {
+            try {
+                const res = await fetch('/api/results-root');
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Load failed');
+                document.getElementById('results_root').value = data.results_root || '';
+                defaultResultsRoot = data.default_root || '';
+            } catch (e) {
+                document.getElementById('results_root').value = '';
+                showAlert('Failed to load results directory: ' + e.message, 'error');
+            }
+        }
+
+        async function setResultsRoot(path) {
+            const res = await fetch('/api/results-root', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({path}),
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Failed to set path');
+            document.getElementById('results_root').value = data.results_root || path;
+            showAlert('Switched results directory to: ' + (data.results_root || path), 'success');
+        }
+
+        async function setResultsRootFromInput() {
+            const raw = (document.getElementById('results_root').value || '').trim();
+            if (!raw) {
+                showAlert('Please enter a valid directory path', 'error');
+                return;
+            }
+            try {
+                await setResultsRoot(raw);
+            } catch (e) {
+                showAlert('Failed to apply path: ' + e.message, 'error');
+            }
+        }
+
+        function pickResultsRootWithBrowser() {
+            const current = (document.getElementById('results_root').value || '').trim();
+            openDirBrowser({
+                title: 'Select results output directory',
+                startPath: current,
+                onSelect: async (path) => {
+                    await setResultsRoot(path);
+                },
+            });
+        }
+
+        async function resetResultsRoot() {
+            try {
+                if (!defaultResultsRoot) {
+                    await loadResultsRoot();
+                }
+                if (!defaultResultsRoot) throw new Error('Default directory is unavailable');
+                await setResultsRoot(defaultResultsRoot);
+            } catch (e) {
+                showAlert('Failed to restore default: ' + e.message, 'error');
+            }
+        }
+
+        async function createAndUseResultsSubdir() {
+            try {
+                const parent = document.getElementById('results_root').value || '';
+                const name = (document.getElementById('results_root_new_name').value || '').trim();
+                if (!name) {
+                    showAlert('Please enter a subdirectory name', 'error');
+                    return;
+                }
+                const res = await fetch('/api/results-root/new', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({parent, name}),
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Creation failed');
+                document.getElementById('results_root').value = data.results_root || '';
+                document.getElementById('results_root_new_name').value = '';
+                showAlert('Created and switched to: ' + (data.results_root || ''), 'success');
+            } catch (e) {
+                showAlert('Creation failed: ' + e.message, 'error');
+            }
+        }
+        
+        // Load system information
+        async function loadSystemInfo() {
+            try {
+                const res = await fetch('/api/system');
+                if (!res.ok) throw new Error('Request failed');
+                const data = await res.json();
+                updateConnectionStatus(true);
+                
+                // Update queue-mode checkbox
+                document.getElementById('queue-mode-checkbox').checked = data.queue_mode;
+                
+                // Build the system-information display
+                let infoHtml = `<p><strong>Online CPU:</strong> ${data.cpu_online.join(', ')} (total ${data.cpu_total} cores)</p>`;
+                infoHtml += `<p><strong>Free CPU:</strong> ${data.cpu_free} cores</p>`;
+                
+                // Show CPU cluster information (big/little cores)
+                if (data.cpu_info && data.cpu_info.has_big_little && data.cpu_info.clusters) {
+                    const clusters = data.cpu_info.clusters;
+                    infoHtml += `<p><strong>CPU architecture:</strong> big.LITTLE</p>`;
+                    
+                    if (clusters.big) {
+                        infoHtml += `<p style="margin-left: 20px;">
+                            <strong>Big cores:</strong> CPU ${clusters.big.cpus.join(', ')} 
+                            - ${clusters.big.freq_ghz} GHz (${clusters.big.cpus.length} cores)
+                        </p>`;
+                    }
+                    
+                    if (clusters.little) {
+                        infoHtml += `<p style="margin-left: 20px;">
+                            <strong>LITTLE cores:</strong> CPU ${clusters.little.cpus.join(', ')} 
+                            - ${clusters.little.freq_ghz} GHz (${clusters.little.cpus.length} cores)
+                        </p>`;
+                    }
+                } else if (data.cpu_info && data.cpu_info.cpu_freqs) {
+                    // If big/little cannot be distinguished, show a homogeneous architecture.
+                    infoHtml += `<p><strong>CPU architecture:</strong> Homogeneous (big/little not distinguishable)</p>`;
+                    const freqGroups = {};
+                    for (const [cpu, freq] of Object.entries(data.cpu_info.cpu_freqs)) {
+                        if (!freqGroups[freq]) {
+                            freqGroups[freq] = [];
+                        }
+                        freqGroups[freq].push(cpu);
+                    }
+                    for (const [freq, cpus] of Object.entries(freqGroups)) {
+                        infoHtml += `<p style="margin-left: 20px;">
+                            CPU ${cpus.join(', ')}: ${freq} GHz
+                        </p>`;
+                    }
+                } else {
+                    infoHtml += `<p><strong>CPU architecture:</strong> Frequency information unavailable</p>`;
+                }
+
+                // Core speed benchmark
+                if (data.core_bench && Object.keys(data.core_bench).length > 0) {
+                    infoHtml += `<p><strong>Core speed benchmark (MOPS, lightweight test):</strong></p>`;
+                    const rows = Object.entries(data.core_bench).map(([cpu, mops]) => {
+                        return `<span style="margin-left:20px;">CPU ${cpu}: ${mops} MOPS</span>`;
+                    });
+                    infoHtml += `<p>${rows.join('<br>')}</p>`;
+                }
+                
+                infoHtml += `<p><strong>Queue mode:</strong> ${data.queue_mode ? 'Enabled' : 'Disabled'}</p>`;
+                infoHtml += `<p><strong>Hostname:</strong> ${data.hostname || '-'}</p>`;
+                
+                document.getElementById('system-info').innerHTML = infoHtml;
+
+                // Platform recommendation
+                if (data.recommend) {
+                    currentRecommend = data.recommend;
+                    const rec = data.recommend;
+                    const recSection = document.getElementById('recommend-section');
+                    recSection.style.display = '';
+                    const platformIcon = rec.platform === 'rk3588' ? '🔧' : '🖥️';
+                    let recHtml = `<p><strong>${platformIcon} Platform:</strong> ${escapeHtml(rec.platform_label)}</p>`;
+                    recHtml += `<p><strong>Recommended cores per task:</strong> ${rec.cores_per_task}</p>`;
+                    recHtml += `<p><strong>Recommended CPU list:</strong> ${rec.cpu_list.join(', ')}</p>`;
+                    recHtml += `<p style="color:#2e7d32;"><strong>Reason:</strong> ${escapeHtml(rec.reason)}</p>`;
+                    document.getElementById('recommend-info').innerHTML = recHtml;
+
+                    if (!recommendApplied) {
+                        recommendApplied = true;
+                        applyRecommend(true);
+                    }
+                }
+            } catch (e) {
+                updateConnectionStatus(false);
+                console.error('Failed to load system info:', e);
+            }
+        }
+
+        // Apply recommended settings to the form
+        function applyRecommend(silent = false) {
+            if (!currentRecommend) return;
+            document.getElementById('cores_per_task').value = currentRecommend.cores_per_task;
+            document.getElementById('cpu_list').value = currentRecommend.cpu_list.join(',');
+            document.getElementById('use_sudo').checked = true;
+            if (!silent) {
+                showAlert(`Applied recommended settings: ${currentRecommend.cores_per_task} cores, CPU [${currentRecommend.cpu_list.join(',')}], sudo`, 'success');
+            }
+        }
+
+        // Save system information
+        async function saveSystemInfo() {
+            try {
+                const res = await fetch('/api/system/save', {method: 'POST'});
+                if (res.ok) {
+                    const data = await res.json();
+                    showAlert('Saved to: ' + data.file, 'success');
+                } else {
+                    const err = await res.json();
+                    showAlert('Save failed: ' + err.error, 'error');
+                }
+            } catch (e) {
+                showAlert('Save failed: ' + e.message, 'error');
+            }
+        }
+        
+        // Toggle queue mode
+        async function toggleQueueMode() {
+            const checkbox = document.getElementById('queue-mode-checkbox');
+            const queueMode = checkbox.checked;
+            
+            try {
+                const res = await fetch('/api/system/queue-mode', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({queue_mode: queueMode}),
+                });
+                
+                if (res.ok) {
+                    showAlert(`Queue mode ${queueMode ? 'enabled' : 'disabled'}`, 'success');
+                    loadSystemInfo();  // Refresh system information
+                } else {
+                    const err = await res.json();
+                    showAlert('Failed to set queue mode: ' + err.error, 'error');
+                    checkbox.checked = !queueMode;  // Restore previous state
+                }
+            } catch (e) {
+                showAlert('Failed to set queue mode: ' + e.message, 'error');
+                checkbox.checked = !queueMode;  // Restore previous state
+            }
+        }
+        
+        // Load config-file list
+        async function refreshConfigList() {
+            try {
+                const res = await fetch('/api/config/list');
+                if (!res.ok) throw new Error('Load failed');
+                const data = await res.json();
+                const listDiv = document.getElementById('config-list');
+                
+                if (data.configs.length === 0) {
+                    listDiv.innerHTML = '<p style="color: #666;">No config files available</p>';
+                    return;
+                }
+                
+                listDiv.innerHTML = data.configs.map(config => {
+                    const sizeKB = (config.size / 1024).toFixed(2);
+                    const date = new Date(config.modified * 1000).toLocaleString('zh-CN');
+                    return `
+                        <div class="config-item">
+                            <div>
+                                <strong>${config.filename}</strong>
+                                <small style="color: #666; margin-left: 10px;">${sizeKB} KB - ${date}</small>
+                            </div>
+                            <div class="config-actions">
+                                <button onclick="downloadConfig('${config.filename}')">Download</button>
+                                <button class="danger" onclick="deleteConfig('${config.filename}')">Delete</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (e) {
+                showAlert('Failed to load config-file list: ' + e.message, 'error');
+            }
+        }
+        
+        // Export config file
+        async function exportConfig() {
+            const configName = prompt('Enter a config filename (leave empty for automatic naming):');
+            try {
+                const res = await fetch('/api/config/export', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({config_name: configName || null}),
+                });
+                
+                if (res.ok) {
+                    const data = await res.json();
+                    showAlert(`Config file exported: ${data.filename}`, 'success');
+                    refreshConfigList();
+                } else {
+                    const err = await res.json();
+                    showAlert('Export failed: ' + err.error, 'error');
+                }
+            } catch (e) {
+                showAlert('Export failed: ' + e.message, 'error');
+            }
+        }
+        
+        // Import config file
+        async function importConfig() {
+            const fileInput = document.getElementById('import-file');
+            const file = fileInput.files[0];
+            if (!file) return;
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            try {
+                const res = await fetch('/api/config/import', {
+                    method: 'POST',
+                    body: formData,
+                });
+                
+                if (res.ok) {
+                    const data = await res.json();
+                    showAlert(data.message, 'success');
+                    refreshTasks();
+                    refreshConfigList();
+                } else {
+                    const err = await res.json();
+                    showAlert('Import failed: ' + err.error, 'error');
+                }
+            } catch (e) {
+                showAlert('Import failed: ' + e.message, 'error');
+            }
+            
+            fileInput.value = '';  // Reset file selection
+        }
+        
+        // Download config file
+        function downloadConfig(filename) {
+            window.open(`/api/config/download/${filename}`, '_blank');
+        }
+        
+        // Delete config file
+        async function deleteConfig(filename) {
+            if (!confirm(`Delete config file "${filename}"?`)) return;
+            
+            try {
+                const res = await fetch(`/api/config/delete/${filename}`, {method: 'DELETE'});
+                if (res.ok) {
+                    showAlert('Config file deleted', 'success');
+                    refreshConfigList();
+                } else {
+                    const err = await res.json();
+                    showAlert('Delete failed: ' + err.error, 'error');
+                }
+            } catch (e) {
+                showAlert('Delete failed: ' + e.message, 'error');
+            }
+        }
+        
+        // Load task list
+        async function refreshTasks() {
+            try {
+                const res = await fetch('/api/tasks');
+                if (!res.ok) throw new Error('Request failed');
+                const data = await res.json();
+                allTasks = data.tasks;
+                
+                // Apply status filter
+                const filter = document.getElementById('status-filter').value;
+                const filteredTasks = filter ? allTasks.filter(t => t.status === filter) : allTasks;
+                
+                const tbody = document.getElementById('tasks-body');
+                
+                if (filteredTasks.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8">No tasks</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = filteredTasks.map((task, idx) => {
+                    // Compute progress percentage
+                    let progressPercent = 0;
+                    if (task.progress_n > 0) {
+                        progressPercent = Math.round((task.progress_i / task.progress_n) * 100);
+                    }
+                    
+                    // Build progress bar
+                    const progressBar = task.progress_n > 0 ? 
+                        `<div class="progress-bar"><div class="progress-fill" style="width: ${progressPercent}%"></div></div> ${progressPercent}%` :
+                        task.progress || '-';
+                    
+                    return `
+                        <tr>
+                            <td>
+                                <strong>${task.task_id}</strong>
+                                ${task.batch_name ? `<br><small style="color:#1976d2;">📁 ${task.batch_name} / ${task.algo_name}</small>` : ''}
+                                <button onclick="toggleTaskDetails('${idx}')" style="font-size: 12px; padding: 2px 6px; margin-left: 5px;">Details</button>
+                            </td>
+                            <td class="status-${task.status}">${task.status}</td>
+                            <td>${task.phase}</td>
+                            <td>${progressBar}</td>
+                            <td>${task.cpu_set.join(',') || '-'}</td>
+                            <td>${task.elapsed || '-'}</td>
+                            <td>${task.message || '-'}</td>
+                            <td>
+                                ${(task.status === 'queued' || task.status === 'running' || task.status === 'cancelling') ? 
+                                    `<button class="danger" onclick="cancelTask('${task.task_id}')">${task.status === 'running' ? 'Interrupt' : 'Cancel'}</button>` : 
+                                    ''}
+                                ${task.out_dir ? 
+                                    `<button onclick="viewLog('${task.task_id}')">View log</button>
+                                     <button onclick="viewResultDir('${task.out_dir}')">Result directory</button>` : 
+                                    ''}
+                            </td>
+                        </tr>
+                        <tr id="details-${idx}" class="task-details">
+                            <td colspan="8">
+                                <strong>Task details:</strong><br>
+                                ${task.single_mode ? 'Source file: ' + task.source_c : 'Baseline: ' + task.baseline_c + '<br>Prio: ' + task.prio_c}<br>
+                                Algorithm: ${task.algo_name || 'Unspecified'}<br>
+                                WORK_SCALE: ${task.work_scale}<br>
+                                Repeats: ${task.repeats}<br>
+                                Cores per task: ${task.cores_per_task}<br>
+                                ${task.out_dir ? `Result directory: ${task.out_dir}` : ''}
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            } catch (e) {
+                updateConnectionStatus(false);
+                console.error('Failed to load tasks:', e);
+            }
+        }
+        
+        // Toggle task details
+        function toggleTaskDetails(rowIdx) {
+            const details = document.getElementById(`details-${rowIdx}`);
+            if (details) {
+                details.classList.toggle('show');
+            }
+        }
+        
+        // View result directory
+        function viewResultDir(outDir) {
+            if (outDir) {
+                showAlert(`Result directory: ${outDir}`, 'info');
+            }
+        }
+        
+        // Add task
+        document.getElementById('task-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = {
+                source_c: document.getElementById('source_c').value,
+                work_scale: parseInt(document.getElementById('work_scale').value),
+                repeats: parseInt(document.getElementById('repeats').value),
+                cores_per_task: parseInt(document.getElementById('cores_per_task').value),
+                use_sudo: document.getElementById('use_sudo').checked,
+            };
+            
+            const algoName = document.getElementById('algo_name').value.trim();
+            if (algoName) {
+                formData.algo_name = algoName;
+            }
+            
+            const configName = document.getElementById('config_name').value.trim();
+            if (configName) {
+                formData.config_name = configName;
+            }
+            
+            const cpuListStr = document.getElementById('cpu_list').value.trim();
+            if (cpuListStr) {
+                formData.cpu_list = cpuListStr.split(',').map(s => parseInt(s.trim())).filter(n => !isNaN(n));
+            }
+            
+            try {
+                const res = await fetch('/api/tasks', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(formData),
+                });
+                
+                if (res.ok) {
+                    showAlert('Task added', 'success');
+                    addRecentFile('source_c', formData.source_c);
+                    renderRecentFiles('source_c', 'recent-source');
+                    document.getElementById('config_name').value = '';
+                    refreshTasks();
+                    refreshConfigList();
+                } else {
+                    const err = await res.json();
+                    showAlert('Failed to add task: ' + err.error, 'error');
+                }
+            } catch (e) {
+                showAlert('Failed to add task: ' + e.message, 'error');
+            }
+        });
+        
+        // Cancel task
+        async function cancelTask(taskId) {
+            if (!confirm('Cancel this task?')) return;
+            
+            try {
+                const res = await fetch(`/api/tasks/${taskId}`, {method: 'DELETE'});
+                if (res.ok) {
+                    showAlert('Task cancelled', 'success');
+                    refreshTasks();
+                } else {
+                    const err = await res.json();
+                    showAlert('Failed to cancel task: ' + err.error, 'error');
+                }
+            } catch (e) {
+                showAlert('Failed to cancel task: ' + e.message, 'error');
+            }
+        }
+        
+        // View log
+        function viewLog(taskId) {
+            window.open(`/api/tasks/${taskId}/log`, '_blank');
+        }
+
+        function joinPath(base, ...parts) {
+            let out = String(base || '').trim();
+            for (const part of parts) {
+                const p = String(part || '').trim().replace(/^\/+|\/+$/g, '');
+                if (!p) continue;
+                if (!out) {
+                    out = '/' + p;
+                } else {
+                    out = out.replace(/\/+$/g, '') + '/' + p;
+                }
+            }
+            return out;
+        }
+
+        function setProjectDirHint(text, isError = false) {
+            const el = document.getElementById('project_dir_hint');
+            el.textContent = text;
+            el.style.color = isError ? '#c62828' : '#666';
+        }
+
+        function encodePathForOnclick(path) {
+            return encodeURIComponent(String(path || ''));
+        }
+
+        function decodePathFromOnclick(encoded) {
+            try {
+                return decodeURIComponent(String(encoded || ''));
+            } catch (e) {
+                return String(encoded || '');
+            }
+        }
+
+        async function resolveDir(pathValue) {
+            const query = new URLSearchParams();
+            query.set('path', pathValue);
+            query.set('suffix', '.c');
+            const res = await fetch('/api/fs/list?' + query.toString());
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Directory unavailable');
+            return data.current || pathValue;
+        }
+
+        async function applyProjectRootDir(showToast) {
+            if (showToast === undefined) showToast = true;
+            var projectRoot = (document.getElementById('project_root_dir').value || '').trim();
+            if (projectRoot) saveMemory({last_project_root: projectRoot});
+            if (!projectRoot) {
+                preferredInstrumentDir = '';
+                setProjectDirHint('Project directory not set. Browsing will start from the project root.');
+                return;
+            }
+
+            const candidates = [];
+            if (/\/pipeline\/instrument\/level2\/effective_line_merge(?:\/[^/]+)?\/?$/.test(projectRoot)) {
+                candidates.push(projectRoot.replace(/\/+$/g, ''));
+                candidates.push(projectRoot.replace(/\/[^/]+\/?$/g, ''));
+            } else if (/\/pipeline\/instrument\/level2\/effective_line_merge\/?$/.test(projectRoot)) {
+                candidates.push(projectRoot.replace(/\/+$/g, ''));
+            } else {
+                candidates.push(joinPath(projectRoot, 'pipeline', 'instrument', 'level2', 'effective_line_merge'));
+                candidates.push(projectRoot);
+            }
+
+            const tried = new Set();
+            for (const candidate of candidates) {
+                const normalized = String(candidate || '').trim().replace(/\/+$/g, '');
+                if (!normalized || tried.has(normalized)) continue;
+                tried.add(normalized);
+                try {
+                    preferredInstrumentDir = await resolveDir(normalized);
+                    setProjectDirHint('Located: ' + preferredInstrumentDir);
+                    if (showToast) showAlert('Instrument directory located', 'success');
+                    return;
+                } catch (e) {
+                    // continue trying the next candidate
+                }
+            }
+
+            try {
+                preferredInstrumentDir = await resolveDir(projectRoot);
+                setProjectDirHint('Instrument directory not found. Fell back to project directory: ' + preferredInstrumentDir, true);
+                if (showToast) showAlert('effective_line_merge not found. Fell back to the project directory.', 'error');
+            } catch (e2) {
+                preferredInstrumentDir = '';
+                setProjectDirHint('Project directory unavailable: ' + e2.message, true);
+                if (showToast) showAlert('Project directory unavailable: ' + e2.message, 'error');
+            }
+        }
+
+        function pickProjectRootWithBrowser() {
+            const current = (document.getElementById('project_root_dir').value || '').trim();
+            openDirBrowser({
+                title: 'Select project directory (for example intermediate_results/zhang1)',
+                startPath: current,
+                onSelect: async (path) => {
+                    document.getElementById('project_root_dir').value = path;
+                    await applyProjectRootDir(false);
+                    showAlert('Project directory selected and resolved', 'success');
+                },
+            });
+        }
+
+        function setFileBrowserMode(mode, titleText) {
+            fileBrowserMode = mode === 'dir' ? 'dir' : 'file';
+            const titleEl = document.getElementById('file-browser-title');
+            const btnSelectDir = document.getElementById('btn-select-current-dir');
+            titleEl.textContent = titleText || (fileBrowserMode === 'dir' ? 'Select directory' : 'Select C file');
+            btnSelectDir.style.display = fileBrowserMode === 'dir' ? 'inline-block' : 'none';
+        }
+
+        function openFileBrowser(targetInputId) {
+            fileBrowserTargetInput = targetInputId;
+            fileBrowserDirSelectHandler = null;
+            setFileBrowserMode('file', 'Select C file');
+            var currentVal = (document.getElementById(targetInputId).value || '').trim();
+            var mem = loadMemory();
+            var startPath = currentVal || (mem.last_browse_dir || '') || (preferredInstrumentDir || '');
+            document.getElementById('file-browser-modal').classList.add('show');
+            loadFileBrowser(startPath);
+        }
+
+        function openDirBrowser({title = 'Select directory', startPath = '', onSelect = null} = {}) {
+            fileBrowserTargetInput = null;
+            fileBrowserDirSelectHandler = onSelect;
+            setFileBrowserMode('dir', title);
+            const start = startPath || fileBrowserCurrentPath || preferredInstrumentDir || '';
+            document.getElementById('file-browser-modal').classList.add('show');
+            loadFileBrowser(start);
+        }
+
+        function closeFileBrowser() {
+            document.getElementById('file-browser-modal').classList.remove('show');
+            fileBrowserTargetInput = null;
+            fileBrowserDirSelectHandler = null;
+            setFileBrowserMode('file', 'Select C file');
+        }
+
+        function closeFileBrowserOnBackdrop(event) {
+            if (event.target.id === 'file-browser-modal') {
+                closeFileBrowser();
+            }
+        }
+
+        // Global file-browser actions used by inline onclick handlers
+        function fbOpen(encodedPath) {
+            loadFileBrowser(decodePathFromOnclick(encodedPath));
+        }
+        function fbSelectFile(encodedPath) {
+            selectCFile(decodePathFromOnclick(encodedPath));
+        }
+        function fbSelectDir(encodedPath) {
+            chooseDirFromBrowser(decodePathFromOnclick(encodedPath));
+        }
+
+        async function loadFileBrowser(pathValue, allowFallback) {
+            if (allowFallback === undefined) allowFallback = true;
+            try {
+                var query = new URLSearchParams();
+                if (pathValue) query.set('path', pathValue);
+                query.set('suffix', fileBrowserMode === 'file' ? '.c' : '');
+                var res = await fetch('/api/fs/list?' + query.toString());
+                var data = await res.json();
+                if (!res.ok) {
+                    throw new Error(data.error || 'Failed to load directory');
+                }
+
+                fileBrowserCurrentPath = data.current;
+                document.getElementById('fs-current-path').textContent = data.current;
+                document.getElementById('fs-path-input').value = data.current || '';
+                saveMemory({last_browse_dir: data.current});
+
+                var rows = [];
+                if (data.parent) {
+                    var parentEnc = encodePathForOnclick(data.parent);
+                    rows.push(
+                        '<div class="fs-item">'
+                        + '<span class="fs-item-clickable" onclick="fbOpen(\'' + escapeJsStr(parentEnc) + '\')">..\u00a0(Parent)</span>'
+                        + '<button type="button" onclick="fbOpen(\'' + escapeJsStr(parentEnc) + '\')">Parent</button>'
+                        + '</div>'
+                    );
+                }
+                for (var i = 0; i < data.dirs.length; i++) {
+                    var d = data.dirs[i];
+                    var dirEnc = encodePathForOnclick(d.path);
+                    var dirBtns;
+                    if (fileBrowserMode === 'dir') {
+                        dirBtns = '<div>'
+                            + '<button type="button" class="success" onclick="fbSelectDir(\'' + escapeJsStr(dirEnc) + '\')">Select</button>'
+                            + '<button type="button" onclick="fbOpen(\'' + escapeJsStr(dirEnc) + '\')">Open</button>'
+                            + '</div>';
+                    } else {
+                        dirBtns = '<button type="button" onclick="fbOpen(\'' + escapeJsStr(dirEnc) + '\')">Open</button>';
+                    }
+                    rows.push(
+                        '<div class="fs-item">'
+                        + '<span class="fs-item-clickable" onclick="fbOpen(\'' + escapeJsStr(dirEnc) + '\')">[DIR]\u00a0' + escapeHtml(d.name) + '</span>'
+                        + dirBtns
+                        + '</div>'
+                    );
+                }
+                for (var j = 0; j < data.files.length; j++) {
+                    var f = data.files[j];
+                    if (fileBrowserMode === 'file') {
+                        var fileEnc = encodePathForOnclick(f.path);
+                        rows.push(
+                            '<div class="fs-item">'
+                            + '<span class="fs-item-clickable" onclick="fbSelectFile(\'' + escapeJsStr(fileEnc) + '\')">' + escapeHtml(f.name) + '</span>'
+                            + '<button type="button" class="success" onclick="fbSelectFile(\'' + escapeJsStr(fileEnc) + '\')">Select</button>'
+                            + '</div>'
+                        );
+                    } else {
+                        rows.push(
+                            '<div class="fs-item">'
+                            + '<span>' + escapeHtml(f.name) + '</span>'
+                            + '<span style="color:#999;">File</span>'
+                            + '</div>'
+                        );
+                    }
+                }
+                if (rows.length === 0) {
+                    rows.push('<div class="fs-item"><span>' + (fileBrowserMode === 'file' ? 'No selectable .c files in the current directory' : 'Current directory is empty') + '</span></div>');
+                }
+                document.getElementById('fs-list').innerHTML = rows.join('');
+            } catch (e) {
+                if (allowFallback && pathValue) {
+                    showAlert('Start path is unavailable. Fell back to the default directory.', 'info');
+                    await loadFileBrowser('', false);
+                    return;
+                }
+                showAlert('Failed to open directory: ' + e.message, 'error');
+                document.getElementById('fs-list').innerHTML = '<div class="fs-item"><span>Load failed</span></div>';
+            }
+        }
+
+        function goToPathFromInput() {
+            const p = (document.getElementById('fs-path-input').value || '').trim();
+            loadFileBrowser(p);
+        }
+
+        function goToParentPath() {
+            const cur = (fileBrowserCurrentPath || '').replace(/\/+$/, '');
+            if (!cur) {
+                loadFileBrowser('/');
+                return;
+            }
+            const idx = cur.lastIndexOf('/');
+            if (idx <= 0) {
+                loadFileBrowser('/');
+                return;
+            }
+            loadFileBrowser(cur.slice(0, idx));
+        }
+
+        function selectCFile(filePath) {
+            if (!fileBrowserTargetInput) return;
+            var field = fileBrowserTargetInput;
+            document.getElementById(field).value = filePath;
+            addRecentFile(field, filePath);
+            renderRecentFiles('source_c', 'recent-source');
+            closeFileBrowser();
+            showAlert('Selected file: ' + filePath, 'success');
+        }
+
+        function selectCurrentDirFromBrowser() {
+            chooseDirFromBrowser(fileBrowserCurrentPath);
+        }
+
+        function chooseDirFromBrowser(dirPath) {
+            const chosen = (dirPath || '').trim();
+            if (!chosen) {
+                showAlert('Current directory is invalid', 'error');
+                return;
+            }
+            const onSelect = fileBrowserDirSelectHandler;
+            closeFileBrowser();
+            if (typeof onSelect === 'function') {
+                Promise.resolve(onSelect(chosen)).catch((err) => {
+                    showAlert('Directory selection failed: ' + (err && err.message ? err.message : String(err)), 'error');
+                });
+                return;
+            }
+            showAlert('Selected directory: ' + chosen, 'success');
+        }
+
+        function escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        // Buttons now call fbOpen/fbSelectFile/fbSelectDir directly through onclick
+        
+        // Initialize
+        restoreFromMemory();
+        loadSystemInfo();
+        loadResultsRoot();
+        refreshTasks();
+        refreshConfigList();
+        applyProjectRootDir(false);
+        refreshInterval = setInterval(function() {
+            loadSystemInfo();
+            refreshTasks();
+        }, 2000);
+    </script>
+</body>
+</html>
